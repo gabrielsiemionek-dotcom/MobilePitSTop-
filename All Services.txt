@@ -1,0 +1,1258 @@
+
+<!-- ==========================================================================
+     MobilePitStop — Mobile Detailing Services page
+     Paste into ONE Squarespace Code Block on the new page.
+
+     Page slug:  /mobile-detailing-services
+     Old slug:   /book-your-valet-now  ->  set a 301 redirect to the new one.
+
+     Everything is namespaced .mps- so it can't collide with Squarespace's
+     own styles. No external files, no fonts loaded, nothing to wait on.
+
+     TWO NUMBERS YOU MAY NEED TO CHANGE — both in the .mps-wrap block below:
+       --mps-header   set to 0 so the category bar sticks to the very top
+                      of the screen. If your Squarespace header is ALSO
+                      sticky, the bar will slide underneath it — set this
+                      to your header's height (around 72px) instead.
+       --mps-anchor   how far above a section the page stops when jumping.
+                      Keep it at roughly --mps-header + 82px so the
+                      heading isn't hidden behind the bar.
+
+     Turn the page's own Squarespace title block OFF — the <h1> below is
+     the page heading, and two H1s is worse than none.
+
+     IF SQUARESPACE LEAVES A GAP UNDER THE BLOCK: the page now starts in
+     Mobile mode from the very first paint, so Squarespace shouldn't measure
+     the full-length version any more. If a gap survives, the section height
+     is stored in the editor — drag the bottom edge of the section (or the
+     block, on Fluid Engine) up until the space is gone, then save.
+
+     TWO HALVES. "Mobile Service" (book online) and "Garage Based" (at the
+     unit, by quote). The two buttons near the top switch between them, and
+     the category pills swap to match. With JavaScript off, no switching
+     happens and both halves simply show one after the other.
+
+     GARAGE CARDS have no price and a "Get a quote" button. Those buttons
+     all point at /contact-we-respond-24/7 for now — swap them for the
+     quote form once the service pages are built.
+
+     THE DEPTH METER on each card reads:
+       Interior / Exterior      lit when the service covers it
+       Paint                    lit when clay bar decontamination is included
+       Paint +                  machine polishing (paint enhancement)
+       Protection               6-month ceramic sealant
+       Protection +             1-year ceramic coating
+     ========================================================================== -->
+
+<style>
+.mps-wrap{
+  --mps-ink:#ffffff;
+  --mps-dim:rgba(255,255,255,.62);
+  --mps-faint:rgba(255,255,255,.34);
+  --mps-line:rgba(255,255,255,.14);
+  --mps-yellow:#E3FC02;
+  --mps-blue:#00B8FF;
+  --mps-blue-soft:#74D5FF;
+  --mps-header:0px;
+  --mps-anchor:82px;
+
+  color:var(--mps-ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  max-width:860px;
+  margin:0 auto;
+  padding:0 2px;
+  text-align:left;
+}
+.mps-wrap *{box-sizing:border-box;}
+
+/* ---------- review counter ---------- */
+.mps-rating{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 14px;
+  padding:7px 13px;
+  border:1px solid var(--mps-line);
+  border-radius:999px;
+  background:rgba(255,255,255,.03);
+  font-size:13.5px;
+  line-height:1;
+  color:var(--mps-dim);
+  text-decoration:none;
+  transition:border-color .15s ease;
+}
+.mps-rating:hover,.mps-rating:focus-visible{border-color:rgba(227,252,2,.45);}
+.mps-rating b{color:var(--mps-ink);font-weight:800;}
+.mps-rating .mps-stars{color:var(--mps-yellow);letter-spacing:.06em;font-size:12.5px;}
+
+/* ---------- heading ---------- */
+.mps-wrap h1.mps-h1{
+  font-size:clamp(26px,6.4vw,40px);
+  font-weight:900;
+  letter-spacing:-.025em;
+  line-height:1.1;
+  margin:0 0 16px;
+  color:var(--mps-ink);
+}
+
+/* ---------- trust badges ---------- */
+.mps-badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  list-style:none;
+  margin:0 0 24px;
+  padding:0;
+}
+.mps-badges li{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:9px 14px 9px 12px;
+  border:1px solid var(--mps-line);
+  border-radius:11px;
+  background:rgba(255,255,255,.028);
+  font-size:13.5px;
+  font-weight:700;
+  line-height:1.2;
+  color:var(--mps-ink);
+}
+.mps-badges svg{
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+  stroke:var(--mps-yellow);
+  fill:none;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+/* ---------- sticky category bar ---------- */
+.mps-jumplabel{
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:-.01em;
+  line-height:1.3;
+  color:var(--mps-ink);
+  margin:0 0 12px;
+}
+.mps-jumpbar{
+  position:sticky;
+  top:var(--mps-header);
+  z-index:20;
+  margin:0 -2px 30px;
+  padding:10px 2px;
+  /* solid, not a fade: card text must not show through when it sticks */
+  background:#000;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  box-shadow:0 6px 14px rgba(0,0,0,.5);
+  display:flex;
+  align-items:center;
+}
+.mps-jump{
+  flex:1 1 auto;
+  min-width:0;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+}
+
+/* arrows — only drawn when the pills actually overflow, and only where
+   there's a mouse. On a phone you just swipe. */
+.mps-arrow{
+  flex:0 0 auto;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
+  padding:0;
+  border:1px solid var(--mps-line);
+  border-radius:50%;
+  background:rgba(255,255,255,.05);
+  color:var(--mps-ink);
+  cursor:pointer;
+  transition:background .15s ease,border-color .15s ease,opacity .15s ease;
+}
+.mps-arrow svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.mps-arrow:hover:not(:disabled){background:rgba(227,252,2,.12);border-color:rgba(227,252,2,.5);}
+.mps-arrow:disabled{opacity:.25;cursor:default;}
+.mps-arrow-l{margin-right:8px;}
+.mps-arrow-r{margin-left:8px;}
+.mps-arrow{display:none;}
+/* Only where there's a real mouse AND the window is too narrow to wrap
+   the pills onto two lines. On a phone you swipe; on a wide screen
+   nothing scrolls, because every pill is visible at once. */
+@media (min-width:480px) and (max-width:719px) and (pointer:fine){
+  .mps-jumpbar.mps-ovf .mps-arrow{display:flex;}
+}
+.mps-jump::-webkit-scrollbar{display:none;}
+.mps-jump ul{
+  display:flex;
+  gap:8px;
+  list-style:none;
+  margin:0;
+  padding:0 0 2px;
+  white-space:nowrap;
+}
+.mps-jump a{
+  display:block;
+  padding:9px 15px;
+  border:1px solid var(--mps-line);
+  border-radius:999px;
+  font-size:13.5px;
+  font-weight:800;
+  letter-spacing:-.005em;
+  color:var(--mps-dim);
+  text-decoration:none;
+  background:rgba(255,255,255,.03);
+  transition:color .15s ease,border-color .15s ease,background .15s ease;
+}
+.mps-jump a:hover,
+.mps-jump a:focus-visible{
+  color:var(--mps-ink);
+  border-color:rgba(227,252,2,.5);
+  background:rgba(227,252,2,.07);
+}
+.mps-jump a.mps-here{
+  color:#0b0b0b;
+  background:var(--mps-yellow);
+  border-color:var(--mps-yellow);
+}
+
+/* ---------- Mobile / Garage switch ---------- */
+.mps-switch{
+  display:flex;
+  gap:8px;
+  margin:0 0 26px;
+  padding:0;
+  list-style:none;
+}
+.mps-switch li{flex:1 1 0;}
+.mps-switch a{
+  display:block;
+  text-align:center;
+  padding:13px 10px;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:-.005em;
+  text-decoration:none;
+  line-height:1.25;
+  transition:transform .15s ease,background .15s ease,color .15s ease;
+}
+.mps-switch a small{
+  display:block;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.02em;
+  margin-top:3px;
+  opacity:.72;
+}
+.mps-switch a{
+  background:transparent;
+  color:var(--mps-yellow);
+  border:1px solid rgba(227,252,2,.55);
+}
+.mps-wrap.mps-m-mobile .mps-sw-mobile,
+.mps-wrap.mps-m-garage .mps-sw-garage{
+  background:var(--mps-yellow);
+  color:#0b0b0b;
+  border-color:var(--mps-yellow);
+}
+.mps-switch a:hover,.mps-switch a:focus-visible{transform:translateY(-1px);}
+
+/* ---------- mode switching (JS adds the mode class) ----------
+   With no JS no mode class is set, so BOTH halves stay visible and the
+   page still works — it just doesn't filter. */
+.mps-wrap.mps-m-mobile #garage-services,
+.mps-wrap.mps-m-garage #mobile-services,
+.mps-wrap.mps-m-mobile .mps-jump-garage,
+.mps-wrap.mps-m-garage .mps-jump-mobile,
+.mps-wrap.mps-m-mobile .mps-rule,
+.mps-wrap.mps-m-garage .mps-rule{display:none;}
+
+/* ---------- half wrappers ---------- */
+.mps-half{scroll-margin-top:var(--mps-anchor);}
+.mps-rule{
+  border:0;
+  border-top:1px solid var(--mps-line);
+  margin:10px 0 30px;
+}
+
+/* ---------- by-quote tag ---------- */
+.mps-quote{
+  display:inline-block;
+  padding:5px 11px;
+  border-radius:999px;
+  border:1px solid rgba(227,252,2,.4);
+  background:rgba(227,252,2,.07);
+  color:var(--mps-yellow);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+/* ---------- list headline, sits under the category bar ---------- */
+.mps-allhead{
+  font-size:clamp(21px,5.2vw,26px);
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1.2;
+  color:var(--mps-ink);
+  margin:0 0 22px;
+  text-align:center;
+}
+
+/* From tablet up there's room to show every pill at once, so the bar
+   stops being a scroller and just wraps. Nothing to drag, nothing hidden. */
+@media (min-width:720px){
+  .mps-wrap{--mps-anchor:150px;}
+  .mps-jump{overflow-x:visible;}
+  .mps-jump ul{flex-wrap:wrap;white-space:normal;row-gap:8px;}
+}
+
+/* ---------- section headings ---------- */
+.mps-sec{
+  scroll-margin-top:var(--mps-anchor);
+  margin:0 0 34px;
+}
+.mps-sec h2{
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--mps-faint);
+  margin:0 0 14px;
+}
+
+/* ---------- service card ---------- */
+.mps-card{
+  border:1px solid var(--mps-line);
+  border-radius:16px;
+  background:rgba(255,255,255,.028);
+  padding:20px 18px;
+  margin:0 0 14px;
+}
+.mps-card + .mps-card{margin-top:14px;}
+
+.mps-head{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:4px 14px;
+  margin:0 0 8px;
+}
+.mps-card h3{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1.2;
+  margin:0;
+  color:var(--mps-ink);
+  flex:1 1 auto;
+}
+.mps-price{
+  font-size:17px;
+  font-weight:900;
+  color:var(--mps-yellow);
+  letter-spacing:-.01em;
+  white-space:nowrap;
+}
+.mps-blurb{
+  font-size:14.5px;
+  line-height:1.6;
+  color:var(--mps-dim);
+  margin:0 0 14px;
+  max-width:58ch;
+}
+
+/* ---------- cleaning power: the homepage star bars, as dots ----------
+   yellow = what the price already gets you, blue = how far the add-ons
+   take it, grey = the rest of the scale. */
+.mps-power{margin:0 0 16px;}
+.mps-power-t{
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--mps-faint);
+  margin:0 0 9px;
+}
+.mps-power ul{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:grid;
+  gap:8px;
+}
+.mps-power li{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  font-size:13.5px;
+  font-weight:600;
+  line-height:1.2;
+  color:rgba(255,255,255,.75);
+}
+.mps-dots{display:flex;gap:5px;flex:0 0 auto;}
+.mps-dots i{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:rgba(255,255,255,.13);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+}
+.mps-dots i.mps-d-on{background:var(--mps-yellow);box-shadow:0 0 7px rgba(227,252,2,.45);}
+.mps-dots i.mps-d-add{background:var(--mps-blue);box-shadow:0 0 7px rgba(0,184,255,.4);}
+
+/* the key, shown once above the list */
+.mps-key{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px 18px;
+  margin:0 0 24px;
+  padding:0;
+  list-style:none;
+  font-size:12.5px;
+}
+.mps-key li{display:flex;align-items:center;gap:7px;color:var(--mps-faint);}
+.mps-key li::before{content:"";width:9px;height:9px;border-radius:50%;flex:0 0 9px;background:rgba(255,255,255,.13);}
+.mps-key li.mps-on::before{background:var(--mps-yellow);}
+.mps-key li.mps-addon::before{background:var(--mps-blue);}
+
+/* ---------- what's included, folded away ---------- */
+.mps-more{margin:0 0 14px;}
+.mps-more summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  cursor:pointer;
+  list-style:none;
+  padding:11px 14px;
+  border:1px solid var(--mps-line);
+  border-radius:11px;
+  background:rgba(255,255,255,.03);
+  font-size:13.5px;
+  font-weight:800;
+  color:var(--mps-ink);
+  transition:border-color .15s ease,background .15s ease;
+}
+.mps-more summary::-webkit-details-marker{display:none;}
+.mps-more summary::after{
+  content:"";
+  width:8px;
+  height:8px;
+  flex:0 0 8px;
+  border-right:2px solid var(--mps-yellow);
+  border-bottom:2px solid var(--mps-yellow);
+  transform:rotate(45deg) translateY(-2px);
+  transition:transform .15s ease;
+}
+.mps-more[open] summary::after{transform:rotate(-135deg) translateY(-2px);}
+.mps-more summary:hover{border-color:rgba(227,252,2,.45);background:rgba(227,252,2,.06);}
+.mps-more[open] summary{border-bottom-left-radius:0;border-bottom-right-radius:0;}
+.mps-more .mps-inc{
+  margin:0 !important;
+  padding:14px 14px 4px !important;
+  border:1px solid var(--mps-line);
+  border-top:0;
+  border-radius:0 0 11px 11px;
+}
+
+/* ---------- included list ---------- */
+.mps-card ul.mps-inc{
+  list-style:none;
+  margin:0 0 14px;
+  padding:0;
+}
+.mps-card ul.mps-inc li{
+  position:relative;
+  padding:0 0 0 18px;
+  margin:0 0 7px;
+  font-size:14.5px;
+  line-height:1.5;
+  color:var(--mps-dim);
+}
+.mps-card ul.mps-inc li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.62em;
+  width:7px;
+  height:2px;
+  background:var(--mps-yellow);
+  border-radius:2px;
+}
+.mps-card ul.mps-inc li b{color:var(--mps-ink);font-weight:700;}
+
+/* ---------- add-ons: always blue ---------- */
+.mps-extra{
+  font-size:13.5px;
+  line-height:1.65;
+  color:var(--mps-blue-soft);
+  margin:0 0 14px;
+  padding:12px 13px;
+  border-radius:10px;
+  background:rgba(0,184,255,.06);
+  border:1px solid rgba(0,184,255,.22);
+}
+.mps-extra b{color:var(--mps-blue);font-weight:800;}
+
+.mps-aside{
+  font-size:13.5px;
+  line-height:1.6;
+  color:var(--mps-faint);
+  margin:0 0 14px;
+  padding-left:12px;
+  border-left:2px solid var(--mps-line);
+  max-width:58ch;
+}
+
+/* ---------- buttons ---------- */
+.mps-go{
+  display:inline-block;
+  padding:12px 22px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+  color:#0b0b0b;
+  font-size:14.5px;
+  font-weight:900;
+  letter-spacing:.005em;
+  text-decoration:none;
+  box-shadow:0 8px 20px rgba(227,252,2,.22);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mps-go:hover,.mps-go:focus-visible{
+  transform:translateY(-1px);
+  box-shadow:0 12px 26px rgba(227,252,2,.32);
+  color:#0b0b0b;
+}
+.mps-go.mps-quiet{
+  background:none;
+  border:1px solid var(--mps-line);
+  color:var(--mps-ink);
+  box-shadow:none;
+}
+.mps-go.mps-quiet:hover,.mps-go.mps-quiet:focus-visible{
+  border-color:var(--mps-yellow);
+  color:var(--mps-yellow);
+  box-shadow:none;
+}
+
+/* ---------- add-ons grid ---------- */
+.mps-addons{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:10px;
+  margin:0 0 14px;
+  padding:0;
+  list-style:none;
+}
+.mps-addons li{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:12px;
+  padding:13px 14px;
+  border:1px solid rgba(0,184,255,.22);
+  border-radius:11px;
+  background:rgba(0,184,255,.05);
+  font-size:14.5px;
+  line-height:1.4;
+}
+.mps-addons li span{color:var(--mps-blue-soft);font-weight:700;}
+.mps-addons li b{color:var(--mps-blue);font-weight:900;white-space:nowrap;}
+
+/* ---------- closing ---------- */
+.mps-close{
+  border-top:1px solid var(--mps-line);
+  padding-top:24px;
+  margin-top:8px;
+}
+.mps-close p{
+  font-size:15px;
+  line-height:1.6;
+  color:var(--mps-dim);
+  margin:0 0 14px;
+  max-width:58ch;
+}
+.mps-close a.mps-tel{
+  color:var(--mps-yellow);
+  font-weight:800;
+  text-decoration:none;
+  border-bottom:1px solid rgba(227,252,2,.4);
+}
+
+@media (max-width:640px){
+  .mps-card{padding:18px 15px;border-radius:14px;}
+  .mps-card h3{font-size:18.5px;}
+  .mps-price{font-size:16px;}
+  .mps-power li{font-size:13px;}
+  .mps-go{display:block;text-align:center;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .mps-wrap *{transition:none !important;}
+}
+</style>
+
+<noscript>
+<style>
+/* No JavaScript: nothing can switch, so show both halves rather than
+   hiding the garage services behind a button that won't work. */
+.mps-wrap.mps-m-mobile #garage-services,
+.mps-wrap.mps-m-mobile .mps-jump-garage,
+.mps-wrap.mps-m-mobile .mps-rule{display:block !important;}
+.mps-wrap.mps-m-mobile .mps-jump-garage{display:flex !important;}
+</style>
+</noscript>
+
+
+<div class="mps-wrap mps-m-mobile">
+
+  <!-- REVIEW COUNTER — edit by hand when Google updates. Change "81" below. -->
+  <a class="mps-rating" href="https://maps.google.com/maps?cid=15620201708594115788" rel="noopener">
+    <b>5.0</b><span class="mps-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>81 Google reviews</span>
+  </a>
+
+  <h1 class="mps-h1">Mobile Detailing Services</h1>
+
+  <ul class="mps-badges">
+    <li>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 2.6v5.3c0 4.2-2.9 7.6-7 9.1-4.1-1.5-7-4.9-7-9.1V5.6z"/><path d="M9.2 12.1l1.9 1.9 3.7-4"/></svg>
+      <span>Fully insured</span>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.2l2.36 4.78 5.28.77-3.82 3.72.9 5.26L12 16.24l-4.72 2.49.9-5.26L4.36 9.75l5.28-.77z"/></svg>
+      <span>5.0 star rated</span>
+    </li>
+  </ul>
+
+  <ul class="mps-switch">
+    <li><a class="mps-sw-mobile" href="#mobile-services">Mobile Service<small>We come to you</small></a></li>
+    <li><a class="mps-sw-garage" href="#garage-services">Garage Based<small>At our unit, by quote</small></a></li>
+  </ul>
+
+  <p class="mps-jumplabel" id="mps-jumplabel">What Kind Of Service Are You Looking For?</p>
+
+  <div class="mps-jumpbar">
+  <button type="button" class="mps-arrow mps-arrow-l" aria-label="Scroll categories left">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <nav class="mps-jump" aria-labelledby="mps-jumplabel">
+    <ul class="mps-jump-mobile">
+      <li><a href="#maintenance">Maintenance</a></li>
+      <li><a href="#interior">Interior</a></li>
+      <li><a href="#exterior">Exterior</a></li>
+      <li><a href="#in-and-out">In &amp; Out</a></li>
+      <li><a href="#machine-polishing">Machine polishing</a></li>
+      <li><a href="#ceramic">Ceramic coating</a></li>
+      <li><a href="#odour">Odour removal</a></li>
+      <li><a href="#add-ons">Add-ons</a></li>
+    </ul>
+    <ul class="mps-jump-garage">
+      <li><a href="#correction">Paint Correction</a></li>
+      <li><a href="#wrap">Vinyl Wrap</a></li>
+      <li><a href="#ppf">PPF</a></li>
+      <li><a href="#tint">Window Tinting</a></li>
+      <li><a href="#dechrome">De Chrome</a></li>
+    </ul>
+  </nav>
+  <button type="button" class="mps-arrow mps-arrow-r" aria-label="Scroll categories right">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+  </div>
+
+
+  <p class="mps-allhead">See All Services</p>
+
+  <ul class="mps-key">
+    <li class="mps-on">Included</li>
+    <li class="mps-addon">Reachable with add-ons</li>
+    <li>Beyond this service</li>
+  </ul>
+
+  <div class="mps-half" id="mobile-services">
+
+  <!-- ===================== MAINTENANCE ===================== -->
+  <section class="mps-sec" id="maintenance">
+    <h2>Maintenance</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Maintenance Wash</h3>
+        <span class="mps-price">from &pound;60</span>
+      </div>
+      <p class="mps-blurb">A safe, contact-minimal wash. Most of the dirt is lifted chemically before anything touches the paint, which is what stops a regular wash putting swirl marks in over time.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i></i><i></i><i></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i></i><i></i><i></i><i></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li><b>Snow foam pre-wash</b> — dirt lifted before contact</li>
+        <li><b>Two-bucket safe hand wash</b> with grit guards</li>
+        <li>Wheels, tyres and arches cleaned</li>
+        <li><b>Hand dried</b> with plush microfibre, no water spots</li>
+        <li>Interior blow out and vacuum, key areas wiped</li>
+        <li>Glass streak-free, inside and out</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Add:</b> seat stain removal <b>+&pound;30</b> &middot; full steam, shampoo &amp; extraction <b>+&pound;50</b></p>
+      <p class="mps-aside">Not a first clean. If the car hasn't been properly cleaned in months, start with an In &amp; Out Deep Clean and keep it there with this.</p>
+      <a class="mps-go" href="/mini-valet">See prices &amp; book</a>
+    </article>
+  </section>
+
+
+  <!-- ===================== INTERIOR ===================== -->
+  <section class="mps-sec" id="interior">
+    <h2>Interior</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Interior Deep Clean</h3>
+        <span class="mps-price">from &pound;60</span>
+      </div>
+      <p class="mps-blurb">Compressed air and steam do the work here. Grit is blown out of the joins it hides in first, then every contact surface is steam sanitised rather than wiped over.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li><b>Compressed air</b> through seat rails, joins and vents</li>
+        <li><b>Deep vacuum</b> — seats, carpets, mats, boot and edges</li>
+        <li><b>Steam cleaning</b> — sanitises contact areas and loosens grime</li>
+        <li>Steering wheel sanitised, leather moisturised</li>
+        <li>Crevices, seams and vents agitated by hand</li>
+        <li>Plastics scrubbed to a natural satin finish, not greased</li>
+        <li>Interior glass cleaned streak-free</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Add:</b> seat stain removal <b>+&pound;30</b> &middot; full steam, shampoo &amp; extraction <b>+&pound;50</b> &middot; heavy pet hair <b>+&pound;50</b> &middot; roof lining <b>+&pound;25</b> &middot; ozone treatment <b>+&pound;40</b></p>
+      <a class="mps-go" href="/interior-deep-clean">See prices &amp; book</a>
+    </article>
+  </section>
+
+
+  <!-- ===================== EXTERIOR ===================== -->
+  <section class="mps-sec" id="exterior">
+    <h2>Exterior</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Exterior Detail</h3>
+        <span class="mps-price">from &pound;60</span>
+      </div>
+      <p class="mps-blurb">A wash removes what's sitting on the paint. This removes what's bonded into it — tar, iron fallout from brake dust, and road film — so the paint is genuinely clean before it's sealed.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li><b>Snow foam pre-wash</b>, then two-bucket safe hand wash</li>
+        <li>Wheels, tyres and arches deep cleaned</li>
+        <li>Trims, door shuts and badges detailed</li>
+        <li><b>Chemical decontamination</b> — tar, iron fallout, road film</li>
+        <li>Glass compound polished</li>
+        <li>Hand dried, water traps cleared</li>
+        <li><b>6-month ceramic sealant</b> — gloss, beading and easier washing</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Add:</b> clay bar decontamination <b>+&pound;30</b> — leaves the paint glass-smooth, and it's the step machine polishing needs first</p>
+      <a class="mps-go" href="/car-exterior-deep-clean">See prices &amp; book</a>
+    </article>
+  </section>
+
+
+  <!-- ===================== IN & OUT ===================== -->
+  <section class="mps-sec" id="in-and-out">
+    <h2>In &amp; Out</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>In &amp; Out Deep Clean</h3>
+        <span class="mps-price">&pound;140&ndash;170</span>
+      </div>
+      <p class="mps-blurb">The full reset. Everything in the Interior Deep Clean and the Exterior Detail, plus full steam, shampoo and extraction through the seats and carpets — included, not sold as an extra.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Complete <b>Exterior Detail</b> — decontamination and 6-month sealant</li>
+        <li>Complete <b>Interior Deep Clean</b> — air, vacuum and steam</li>
+        <li><b>Steam, shampoo and extraction</b> — seats, carpets, mats and boot</li>
+        <li>Glass polished and cleaned throughout</li>
+        <li>Plastics and trim dressed to an anti-static satin finish</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Add:</b> engine bay detail <b>+&pound;40</b> &middot; seat stain treatment <b>+&pound;30</b> &middot; clay bar <b>+&pound;30</b> &middot; ozone treatment <b>+&pound;40</b></p>
+      <a class="mps-go" href="/full-valet">See prices &amp; book</a>
+    </article>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Protection Detail</h3>
+        <span class="mps-price">&pound;250&ndash;280</span>
+      </div>
+      <p class="mps-blurb">The deep clean, then the paint is clayed smooth and sealed under a one-year ceramic coating. It protects the paint you've got rather than correcting it — if it's swirled and you want the marks gone, add paint enhancement.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Everything in the <b>In &amp; Out Deep Clean</b></li>
+        <li><b>Clay bar decontamination</b> — paint left glass-smooth</li>
+        <li><b>1-year ceramic coating</b> on all paint</li>
+        <li><b>Glaco hydrophobic coating</b> on the glass</li>
+        <li>Engine bay detail included</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Add:</b> paint enhancement, 1-stage machine polish <b>+&pound;150</b> — swirl marks and light scratches polished out before the coating goes on</p>
+      <a class="mps-go" href="/full-valet-premium">See prices &amp; book</a>
+    </article>
+  </section>
+
+
+  <!-- ===================== MACHINE POLISHING ===================== -->
+  <section class="mps-sec" id="machine-polishing">
+    <h2>Machine polishing</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Enhancement Polish &mdash; 1 stage</h3>
+        <span class="mps-price">&pound;275&ndash;425</span>
+      </div>
+      <p class="mps-blurb">For paint that looks dull, hazy or swirled under direct light. One machine polishing stage removes most of the light damage and brings back depth, gloss and clarity.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Snow foam pre-wash and two-bucket safe hand wash</li>
+        <li>Wheels, tyres and arches cleaned</li>
+        <li><b>Chemical decontamination and clay bar</b> — included, not extra</li>
+        <li>Hand dried, trims and badges masked</li>
+        <li><b>Single-stage machine polish</b> across all paint panels</li>
+        <li>Removes 60&ndash;80% of light swirls, water marks and light scratches</li>
+        <li>Finish inspected under a dedicated inspection light</li>
+        <li><b>6-month ceramic sealant</b> included to protect the work</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Upgrade:</b> lock the finish in under a <b>1-year ceramic coating</b> instead of the sealant &mdash; see Ceramic Coating below</p>
+      <a class="mps-go" href="/paint-enhancement-machine-polishing">See prices &amp; book</a>
+    </article>
+  </section>
+
+
+  <!-- ===================== CERAMIC ===================== -->
+  <section class="mps-sec" id="ceramic">
+    <h2>Ceramic coating</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Ceramic Coating</h3>
+        <span class="mps-price">from &pound;385</span>
+      </div>
+      <p class="mps-blurb">A coating locks in whatever condition the paint is in, so the paint is corrected first. Water sheets off instead of sitting on the panel, dirt struggles to bond, and washing gets considerably easier for a year rather than weeks.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Full decontamination and clay bar preparation</li>
+        <li><b>1-stage machine polish</b> included &mdash; the paint is corrected first</li>
+        <li><b>1-year ceramic coating</b> on all paint</li>
+        <li><b>Glaco</b> hydrophobic coating on the glass</li>
+        <li>Aftercare guidance so the coating lasts its full life</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Ask about:</b> longer-life coatings, wheel coatings, and coating over a multi-stage correction</p>
+      <a class="mps-go" href="/ceramic-coating">See prices &amp; book</a>
+    </article>
+  </section>
+
+
+  <!-- ===================== ODOUR ===================== -->
+  <section class="mps-sec" id="odour">
+    <h2>Odour removal</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Odour Removal</h3>
+        <span class="mps-price">from &pound;120</span>
+      </div>
+      <p class="mps-blurb">Cigarette smoke, spilt milk, pets and biological spills. Air fresheners mask odour; this removes what's causing it, then treats what's left in the fabric, foam and ventilation.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Treatment chosen to match the odour type</li>
+        <li><b>Source removal</b> by steam, shampoo and extraction</li>
+        <li><b>Ozone or chlorine dioxide</b> treatment where suitable</li>
+        <li>Ventilation system treated, not just the surfaces</li>
+        <li>Cabin air filter advice so the smell doesn't return</li>
+        </ul>
+      </details>
+      <a class="mps-go" href="/smoke/milk/bio-odour-removal">See prices &amp; book</a>
+    </article>
+  </section>
+
+
+  <!-- ===================== ADD-ONS ===================== -->
+  <section class="mps-sec" id="add-ons">
+    <h2>Add-ons</h2>
+
+    <ul class="mps-addons">
+      <li><span>Seat stain removal</span><b>+&pound;30</b></li>
+      <li><span>Full steam, shampoo &amp; extraction</span><b>+&pound;50</b></li>
+      <li><span>Heavy pet hair removal</span><b>+&pound;50</b></li>
+      <li><span>Roof lining clean</span><b>+&pound;25</b></li>
+      <li><span>Leather deep clean &amp; condition</span><b>+&pound;50</b></li>
+      <li><span>Ozone odour treatment</span><b>+&pound;40</b></li>
+      <li><span>Engine bay detail</span><b>+&pound;40</b></li>
+      <li><span>Clay bar decontamination</span><b>+&pound;30</b></li>
+    </ul>
+  </section>
+
+
+  </div><!-- /mobile half -->
+
+
+  <hr class="mps-rule">
+
+
+  <!-- ===================== GARAGE BASED ===================== -->
+  <div class="mps-half" id="garage-services">
+
+  <section class="mps-sec" id="correction">
+    <h2>Paint Correction</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Paint Correction &mdash; 2 stage &amp; multi-stage</h3>
+        <span class="mps-quote">By quote</span>
+      </div>
+      <p class="mps-blurb">For paint you want as close to perfect as it gets. A heavy cutting stage removes the deeper damage, then a refinement stage removes the haze the cutting leaves behind. Badly neglected or heavily swirled paint may need a third stage.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Full decontamination and clay bar preparation</li>
+        <li><b>Stage one</b> &mdash; heavy cut compounding for deeper defects</li>
+        <li><b>Stage two</b> &mdash; refinement polishing to remove haze and restore gloss</li>
+        <li>Removes 100% of light swirls, plus marks a single stage leaves behind</li>
+        <li>Finish checked panel by panel under inspection lighting</li>
+        <li>Two days or more, depending on condition</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Finish it with:</b> a ceramic coating, so the corrected paint stays that way</p>
+      <p class="mps-aside">From &pound;550, depending on size and how far gone the paint is. Send a few photos in daylight and we'll tell you honestly whether it needs two stages or whether a single-stage Enhancement Polish will do.</p>
+      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+    </article>
+  </section>
+
+
+  <section class="mps-sec" id="wrap">
+    <h2>Vinyl Wrap</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Vinyl Wrap</h3>
+        <span class="mps-quote">By quote</span>
+      </div>
+      <p class="mps-blurb">A full colour change, or a partial wrap on the panels you want to stand out. The original paint stays underneath, protected from stone chips and UV, and the wrap comes off when you want it to.</p>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Full wraps, roof and bonnet wraps, or single panels</li>
+        <li>Gloss, satin, matte, metallic and textured finishes</li>
+        <li>Paint washed, decontaminated and prepared before fitting</li>
+        <li>Colour chosen from physical samples, not a screen</li>
+        <li><b>Fully reversible</b> &mdash; useful on a lease car or before resale</li>
+        </ul>
+      </details>
+      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+    </article>
+  </section>
+
+
+  <section class="mps-sec" id="ppf">
+    <h2>PPF</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Paint Protection Film</h3>
+        <span class="mps-quote">By quote</span>
+      </div>
+      <p class="mps-blurb">Clear, self-healing urethane film fitted over the panels that take the damage. Stone chips, scuffs and car park scratches stop at the film instead of the paint, and light marks in the film close up with heat.</p>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Front end, full front, full car, or individual panels</li>
+        <li>Common choices: bonnet, wings, bumper, mirrors, door edges, sills</li>
+        <li>Paint decontaminated and corrected first &mdash; film locks in what's underneath</li>
+        <li><b>Self-healing</b> top coat and a clear finish you won't see</li>
+        <li>Removable later without damaging the paint</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Often paired with:</b> a ceramic coating over the film, so the whole car cleans the same way</p>
+      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+    </article>
+  </section>
+
+
+  <section class="mps-sec" id="tint">
+    <h2>Window Tinting</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Window Tinting</h3>
+        <span class="mps-quote">By quote</span>
+      </div>
+      <p class="mps-blurb">Professionally cut and fitted film for heat rejection, UV protection and privacy. Fitted indoors so there's nothing trapped under the film, then left to cure properly before the car goes back out.</p>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Rear side windows and rear screen, in the shade you choose</li>
+        <li><b>Heat and UV rejection</b> &mdash; a cooler cabin and less faded trim</li>
+        <li>Holds the glass together if a window is ever broken</li>
+        <li>Cut to the glass, not trimmed on the car</li>
+        <li>Cure time explained before you collect &mdash; windows stay shut for a few days</li>
+        </ul>
+      </details>
+      <p class="mps-aside">UK law: the windscreen must let through at least 75% of light and the front side windows at least 70%, so those can only be tinted lightly. Everything behind the driver is unrestricted.</p>
+      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+    </article>
+  </section>
+
+
+  <section class="mps-sec" id="dechrome">
+    <h2>De Chrome</h2>
+
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>De Chrome</h3>
+        <span class="mps-quote">By quote</span>
+      </div>
+      <p class="mps-blurb">Chrome window surrounds, grille, badges and trim wrapped in gloss or satin black. It's the smallest change that alters how a car reads from across a car park, and it costs a fraction of a full wrap.</p>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Window surrounds, grille, badges, mirror caps and trim strips</li>
+        <li>Gloss black, satin black, or a colour matched to the car</li>
+        <li>Trim wrapped rather than painted, so the chrome survives underneath</li>
+        <li><b>Fully reversible</b> &mdash; back to standard whenever you want</li>
+        <li>Done on its own or alongside a wrap</li>
+        </ul>
+      </details>
+      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+    </article>
+  </section>
+  </div><!-- /garage half -->
+
+
+  <!-- ===================== CLOSE ===================== -->
+  <div class="mps-close">
+    <p>Not sure which one your car needs? Send a few photos in daylight and we'll tell you straight — including when a cheaper service will do the job.</p>
+    <p>Call or text <a class="mps-tel" href="tel:+447592196929">07592 196929</a> or email <a class="mps-tel" href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></p>
+  </div>
+
+</div>
+
+
+<script>
+(function(){
+  var wrap = document.querySelector('.mps-wrap');
+  if(!wrap) return;
+
+  var bar      = wrap.querySelector('.mps-jump');
+  var jumpbar  = wrap.querySelector('.mps-jumpbar');
+  var arrowL   = wrap.querySelector('.mps-arrow-l');
+  var arrowR   = wrap.querySelector('.mps-arrow-r');
+  var switches = wrap.querySelectorAll('.mps-switch a');
+  var garage   = wrap.querySelector('#garage-services');
+  var io = null;
+
+  /* ---- which half is showing ---- */
+  function setMode(mode, focusTop){
+    wrap.classList.remove('mps-m-mobile','mps-m-garage');
+    wrap.classList.add(mode === 'garage' ? 'mps-m-garage' : 'mps-m-mobile');
+    for(var i=0;i<switches.length;i++){
+      switches[i].setAttribute('aria-current',
+        switches[i].getAttribute('href') ===
+        (mode === 'garage' ? '#garage-services' : '#mobile-services') ? 'true' : 'false');
+    }
+    if(bar) bar.scrollLeft = 0;
+    watch();
+    arrows();
+    /* Squarespace measures this block's height once and keeps it. Poke it
+       so it re-measures after the content gets shorter or taller. */
+    reflow();
+    if(focusTop && bar){
+      var y = bar.getBoundingClientRect().top + window.pageYOffset - 8;
+      if(window.pageYOffset > y) window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }
+
+  for(var i=0;i<switches.length;i++){
+    (function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        setMode(a.getAttribute('href') === '#garage-services' ? 'garage' : 'mobile', true);
+      });
+    })(switches[i]);
+  }
+
+  /* ---- horizontal scrolling for the pills on a desktop ----
+     Touch users swipe. With a mouse there's no scrollbar to grab, so the
+     arrows do it, and a vertical wheel over the bar scrolls it sideways. */
+  function arrows(){
+    if(!bar || !jumpbar || !arrowL || !arrowR) return;
+    var over = bar.scrollWidth - bar.clientWidth > 2;
+    jumpbar.classList.toggle('mps-ovf', over);
+    arrowL.disabled = !over || bar.scrollLeft <= 1;
+    arrowR.disabled = !over || bar.scrollLeft >= bar.scrollWidth - bar.clientWidth - 1;
+  }
+
+  function nudge(dir){
+    if(!bar) return;
+    bar.scrollBy({ left: dir * Math.max(140, bar.clientWidth * 0.7), behavior: 'smooth' });
+  }
+
+  if(arrowL) arrowL.addEventListener('click', function(){ nudge(-1); });
+  if(arrowR) arrowR.addEventListener('click', function(){ nudge(1); });
+  if(bar){
+    bar.addEventListener('scroll', arrows, { passive: true });
+    bar.addEventListener('wheel', function(e){
+      if(Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      if(bar.scrollWidth - bar.clientWidth <= 2) return;
+      e.preventDefault();
+      bar.scrollLeft += e.deltaY;
+    }, { passive: false });
+  }
+  window.addEventListener('resize', arrows);
+
+  /* ---- make Squarespace re-measure the block height ---- */
+  function reflow(){
+    try{
+      window.dispatchEvent(new Event('resize'));
+      setTimeout(function(){ window.dispatchEvent(new Event('resize')); }, 120);
+    }catch(e){}
+  }
+
+  /* ---- highlight the category you're reading, for the visible half only ---- */
+  function watch(){
+    if(!('IntersectionObserver' in window)) return;
+    if(io) io.disconnect();
+
+    var list = wrap.querySelector(
+      wrap.classList.contains('mps-m-garage') ? '.mps-jump-garage' : '.mps-jump-mobile');
+    if(!list) return;
+
+    var links = Array.prototype.slice.call(list.querySelectorAll('a'));
+    var secs  = links.map(function(a){ return wrap.querySelector(a.getAttribute('href')); });
+
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        if(i < 0) return;
+        links.forEach(function(a){ a.classList.remove('mps-here'); });
+        links[i].classList.add('mps-here');
+        if(bar && bar.scrollWidth > bar.clientWidth){
+          bar.scrollTo({ left: links[i].offsetLeft - 16, behavior: 'smooth' });
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+
+    secs.forEach(function(s){ if(s) io.observe(s); });
+  }
+
+  /* ---- a link from elsewhere straight to a garage service opens that half ---- */
+  function fromHash(){
+    var h = window.location.hash;
+    if(h && garage && (h === '#garage-services' || garage.querySelector(h))) return 'garage';
+    return 'mobile';
+  }
+
+  setMode(fromHash(), false);
+  arrows();
+  setTimeout(arrows, 200);
+  window.addEventListener('hashchange', function(){ setMode(fromHash(), false); });
+})();
+</script>

@@ -1,0 +1,3084 @@
+<!-- ==========================================================================
+     MobilePitStop — INTERIOR DEEP CLEAN questionnaire (same page URL)
+
+     BASE PRICE   3-door £100 · 5-door £120 · 7-seater £140
+     INCLUDED     Compressed air + deep vacuum, full steam / shampoo /
+                  extraction (seat stains treated as part of it), steam
+                  sanitised touch points, crevices, plastics, interior glass
+
+     QUESTIONS    1 Vehicle size (+ "View more": pick-up, mini bus, van,
+                    lorry, campervan -> by quote)
+                  2 Severe pet hair         +£50
+                  3 Heavy sand in carpets   +£40
+                  4 Headliner stains        +£25
+                  5 Leather coating, CarPro CQuartz (up to 2 yr)
+                    +£150 / £150 / £200
+                    "No leather in my car" skips it
+                  Ozone is gone — odour removal has its own service.
+
+     ------------------------------------------------------------------------
+     ACUITY — 48 TYPES, every add-on in the type (no hidden fields)
+     Key = size : roof pet sand leather  (1 = yes)
+
+     16 exist already: the old "full extraction" types, and the old
+     "+ ozone" ones become "+ sand" (both +£40). Rename them; the 3-door
+     ones also drop £10 (base £110 -> £100). The 5-door prices already match.
+     32 are NEW (all leather ones, and every 7-seater) — create them and
+     send the IDs, or paste them into ACUITY_TYPE_MAP yourself.
+     Until an ID is filled in, that combination books the quote slot and
+     the summary says we'll confirm within 6 hrs — nothing breaks.
+
+       key            ID         name                                 price
+       3door:0000     89693980   IDC 3-door                           £100  rename (was 3door full, £110)
+       3door:0010     87550760   IDC 3-door + sand                    £140  rename (was 3door full+ozone, £150)
+       3door:0100     87550850   IDC 3-door + pet                     £150  rename (was 3door full+pet, £160)
+       3door:0110     87550880   IDC 3-door + pet + sand              £190  rename (was 3door full+pet+ozone, £200)
+       3door:1000     87550943   IDC 3-door + roof                    £125  rename (was 3door full+roof, £135)
+       3door:1010     87551045   IDC 3-door + roof + sand             £165  rename (was 3door full+roof+ozone, £175)
+       3door:1100     87551076   IDC 3-door + roof + pet              £175  rename (was 3door full+roof+pet, £185)
+       3door:1110     87551110   IDC 3-door + roof + pet + sand       £215  rename (was 3door full+roof+pet+ozone, £225)
+       3door:0001     __________ IDC 3-door + leather                 £250  NEW
+       3door:0011     __________ IDC 3-door + sand + leather          £290  NEW
+       3door:0101     __________ IDC 3-door + pet + leather           £300  NEW
+       3door:0111     __________ IDC 3-door + pet + sand + leather    £340  NEW
+       3door:1001     __________ IDC 3-door + roof + leather          £275  NEW
+       3door:1011     __________ IDC 3-door + roof + sand + leather   £315  NEW
+       3door:1101     __________ IDC 3-door + roof + pet + leather    £325  NEW
+       3door:1111     __________ IDC 3-door + roof + pet + sand + leather £365  NEW
+       5door:0000     87626373   IDC 5-door                           £120  rename (was 5door full)
+       5door:0010     87626412   IDC 5-door + sand                    £160  rename (was 5door full+ozone)
+       5door:0100     87626489   IDC 5-door + pet                     £170  rename (was 5door full+pet)
+       5door:0110     87626550   IDC 5-door + pet + sand              £210  rename (was 5door full+pet+ozone)
+       5door:1000     87626673   IDC 5-door + roof                    £145  rename (was 5door full+roof)
+       5door:1010     87626756   IDC 5-door + roof + sand             £185  rename (was 5door full+roof+ozone)
+       5door:1100     87626824   IDC 5-door + roof + pet              £195  rename (was 5door full+roof+pet)
+       5door:1110     87626866   IDC 5-door + roof + pet + sand       £235  rename (was 5door full+roof+pet+ozone)
+       5door:0001     __________ IDC 5-door + leather                 £270  NEW
+       5door:0011     __________ IDC 5-door + sand + leather          £310  NEW
+       5door:0101     __________ IDC 5-door + pet + leather           £320  NEW
+       5door:0111     __________ IDC 5-door + pet + sand + leather    £360  NEW
+       5door:1001     __________ IDC 5-door + roof + leather          £295  NEW
+       5door:1011     __________ IDC 5-door + roof + sand + leather   £335  NEW
+       5door:1101     __________ IDC 5-door + roof + pet + leather    £345  NEW
+       5door:1111     __________ IDC 5-door + roof + pet + sand + leather £385  NEW
+       7seats:0000    __________ IDC 7-seater                         £140  NEW
+       7seats:0010    __________ IDC 7-seater + sand                  £180  NEW
+       7seats:0100    __________ IDC 7-seater + pet                   £190  NEW
+       7seats:0110    __________ IDC 7-seater + pet + sand            £230  NEW
+       7seats:1000    __________ IDC 7-seater + roof                  £165  NEW
+       7seats:1010    __________ IDC 7-seater + roof + sand           £205  NEW
+       7seats:1100    __________ IDC 7-seater + roof + pet            £215  NEW
+       7seats:1110    __________ IDC 7-seater + roof + pet + sand     £255  NEW
+       7seats:0001    __________ IDC 7-seater + leather               £340  NEW
+       7seats:0011    __________ IDC 7-seater + sand + leather        £380  NEW
+       7seats:0101    __________ IDC 7-seater + pet + leather         £390  NEW
+       7seats:0111    __________ IDC 7-seater + pet + sand + leather  £430  NEW
+       7seats:1001    __________ IDC 7-seater + roof + leather        £365  NEW
+       7seats:1011    __________ IDC 7-seater + roof + sand + leather £405  NEW
+       7seats:1101    __________ IDC 7-seater + roof + pet + leather  £415  NEW
+       7seats:1111    __________ IDC 7-seater + roof + pet + sand + leather £455  NEW
+
+     HIDE every other In &amp; Out Deep Clean type (base, seats-only, and all
+     remaining ozone ones) — don't delete them.
+     ========================================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root{
+    --bg:#0b0b0b;
+    --card:#121212;
+    --muted:#1b1b1b;
+    --text:#fff;
+    --accent:#E3FC02;
+    --accent-ink:#0b0b0b;
+    --ocean:#00B8FF;
+    --radius:16px;
+    --border:rgba(255,255,255,.12);
+  }
+  *{ box-sizing:border-box; }
+
+  .pf{
+    max-width:900px;
+    margin:0 auto;
+    padding:24px;
+    color:var(--text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+
+  /* Header */
+  .topbar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .topbar h1{ margin:0; font-size:clamp(20px,3vw,26px); font-weight:950; letter-spacing:.2px; color:var(--accent); }
+  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
+  .lead{ margin:6px 0 14px; color:#d0d0d0; font-size:14px; }
+
+  .totalbox{
+    min-width:210px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(0,0,0,.22);
+    border-radius:14px;
+    padding:12px;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .totalbox .lbl{ font-size:12px; color:#cfcfcf; }
+  .totalbox .val{ font-size:26px; font-weight:950; color:var(--accent); margin-top:2px; }
+  .totalbox .note{ font-size:12px; color:#bdbdbd; margin-top:4px; line-height:1.35; }
+  .pf.is-done .topbar .totalbox{ display:none; }
+
+  /* Intro sections collapse once the questions start */
+  .pkg-badge,
+  .pkg-includes,
+  .info-bar{
+    transition:max-height .35s ease, opacity .35s ease, margin .35s ease, padding .35s ease;
+    max-height:600px;
+    opacity:1;
+    overflow:hidden;
+  }
+  .pf.is-questioning .pkg-badge,
+  .pf.is-questioning .pkg-includes,
+  .pf.is-questioning .info-bar{
+    max-height:0;
+    opacity:0;
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:0;
+    padding-bottom:0;
+  }
+
+  @media(max-width:720px){
+    .topbar{ flex-direction:column; }
+    .totalbox{ width:100%; text-align:left; min-width:0; }
+  }
+
+  /* Package badge */
+  .pkg-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid rgba(227,252,2,.35);
+    background:rgba(227,252,2,.07);
+    font-size:13px;
+    font-weight:900;
+    color:var(--accent);
+  }
+  .pkg-badge .pkg-sub{ color:rgba(255,255,255,.6); font-weight:700; }
+  @media(max-width:640px){
+    /* stack instead of squeezing two columns into a pill */
+    .pkg-badge{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      border-radius:12px;
+      padding:9px 13px;
+    }
+    .pkg-badge .pkg-sub{ font-size:12px; }
+    .pkg-badge .pkg-dash{ display:none; }
+  }
+
+  /* What's in the package */
+  .coat-pills{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px;
+  }
+  .coat-pill{
+    appearance:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    padding:11px 6px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    font-family:inherit;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .coat-pill:hover,
+  .coat-pill:focus-visible{ border-color:var(--accent); transform:translateY(-1px); outline:none; }
+  .coat-pill .cp-yr{ font-size:14.5px; font-weight:950; letter-spacing:-.01em; }
+  .coat-pill .cp-pr{ font-size:12.5px; font-weight:900; color:var(--accent); }
+  .coat-pill[aria-checked="true"]{
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .coat-pill[aria-checked="true"] .cp-yr,
+  .coat-pill[aria-checked="true"] .cp-pr{ color:#0b0b0b; }
+  .coat-card{ cursor:default; }
+  .coat-card:hover{ transform:none; }
+
+  .rq{
+    margin-top:14px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(0,184,255,.35);
+    background:rgba(0,184,255,.05);
+  }
+  .rq[hidden]{ display:none; }
+  .rq-head{ margin:0 0 4px; font-size:14px; font-weight:950; color:#fff; }
+  .rq-copy{ margin:0 0 12px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.66); }
+  .rq-fields{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .rq-field{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .rq-field.full{ grid-column:1 / -1; }
+  .rq-field label{ font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+  .rq-field input,
+  .rq-field textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    font-family:inherit;
+    font-size:16px;              /* 16px stops iPhones zooming in */
+    line-height:1.4;
+    color-scheme:dark;
+  }
+  .rq-field textarea{ min-height:170px; resize:vertical; font-size:14px; }
+  .rq-field input:focus,
+  .rq-field textarea:focus{ outline:none; border-color:var(--ocean); }
+  .rq-err{ margin:4px 0 0; font-size:12.5px; font-weight:900; color:#FF6B5A; }
+  .rq-err[hidden]{ display:none; }
+  .rq-send{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .pf .btn-quiet-blue{
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+  }
+  .pf .btn-quiet-blue:hover{ background:rgba(0,184,255,.12); border-color:var(--ocean); box-shadow:none; }
+  @media(max-width:480px){
+    .rq-fields{ grid-template-columns:1fr; }
+    .rq-send{ grid-template-columns:1fr; }
+  }
+
+  /* Cleaning power */
+  .power-compact{
+    margin-top:14px; padding:12px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.03);
+  }
+  .power-compact:empty{ display:none; }
+  .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+  .pc-title{ font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .pc-badge{ font-size:11px; font-weight:900; border:1px solid rgba(227,252,2,.28); background:rgba(227,252,2,.06); color:rgba(227,252,2,.92); padding:4px 10px; border-radius:999px; white-space:nowrap; }
+  .pc-rows{ display:flex; flex-direction:column; gap:8px; }
+  .pc-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:8px; border-top:1px solid rgba(255,255,255,.06); }
+  .pc-row:first-child{ border-top:none; padding-top:0; }
+  .pc-left{ font-weight:900; font-size:13px; color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; }
+  .pc-stars{ display:inline-flex; align-items:center; gap:3px; font-size:19px; line-height:1; white-space:nowrap; }
+  .pc-stars .on{ color:var(--accent); }
+  .pc-stars .off{ color:rgba(255,255,255,.16); }
+  .pc-stars .blue{ color:var(--ocean); }
+
+  /* Nav */
+  /* ── booking panel ─────────────────────────────────────────────────
+     Grafted onto the existing questionnaire. Uses the same tokens as
+     everything else so it reads as one page, not a bolted-on form. */
+  .bk{ margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.14); }
+  .bk[hidden]{ display:none; }
+  .bk-sec{ margin-bottom:16px; }
+  .bk-h{
+    margin:0 0 9px; font-size:11px; font-weight:950; letter-spacing:.13em;
+    text-transform:uppercase; color:rgba(255,255,255,.5);
+  }
+  .bk-load{ margin:0 0 10px; font-size:13px; color:rgba(255,255,255,.45); }
+  .bk-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .bk-chip{
+    cursor:pointer; font:inherit; font-size:13.5px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:11px; padding:10px 13px; min-height:44px;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .bk-chip:hover{ border-color:rgba(227,252,2,.55); transform:translateY(-1px); }
+  .bk-chip[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-chip .d{ display:block; font-size:11px; font-weight:700; color:rgba(255,255,255,.45); }
+  .bk-more{
+    margin-top:10px; background:none; border:0; cursor:pointer; padding:6px 0;
+    font:inherit; font-size:13.5px; font-weight:800; color:var(--ocean); text-decoration:underline;
+  }
+  .bk-yn{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 9px; }
+  .bk-yn .q{ flex:1 1 220px; font-size:13px; color:rgba(255,255,255,.66); line-height:1.5; }
+  .bk-yn .pair{ display:flex; gap:6px; }
+  .bk-yn button{
+    cursor:pointer; font:inherit; font-size:13px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:999px; padding:8px 15px; min-height:40px;
+  }
+  .bk-yn button[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-err{ margin:0 0 10px; font-size:13.5px; font-weight:700; color:#ff7676; }
+  .bk-err[hidden]{ display:none; }
+  .bk-fine{ margin:9px 0 0; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.45); }
+
+  /* ── takeover: while the calendar is up, the questions get out of the way ── */
+  .pf.is-booking .wizard .step:not([data-step="5"]),
+  .pf.is-booking .prog,
+  .pf.is-booking .nav,
+  .pf.is-booking .btn-learn,
+  .pf.is-booking .power-compact,
+  .pf.is-booking #edcBreakdown,
+  .pf.is-booking .pay-box,
+  .pf.is-booking #edcBookNote,
+  .pf.is-booking #edcUpsell,
+  .pf.is-booking .upsell,
+  .pf.is-booking .totalbox .note,
+  .pf.is-booking #edcCodeReopen{ display:none !important; }
+
+  /* the page has a photo behind it, so the booking panel has to be solid
+     enough to read against anything */
+  .pf.is-booking{
+    background:#0d0d0d;
+    border-color:rgba(255,255,255,.14);
+  }
+  .pf.is-booking .bk-cal,
+  .pf.is-booking .bk-wheel{
+    background:#141414;
+    border-color:rgba(255,255,255,.2);
+  }
+  .pf.is-booking .bk-cell{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); }
+  .pf.is-booking .bk-cell:disabled{ background:transparent; border-color:transparent; }
+  .pf.is-booking .rq-field input{ background:#0b0b0b; }
+  .pf.is-booking .bk-yn button{ background:#181818; }
+  .pf.is-booking .bk-yn button[aria-pressed="true"],
+  .bk-yn button[aria-pressed="true"]{
+    background:var(--accent) !important;
+    border-color:var(--accent) !important;
+    color:#0b0b0b !important;
+    font-weight:950;
+    box-shadow:0 0 14px rgba(227,252,2,.3);
+  }
+  .pf.is-booking #edcFinalBox{ background:#141414; border-color:rgba(255,255,255,.18); }
+  .pf.is-booking .wizard{ background:transparent; border:0; }
+  .pf.is-booking .viewport{ height:auto !important; overflow:visible; }
+  /* the steps live in a sliding track. With the other four hidden, the
+     track was still shifted 400% to the left, so the one remaining pane
+     sat off screen — hence the blank page. */
+  .pf.is-booking .track{ transform:none !important; display:block; width:100%; }
+  .pf.is-booking .step[data-step="5"]{ flex:1 1 auto; min-width:0; width:100%; }
+  .pf.is-booking .step{ padding:0; }
+  .pf.is-booking .summary{ background:none; border:0; padding:0; margin-top:0; }
+  .pf.is-booking #edcFinalBox{ margin-bottom:16px; }
+  .bk-back{
+    appearance:none; background:none; border:0; cursor:pointer; padding:6px 0; margin:0 0 10px;
+    font:inherit; font-size:13.5px; font-weight:800; color:rgba(255,255,255,.75);
+  }
+  .bk-back:hover{ color:#fff; }
+  .bk-back[hidden]{ display:none; }
+
+  /* ── month calendar ─────────────────────────────────────────────────── */
+  .bk-cal{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:14px 12px;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-calhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
+  .bk-month{ font-size:15.5px; font-weight:950; color:#fff; letter-spacing:-.01em; }
+  .bk-navmonth{
+    appearance:none; cursor:pointer; width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04);
+    color:#fff; font-size:20px; line-height:1; font-family:inherit;
+  }
+  .bk-navmonth:hover:not(:disabled){ border-color:var(--accent); }
+  .bk-navmonth:disabled{ opacity:.25; cursor:default; }
+  .bk-dow{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px;
+    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    color:rgba(255,255,255,.62); text-align:center;
+  }
+  .bk-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .bk-cell{
+    appearance:none; font:inherit; cursor:pointer; padding:0;
+    aspect-ratio:1/1; min-height:40px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);
+    color:#fff; font-size:14px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .bk-cell:hover:not(:disabled){ border-color:rgba(227,252,2,.6); }
+  .bk-cell:disabled{ color:rgba(255,255,255,.22); background:transparent; border-color:transparent; cursor:default; }
+  .bk-cell.is-empty{ border:0; background:none; cursor:default; }
+  .bk-cell[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:#0b0b0b; }
+
+  /* ── hour / minute wheels ───────────────────────────────────────────── */
+  .bk-wheels{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .bk-wheel{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-wheel-lbl{
+    display:block; padding:9px 12px 7px; font-size:11px; font-weight:900;
+    letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.62);
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .bk-wheel-scroll{
+    max-height:184px; overflow-y:auto; scroll-snap-type:y proximity;
+    -webkit-overflow-scrolling:touch; padding:4px;
+  }
+  .bk-wheel-scroll::-webkit-scrollbar{ width:6px; }
+  .bk-wheel-scroll::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:99px; }
+  .bk-tick{
+    display:block; width:100%; appearance:none; cursor:pointer; scroll-snap-align:center;
+    padding:11px 8px; border:0; border-radius:9px; background:none;
+    font:inherit; font-size:16px; font-weight:800; color:#fff; text-align:center;
+  }
+  .bk-tick:hover{ background:rgba(255,255,255,.06); }
+  .bk-tick[aria-pressed="true"]{ background:var(--accent); color:#0b0b0b; font-weight:950; }
+  .bk-chosen{
+    margin:12px 0 0; font-size:14px; font-weight:900; color:var(--accent); text-align:center;
+  }
+  .bk-chosen[hidden]{ display:none; }
+
+  /* ── contrast: this panel reads white, not grey ─────────────────────── */
+  .bk-h{ color:rgba(255,255,255,.72); }
+  .bk-load{ color:rgba(255,255,255,.62); }
+  .bk-yn .q{ color:rgba(255,255,255,.88); }
+  .bk .rq-field label{ color:rgba(255,255,255,.72); }
+  .bk .rq-field input{ color:#fff; }
+  .bk-fine{ color:rgba(255,255,255,.66); }
+
+  @media(max-width:480px){
+    .bk-cal{ padding:12px 8px; }
+    .bk-cell{ min-height:38px; font-size:13.5px; border-radius:9px; }
+    .bk-dow{ font-size:10px; }
+    .bk-wheel-scroll{ max-height:168px; }
+  }
+
+
+  .pkg-includes{
+    margin:0 0 16px;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(0,0,0,.28);
+  }
+  .pkg-includes-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:950;
+    color:rgba(255,255,255,.55);
+    margin-bottom:10px;
+  }
+  .pkg-items{ display:grid; gap:8px; grid-template-columns:1fr; }
+  @media(min-width:600px){ .pkg-items{ grid-template-columns:1fr 1fr; } }
+
+  .pkg-item{ display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.4; }
+  .pkg-item-icon{
+    width:28px; height:28px; border-radius:8px;
+    border:1px solid rgba(227,252,2,.25);
+    background:rgba(227,252,2,.07);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0;
+  }
+  .pkg-item-text strong{ display:block; font-size:13px; font-weight:900; color:#fff; }
+  .pkg-item-text span{ color:rgba(255,255,255,.55); font-size:12px; }
+
+  /* Info bar */
+  .info-bar{
+    margin:0 0 16px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.28);
+    font-size:13px;
+    line-height:1.45;
+    color:#d0d0d0;
+  }
+  .info-bar strong{ color:#fff; font-weight:900; }
+  .info-bar a{ color:var(--accent); font-weight:900; text-decoration:none; white-space:nowrap; }
+  .info-bar a:hover{ text-decoration:underline; }
+
+  /* Progress bar */
+  .prog{ margin:0 0 14px; }
+  .prog-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:7px; }
+  .prog-step{ font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+  .prog-label{
+    font-size:12px; font-weight:800; color:var(--accent);
+    text-align:right; overflow:hidden; text-overflow:ellipsis;
+    white-space:nowrap; max-width:62%;
+  }
+  .prog-track{ display:flex; gap:5px; }
+  .prog-seg{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.12); transition:background .35s ease, box-shadow .35s ease; }
+  .prog-seg.done{ background:rgba(227,252,2,.45); }
+  .prog-seg.now{ background:var(--accent); box-shadow:0 0 10px rgba(227,252,2,.45); }
+  @media(max-width:420px){
+    .prog-label{ font-size:11.5px; max-width:56%; }
+    .prog-seg{ height:5px; }
+  }
+
+  .pf.is-first .nav{ display:none; }
+
+  .wizard{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .viewport{ overflow:hidden; border-radius:14px; width:100%; }
+  .viewport.is-ready{ transition:height .35s ease; }
+  .track{
+    display:flex;
+    width:100%;
+    align-items:flex-start;
+    transition:transform .45s ease;
+  }
+  .step{ flex:0 0 100%; padding:18px; min-width:100%; overflow:hidden; overflow:clip; }
+  .step h3{
+    font-size:clamp(18px,2.4vw,22px);
+    line-height:1.25;
+    margin:0 0 12px;
+    font-weight:950;
+    letter-spacing:-.01em;
+    color:var(--accent);
+  }
+
+  /* Options */
+  .opts{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:12px;
+    padding:14px;
+    background:var(--muted);
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    position:relative;
+    width:100%;
+  }
+  .opt:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .opt[aria-selected="true"]{ border-color:rgba(227,252,2,.9); background:rgba(227,252,2,.08); }
+
+  .opt .row{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:10px; font-weight:950; flex-wrap:wrap;
+  }
+  .opt .row span:first-child{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+
+  .price-pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.5);
+    background:rgba(227,252,2,.12);
+    padding:4px 10px; border-radius:999px;
+    white-space:nowrap; flex:0 0 auto;
+  }
+
+  /* Add-on cards */
+  .opt-premium{
+    position:relative;
+    padding:16px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+    box-shadow:0 14px 40px rgba(0,0,0,.55);
+  }
+  .opt[aria-selected="true"].opt-premium{
+    border-color:rgba(227,252,2,.28);
+    background:linear-gradient(180deg,rgba(227,252,2,.085),rgba(255,255,255,.02));
+  }
+  .prem-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .prem-head > div:first-child{ flex:1 1 auto; min-width:0; }
+  .prem-kicker{ font-size:12px; color:rgba(255,255,255,.72); letter-spacing:.02em; margin-bottom:2px; padding-right:86px; }
+  .prem-name{ font-size:16px; font-weight:950; letter-spacing:-.01em; overflow-wrap:anywhere; padding-right:86px; }
+  .prem-price{
+    position:absolute; top:14px; right:14px; z-index:2;
+    font-size:13px; font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.32);
+    background:rgba(227,252,2,.08);
+    padding:6px 10px; border-radius:999px;
+    white-space:nowrap; line-height:1; margin:0;
+  }
+  .prem-desc{ margin-top:10px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.72); overflow-wrap:anywhere; }
+  .prem-incl{
+    display:inline-flex; align-items:center; gap:6px;
+    max-width:100%;
+    margin-top:8px; font-size:12px; font-weight:900; line-height:1.35;
+    padding:4px 10px; border-radius:999px; white-space:normal;
+    color:rgba(227,252,2,.92);
+    border:1px solid rgba(227,252,2,.28);
+    background:rgba(227,252,2,.06);
+  }
+  .prem-incl.is-quote{
+    color:var(--ocean);
+    border-color:rgba(0,184,255,.35);
+    background:rgba(0,184,255,.07);
+  }
+
+  .step-note{
+    margin:-4px 0 12px;
+    font-size:12.5px;
+    color:rgba(255,255,255,.58);
+    line-height:1.5;
+  }
+  .step-note strong{ color:#fff; }
+
+  /* "No leather in my car" — quiet, under the two cards */
+  .pf .skip-link{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    padding:12px 14px;
+    border:1px dashed rgba(255,255,255,.22);
+    border-radius:12px;
+    background:transparent;
+    color:rgba(255,255,255,.72);
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:800;
+    cursor:pointer;
+    text-align:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .pf .skip-link:hover,
+  .pf .skip-link:focus-visible{ border-color:rgba(255,255,255,.5); color:#fff; outline:none; }
+  .pf .skip-link[aria-pressed="true"]{ border-style:solid; border-color:rgba(227,252,2,.6); color:#fff; }
+
+  /* Ceramic coating: three pills inside one card */
+  .coat-pills{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px;
+  }
+  .coat-pill{
+    appearance:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    padding:11px 6px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    font-family:inherit;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .coat-pill:hover,
+  .coat-pill:focus-visible{ border-color:var(--accent); transform:translateY(-1px); outline:none; }
+  .coat-pill .cp-yr{ font-size:14.5px; font-weight:950; letter-spacing:-.01em; }
+  .coat-pill .cp-pr{ font-size:12.5px; font-weight:900; color:var(--accent); }
+  .coat-pill[aria-checked="true"]{
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .coat-pill[aria-checked="true"] .cp-yr,
+  .coat-pill[aria-checked="true"] .cp-pr{ color:#0b0b0b; }
+  .coat-card{ cursor:default; }
+  .coat-card:hover{ transform:none; }
+
+  /* Breakdown */
+  .bd{ margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12); }
+  .bd-sec{ margin-top:16px; }
+  .bd-sec:first-child{ margin-top:0; }
+  .bd-title{
+    display:flex; align-items:center; gap:7px;
+    font-size:11px; text-transform:uppercase; letter-spacing:.12em;
+    font-weight:900; margin-bottom:6px;
+  }
+  .pkg-dot{ display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--accent); margin-right:7px; vertical-align:1px; }
+  .bd-title .bd-star{ font-size:14px; line-height:1; }
+  .bd-inc .bd-title{ color:var(--accent); }
+  .bd-add .bd-title{ color:var(--ocean); }
+
+  .bd-row{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; padding:7px 0;
+    border-top:1px solid rgba(255,255,255,.06);
+    font-size:13px; font-weight:900;
+  }
+  .bd-row:first-of-type{ border-top:none; }
+  .bd-row .bd-nm{ color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+  .bd-row .bd-amt{ flex:0 0 auto; white-space:nowrap; }
+  .bd-inc .bd-amt{ color:var(--accent); }
+  .bd-add .bd-amt{ color:var(--ocean); }
+  .bd-sub{ font-size:12px; font-weight:400; color:rgba(255,255,255,.55); margin-top:2px; line-height:1.4; }
+  .bd-was{ color:rgba(255,255,255,.38); text-decoration:line-through; font-weight:900; margin-right:7px; font-size:.85em; }
+  .bd-row.bd-disc .bd-amt{ color:var(--ocean); }
+  .bd-row.bd-removable{ align-items:center; }
+  .bd-amt-wrap{ display:flex; align-items:center; gap:9px; flex:0 0 auto; }
+  .bd-remove{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.2);
+    background:transparent;
+    color:rgba(255,255,255,.5);
+    width:22px; height:22px; border-radius:50%;
+    font-size:14px; line-height:1; font-family:inherit;
+    cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:0; flex:0 0 22px;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .bd-remove:hover,
+  .bd-remove:focus-visible{ border-color:#FF6B5A; color:#FF6B5A; background:rgba(255,107,90,.1); outline:none; }
+  @media(max-width:420px){
+    .bd-remove{ width:26px; height:26px; flex-basis:26px; font-size:15px; }
+  }
+  .bd-none{ font-size:13px; color:#bdbdbd; padding:6px 0; }
+  .bd-total{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; margin-top:14px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.16);
+  }
+  .bd-total .bd-nm{ font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .bd-total .bd-amt{ font-size:22px; font-weight:950; color:var(--accent); }
+
+  /* Payment box */
+  .pay-box{
+    margin-top:14px; padding:14px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.03);
+  }
+  .pay-head{ display:flex; align-items:center; gap:9px; font-size:14px; font-weight:950; color:#fff; letter-spacing:-.01em; line-height:1.3; }
+  .pay-head svg{ width:18px; height:18px; flex:0 0 18px; stroke:var(--accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .pay-head em{ font-style:normal; color:var(--accent); }
+  .pay-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; flex-wrap:wrap;
+    margin-top:12px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.1);
+  }
+  .pay-item{ display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:800; color:var(--ocean); white-space:nowrap; }
+  .pay-item svg{ width:16px; height:16px; flex:0 0 16px; stroke:var(--ocean); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+  @media(max-width:420px){
+    .pay-box{ padding:13px 12px; }
+    .pay-head{ font-size:13.5px; gap:8px; }
+    .pay-row{ gap:8px; }
+    .pay-item{ font-size:11.5px; gap:6px; }
+    .pay-item svg{ width:15px; height:15px; flex-basis:15px; }
+  }
+  @media(max-width:340px){
+    .pay-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  }
+
+  .summary{
+    margin-top:14px;
+    background:rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:14px;
+  }
+
+  /* ── Request panel (coating bookings) ─────────────────────────── */
+  .rq{
+    margin-top:14px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(0,184,255,.35);
+    background:rgba(0,184,255,.05);
+  }
+  .rq[hidden]{ display:none; }
+  .rq-head{ margin:0 0 4px; font-size:14px; font-weight:950; color:#fff; }
+  .rq-copy{ margin:0 0 12px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.66); }
+  .rq-fields{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .rq-field{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .rq-field.full{ grid-column:1 / -1; }
+  .rq-field label{ font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+  .rq-field input,
+  .rq-field textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    font-family:inherit;
+    font-size:16px;              /* 16px stops iPhones zooming in */
+    line-height:1.4;
+    color-scheme:dark;
+  }
+  .rq-field textarea{ min-height:170px; resize:vertical; font-size:14px; }
+  .rq-field input:focus,
+  .rq-field textarea:focus{ outline:none; border-color:var(--ocean); }
+  .rq-err{ margin:4px 0 0; font-size:12.5px; font-weight:900; color:#FF6B5A; }
+  .rq-err[hidden]{ display:none; }
+  .rq-send{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .pf .btn-quiet-blue{
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+  }
+  .pf .btn-quiet-blue:hover{ background:rgba(0,184,255,.12); border-color:var(--ocean); box-shadow:none; }
+  @media(max-width:480px){
+    .rq-fields{ grid-template-columns:1fr; }
+    .rq-send{ grid-template-columns:1fr; }
+  }
+
+  /* Cleaning power */
+  .power-compact{
+    margin-top:14px; padding:12px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.03);
+  }
+  .power-compact:empty{ display:none; }
+  .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+  .pc-title{ font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .pc-badge{ font-size:11px; font-weight:900; border:1px solid rgba(227,252,2,.28); background:rgba(227,252,2,.06); color:rgba(227,252,2,.92); padding:4px 10px; border-radius:999px; white-space:nowrap; }
+  .pc-rows{ display:flex; flex-direction:column; gap:8px; }
+  .pc-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:8px; border-top:1px solid rgba(255,255,255,.06); }
+  .pc-row:first-child{ border-top:none; padding-top:0; }
+  .pc-left{ font-weight:900; font-size:13px; color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; }
+  .pc-stars{ display:inline-flex; align-items:center; gap:3px; font-size:19px; line-height:1; white-space:nowrap; }
+  .pc-stars .on{ color:var(--accent); }
+  .pc-stars .off{ color:rgba(255,255,255,.16); }
+  .pc-stars .blue{ color:var(--ocean); }
+
+  /* Nav */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; padding:12px 14px;
+    border-top:1px solid rgba(255,255,255,.08);
+    background:rgba(0,0,0,.18);
+    border-radius:0 0 14px 14px;
+  }
+  .btn{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent;
+    color:#fff;
+    border-radius:999px;
+    padding:10px 14px;
+    font-family:inherit;
+    font-weight:900;
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 8px 18px rgba(227,252,2,.10); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-primary-glow{
+    border:none;
+    background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+    color:var(--accent-ink);
+    box-shadow:0 8px 20px rgba(227,252,2,.25);
+    padding:12px 16px;
+  }
+  .btn-primary-glow:hover{ box-shadow:0 12px 28px rgba(227,252,2,.35),0 0 20px rgba(227,252,2,.2); filter:saturate(1.05); }
+  .book-note{
+    margin:8px 0 0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:rgba(255,255,255,.62);
+    text-align:center;
+  }
+  .book-note[hidden]{ display:none; }
+
+  .pf .btn-learn{
+    display:block;
+    width:100%;
+    margin-top:12px;
+    padding:13px 16px;
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+    font-weight:900;
+    font-size:14.5px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .pf .btn-learn:hover,
+  .pf .btn-learn:focus-visible{
+    background:rgba(0,184,255,.12);
+    box-shadow:0 6px 18px rgba(0,184,255,.16);
+    transform:translateY(-1px);
+    outline:none;
+  }
+
+  @media(max-width:420px){
+    .pf{ padding:16px; }
+    .step{ padding:14px; }
+    .pc-stars{ font-size:18px; }
+    .pf .btn-learn{ font-size:14px; padding:12px 14px; min-height:46px; }
+  }
+
+  /* Mobile refinements */
+  @media(max-width:640px){
+    .pf{ padding:16px 14px; border-radius:12px; }
+    .step{ padding:14px 12px; }
+    .topbar{ gap:10px; margin-bottom:6px; }
+    .topbar h1{ font-size:19px; line-height:1.2; }
+    .topbar h3{ font-size:13px; margin-top:3px; }
+    .lead{ font-size:12px; margin:3px 0 10px; }
+
+    .totalbox{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:baseline;
+      column-gap:12px;
+      row-gap:3px;
+      padding:11px 13px;
+      text-align:left;
+    }
+    .totalbox .lbl{ font-size:11.5px; white-space:nowrap; letter-spacing:.02em; }
+    .totalbox .val{ font-size:23px; margin-top:0; text-align:right; white-space:nowrap; line-height:1.1; }
+    .totalbox .note{ grid-column:1 / -1; margin-top:1px; font-size:11.5px; line-height:1.35; color:#b8b8b8; }
+
+    .info-bar{ font-size:12px; padding:9px 12px; margin-bottom:12px; }
+
+    .opt{ padding:13px 12px; }
+    .opt-premium{ padding:13px 12px; box-shadow:0 8px 20px rgba(0,0,0,.4); }
+    .step h3{ font-size:17px; line-height:1.28; }
+    .step-note{ font-size:12px; }
+    .prem-kicker{ font-size:11px; }
+    .prem-name{ font-size:14px; }
+    .prem-desc{ font-size:12px; line-height:1.45; margin-top:8px; }
+    .prem-incl{ font-size:11px; }
+    .prem-price{ font-size:11.5px; }
+    .opt .row{ font-size:14px; }
+    .pc-title, .pc-badge{ font-size:10.5px; }
+    .prem-head{ gap:8px; }
+    .prem-price{ top:12px; right:12px; font-size:12px; padding:5px 9px; }
+    .prem-name, .prem-kicker{ padding-right:76px; }
+
+    .pc-left{ font-size:12.5px; }
+    .pc-stars{ font-size:17px; gap:2px; }
+    .power-compact{ padding:10px; }
+
+    .nav{ padding:10px 12px; gap:8px; }
+    .btn{ padding:12px 14px; font-size:14px; min-height:46px; }
+    .btn-primary-glow{ padding:13px 16px; }
+
+    .summary{ padding:12px; }
+    .bd-row{ font-size:12.5px; }
+    .bd-total .bd-amt{ font-size:20px; }
+
+    .coat-pill .cp-yr{ font-size:13.5px; }
+    .coat-pill .cp-pr{ font-size:12px; }
+  }
+
+  @media(max-width:380px){
+    .topbar h1{ font-size:18px; }
+    .totalbox{ grid-template-columns:1fr; row-gap:1px; }
+    .totalbox .val{ text-align:left; grid-column:1; font-size:25px; }
+    .totalbox .lbl{ font-size:11px; }
+    .pc-stars{ font-size:16px; }
+    .btn{ padding:11px 12px; font-size:13.5px; }
+    .coat-pills{ gap:6px; }
+  }
+
+  /* ---- Other vehicle types (by quote) ---- */
+  .q1-actions{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+  .q1-actions .btn{ flex:1 1 100%; min-width:0; }
+  .more-panel{
+    margin-top:14px; padding:14px; border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(0,0,0,.22);
+  }
+  .more-panel[hidden]{ display:none; }
+  .more-title{
+    font-size:11px; text-transform:uppercase; letter-spacing:.14em;
+    font-weight:950; color:rgba(255,255,255,.72); margin:2px 0 10px;
+  }
+  .more-note{ margin-top:10px; color:#cfcfcf; font-size:13px; line-height:1.45; }
+  .more-cta{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
+  .more-cta .btn{ flex:1 1 100%; min-width:0; }
+
+  .prem-incl[hidden]{ display:none; }
+  .prem-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .prem-tags .prem-incl{ margin-top:0; }
+
+  /* ── Rating dots (replaces the stars) ────────────────────────────
+     Same system as the All Services page: yellow = included,
+     blue = added by a choice, grey = the rest of the scale.        */
+  .pc-stars{ display:inline-flex !important; align-items:center; gap:5px !important; font-size:0 !important; line-height:1; }
+  .pc-stars span{
+    display:inline-block; width:10px; height:10px; border-radius:50%;
+    background:rgba(255,255,255,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .pc-stars span.on{ background:var(--accent); box-shadow:0 0 7px rgba(227,252,2,.45); }
+  .pc-stars span.blue{ background:var(--ocean); box-shadow:0 0 7px rgba(0,184,255,.4); }
+  .bd-title .bd-star{
+    display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:currentColor; font-size:0;
+  }
+</style>
+
+<!-- Set as early as possible: browsers restore the old scroll position
+     during load, and on mobile doing this later is too late. -->
+<script>
+  (function(){
+    try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+  })();
+</script>
+
+<!-- ===== GOOGLE REVIEWS BADGE ======================================== -->
+<style>
+  .mps-reviews{ max-width:900px; margin:0 auto 18px; display:flex; justify-content:center; }
+  .mps-rv-badge{
+    display:inline-flex; align-items:center; gap:11px;
+    padding:10px 16px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.04);
+    text-decoration:none;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .mps-rv-badge:hover{ border-color:rgba(227,252,2,.4); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+  .mps-rv-g{ width:20px; height:20px; flex:0 0 20px; }
+  .mps-rv-score{ font-size:17px; font-weight:950; color:#fff; line-height:1; letter-spacing:-.01em; }
+  .mps-rv-stars{ display:inline-flex; gap:1px; font-size:15px; line-height:1; color:#FBBC05; letter-spacing:1px; }
+  .mps-rv-count{ font-size:13px; font-weight:700; color:#fff; line-height:1; white-space:nowrap; }
+  .mps-rv-tick{ width:15px; height:15px; flex:0 0 15px; color:var(--ocean); }
+  @media(max-width:480px){
+    .mps-rv-badge{ gap:9px; padding:9px 13px; }
+    .mps-rv-score{ font-size:16px; }
+    .mps-rv-stars{ font-size:14px; }
+    .mps-rv-count{ font-size:12px; }
+  }
+  @media(max-width:360px){
+    .mps-rv-badge{ gap:8px; padding:8px 11px; }
+    .mps-rv-count{ font-size:11.5px; }
+  }
+  @media(max-width:640px){ .mps-reviews{ margin-bottom:12px; } }
+</style>
+
+<div class="mps-reviews">
+  <a class="mps-rv-badge" id="mpsRvBadge"
+     href="https://maps.google.com/maps?cid=15620201708594115788"
+     target="_blank" rel="noopener"
+     aria-label="Rated 5.0 out of 5 from 81 Google reviews. Opens Google in a new tab.">
+    <svg class="mps-rv-g" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2 5-4.4 6.6v5.5h7.1c4.1-3.8 6.6-9.4 6.6-16.1z"/>
+      <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.4l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.4 46 24 46z"/>
+      <path fill="#FBBC05" d="M11.8 28.2c-.4-1.3-.7-2.7-.7-4.2s.2-2.9.7-4.2v-5.7H4.5C3 17 2 20.4 2 24s1 7 2.5 9.9l7.3-5.7z"/>
+      <path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.3 29.9 2 24 2 15.4 2 8.1 6.9 4.5 14.1l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/>
+    </svg>
+    <span class="mps-rv-score" id="mpsRvScore">5.0</span>
+    <span class="mps-rv-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <span class="mps-rv-count" id="mpsRvCount">81 Google reviews</span>
+    <svg class="mps-rv-tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".16"/>
+      <path d="M8 12.5l2.6 2.5L16 9.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  /* Numbers come from window.MPS_REVIEWS in sitewide header injection, so
+     one edit updates every page. The markup values above are fallbacks. */
+  var cfg = window.MPS_REVIEWS;
+  if(!cfg) return;
+  var badge = document.getElementById('mpsRvBadge');
+  var score = document.getElementById('mpsRvScore');
+  var count = document.getElementById('mpsRvCount');
+  if(!badge) return;
+  var s = cfg.score != null ? String(cfg.score) : null;
+  var n = cfg.count != null ? Number(cfg.count) : null;
+  if(score && s) score.textContent = s;
+  if(count && n) count.textContent = n + ' Google reviews';
+  if(cfg.url)    badge.setAttribute('href', cfg.url);
+  if(s && n){
+    badge.setAttribute('aria-label',
+      'Rated ' + s + ' out of 5 from ' + n + ' Google reviews. Opens Google in a new tab.');
+  }
+})();
+</script>
+
+<!-- ===== PROMO CODE BAR =================================================
+     Unchanged from the live page. The code is passed to Acuity as
+     &certificate= (Acuity's own coupon parameter). The price shown here is
+     a preview; Acuity is the gate at checkout. Percentages MUST match the
+     Acuity coupons of the same name. On a coating request the code is
+     written into the WhatsApp / email message instead.
+     ===================================================================== -->
+<style>
+  .mps-promo{
+    max-width:900px;
+    margin:0 auto 14px;
+    padding:13px 14px;
+    border-radius:14px;
+    border:1px solid rgba(0,184,255,.38);
+    background:rgba(0,184,255,.06);
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  .mps-promo.is-on{ border-color:rgba(227,252,2,.45); background:rgba(227,252,2,.07); }
+  .mps-promo-head{ display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:8px; }
+  .mps-promo-flag{
+    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    padding:4px 10px; border-radius:999px; white-space:nowrap;
+    background:#00B8FF; color:#00131c;
+  }
+  .mps-promo.is-on .mps-promo-flag{ background:#E3FC02; color:#0b0b0b; }
+  .mps-promo-title{ font-size:14px; font-weight:950; }
+  .mps-promo-copy[hidden]{ display:none; }
+  .mps-promo-copy{ margin:0 0 10px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.68); }
+  .mps-promo-copy strong{ color:#00B8FF; font-weight:900; }
+  .mps-promo.is-on .mps-promo-copy strong{ color:#E3FC02; }
+  .mps-promo-form{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .mps-promo-input{
+    flex:1 1 190px; min-width:0;
+    padding:11px 13px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.22);
+    background:rgba(0,0,0,.35); color:#fff;
+    font-family:inherit; font-size:14px; font-weight:900;
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .mps-promo-input::placeholder{ color:rgba(255,255,255,.3); letter-spacing:.02em; font-weight:700; text-transform:none; }
+  .mps-promo-input:focus{ outline:none; border-color:#00B8FF; }
+  .mps-promo-btn{
+    flex:0 0 auto; appearance:none; border:none; cursor:pointer;
+    padding:11px 20px; border-radius:999px;
+    font-family:inherit; font-size:14px; font-weight:950;
+    background:#00B8FF; color:#00131c;
+    transition:filter .15s ease, transform .15s ease;
+  }
+  .mps-promo-btn:hover{ transform:translateY(-1px); filter:brightness(1.08); }
+  .mps-promo-clear{
+    flex:0 0 auto; appearance:none; cursor:pointer;
+    padding:11px 18px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent; color:#fff;
+    font-family:inherit; font-size:13.5px; font-weight:900;
+  }
+  .mps-promo-clear:hover{ border-color:#E3FC02; }
+  .mps-promo-msg{ margin:9px 0 0; font-size:12.5px; font-weight:900; line-height:1.45; }
+  .mps-promo-msg.err{ color:#FF6B5A; }
+  .mps-was{ color:rgba(255,255,255,.4); text-decoration:line-through; font-weight:900; margin-right:8px; font-size:.62em; }
+  @media(max-width:640px){
+    .mps-promo{ padding:12px; margin-bottom:12px; }
+    .mps-promo-input{ flex:1 1 100%; }
+    .mps-promo-btn, .mps-promo-clear{ flex:1 1 auto; }
+  }
+</style>
+
+<div class="mps-promo" id="iodPromo">
+  <div class="mps-promo-head">
+    <span class="mps-promo-flag" id="iodPromoFlag">Discount code</span>
+    <span class="mps-promo-title" id="iodPromoTitle">Got a code? Enter it here</span>
+  </div>
+  <p class="mps-promo-copy" id="iodPromoCopy" hidden></p>
+  <div class="mps-promo-form" id="iodPromoForm">
+    <label for="iodPromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>
+    <input class="mps-promo-input" id="iodPromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">
+    <button class="mps-promo-btn" id="iodPromoApply" type="button">Apply</button>
+  </div>
+  <p class="mps-promo-msg" id="iodPromoMsg" hidden></p>
+</div>
+
+<script>
+(function(){
+  /* CODES — the percentage MUST match the Acuity coupon of the same name.
+     `expires` is YYYY-MM-DD; the code stops working at the end of that day. */
+  var PROMO_CODES = {
+    'AUTUMN20': { off:20, label:'Autumn offer', expires:null }
+  };
+
+  var PFX = 'iod';
+  var box, flag, title, copy, form, msg;
+
+  function grabEls(){
+    box   = document.getElementById(PFX + 'Promo');
+    flag  = document.getElementById(PFX + 'PromoFlag');
+    title = document.getElementById(PFX + 'PromoTitle');
+    copy  = document.getElementById(PFX + 'PromoCopy');
+    form  = document.getElementById(PFX + 'PromoForm');
+    msg   = document.getElementById(PFX + 'PromoMsg');
+    return !!box;
+  }
+
+  var TOTAL_IDS = ["iodTotal", "iodFinalTotal"];
+  var active = null;
+  var obs    = null;
+  var busy   = false;
+
+  window.MPS_PROMO = window.MPS_PROMO || {};
+  window.MPS_PROMO.off  = function(){ return active ? active.off  : 0; };
+  window.MPS_PROMO.code = function(){ return active ? active.code : null; };
+
+  function announce(){
+    try{ document.dispatchEvent(new CustomEvent('mps:promo')); }catch(e){}
+  }
+
+  window.MPS_PROMO.decorate = function(url){
+    if(!active || !url) return url;
+    if(url.indexOf('certificate=') > -1) return url;
+    return url + (url.indexOf('?') > -1 ? '&' : '?') +
+           'certificate=' + encodeURIComponent(active.code);
+  };
+
+  /* O/0, I/1, S/5 read the same on a phone keyboard, so both sides are
+     normalised before comparing and OUR spelling goes to Acuity. */
+  function normaliseCode(raw){
+    return String(raw || '')
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, '')
+      .replace(/O/g, '0')
+      .replace(/[IL]/g, '1')
+      .replace(/S/g, '5');
+  }
+
+  function lookupCode(raw, table){
+    var want = normaliseCode(raw);
+    if(!want) return null;
+    for(var key in table){
+      if(Object.prototype.hasOwnProperty.call(table, key) && normaliseCode(key) === want){
+        return { code: key, entry: table[key] };
+      }
+    }
+    return null;
+  }
+
+  function notExpired(entry){
+    if(!entry.expires) return true;
+    var end = new Date(entry.expires + 'T23:59:59');
+    return !isNaN(end.getTime()) && new Date() <= end;
+  }
+
+  function money(n){
+    return '\u00a3' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, '');
+  }
+
+  function paintTotals(){
+    if(!active) return;
+    busy = true;
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      var raw = el.getAttribute('data-mps-full');
+      if(raw === null) raw = el.textContent;
+      var m = String(raw).match(/£\s*([\d,]+(?:\.\d+)?)/);
+      if(!m) return;
+      var full = parseFloat(m[1].replace(/,/g, ''));
+      if(!isFinite(full) || full <= 0) return;
+      el.setAttribute('data-mps-full', money(full));
+      var desired = '<span class="mps-was">' + money(full) + '</span>' +
+                    money(full * (1 - active.off / 100));
+      if(el.innerHTML !== desired) el.innerHTML = desired;
+    });
+    if(obs) obs.takeRecords();
+    busy = false;
+  }
+
+  function clearTotals(){
+    busy = true;
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      var raw = el.getAttribute('data-mps-full');
+      if(raw !== null && el.textContent !== raw){ el.textContent = raw; }
+      el.removeAttribute('data-mps-full');
+    });
+    if(obs) obs.takeRecords();
+    busy = false;
+  }
+
+  function attachObserver(){
+    if(!window.MutationObserver) return;
+    obs = new MutationObserver(function(){
+      if(busy || !active) return;
+      TOTAL_IDS.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && el.querySelector('.mps-was') === null) el.removeAttribute('data-mps-full');
+      });
+      paintTotals();
+    });
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) obs.observe(el, { childList:true, characterData:true, subtree:true });
+    });
+  }
+
+  function showMsg(text, kind){
+    if(!msg) return;
+    if(!text){ msg.hidden = true; msg.textContent = ''; return; }
+    msg.hidden = false;
+    msg.textContent = text;
+    msg.className = 'mps-promo-msg ' + (kind || '');
+  }
+
+  function renderOn(){
+    box.classList.add('is-on');
+    flag.textContent  = active.off + '% off applied';
+    title.textContent = 'Discount applied';
+    copy.hidden = false;
+    copy.innerHTML = 'Code <strong>' + active.code + '</strong> is applied &mdash; ' +
+      active.off + '% off this booking. It carries through to checkout automatically, ' +
+      'so there&rsquo;s no need to type it again.';
+    form.innerHTML = '<button class="mps-promo-clear" id="' + PFX + 'PromoClear" type="button">Remove code</button>';
+    document.getElementById(PFX + 'PromoClear')
+      .addEventListener('click', function(){ clearCode(); });
+  }
+
+  function renderOff(){
+    box.classList.remove('is-on');
+    flag.textContent  = 'Discount code';
+    title.textContent = 'Got a code? Enter it here';
+    copy.innerHTML = '';
+    copy.hidden = true;
+    form.innerHTML =
+      '<label for="' + PFX + 'PromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>' +
+      '<input class="mps-promo-input" id="' + PFX + 'PromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">' +
+      '<button class="mps-promo-btn" id="' + PFX + 'PromoApply" type="button">Apply</button>';
+    wire();
+  }
+
+  function applyCode(raw){
+    if(!String(raw || '').trim()){ showMsg('Enter your code first.', 'err'); return; }
+    var found = lookupCode(raw, PROMO_CODES);
+    if(!found){
+      showMsg('That code isn\u2019t recognised. Check it and try again, or give us a ring.', 'err');
+      return;
+    }
+    if(!notExpired(found.entry)){
+      showMsg('That code has expired. Get in touch and we\u2019ll see what we can do.', 'err');
+      return;
+    }
+    active = { code: found.code, off: found.entry.off };
+    try{ sessionStorage.setItem('mps_promo_code', found.code); }catch(e){}
+    renderOn();
+    showMsg('');
+    paintTotals();
+    announce();
+  }
+
+  function clearCode(){
+    active = null;
+    try{ sessionStorage.removeItem('mps_promo_code'); }catch(e){}
+    clearTotals();
+    renderOff();
+    showMsg('');
+    announce();
+  }
+
+  function wire(){
+    var input = document.getElementById(PFX + 'PromoInput');
+    var apply = document.getElementById(PFX + 'PromoApply');
+    if(apply) apply.addEventListener('click', function(){ applyCode(input ? input.value : ''); });
+    if(input){
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ e.preventDefault(); applyCode(input.value); }
+      });
+      input.addEventListener('input', function(){ showMsg(''); });
+    }
+  }
+
+  function start(){
+    if(!grabEls()) return;
+    renderOff();
+    attachObserver();
+    var pre = null;
+    try{ pre = new URLSearchParams(window.location.search).get('code'); }catch(e){}
+    if(!pre){ try{ pre = sessionStorage.getItem('mps_promo_code'); }catch(e){} }
+    if(pre && lookupCode(pre, PROMO_CODES)) applyCode(pre);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+
+<style>
+  /* ── booking panel ─────────────────────────────────────────────────
+     Grafted onto the existing questionnaire. Uses the same tokens as
+     everything else so it reads as one page, not a bolted-on form. */
+  .bk{ margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.14); }
+  .bk[hidden]{ display:none; }
+  .bk-sec{ margin-bottom:16px; }
+  .bk-h{
+    margin:0 0 9px; font-size:11px; font-weight:950; letter-spacing:.13em;
+    text-transform:uppercase; color:rgba(255,255,255,.5);
+  }
+  .bk-load{ margin:0 0 10px; font-size:13px; color:rgba(255,255,255,.45); }
+  .bk-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .bk-chip{
+    cursor:pointer; font:inherit; font-size:13.5px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:11px; padding:10px 13px; min-height:44px;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .bk-chip:hover{ border-color:rgba(227,252,2,.55); transform:translateY(-1px); }
+  .bk-chip[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-chip .d{ display:block; font-size:11px; font-weight:700; color:rgba(255,255,255,.45); }
+  .bk-more{
+    margin-top:10px; background:none; border:0; cursor:pointer; padding:6px 0;
+    font:inherit; font-size:13.5px; font-weight:800; color:var(--ocean); text-decoration:underline;
+  }
+  .bk-yn{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 9px; }
+  .bk-yn .q{ flex:1 1 220px; font-size:13px; color:rgba(255,255,255,.66); line-height:1.5; }
+  .bk-yn .pair{ display:flex; gap:6px; }
+  .bk-yn button{
+    cursor:pointer; font:inherit; font-size:13px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:999px; padding:8px 15px; min-height:40px;
+  }
+  .bk-yn button[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-err{ margin:0 0 10px; font-size:13.5px; font-weight:700; color:#ff7676; }
+  .bk-err[hidden]{ display:none; }
+  .bk-fine{ margin:9px 0 0; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.45); }
+
+  /* ── takeover: while the calendar is up, the questions get out of the way ── */
+  .pf.is-booking .wizard .step:not([data-step="7"]),
+  .pf.is-booking .prog,
+  .pf.is-booking .nav,
+  .pf.is-booking .btn-learn,
+  .pf.is-booking .power-compact,
+  .pf.is-booking #iodBreakdown,
+  .pf.is-booking .pay-box,
+  .pf.is-booking #iodBookHint,
+  .pf.is-booking #iodUpsell,
+  .pf.is-booking .upsell,
+  .pf.is-booking .totalbox .note,
+  .pf.is-booking #iodCodeReopen{ display:none !important; }
+
+  /* the page has a photo behind it, so the booking panel has to be solid
+     enough to read against anything */
+  .pf.is-booking{
+    background:#0d0d0d;
+    border-color:rgba(255,255,255,.14);
+  }
+  .pf.is-booking .bk-cal,
+  .pf.is-booking .bk-wheel{
+    background:#141414;
+    border-color:rgba(255,255,255,.2);
+  }
+  .pf.is-booking .bk-cell{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); }
+  .pf.is-booking .bk-cell:disabled{ background:transparent; border-color:transparent; }
+  .pf.is-booking .rq-field input{ background:#0b0b0b; }
+  .pf.is-booking .bk-yn button{ background:#181818; }
+  .pf.is-booking .bk-yn button[aria-pressed="true"],
+  .bk-yn button[aria-pressed="true"]{
+    background:var(--accent) !important;
+    border-color:var(--accent) !important;
+    color:#0b0b0b !important;
+    font-weight:950;
+    box-shadow:0 0 14px rgba(227,252,2,.3);
+  }
+  .pf.is-booking #iodFinalBox{ background:#141414; border-color:rgba(255,255,255,.18); }
+  .pf.is-booking .wizard{ background:transparent; border:0; }
+  .pf.is-booking .viewport{ height:auto !important; overflow:visible; }
+  /* the steps live in a sliding track. With the other four hidden, the
+     track was still shifted 400% to the left, so the one remaining pane
+     sat off screen — hence the blank page. */
+  .pf.is-booking .track{ transform:none !important; display:block; width:100%; }
+  .pf.is-booking .step[data-step="7"]{ flex:1 1 auto; min-width:0; width:100%; }
+  .pf.is-booking .step{ padding:0; }
+  .pf.is-booking .summary{ background:none; border:0; padding:0; margin-top:0; }
+  .pf.is-booking #iodFinalBox{ margin-bottom:16px; }
+  .bk-back{
+    appearance:none; background:none; border:0; cursor:pointer; padding:6px 0; margin:0 0 10px;
+    font:inherit; font-size:13.5px; font-weight:800; color:rgba(255,255,255,.75);
+  }
+  .bk-back:hover{ color:#fff; }
+  .bk-back[hidden]{ display:none; }
+
+  /* ── month calendar ─────────────────────────────────────────────────── */
+  .bk-cal{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:14px 12px;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-calhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
+  .bk-month{ font-size:15.5px; font-weight:950; color:#fff; letter-spacing:-.01em; }
+  .bk-navmonth{
+    appearance:none; cursor:pointer; width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04);
+    color:#fff; font-size:20px; line-height:1; font-family:inherit;
+  }
+  .bk-navmonth:hover:not(:disabled){ border-color:var(--accent); }
+  .bk-navmonth:disabled{ opacity:.25; cursor:default; }
+  .bk-dow{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px;
+    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    color:rgba(255,255,255,.62); text-align:center;
+  }
+  .bk-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .bk-cell{
+    appearance:none; font:inherit; cursor:pointer; padding:0;
+    aspect-ratio:1/1; min-height:40px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);
+    color:#fff; font-size:14px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .bk-cell:hover:not(:disabled){ border-color:rgba(227,252,2,.6); }
+  .bk-cell:disabled{ color:rgba(255,255,255,.22); background:transparent; border-color:transparent; cursor:default; }
+  .bk-cell.is-empty{ border:0; background:none; cursor:default; }
+  .bk-cell[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:#0b0b0b; }
+
+  /* ── hour / minute wheels ───────────────────────────────────────────── */
+  .bk-wheels{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .bk-wheel{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-wheel-lbl{
+    display:block; padding:9px 12px 7px; font-size:11px; font-weight:900;
+    letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.62);
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .bk-wheel-scroll{
+    max-height:184px; overflow-y:auto; scroll-snap-type:y proximity;
+    -webkit-overflow-scrolling:touch; padding:4px;
+  }
+  .bk-wheel-scroll::-webkit-scrollbar{ width:6px; }
+  .bk-wheel-scroll::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:99px; }
+  .bk-tick{
+    display:block; width:100%; appearance:none; cursor:pointer; scroll-snap-align:center;
+    padding:11px 8px; border:0; border-radius:9px; background:none;
+    font:inherit; font-size:16px; font-weight:800; color:#fff; text-align:center;
+  }
+  .bk-tick:hover{ background:rgba(255,255,255,.06); }
+  .bk-tick[aria-pressed="true"]{ background:var(--accent); color:#0b0b0b; font-weight:950; }
+  .bk-chosen{
+    margin:12px 0 0; font-size:14px; font-weight:900; color:var(--accent); text-align:center;
+  }
+  .bk-chosen[hidden]{ display:none; }
+
+  /* ── contrast: this panel reads white, not grey ─────────────────────── */
+  .bk-h{ color:rgba(255,255,255,.72); }
+  .bk-load{ color:rgba(255,255,255,.62); }
+  .bk-yn .q{ color:rgba(255,255,255,.88); }
+  .bk .rq-field label{ color:rgba(255,255,255,.72); }
+  .bk .rq-field input{ color:#fff; }
+  .bk-fine{ color:rgba(255,255,255,.66); }
+
+  @media(max-width:480px){
+    .bk-cal{ padding:12px 8px; }
+    .bk-cell{ min-height:38px; font-size:13.5px; border-radius:9px; }
+    .bk-dow{ font-size:10px; }
+    .bk-wheel-scroll{ max-height:168px; }
+  }
+
+</style>
+
+<style>
+  /* the circle system the other services use: yellow = included,
+     blue = what this choice adds, grey = the rest of the scale */
+  .mps-dots{ display:flex; gap:5px; flex:0 0 auto; }
+  .mps-dots i{
+    width:10px; height:10px; border-radius:50%;
+    background:rgba(255,255,255,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .mps-dots i.mps-d-on{ background:var(--accent); box-shadow:0 0 7px rgba(227,252,2,.45); }
+  .mps-dots i.mps-d-add{ background:var(--ocean); box-shadow:0 0 7px rgba(0,184,255,.4); }
+  .pc-row .pc-left{ font-weight:900; font-size:13px; color:rgba(255,255,255,.86); }
+
+  /* package strip, same as the Exterior Detail page */
+  .pkg-includes{
+    margin:0 0 16px; padding:14px; border-radius:14px;
+    border:1px solid rgba(255,255,255,.1); background:rgba(0,0,0,.28);
+    transition:max-height .35s ease, opacity .35s ease, margin .35s ease, padding .35s ease;
+    max-height:700px; opacity:1; overflow:hidden;
+  }
+  .pf.is-questioning .pkg-includes{
+    max-height:0; opacity:0; margin:0; padding-top:0; padding-bottom:0;
+  }
+  .pkg-includes-title{
+    font-size:11px; text-transform:uppercase; letter-spacing:.14em;
+    font-weight:950; color:rgba(255,255,255,.55); margin-bottom:10px;
+  }
+  .pkg-items{ display:grid; gap:8px; grid-template-columns:1fr; }
+  @media(min-width:600px){ .pkg-items{ grid-template-columns:1fr 1fr; } }
+  .pkg-item{ display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.4; }
+  .pkg-item-icon{
+    width:28px; height:28px; border-radius:8px; flex-shrink:0;
+    border:1px solid rgba(227,252,2,.25); background:rgba(227,252,2,.07);
+    display:flex; align-items:center; justify-content:center; font-size:14px;
+  }
+  .pkg-item-text strong{ display:block; font-size:13px; font-weight:900; color:#fff; }
+  .pkg-item-text span{ color:rgba(255,255,255,.55); font-size:12px; }
+</style>
+
+<div class="pf" id="priceFinderInAndOut">
+
+  <div class="topbar">
+    <div>
+      <h1>In &amp; Out Deep Clean</h1>
+      <h3>Steam, shampoo and extraction, included as standard.</h3>
+    </div>
+    <div class="totalbox" aria-live="polite">
+      <div class="lbl">Your total</div>
+      <div class="val" id="iodTotal">From &pound;140</div>
+      <div class="note" id="iodNote">Select your vehicle size</div>
+    </div>
+  </div>
+
+  <div class="pkg-includes">
+    <div class="pkg-includes-title">Everything in this package</div>
+    <div class="pkg-items">
+      <div class="pkg-item">
+        <div class="pkg-item-icon">&#128168;</div>
+        <div class="pkg-item-text"><strong>Compressed Air Blow Out</strong><span>Grit lifted from seat rails, joins and vents first</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">&#129529;</div>
+        <div class="pkg-item-text"><strong>Deep Vacuum Throughout</strong><span>Seats, carpets, mats, boot and every edge</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">&#127754;</div>
+        <div class="pkg-item-text"><strong>Steam Cleaning</strong><span>Contact surfaces sanitised, not just wiped over</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">&#128167;</div>
+        <div class="pkg-item-text"><strong>Mats, Carpets &amp; Boot</strong><span>Shampooed and extracted &mdash; included, not an add-on</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">&#129530;</div>
+        <div class="pkg-item-text"><strong>Plastics &amp; Trim</strong><span>Scrubbed to a natural satin finish, never greasy</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">&#129685;</div>
+        <div class="pkg-item-text"><strong>Interior Glass</strong><span>Cleaned streak-free, inside every window</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prog" id="iodProg" aria-hidden="true">
+    <div class="prog-top">
+      <span class="prog-step" id="iodProgStep">Step 1</span>
+      <span class="prog-label" id="iodProgLabel"></span>
+    </div>
+    <div class="prog-track" id="iodProgTrack"></div>
+  </div>
+
+  <div class="wizard">
+    <div class="viewport">
+      <div class="track" id="iodTrack">
+
+        <section class="step" data-step="0">
+          <h3>1) What type of vehicle do you have?</h3>
+          <div class="opts" role="listbox" aria-label="What type of vehicle do you have?">
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="3door" aria-selected="false">
+              <div class="row"><span>3-Door / 4&ndash;5 Seater</span><span class="price-pill">&pound;140</span></div>
+            </div>
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="5door" aria-selected="false">
+              <div class="row"><span>5-Door / 5 Seater</span><span class="price-pill">&pound;160</span></div>
+            </div>
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="7seats" aria-selected="false">
+              <div class="row"><span>5-Door / 7 Seater</span><span class="price-pill">&pound;180</span></div>
+            </div>
+            <div class="opt" role="option" tabindex="0" data-pick="more" data-value="other" aria-selected="false">
+              <div class="row"><span>Van, pick-up, minibus or camper</span><span class="price-pill">By quote</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" data-step="1">
+          <h3>2) What are the seats made of?</h3>
+          <div class="opts" role="listbox" aria-label="What are the seats made of?">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="fabric" data-value="textile" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Textile / cloth</div>
+                </div>
+                
+              </div>
+              <div class="prem-desc">The usual fabric seat. Everything below is worded for it.</div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="fabric" data-value="leather" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Leather</div>
+                </div>
+                
+              </div>
+              <div class="prem-desc">Real or synthetic leather. Different products, different treatment.</div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="fabric" data-value="alcantara" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Alcantara / suede</div>
+                </div>
+                
+              </div>
+              <div class="prem-desc">The soft suede-like finish, usually on sportier cars. Needs the gentlest handling of the three.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" data-step="2" data-fabric="textile" hidden>
+          <h3>3) Stains or soiling on the seats?</h3>
+          <div class="opts" role="listbox" aria-label="Seats">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seats" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Yes &mdash; steam, shampoo &amp; extraction</div>
+                </div>
+                <div class="prem-price">+&pound;30</div>
+              </div>
+              <div class="prem-desc">Seats steamed, shampooed and pulled back out with hot water. Lifts what a vacuum can&rsquo;t reach, and takes the stains with it.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Interior</div></div>
+                <div class="pc-rows" id="iodPowSeats_textile"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seats" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">No &mdash; the seats are fine</div>
+                </div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">They&rsquo;re still vacuumed, blown out and wiped down as part of the deep clean.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" data-step="2" data-fabric="leather" hidden>
+          <h3>3) Shiny or greasy leather seats?</h3>
+          <div class="opts" role="listbox" aria-label="Seats">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seats" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Yes &mdash; all seats brushed</div>
+                </div>
+                <div class="prem-price">+&pound;40</div>
+              </div>
+              <div class="prem-desc">All seats thoroughly brushed with Koch Chemie products, lifting the grease build-up out of the grain. The leather goes back to matt and soft to the touch.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Interior</div></div>
+                <div class="pc-rows" id="iodPowSeats_leather"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seats" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">No &mdash; the seats are fine</div>
+                </div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">They&rsquo;re still vacuumed, blown out and wiped down as part of the deep clean.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" data-step="2" data-fabric="alcantara" hidden>
+          <h3>3) Alcantara gone flat, shiny or grubby?</h3>
+          <div class="opts" role="listbox" aria-label="Seats">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seats" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Yes &mdash; all seats brushed</div>
+                </div>
+                <div class="prem-price">+&pound;40</div>
+              </div>
+              <div class="prem-desc">Alcantara mats down and goes shiny where hands and bodies rub it. Brushed carefully with Koch Chemie products to lift the grease and stand the pile back up.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Interior</div></div>
+                <div class="pc-rows" id="iodPowSeats_alcantara"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seats" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">No &mdash; the seats are fine</div>
+                </div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">They&rsquo;re still vacuumed, blown out and wiped down as part of the deep clean.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" data-step="3" data-fabric="textile" hidden>
+          <h3>4) Protect them afterwards?</h3>
+          <div class="opts" role="listbox" aria-label="Protection">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seatprot" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Yes &mdash; Gtechniq Smart Fabric</div>
+                </div>
+                <div class="prem-price"><span id="iodSeatProtPrice_textile">+&pound;100</span></div>
+              </div>
+              <div class="prem-desc">An invisible coating on the fabric. Spills bead up and sit on the surface long enough to be wiped away instead of soaking in.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Interior</div></div>
+                <div class="pc-rows" id="iodPowProt_textile"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seatprot" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">No thanks</div>
+                </div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">The seats are still cleaned and conditioned as part of the service.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" data-step="3" data-fabric="leather" hidden>
+          <h3>4) Protect them afterwards?</h3>
+          <div class="opts" role="listbox" aria-label="Protection">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seatprot" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Yes &mdash; CQuartz Leather 2.0</div>
+                </div>
+                <div class="prem-price"><span id="iodSeatProtPrice_leather">+&pound;100</span></div>
+              </div>
+              <div class="prem-desc">A ceramic coating on the leather. Guards against dye transfer from jeans, body oils and UV, and keeps the finish matt rather than adding shine.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Interior</div></div>
+                <div class="pc-rows" id="iodPowProt_leather"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seatprot" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">No thanks</div>
+                </div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">The seats are still cleaned and conditioned as part of the service.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="step" data-step="3" data-fabric="alcantara" hidden>
+          <h3>4) Protect them afterwards?</h3>
+          <div class="opts" role="listbox" aria-label="Protection">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seatprot" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">Yes &mdash; CarPro CQuartz 2.0</div>
+                </div>
+                <div class="prem-price"><span id="iodSeatProtPrice_alcantara">+&pound;100</span></div>
+              </div>
+              <div class="prem-desc">A ceramic coating made for alcantara. Spills and body oils struggle to soak in, so the pile stays looking new for far longer.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Interior</div></div>
+                <div class="pc-rows" id="iodPowProt_alcantara"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="seatprot" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-name">No thanks</div>
+                </div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">The seats are still cleaned and conditioned as part of the service.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4: paintwork -->
+        <section class="step" data-step="4">
+          <h3>5) How far should the paint go?</h3>
+          <div class="opts" role="listbox" aria-label="Paintwork">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="paint" data-value="clay" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">Clay bar decontamination</div></div><div class="prem-price">+&pound;30</div></div>
+              <div class="prem-desc">Pulls the bonded grit out of the paint that washing leaves behind. Leaves it glass-smooth, and it&rsquo;s the step machine polishing needs first.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Paint</div></div>
+                <div class="pc-rows" id="iodPowClay"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="paint" data-value="enhance" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">Paint enhancement</div></div><div class="prem-price" id="iodEnhancePrice">+&pound;215</div></div>
+              <div class="prem-desc">A single machine polishing stage. Takes out most of the swirl marks and light scratches rather than filling them, so the gloss is real. Clay bar included.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Gloss</div></div>
+                <div class="pc-rows" id="iodPowEnhance"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="paint" data-value="none" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">No add-on</div></div><div class="prem-price">&pound;0</div></div>
+              <div class="prem-desc">Decontamination and the 8-week wax are already in the price.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 5: paint protection -->
+        <section class="step" data-step="5">
+          <h3>6) How long should the protection last?</h3>
+          <div class="opts" role="listbox" aria-label="Paint protection">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="prot" data-value="sealant" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">6-month ceramic sealant</div></div><div class="prem-price" id="iodSealPrice">+&pound;60</div></div>
+              <div class="prem-desc">Replaces the wax. Six months of gloss and beading, and every wash after it is easier. Clay bar included.</div>
+              <div class="power-compact" aria-label="What this adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Protection</div></div>
+                <div class="pc-rows" id="iodPowSeal"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium coat-card" id="iodCoatCard" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker" style="padding-right:0">By&nbsp;quote &middot; weather&nbsp;dependent</div>
+                  <div class="prem-name" style="padding-right:0">Ceramic coating &mdash; years, not months</div>
+                </div>
+              </div>
+              <div class="coat-pills" role="radiogroup" aria-label="Coating length">
+                <button type="button" class="coat-pill" role="radio" aria-checked="false" data-coat="1">
+                  <span class="cp-yr">1 Year</span><span class="cp-pr" data-coat-price="1">+&pound;120</span>
+                </button>
+                <button type="button" class="coat-pill" role="radio" aria-checked="false" data-coat="3">
+                  <span class="cp-yr">3 Years</span><span class="cp-pr" data-coat-price="3">+&pound;200</span>
+                </button>
+                <button type="button" class="coat-pill" role="radio" aria-checked="false" data-coat="7">
+                  <span class="cp-yr">7 Years</span><span class="cp-pr" data-coat-price="7">+&pound;300</span>
+                </button>
+              </div>
+              <div class="prem-tags">
+                <span class="prem-incl" id="iodCoatClayChip">Clay bar included</span>
+                <span class="prem-incl">Front windows coated</span>
+                <span class="prem-incl is-quote">We confirm your date first</span>
+              </div>
+              <div class="power-compact" aria-label="What a coating adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Paint protection</div></div>
+                <div class="pc-rows" id="iodPowCoat"></div>
+              </div>
+            </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="prot" data-value="none" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">No add-on</div></div><div class="prem-price">&pound;0</div></div>
+              <div class="prem-desc">The 8-week wax is already in the price &mdash; gloss and beading for about two months.</div>
+            </div>
+          </div>
+        </section>
+        <!-- STEP 6: everything else, on one screen -->
+        <section class="step" data-step="6">
+          <h3>7) Anything else while we&rsquo;re there?</h3>
+          <div class="opts" role="listbox" aria-label="Extras" id="iodExtras">
+
+            <div class="opt opt-premium xtra" role="option" tabindex="0" data-xtra="antifog" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">Anti-fog glass coating</div></div><div class="prem-price">+&pound;15</div></div>
+              <div class="prem-desc">Applied to the inside of the glass. The screen clears far faster on a cold morning and stays clear while you drive.</div>
+            </div>
+
+            <div class="opt opt-premium xtra" role="option" tabindex="0" data-xtra="glaco" aria-selected="false" id="iodXtraGlaco">
+              <div class="prem-head"><div><div class="prem-name">Front Windows Coating &mdash; 1 Year</div></div><div class="prem-price">+&pound;30</div></div>
+              <div class="prem-desc">Glaco is a hydrophobic coating for the outside of the glass. Rain beads into tight droplets and, above about 40mph, blows straight off the windscreen &mdash; so you barely touch the wipers. Bugs, salt and grime come off far easier too. Lasts around a year.</div>
+            </div>
+
+            <div class="opt opt-premium xtra" role="option" tabindex="0" data-xtra="engine" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">Engine bay detail</div></div><div class="prem-price">+&pound;30</div></div>
+              <div class="prem-desc">Degreased, dressed and left presentable under the bonnet.</div>
+            </div>
+
+            <div class="opt opt-premium xtra" role="option" tabindex="0" data-xtra="odour" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">Ultrasonic odour treatment</div></div><div class="prem-price">+&pound;40</div></div>
+              <div class="prem-desc">A 30-minute mist with the air recirculating, so it reaches the ventilation as well as the surfaces.</div>
+            </div>
+
+            <div class="opt opt-premium xtra" role="option" tabindex="0" data-xtra="sand" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">Heavy sand removal</div></div><div class="prem-price">+&pound;50</div></div>
+              <div class="prem-desc">Sand under the carpets and in the seat rails. A job on its own.</div>
+            </div>
+
+            <div class="opt opt-premium xtra" role="option" tabindex="0" data-xtra="pet" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-name">Extreme pet hair removal</div></div><div class="prem-price">+&pound;50</div></div>
+              <div class="prem-desc">Hair woven into the fabric, lifted before anything else happens.</div>
+            </div>
+
+          </div>
+          <div class="nav" style="border:0;background:none;padding:14px 0 0;">
+            <button class="btn btn-primary-glow" type="button" id="iodExtrasDone" style="width:100%;">Done &mdash; see my price</button>
+          </div>
+        </section>
+        <section class="step" data-step="7">
+          <h3>You&rsquo;re all set</h3>
+
+          <div class="totalbox" id="iodFinalBox" aria-live="polite" style="margin:10px 0 14px; text-align:left; min-width:0;">
+            <div class="lbl">Final total</div>
+            <div class="val" id="iodFinalTotal">&pound;0</div>
+            <div class="note" id="iodFinalNote">Ready to book when you are.</div>
+          </div>
+
+          <div class="power-compact" aria-label="Final Cleaning Power">
+            <div class="pc-top">
+              <div class="pc-title">Cleaning Power</div>
+              <div class="pc-badge">In &amp; Out Deep Clean</div>
+            </div>
+            <div class="pc-rows" id="iodPowerRows"></div>
+          </div>
+
+          <div class="summary">
+            <button class="btn btn-primary-glow" id="iodDoneBtn" type="button" style="width:100%;">View Calendar</button>
+            <p class="book-note" id="iodBookHint">Tap View Calendar to choose your date &amp; time.</p>
+
+            <div class="pay-box" id="iodPayBox">
+              <div class="pay-head">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7L9.5 17.5 4 12"/></svg>
+                <span>To book, pay a <em>10% deposit</em></span>
+              </div>
+              <div class="pay-row">
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg>Card</span>
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>Cash</span>
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9.5 13h6M9.5 17h4"/></svg>Invoice</span>
+              </div>
+            </div>
+
+            <div class="bd" id="iodBreakdown"></div>
+            <div id="iodUpsell"></div>
+
+            <div class="rq" id="iodRequest" hidden>
+              <p class="rq-head">Send us your request</p>
+              <p class="rq-copy">Tell us when suits you. We&rsquo;ll check the forecast and confirm your date &mdash; usually the same day.</p>
+              <div class="rq-fields">
+                <div class="rq-field">
+                  <label for="iodRqName">Your name</label>
+                  <input id="iodRqName" type="text" autocomplete="name">
+                </div>
+                <div class="rq-field">
+                  <label for="iodRqPostcode">Postcode</label>
+                  <input id="iodRqPostcode" type="text" autocomplete="postal-code" autocapitalize="characters">
+                </div>
+                <div class="rq-field full">
+                  <label for="iodRqDate">Preferred date</label>
+                  <input id="iodRqDate" type="date">
+                </div>
+                <div class="rq-field full">
+                  <label for="iodRqMsg">Your message &mdash; edit if you like</label>
+                  <textarea id="iodRqMsg"></textarea>
+                </div>
+              </div>
+              <p class="rq-err" id="iodRqErr" hidden></p>
+              <div class="rq-send">
+                <button class="btn btn-primary-glow" id="iodRqWhatsApp" type="button">Send on WhatsApp</button>
+                <button class="btn btn-quiet-blue" id="iodRqEmail" type="button">Send by email</button>
+              </div>
+
+            <div class="bk" id="iodBook" hidden>
+
+              <button class="bk-back" type="button" id="iodBkBack" hidden>&#8592; Back to your quote</button>
+
+              <div class="bk-sec" id="iodBkWhen">
+                <div class="bk-cal">
+                  <div class="bk-calhead">
+                    <button class="bk-navmonth" type="button" id="iodBkPrev" aria-label="Previous month">&#8249;</button>
+                    <span class="bk-month" id="iodBkMonthName">&nbsp;</span>
+                    <button class="bk-navmonth" type="button" id="iodBkNextMonth" aria-label="Next month">&#8250;</button>
+                  </div>
+                  <div class="bk-dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                  <div class="bk-grid" id="iodBkDays"></div>
+                  <p class="bk-load" id="iodBkDaysLoad" hidden>Checking the diary&hellip;</p>
+                </div>
+
+                <div id="iodBkTimesWrap" hidden>
+                  <p class="bk-h" style="margin-top:18px;">Start time</p>
+                  <p class="bk-load" id="iodBkTimesLoad" hidden>Checking that day&hellip;</p>
+                  <div class="bk-wheels" id="iodBkTimes">
+                    <div class="bk-wheel">
+                      <span class="bk-wheel-lbl">Hour</span>
+                      <div class="bk-wheel-scroll" id="iodBkHours" role="listbox" aria-label="Hour"></div>
+                    </div>
+                    <div class="bk-wheel">
+                      <span class="bk-wheel-lbl">Minutes</span>
+                      <div class="bk-wheel-scroll" id="iodBkMins" role="listbox" aria-label="Minutes"></div>
+                    </div>
+                  </div>
+                  <p class="bk-chosen" id="iodBkChosen" hidden></p>
+                </div>
+              </div>
+
+              <div class="bk-sec" id="iodBkDetails" hidden>
+                <p class="bk-h">Your details</p>
+                <div class="rq-fields">
+                  <div class="rq-field"><label for="iodBkFirst">First name</label><input type="text" id="iodBkFirst" autocomplete="given-name"></div>
+                  <div class="rq-field"><label for="iodBkLast">Last name</label><input type="text" id="iodBkLast" autocomplete="family-name"></div>
+                  <div class="rq-field"><label for="iodBkEmail">Email</label><input type="email" id="iodBkEmail" autocomplete="email"></div>
+                  <div class="rq-field"><label for="iodBkPhone">Mobile</label><input type="tel" id="iodBkPhone" autocomplete="tel"></div>
+                  <div class="rq-field full"><label for="iodBkAddr">Full address &amp; postcode</label><input type="text" id="iodBkAddr" autocomplete="street-address"></div>
+                  <div class="rq-field full"><label for="iodBkCar">Vehicle &mdash; make, model &amp; year</label><input type="text" id="iodBkCar" placeholder="e.g. Golf GTI 2019"></div>
+                  <!-- goes into Acuity intake field 19220664, "Vehicle Make,
+                       Model & Year" - not the notes, which Acuity ignores on
+                       appointments created through the API. -->
+                </div>
+
+                <div class="bk-yn" data-yn="power">
+                  <span class="q">Can we use a plug socket? We bring a 45m cable.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="water">
+                  <span class="q">An outside tap? If not, we bring our own water.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="space">
+                  <span class="q">Room to park the van within 3m of the car?</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="agree">
+                  <span class="q">If the interior needs more than this, we&rsquo;ll tell you the price before touching it.</span>
+                  <span class="pair"><button type="button" data-v="yes">Understood</button></span>
+                </div>
+                <div class="bk-yn" data-yn="marketing">
+                  <span class="q">Occasional offers by email? Entirely optional.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+              </div>
+
+              <p class="bk-err" id="iodBkErr" hidden></p>
+
+              <button class="btn btn-primary-glow" type="button" id="iodBkPay" style="width:100%;" disabled>Pay the deposit &amp; book</button>
+              <p class="bk-fine" id="iodBkFine">You pay the deposit now. The balance is paid on the day, once you&rsquo;ve seen the work.</p>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn" id="iodBack" type="button">Back</button>
+    </div>
+  </div>
+
+  <button class="btn btn-learn" type="button" id="iodLearnMoreBtn">See what&rsquo;s included</button>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('priceFinderInAndOut');
+  if(!root) return;
+
+  /* ======================================================================
+     PRICES AND ACUITY IDS — the only block you'd normally edit
+
+     Base types (mats, carpets and boot extraction INCLUDED):
+       3-door  £100   5-door  £110   7-seater  £120
+     ====================================================================== */
+  var BASE_PRICES = { '3door':140, '5door':160, '7seats':180 };
+
+  var SIZE_TYPE = { '3door':87527887, '5door':87527895, '7seats':87527970 };
+  var ACUITY_QUOTE = 84640446;
+
+  /* seats, one add-on per fabric */
+  var SEATS = {
+    textile:   { id:7307196, price:30 },
+    alcantara: { id:7335611, price:40 },
+    leather:   { id:7335612, price:40 }
+  };
+
+  /* protection, one add-on per fabric and size band.
+     Gtechniq (textile) £100 / £150, CQuartz (leather and alcantara)
+     £150 / £200 — confirmed against Acuity. */
+  var PROT = {
+    textile:   { small:{ id:7336733, price:100 }, large:{ id:7336735, price:150 } },
+    leather:   { small:{ id:7336744, price:150 }, large:{ id:7336746, price:200 } },
+    alcantara: { small:{ id:7336744, price:150 }, large:{ id:7336746, price:200 } }
+  };
+
+  var ADDON_ODOUR  = { id:7335613, price:40 };
+  var ADDON_ENGINE = { id:7307199, price:30 };
+  var ADDON_CLAY   = { id:7264640, price:30 };
+  var ADDON_SEAL   = { id:7334413, price:60 };   /* includes the clay stage */
+  var ADDON_GLACO  = { id:7332051, price:30 };
+  var ENHANCE = { '3door':{ id:7264641, price:215 },
+                  '5door':{ id:7334380, price:250 },
+                  '7seats':{ id:7334385, price:295 } };   /* clay included */
+  var ADDON_SAND  = { id:7307203, price:50 };
+  var ADDON_PET   = { id:6350450, price:50 };
+  var ADDON_FOG   = { id:7335616, price:15 };
+
+  /* ---- booking. This token is PUBLIC: free-slot lookups and a Stripe
+     checkout, nothing else. The booking scenarios use a different one. ---- */
+  var MPS_TOKEN    = 'mps-b4yz-2026-acuity';
+  var AVAILABILITY = 'https://hook.eu1.make.com/daly9ho8eix9b1xf4bmc4w2vihd8e4r3';
+  var DEPOSIT_HOOK = 'https://hook.eu1.make.com/5ihvcgcu4842swdljuoi5dxg1xjtlwjt';
+  var DEPOSIT_PCT  = 10;
+  var WHATSAPP     = '447592196929';
+
+  var VEHICLE_LABELS = { '3door':'3-Door / 4-5 Seater', '5door':'5-Door / 5 Seater', '7seats':'5-Door / 7 Seater' };
+  var FABRIC_LABELS  = { textile:'Textile', leather:'Leather', alcantara:'Alcantara' };
+  var PROT_LABELS    = { textile:'Gtechniq Smart Fabric', leather:'CQuartz Leather 2.0', alcantara:'CarPro CQuartz 2.0' };
+
+  var DONE  = 7;
+  var ORDER = ['vehicle','fabric','seats','seatprot','paint','prot','extras'];
+  var PROG_LABELS = ['Your vehicle','Seat fabric','The seats','Seat protection','Paintwork','Paint protection','Extras','Done'];
+
+  var state = { step:0, vehicle:null, more:null, fabric:null, seats:null, seatprot:null,
+                paint:null, prot:null, coat:null,
+                extras:{ engine:false, glaco:false, odour:false, sand:false, pet:false, antifog:false } };
+
+  var track   = root.querySelector('#iodTrack');
+  var btnBack = root.querySelector('#iodBack');
+  var totalEl = root.querySelector('#iodTotal');
+  var noteEl  = root.querySelector('#iodNote');
+  var finalTotalEl = root.querySelector('#iodFinalTotal');
+  var finalNoteEl  = root.querySelector('#iodFinalNote');
+  var powerRowsEl  = root.querySelector('#iodPowerRows');
+  var breakdownEl  = root.querySelector('#iodBreakdown');
+  var doneBtn      = root.querySelector('#iodDoneBtn');
+  var viewportEl   = root.querySelector('.viewport');
+
+  var steps = Array.prototype.slice.call(track.querySelectorAll('.step'));
+
+  var MOTION_OK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function fmtGBP(n){ return '\u00a3' + Number(n || 0).toFixed(0); }
+
+  /* ---- prices ---- */
+  function sizeBand(){ return state.vehicle === '7seats' ? 'large' : 'small'; }
+  function seatsPrice(){ return (state.seats === 'yes' && state.fabric) ? SEATS[state.fabric].price : 0; }
+  function seatProtPrice(){
+    if(state.seatprot !== 'yes' || !state.fabric || !state.vehicle) return 0;
+    return PROT[state.fabric][sizeBand()].price;
+  }
+  function paintPrice(){
+    if(state.paint === 'clay') return ADDON_CLAY.price;
+    if(state.paint === 'enhance' && state.vehicle) return ENHANCE[state.vehicle].price;
+    return 0;
+  }
+  function hasCoat(){ return state.prot === 'coat' && !!state.coat; }
+  function clayPaid(){ return state.paint === 'clay' || state.paint === 'enhance'; }
+  function sealPrice(){
+    if(state.prot !== 'sealant') return 0;
+    /* the sealant includes a clay stage; if clay is already paid for it's £30 */
+    return clayPaid() ? ADDON_SEAL.price - ADDON_CLAY.price : ADDON_SEAL.price;
+  }
+  var XTRA = {
+    engine:  ADDON_ENGINE,
+    glaco:   ADDON_GLACO,
+    odour:   ADDON_ODOUR,
+    sand:    ADDON_SAND,
+    pet:     ADDON_PET,
+    antifog: ADDON_FOG
+  };
+  var XTRA_LABEL = {
+    engine:'Engine bay detail', glaco:'Front windows coating, 1 year', odour:'Ultrasonic odour treatment',
+    sand:'Heavy sand removal', pet:'Extreme pet hair removal', antifog:'Anti-fog glass coating'
+  };
+  function extrasPrice(){
+    var t = 0;
+    Object.keys(XTRA).forEach(function(k){
+      if(state.extras[k] && !(k === 'glaco' && hasCoat())) t += XTRA[k].price;
+    });
+    return t;
+  }
+  function calcTotal(){
+    if(!state.vehicle) return 0;
+    return (BASE_PRICES[state.vehicle] || 0)
+         + seatsPrice() + seatProtPrice() + paintPrice() + sealPrice() + coatPrice() + extrasPrice();
+  }
+  function promoOff(){
+    try{ return (window.MPS_PROMO && window.MPS_PROMO.off) ? (window.MPS_PROMO.off() || 0) : 0; }
+    catch(e){ return 0; }
+  }
+  function netTotal(){ return calcTotal() * (1 - promoOff() / 100); }
+  function depositAmount(){ return Math.max(1, Math.round(netTotal() * DEPOSIT_PCT) / 100); }
+
+  function bookingTypeId(){
+    return (state.more || !state.vehicle) ? null : (SIZE_TYPE[state.vehicle] || null);
+  }
+  function addonIds(){
+    var a = [];
+    if(state.seats    === 'yes' && state.fabric) a.push(SEATS[state.fabric].id);
+    if(state.seatprot === 'yes' && state.fabric) a.push(PROT[state.fabric][sizeBand()].id);
+
+    /* clay is absorbed by the enhancement and by the sealant, so it never
+       goes twice */
+    if(state.paint === 'enhance' && state.vehicle) a.push(ENHANCE[state.vehicle].id);
+    if(state.prot  === 'sealant') a.push(ADDON_SEAL.id);
+    if(state.paint === 'clay' && state.prot !== 'sealant') a.push(ADDON_CLAY.id);
+
+    Object.keys(XTRA).forEach(function(k){
+      if(state.extras[k] && !(k === 'glaco' && hasCoat())) a.push(XTRA[k].id);
+    });
+    return a.filter(Boolean);
+  }
+
+  /* ---- only the step matching the chosen fabric is in play ---- */
+  function syncGlacoCell(){
+    var cell = root.querySelector('#iodXtraGlaco');
+    if(!cell) return;
+    if(hasCoat()){
+      state.extras.glaco = false;
+      cell.setAttribute('aria-selected','false');
+      cell.hidden = true;
+    } else {
+      cell.hidden = false;
+    }
+  }
+
+  function fabricSteps(){
+    Array.prototype.forEach.call(root.querySelectorAll('.step[data-fabric]'), function(s){
+      s.hidden = (s.getAttribute('data-fabric') !== state.fabric);
+    });
+    /* protection price follows size as well as fabric */
+    if(state.fabric && state.vehicle){
+      var el = root.querySelector('#iodSeatProtPrice_' + state.fabric);
+      if(el) el.textContent = '+' + fmtGBP(PROT[state.fabric][sizeBand()].price);
+    }
+  }
+
+  /* ---- cleaning power dots ---- */
+  function row(label, on, add){
+    var dots = '';
+    for(var i = 0; i < 5; i++){
+      dots += '<i class="' + (i < on ? 'mps-d-on' : (i < on + add ? 'mps-d-add' : '')) + '"></i>';
+    }
+    return '<div class="pc-row"><div class="pc-left">' + label + '</div>' +
+           '<span class="mps-dots">' + dots + '</span></div>';
+  }
+  function renderPower(){
+    if(!powerRowsEl) return;
+    var seatsAdd = (state.seats === 'yes' ? 1 : 0) +
+                   (state.extras.sand || state.extras.pet ? 1 : 0);
+    var paintOn  = state.paint === 'enhance' ? 4 : state.paint === 'clay' ? 3 : 2;
+    var protOn   = hasCoat() ? 5 : state.prot === 'sealant' ? 3 : 1;
+    var h = row('Exterior', 4, 0)
+          + row('Interior', 3, seatsAdd)
+          + row('Paint', 2, paintOn - 2)
+          + row('Protection', 1, protOn - 1);
+    if(state.seatprot === 'yes')                      h += row('Seat protection', 0, 5);
+    if(state.extras.odour)                            h += row('Odour', 0, 5);
+    if(hasCoat() || state.extras.glaco || state.extras.antifog) h += row('Glass', 2, 3);
+    powerRowsEl.innerHTML = h;
+  }
+  function renderCardPreviews(){
+    ['textile','leather','alcantara'].forEach(function(f){
+      var s = root.querySelector('#iodPowSeats_' + f);
+      if(s) s.innerHTML = row('Interior', 3, 1);
+      var p = root.querySelector('#iodPowProt_' + f);
+      if(p) p.innerHTML = row('Protection', 0, 5);
+    });
+    var o = root.querySelector('#iodPowOdour'); if(o) o.innerHTML = row('Odour', 0, 5);
+    var sa = root.querySelector('#iodPowSand');  if(sa) sa.innerHTML = row('Interior', 3, 1);
+    var pe = root.querySelector('#iodPowPet');   if(pe) pe.innerHTML = row('Interior', 3, 1);
+    var rf = root.querySelector('#iodPowRoof');  if(rf) rf.innerHTML = row('Interior', 3, 1);
+    var fg = root.querySelector('#iodPowFog');     if(fg) fg.innerHTML = row('Glass', 2, 3);
+    var cl = root.querySelector('#iodPowClay');    if(cl) cl.innerHTML = row('Paint', 2, 2);
+    var en = root.querySelector('#iodPowEnhance'); if(en) en.innerHTML = row('Gloss', 0, 5);
+    var se = root.querySelector('#iodPowSeal');    if(se) se.innerHTML = row('Protection', 1, 2);
+  }
+
+  /* ---- breakdown ---- */
+  function bdAmt(n, plus){
+    var off = promoOff(), p = plus ? '+' : '';
+    if(!off) return p + fmtGBP(n);
+    return '<span class="bd-was">' + p + fmtGBP(n) + '</span>' + p + fmtGBP(n * (1 - off / 100));
+  }
+  function removeBtn(key, label){
+    return '<button class="bd-remove" type="button" data-remove="' + key +
+           '" aria-label="Remove ' + label + '" title="Remove">&times;</button>';
+  }
+  function addedRow(key, name, price, label){
+    return '<div class="bd-row bd-removable"><div class="bd-nm">' + name + '</div>' +
+           '<div class="bd-amt-wrap"><span class="bd-amt">' + bdAmt(price, true) + '</span>' +
+           removeBtn(key, label || name) + '</div></div>';
+  }
+  function renderBreakdown(){
+    if(!breakdownEl) return;
+    if(!state.vehicle){
+      breakdownEl.innerHTML = '<div class="bd-none">Choose a vehicle to see the breakdown.</div>';
+      return;
+    }
+    var html = '<div class="bd-sec bd-inc"><div class="bd-title"><span class="bd-star">\u2605</span> What\u2019s included</div>' +
+      '<div class="bd-row"><div class="bd-nm">In &amp; Out Deep Clean &mdash; ' + VEHICLE_LABELS[state.vehicle] + '</div>' +
+      '<div class="bd-amt">' + bdAmt(BASE_PRICES[state.vehicle]) + '</div></div></div>';
+
+    var add = '', any = false;
+    if(state.seats === 'yes' && state.fabric){
+      any = true;
+      add += addedRow('seats',
+        (state.fabric === 'textile' ? 'Seats steamed, shampooed &amp; extracted' : 'All seats brushed &mdash; ' + FABRIC_LABELS[state.fabric]),
+        SEATS[state.fabric].price, 'seat treatment');
+    }
+    if(state.seatprot === 'yes' && state.fabric){
+      any = true;
+      add += addedRow('seatprot', PROT_LABELS[state.fabric], seatProtPrice(), 'seat protection');
+    }
+    if(state.paint === 'clay'){
+      any = true;
+      add += addedRow('paint', 'Clay bar decontamination', ADDON_CLAY.price);
+    }
+    if(state.paint === 'enhance'){
+      any = true;
+      add += addedRow('paint', 'Paint enhancement <div class="bd-sub">Clay bar included</div>', paintPrice(), 'paint enhancement');
+    }
+    if(state.prot === 'sealant'){
+      any = true;
+      add += addedRow('prot', '6-month ceramic sealant' + (clayPaid() ? '' : ' <div class="bd-sub">Clay bar included</div>'), sealPrice());
+    }
+    if(hasCoat()){
+      any = true;
+      add += addedRow('prot', 'Ceramic coating &mdash; ' + COAT_LABEL[state.coat] +
+             '<div class="bd-sub">' + (clayPaid() ? 'Front windows included' : 'Clay bar &amp; front windows included') +
+             ' &middot; we confirm the date with you</div>', coatPrice(), 'ceramic coating');
+    }
+    Object.keys(XTRA).forEach(function(k){
+      if(!state.extras[k]) return;
+      if(k === 'glaco' && hasCoat()) return;
+      any = true;
+      add += '<div class="bd-row bd-removable"><div class="bd-nm">' + XTRA_LABEL[k] + '</div>' +
+             '<div class="bd-amt-wrap"><span class="bd-amt">' + bdAmt(XTRA[k].price, true) + '</span>' +
+             removeBtn('x:' + k, XTRA_LABEL[k]) + '</div></div>';
+    });
+
+    if(any) html += '<div class="bd-sec bd-add"><div class="bd-title"><span class="bd-star">\u2605</span> What\u2019s added</div>' + add + '</div>';
+
+    var off = promoOff(), full = calcTotal();
+    if(off){
+      html += '<div class="bd-sec bd-add"><div class="bd-row bd-disc"><div class="bd-nm">Discount applied' +
+              '<div class="bd-sub">Code ' + ((window.MPS_PROMO && window.MPS_PROMO.code()) || '') + '</div></div>' +
+              '<div class="bd-amt">&minus;' + fmtGBP(full * off / 100) + '</div></div></div>';
+    }
+    html += '<div class="bd-total"><div class="bd-nm">Total</div><div class="bd-amt">' + fmtGBP(netTotal()) + '</div></div>';
+    breakdownEl.innerHTML = html;
+  }
+
+  if(breakdownEl){
+    breakdownEl.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.bd-remove') : null;
+      if(!btn) return;
+      var key = btn.getAttribute('data-remove');
+      if(key.indexOf('x:') === 0){
+        var x = key.slice(2);
+        state.extras[x] = false;
+        var cell = root.querySelector('.xtra[data-xtra="' + x + '"]');
+        if(cell) cell.setAttribute('aria-selected','false');
+        update();
+        return;
+      }
+      if(ORDER.indexOf(key) < 0) return;
+      state[key] = (key === 'paint' || key === 'prot') ? 'none' : 'no';
+      root.querySelectorAll('.opt[data-pick="' + key + '"]').forEach(function(o){
+        var want = (key === 'paint' || key === 'prot') ? 'none' : 'no';
+        o.setAttribute('aria-selected', o.getAttribute('data-value') === want ? 'true' : 'false');
+      });
+      update();
+    });
+  }
+  document.addEventListener('mps:promo', function(){ renderBreakdown(); update(); });
+
+  /* ---- step machinery ---- */
+  function update(){
+    fabricSteps();
+    syncGlacoCell();
+    paintCoatPrices();
+    if(doneBtn) doneBtn.textContent = hasCoat() ? 'Request This Booking' : 'View Calendar';
+    var ep = root.querySelector('#iodEnhancePrice');
+    if(ep && state.vehicle) ep.textContent = '+' + fmtGBP(ENHANCE[state.vehicle].price);
+    var sp = root.querySelector('#iodSealPrice');
+    if(sp) sp.textContent = '+' + fmtGBP(clayPaid() ? ADDON_SEAL.price - ADDON_CLAY.price : ADDON_SEAL.price);
+    renderBreakdown();
+    renderPower();
+    renderCardPreviews();
+
+    var totalStr = state.more ? 'By quote' : (state.vehicle ? fmtGBP(calcTotal()) : 'From \u00a3140');
+    var noteStr  = state.more            ? 'We\u2019ll price it once we\u2019ve seen it'
+                 : !state.vehicle        ? 'Select your vehicle size'
+                 : !state.fabric         ? 'What are the seats made of?'
+                 : state.seats === null  ? 'Answer the seats question to continue'
+                 : state.seatprot === null ? 'Protect the seats, or skip it'
+                 : state.paint === null  ? 'Choose how far the paint goes'
+                 : state.prot === null   ? 'Choose your protection'
+                 : 'Price confirmed';
+
+    if(totalEl.textContent !== totalStr) totalEl.textContent = totalStr;
+    if(noteEl.textContent  !== noteStr)  noteEl.textContent  = noteStr;
+    if(finalTotalEl.textContent !== totalStr) finalTotalEl.textContent = totalStr;
+    if(finalNoteEl) finalNoteEl.textContent = state.more
+      ? 'Send us a few photos and we\u2019ll quote it.'
+      : 'Ready to book when you are.';
+
+    syncViewportHeight();
+  }
+
+  function syncViewportHeight(){
+    if(!viewportEl) return;
+    var active = steps.filter(function(s){
+      return Number(s.getAttribute('data-step')) === state.step && !s.hidden;
+    })[0];
+    if(!active) return;
+    var h = active.offsetHeight;
+    if(h) viewportEl.style.height = h + 'px';
+  }
+
+  var progTrack = root.querySelector('#iodProgTrack');
+  var progStep  = root.querySelector('#iodProgStep');
+  var progLabel = root.querySelector('#iodProgLabel');
+  function renderProg(){
+    if(progTrack && !progTrack.children.length){
+      for(var i = 0; i <= DONE; i++){
+        var d = document.createElement('span'); d.className = 'prog-seg'; progTrack.appendChild(d);
+      }
+    }
+    if(progTrack){
+      var segs = progTrack.children;
+      for(var j = 0; j < segs.length; j++){
+        segs[j].className = 'prog-seg' + (j < state.step ? ' done' : j === state.step ? ' now' : '');
+      }
+    }
+    if(progStep)  progStep.textContent  = 'Step ' + (state.step + 1) + ' of ' + (DONE + 1);
+    if(progLabel) progLabel.textContent = PROG_LABELS[state.step] || '';
+  }
+
+  function goTo(i){
+    state.step = Math.max(0, Math.min(DONE, i));
+    track.style.transform = 'translateX(-' + (state.step * 100) + '%)';
+    root.classList.toggle('is-done',        state.step === DONE);
+    root.classList.toggle('is-first',       state.step === 0);
+    root.classList.toggle('is-questioning', state.step > 0);
+    btnBack.disabled = state.step === 0;
+    renderProg();
+    update();
+  }
+  function advance(){ if(state.step < DONE) goTo(state.step + 1); }
+
+  function clearStep(i){
+    steps.forEach(function(s){
+      if(Number(s.getAttribute('data-step')) !== i) return;
+      s.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
+    });
+  }
+  function blankExtras(){
+    return { engine:false, glaco:false, odour:false, sand:false, pet:false, antifog:false };
+  }
+  function resetAfter(pick){
+    var idx = ORDER.indexOf(pick);
+    for(var k = idx + 1; k < ORDER.length; k++){
+      /* extras is an object of ticks, not a single answer */
+      if(ORDER[k] === 'extras'){
+        state.extras = blankExtras();
+        root.querySelectorAll('.xtra').forEach(function(c){ c.setAttribute('aria-selected','false'); });
+      } else {
+        state[ORDER[k]] = null;
+      }
+      clearStep(k);
+    }
+  }
+
+  /* the extras grid is multi-select: tapping toggles rather than advances */
+  root.querySelectorAll('.xtra').forEach(function(cell){
+    function toggle(){
+      var k = cell.getAttribute('data-xtra');
+      state.extras[k] = !state.extras[k];
+      cell.setAttribute('aria-selected', state.extras[k] ? 'true' : 'false');
+      update();
+    }
+    cell.addEventListener('click', toggle);
+    cell.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+  var extrasDone = root.querySelector('#iodExtrasDone');
+  if(extrasDone) extrasDone.addEventListener('click', function(){ goTo(DONE); });
+
+  root.querySelectorAll('.opt[role="option"]:not(.xtra)').forEach(function(opt){
+    opt.addEventListener('click', function(){ activate(opt); });
+    opt.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(opt); }
+    });
+  });
+
+  function activate(opt){
+    var pick = opt.getAttribute('data-pick'), value = opt.getAttribute('data-value');
+
+    if(pick === 'more'){
+      state.more = value; state.vehicle = null;
+      resetAfter('vehicle'); clearStep(0);
+      opt.setAttribute('aria-selected','true');
+      update(); goTo(DONE);
+      return;
+    }
+    if(pick === 'vehicle') state.more = null;
+
+    var stepIdx = Number(opt.closest('.step').getAttribute('data-step'));
+    resetAfter(pick);
+    clearStep(stepIdx);
+    state[pick] = value;
+    opt.setAttribute('aria-selected','true');
+    update();
+    advance();
+  }
+
+  btnBack.addEventListener('click', function(){
+    if(state.step === DONE && state.more){ goTo(0); return; }
+    if(state.step > 0) goTo(state.step - 1);
+  });
+
+  var learn = root.querySelector('#iodLearnMoreBtn');
+  if(learn) learn.addEventListener('click', function(){
+    var el = document.getElementById('WhatIncludedInteriorDeepClean');
+    if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+  /* ======================================================================
+     BOOKING PANEL
+     The old button sent people to Acuity's own booking screen. Now the
+     whole thing happens here: real slots from the diary, the intake
+     questions, then a Stripe deposit. The appointment itself is created
+     by Make once the payment lands, so nothing here can book anything
+     without money having moved.
+     ====================================================================== */
+  var bk        = root.querySelector('#iodBook');
+  var bkDays    = root.querySelector('#iodBkDays');
+  var bkTimes   = root.querySelector('#iodBkTimes');
+  var bkPay     = root.querySelector('#iodBkPay');
+  var bkErr     = root.querySelector('#iodBkErr');
+  var bkDetails = root.querySelector('#iodBkDetails');
+  var booking   = { day:null, time:null, month:null, answers:{}, autoSkipped:false };
+
+  function bkFail(msg, el){
+    bkErr.textContent = msg; bkErr.hidden = false;
+    if(el) el.focus();
+    return false;
+  }
+  function monthStr(d){ return d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2); }
+
+  function askAcuity(params){
+    var q = Object.keys(params).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+    }).join('&');
+    return fetch(AVAILABILITY + '?token=' + encodeURIComponent(MPS_TOKEN) + '&' + q)
+      .then(function(r){ return r.json(); });
+  }
+  function addonParams(){
+    var p = {};
+    addonIds().slice(0,4).forEach(function(id,i){ p['a' + (i+1)] = id; });
+    return p;
+  }
+
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+
+  function loadDays(month){
+    var type = bookingTypeId();
+    if(!type) return;
+    booking.month = month;
+
+    var grid = root.querySelector('#iodBkDays');
+    grid.innerHTML = '';
+    root.querySelector('#iodBkTimesWrap').hidden = true;
+    root.querySelector('#iodBkDaysLoad').hidden = false;
+    bkErr.hidden = true;
+
+    var y = +month.slice(0,4), m = +month.slice(5,7);
+    root.querySelector('#iodBkMonthName').textContent = MONTHS[m-1] + ' ' + y;
+    /* can't go back past this month */
+    var now = new Date();
+    root.querySelector('#iodBkPrev').disabled =
+      (y < now.getFullYear()) || (y === now.getFullYear() && m <= now.getMonth() + 1);
+
+    var p = addonParams(); p.type = type; p.month = month;
+    askAcuity(p).then(function(days){
+      root.querySelector('#iodBkDaysLoad').hidden = true;
+      var free = {};
+      (days || []).forEach(function(d){ free[d.date || d] = true; });
+      drawMonth(y, m, free);
+      if(!days || !days.length){
+        /* nothing left this month — step forward rather than showing an
+           empty grid and making them work it out */
+        if(!booking.autoSkipped){
+          booking.autoSkipped = true;
+          shiftMonth(1);
+          return;
+        }
+        bkFail('Nothing free in ' + MONTHS[m-1] + ' \u2014 try the next month.');
+      }
+    }).catch(function(){
+      root.querySelector('#iodBkDaysLoad').hidden = true;
+      bkFail('Couldn\u2019t reach the diary. Try again, or message us on WhatsApp.');
+    });
+  }
+
+  function drawMonth(y, m, free){
+    var grid = root.querySelector('#iodBkDays');
+    grid.innerHTML = '';
+
+    var first = new Date(y, m - 1, 1);
+    var lead  = (first.getDay() + 6) % 7;          /* weeks start Monday */
+    var count = new Date(y, m, 0).getDate();
+
+    for(var i = 0; i < lead; i++){
+      var blank = document.createElement('span');
+      blank.className = 'bk-cell is-empty';
+      grid.appendChild(blank);
+    }
+
+    for(var day = 1; day <= count; day++){
+      var iso = y + '-' + ('0' + m).slice(-2) + '-' + ('0' + day).slice(-2);
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'bk-cell'; b.textContent = day;
+      b.setAttribute('aria-pressed','false');
+      if(!free[iso]){
+        b.disabled = true;
+        b.setAttribute('aria-label', day + ' \u2014 fully booked');
+      } else {
+        b.setAttribute('data-iso', iso);
+        (function(isoDay, btn){
+          btn.addEventListener('click', function(){
+            Array.prototype.forEach.call(grid.children, function(o){
+              if(o.setAttribute) o.setAttribute('aria-pressed','false');
+            });
+            btn.setAttribute('aria-pressed','true');
+            booking.day = isoDay; booking.time = null;
+            bkPay.disabled = true; bkPay.textContent = 'Pay the deposit & book';
+            root.querySelector('#iodBkChosen').hidden = true;
+            loadTimes(isoDay);
+          });
+        })(iso, b);
+      }
+      grid.appendChild(b);
+    }
+  }
+
+  /* ---- hour and minute wheels, built from what's actually free ---- */
+  var slotsByHour = {};
+
+  function loadTimes(iso){
+    var type = bookingTypeId();
+    root.querySelector('#iodBkTimesWrap').hidden = false;
+    root.querySelector('#iodBkTimesLoad').hidden = false;
+    root.querySelector('#iodBkHours').innerHTML = '';
+    root.querySelector('#iodBkMins').innerHTML  = '';
+
+    var p = addonParams(); p.type = type; p.when = iso;
+    askAcuity(p).then(function(times){
+      root.querySelector('#iodBkTimesLoad').hidden = true;
+      slotsByHour = {};
+      (times || []).forEach(function(t){
+        var raw = t.time || t;
+        var hm  = String(raw).match(/T(\d{2}):(\d{2})/);
+        if(!hm) return;
+        (slotsByHour[hm[1]] = slotsByHour[hm[1]] || []).push({ mm:hm[2], raw:raw });
+      });
+
+      var hours = Object.keys(slotsByHour).sort();
+      if(!hours.length){
+        root.querySelector('#iodBkHours').innerHTML = '<p class="bk-load" style="padding:10px;">That day filled up.</p>';
+        return;
+      }
+      hours.forEach(function(hh){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'bk-tick'; b.textContent = hh;
+        b.setAttribute('aria-pressed','false');
+        b.addEventListener('click', function(){
+          Array.prototype.forEach.call(root.querySelector('#iodBkHours').children, function(o){
+            if(o.setAttribute) o.setAttribute('aria-pressed','false');
+          });
+          b.setAttribute('aria-pressed','true');
+          drawMinutes(hh);
+        });
+        root.querySelector('#iodBkHours').appendChild(b);
+      });
+      drawMinutes(hours[0]);
+      root.querySelector('#iodBkHours').firstChild.setAttribute('aria-pressed','true');
+    }).catch(function(){
+      root.querySelector('#iodBkTimesLoad').hidden = true;
+      bkFail('Couldn\u2019t load that day. Try another.');
+    });
+  }
+
+  function depositAmount(){
+    return Math.max(1, Math.round(calcTotal() * DEPOSIT_PCT) / 100);
+  }
+
+  function drawMinutes(hh){
+    var wrap = root.querySelector('#iodBkMins');
+    wrap.innerHTML = '';
+    (slotsByHour[hh] || []).forEach(function(slot){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'bk-tick'; b.textContent = slot.mm;
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(wrap.children, function(o){
+          if(o.setAttribute) o.setAttribute('aria-pressed','false');
+        });
+        b.setAttribute('aria-pressed','true');
+        booking.time = slot.raw;
+
+        var chosen = root.querySelector('#iodBkChosen');
+        chosen.textContent = new Date(String(slot.raw).slice(0,10) + 'T12:00:00')
+          .toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' }) +
+          ' at ' + hh + ':' + slot.mm;
+        chosen.hidden = false;
+
+        bkDetails.hidden = false;
+        bkPay.disabled = false;
+        bkPay.textContent = 'Pay ' + fmtGBP(depositAmount()) + ' deposit & book';
+        var fine = root.querySelector('#iodBkFine');
+        if(fine){
+          fine.textContent = fmtGBP(depositAmount()) + ' now holds the slot. The remaining ' +
+            fmtGBP(calcTotal() - depositAmount()) + ' is paid on the day, once you\u2019ve seen the work.';
+        }
+      });
+      wrap.appendChild(b);
+    });
+  }
+
+  function shiftMonth(by){
+    var d = new Date((booking.month || monthStr(new Date())) + '-01T12:00:00');
+    d.setMonth(d.getMonth() + by);
+    loadDays(monthStr(d));
+  }
+  root.querySelector('#iodBkNextMonth').addEventListener('click', function(){ shiftMonth(1); });
+  root.querySelector('#iodBkPrev').addEventListener('click', function(){ shiftMonth(-1); });
+
+  Array.prototype.forEach.call(root.querySelectorAll('.bk-yn'), function(row){
+    var key = row.getAttribute('data-yn');
+    Array.prototype.forEach.call(row.querySelectorAll('button'), function(b){
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(row.querySelectorAll('button'), function(o){ o.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed','true');
+        booking.answers[key] = b.getAttribute('data-v');
+      });
+    });
+  });
+
+
+
+
+
+  /* ======================================================================
+     CERAMIC COATING — 1, 3 or 7 years
+     Priced on the page but never booked from it: coatings need dry weather
+     to cure, so the button becomes "Request This Booking" and sends the
+     whole quote to WhatsApp or email, same as the Exterior Detail page.
+     ====================================================================== */
+  var COAT_PRICES = {
+    '1': { '3door':120, '5door':150, '7seats':200 },
+    '3': { '3door':200, '5door':230, '7seats':280 },
+    '7': { '3door':300, '5door':330, '7seats':380 }
+  };
+  var COAT_LABEL = { '1':'1 year', '3':'3 years', '7':'7 years' };
+
+  var coatPills = Array.prototype.slice.call(root.querySelectorAll('.coat-pill'));
+  var coatCard  = root.querySelector('#iodCoatCard');
+  var rqBox     = root.querySelector('#iodRequest');
+
+  function coatPrice(){
+    if(!hasCoat() || !state.vehicle) return 0;
+    var p = COAT_PRICES[state.coat][state.vehicle] || 0;
+    /* the coating includes a clay stage; don't charge for it twice */
+    return clayPaid() ? p - ADDON_CLAY.price : p;
+  }
+
+  function markCoat(tier){
+    coatPills.forEach(function(p){
+      p.setAttribute('aria-checked', p.getAttribute('data-coat') === tier ? 'true' : 'false');
+    });
+    if(coatCard) coatCard.setAttribute('aria-selected', tier ? 'true' : 'false');
+  }
+
+  function paintCoatPrices(){
+    coatPills.forEach(function(p){
+      var tier = p.getAttribute('data-coat');
+      var el = p.querySelector('[data-coat-price]');
+      if(!el) return;
+      el.textContent = state.vehicle
+        ? '+' + fmtGBP(COAT_PRICES[tier][state.vehicle] - (clayPaid() ? ADDON_CLAY.price : 0))
+        : 'Select size';
+    });
+    var chip = root.querySelector('#iodCoatClayChip');
+    if(chip) chip.textContent = clayPaid() ? 'Clay already added' : 'Clay bar included';
+  }
+
+  coatPills.forEach(function(p){
+    p.addEventListener('click', function(){
+      state.prot = 'coat';
+      state.coat = p.getAttribute('data-coat');
+      root.querySelectorAll('.opt[data-pick="prot"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
+      markCoat(state.coat);
+      update();
+      goTo(DONE);
+    });
+  });
+
+  /* ---- the request message ---- */
+  function niceDate(iso){
+    if(!iso) return '';
+    try{
+      return new Date(iso + 'T12:00:00').toLocaleDateString('en-GB',
+        { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+    }catch(e){ return iso; }
+  }
+  function requestMessage(){
+    var L = [];
+    L.push('Hi MobilePitStop, I\u2019d like to request an In & Out Deep Clean with a ceramic coating.');
+    L.push('');
+    L.push('Vehicle: ' + (VEHICLE_LABELS[state.vehicle] || '') + ' (' + fmtGBP(BASE_PRICES[state.vehicle]) + ')');
+    if(state.fabric)          L.push('Seats: ' + FABRIC_LABELS[state.fabric] + (state.seats === 'yes' ? ' \u2014 treated +' + fmtGBP(seatsPrice()) : ''));
+    if(state.seatprot === 'yes') L.push(PROT_LABELS[state.fabric] + ': +' + fmtGBP(seatProtPrice()));
+    if(state.paint === 'clay')    L.push('Clay bar: +' + fmtGBP(ADDON_CLAY.price));
+    if(state.paint === 'enhance') L.push('Paint enhancement (clay included): +' + fmtGBP(paintPrice()));
+    L.push('Ceramic coating, ' + COAT_LABEL[state.coat] +
+           (clayPaid() ? ' (front windows included)' : ' (clay bar & front windows included)') +
+           ': +' + fmtGBP(coatPrice()));
+    Object.keys(XTRA).forEach(function(k){
+      if(state.extras[k] && !(k === 'glaco' && hasCoat())) L.push(XTRA_LABEL[k] + ': +' + fmtGBP(XTRA[k].price));
+    });
+    L.push('Total shown: ' + fmtGBP(netTotal()));
+    L.push('');
+    var nm = root.querySelector('#iodRqName'), pc = root.querySelector('#iodRqPostcode'), dt = root.querySelector('#iodRqDate');
+    if(nm && nm.value.trim()) L.push('Name: ' + nm.value.trim());
+    if(pc && pc.value.trim()) L.push('Postcode: ' + pc.value.trim());
+    if(dt && dt.value)        L.push('Preferred week: ' + niceDate(dt.value));
+    return L.join('\n');
+  }
+  var rqDirty = false;
+  function refreshMessage(){
+    var box = root.querySelector('#iodRqMsg');
+    if(box && !rqDirty) box.value = requestMessage();
+  }
+  ['#iodRqName','#iodRqPostcode','#iodRqDate'].forEach(function(sel){
+    var el = root.querySelector(sel);
+    if(el){ el.addEventListener('input', refreshMessage); el.addEventListener('change', refreshMessage); }
+  });
+  var rqMsgEl = root.querySelector('#iodRqMsg');
+  if(rqMsgEl) rqMsgEl.addEventListener('input', function(){ rqDirty = true; });
+
+  function sendRequest(via){
+    var nm = root.querySelector('#iodRqName');
+    var err = root.querySelector('#iodRqErr');
+    if(!nm || !nm.value.trim()){
+      if(err){ err.textContent = 'Add your name so we know who we\u2019re talking to.'; err.hidden = false; }
+      if(nm) nm.focus();
+      return;
+    }
+    if(err) err.hidden = true;
+    var box = root.querySelector('#iodRqMsg');
+    var text = (box && box.value.trim()) ? box.value : requestMessage();
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event:'pf_request_click', service:'in_and_out', via:via,
+                            coat:state.coat, price_total:calcTotal() });
+    if(via === 'email'){
+      window.location.href = 'mailto:mobilepitstopvalet@gmail.com?subject=' +
+        encodeURIComponent('In & Out Deep Clean + ceramic coating') +
+        '&body=' + encodeURIComponent(text);
+      return;
+    }
+    var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(text);
+    var w2 = window.open(url, '_blank', 'noopener');
+    if(!w2) window.location.href = url;
+  }
+  var rqWa = root.querySelector('#iodRqWhatsApp'), rqEm = root.querySelector('#iodRqEmail');
+  if(rqWa) rqWa.addEventListener('click', function(){ sendRequest('whatsapp'); });
+  if(rqEm) rqEm.addEventListener('click', function(){ sendRequest('email'); });
+
+  doneBtn.addEventListener('click', function(){
+    if(hasCoat()){
+      if(rqBox){
+        rqBox.hidden = false;
+        refreshMessage();
+        syncViewportHeight();
+        var nm = root.querySelector('#iodRqName');
+        try{ if(nm) nm.focus({ preventScroll:true }); }catch(e){}
+        try{ rqBox.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'nearest' }); }catch(e){}
+      }
+      return;
+    }
+    if(state.more){
+      window.open('https://wa.me/' + WHATSAPP + '?text=' +
+        encodeURIComponent('Hi MobilePitStop, I\u2019d like a quote for an interior deep clean.'),
+        '_blank', 'noopener');
+      return;
+    }
+    if(!bk.hidden){ bk.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' }); return; }
+    bk.hidden = false;
+    doneBtn.hidden = true;
+    root.classList.add('is-booking');
+    var back = root.querySelector('#iodBkBack');
+    if(back) back.hidden = false;
+    var hint = root.querySelector('#iodBookHint');
+    if(hint) hint.hidden = true;
+    loadDays(monthStr(new Date()));
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event:'pf_calendar_open', component:'price_finder',
+      service:'interior_deep_clean', vehicle_type:state.vehicle, price_total:calcTotal() });
+    setTimeout(function(){ bk.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' }); }, 60);
+  });
+
+  var bkBack = root.querySelector('#iodBkBack');
+  if(bkBack){
+    bkBack.addEventListener('click', function(){
+      root.classList.remove('is-booking');
+      bk.hidden = true; bkBack.hidden = true; doneBtn.hidden = false;
+      syncViewportHeight();
+      root.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' });
+    });
+  }
+
+  bkPay.addEventListener('click', function(){
+    bkErr.hidden = true;
+    if(!booking.time) return bkFail('Pick a day and a start time first.');
+
+    var first = root.querySelector('#iodBkFirst').value.trim();
+    var last  = root.querySelector('#iodBkLast').value.trim();
+    var email = root.querySelector('#iodBkEmail').value.trim();
+    var phone = root.querySelector('#iodBkPhone').value.trim();
+    var addr  = root.querySelector('#iodBkAddr').value.trim();
+    var car   = root.querySelector('#iodBkCar').value.trim();
+
+    if(!first) return bkFail('We need a first name for the booking.', root.querySelector('#iodBkFirst'));
+    if(!last)  return bkFail('And a surname.', root.querySelector('#iodBkLast'));
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return bkFail('That email doesn\u2019t look right \u2014 your confirmation goes there.', root.querySelector('#iodBkEmail'));
+    if(phone.replace(/\D/g,'').length < 10) return bkFail('A mobile number, so we can say when we\u2019re on the way.', root.querySelector('#iodBkPhone'));
+    if(addr.length < 8) return bkFail('The full address and postcode \u2014 we\u2019re driving to it.', root.querySelector('#iodBkAddr'));
+    if(!car) return bkFail('Make, model and year, so we bring the right kit.', root.querySelector('#iodBkCar'));
+    if(booking.answers.agree !== 'yes') return bkFail('Please confirm you\u2019re happy for us to quote before any extra work.');
+    if(!booking.answers.power || !booking.answers.water || !booking.answers.space)
+      return bkFail('Answer the three yes/no questions and we\u2019ll know what to bring.');
+
+    bkPay.disabled = true;
+    bkPay.textContent = 'Taking you to checkout\u2026';
+
+    var label = '10% deposit \u2014 In &amp; Out Deep Clean, ' + (VEHICLE_LABELS[state.vehicle] || state.vehicle) +
+                (state.fabric ? ', ' + FABRIC_LABELS[state.fabric] : '') +
+                (state.seats === 'yes' ? ' + seats' : '') +
+                (state.prot  === 'yes' ? ' + protection' : '');
+
+    var p = {
+      token: MPS_TOKEN,
+      deposit: Math.round(depositAmount() * 100),
+      label: label,
+      type: bookingTypeId(),
+      datetime: booking.time,
+      addons: '[' + addonIds().join(',') + ']',
+      firstName: first, lastName: last, email: email, phone: phone, address: addr,
+      vehicle: car,
+      power: booking.answers.power,
+      water: booking.answers.water,
+      space: booking.answers.space,
+      agree: booking.answers.agree,
+      marketing: booking.answers.marketing || 'no',
+      certificate: (window.MPS_PROMO && window.MPS_PROMO.code) ? (window.MPS_PROMO.code() || '') : '',
+      notes: 'Total ' + fmtGBP(netTotal()) + ' \u2014 ' + car,
+      source: ''
+    };
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event:'pf_book_click', component:'price_finder',
+      service:'interior_deep_clean', vehicle_type:state.vehicle, fabric:state.fabric,
+      seats:state.seats, protection:state.prot, odour:state.odour,
+      price_total:calcTotal(), deposit:depositAmount() });
+
+    var q = Object.keys(p).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(p[k]);
+    }).join('&');
+
+    fetch(DEPOSIT_HOOK + '?' + q)
+      .then(function(r){ return r.json(); })
+      .then(function(session){
+        if(session && session.url){ window.location.href = session.url; return; }
+        throw new Error('no url');
+      })
+      .catch(function(){
+        bkPay.disabled = false;
+        bkPay.textContent = 'Pay ' + fmtGBP(depositAmount()) + ' deposit & book';
+        bkErr.innerHTML = 'Checkout didn\u2019t open. Nothing has been charged and nothing is booked \u2014 ' +
+          '<a href="https://wa.me/447592196929" target="_blank" rel="noopener" style="color:var(--ocean);font-weight:900;">message us</a> ' +
+          'and we\u2019ll book it by hand.';
+        bkErr.hidden = false;
+      });
+  });
+
+  /* ---- init ---- */
+  goTo(0);
+  update();
+})();
+</script>

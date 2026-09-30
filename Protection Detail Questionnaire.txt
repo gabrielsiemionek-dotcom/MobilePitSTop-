@@ -1,0 +1,2096 @@
+
+<!-- ==========================================================================
+     MobilePitStop — PROTECTION DETAIL questionnaire
+     (replaces "Full Valet Premium" — page URL /full-valet-premium unchanged)
+
+     BASE PRICE   3-door £210 · 5-door £230 · 7-seater £250
+     INCLUDED     In & Out deep clean, chemical decontamination, clay bar,
+                  full steam/shampoo/extraction, 6-month ceramic sealant,
+                  Glaco on the glass
+
+     QUESTIONS    1 Vehicle size
+                  2 Engine bay detail        +£30            (hidden field)
+                  3 Leather coating (CQuartz) +£150/£150/£200 (Acuity type)
+                                             "No leather in my car" skips it
+                  4 Paint enhancement        +£185/£220/£265  (Acuity type)
+                  5 Ceramic coating upgrade, replaces the sealant — BY QUOTE
+                       1 year   +£60  / £90  / £140
+                       3 years  +£140 / £170 / £220
+                       7 years  +£240 / £270 / £320
+
+     BOOKING      No coating  -> "View Calendar" -> Acuity
+                  Coating     -> "Request This Booking" -> WhatsApp / email,
+                                 message pre-filled with every choice
+
+     ------------------------------------------------------------------------
+     ACUITY — 12 EXISTING TYPES, EDITED IN PLACE (no new types needed)
+     Rename each, set the price, and extend the duration where noted.
+
+       ID         was (old Premium)              becomes                       price
+       93617563   3-door, no ozone, no engine    Protection Detail 3-door      £210
+       93617618   5-door, no ozone, no engine    Protection Detail 5-door      £230
+       93617649   7-seat, no ozone, no engine    Protection Detail 7-seater    £250
+       93617603   3-door, ozone                  PD 3-door + Leather           £360
+       93617631   5-door, ozone                  PD 5-door + Leather           £380
+       93617654   7-seat, ozone                  PD 7-seater + Leather         £450
+       97061113   3-door, enhancement            PD 3-door + Enhancement       £395
+       97061263   5-door, enhancement            PD 5-door + Enhancement       £450
+       97061395   7-seat, enhancement            PD 7-seater + Enhancement     £515
+       97061160   3-door, ozone + enhancement    PD 3-door + Leather + Enh     £545
+       97061292   5-door, ozone + enhancement    PD 5-door + Leather + Enh     £600
+       97061426   7-seat, ozone + enhancement    PD 7-seater + Leather + Enh   £715
+
+     The "+ Leather" types need about an hour more than the old ozone ones.
+     The other 24 old Premium types: HIDE them in Acuity, don't delete —
+     old links in emails, ads or bookmarks may still point at them.
+
+     ENGINE BAY goes through a hidden intake field, like the Google click ID.
+     Create a short-text intake question in Acuity (e.g. "Extras"), then put
+     its number in EXTRAS_FIELD_ID below. Until you do, engine bay still
+     prices correctly on this page but won't be written into the booking.
+     ========================================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root{
+    --bg:#0b0b0b;
+    --card:#121212;
+    --muted:#1b1b1b;
+    --text:#fff;
+    --accent:#E3FC02;
+    --accent-ink:#0b0b0b;
+    --ocean:#00B8FF;
+    --radius:16px;
+    --border:rgba(255,255,255,.12);
+  }
+  *{ box-sizing:border-box; }
+
+  .pf{
+    max-width:900px;
+    margin:0 auto;
+    padding:24px;
+    color:var(--text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+
+  /* Header */
+  .topbar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .topbar h1{ margin:0; font-size:clamp(20px,3vw,26px); font-weight:950; letter-spacing:.2px; color:var(--accent); }
+  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
+  .lead{ margin:6px 0 14px; color:#d0d0d0; font-size:14px; }
+
+  .totalbox{
+    min-width:210px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(0,0,0,.22);
+    border-radius:14px;
+    padding:12px;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .totalbox .lbl{ font-size:12px; color:#cfcfcf; }
+  .totalbox .val{ font-size:26px; font-weight:950; color:var(--accent); margin-top:2px; }
+  .totalbox .note{ font-size:12px; color:#bdbdbd; margin-top:4px; line-height:1.35; }
+  .pf.is-done .topbar .totalbox{ display:none; }
+
+  /* Intro sections collapse once the questions start */
+  .pkg-badge,
+  .pkg-includes,
+  .info-bar{
+    transition:max-height .35s ease, opacity .35s ease, margin .35s ease, padding .35s ease;
+    max-height:600px;
+    opacity:1;
+    overflow:hidden;
+  }
+  .pf.is-questioning .pkg-badge,
+  .pf.is-questioning .pkg-includes,
+  .pf.is-questioning .info-bar{
+    max-height:0;
+    opacity:0;
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:0;
+    padding-bottom:0;
+  }
+
+  @media(max-width:720px){
+    .topbar{ flex-direction:column; }
+    .totalbox{ width:100%; text-align:left; min-width:0; }
+  }
+
+  /* Package badge */
+  .pkg-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid rgba(227,252,2,.35);
+    background:rgba(227,252,2,.07);
+    font-size:13px;
+    font-weight:900;
+    color:var(--accent);
+  }
+  .pkg-badge .pkg-sub{ color:rgba(255,255,255,.6); font-weight:700; }
+  @media(max-width:640px){
+    /* stack instead of squeezing two columns into a pill */
+    .pkg-badge{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      border-radius:12px;
+      padding:9px 13px;
+    }
+    .pkg-badge .pkg-sub{ font-size:12px; }
+    .pkg-badge .pkg-dash{ display:none; }
+  }
+
+  /* What's in the package */
+  .pkg-includes{
+    margin:0 0 16px;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(0,0,0,.28);
+  }
+  .pkg-includes-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:950;
+    color:rgba(255,255,255,.55);
+    margin-bottom:10px;
+  }
+  .pkg-items{ display:grid; gap:8px; grid-template-columns:1fr; }
+  @media(min-width:600px){ .pkg-items{ grid-template-columns:1fr 1fr; } }
+
+  .pkg-item{ display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.4; }
+  .pkg-item-icon{
+    width:28px; height:28px; border-radius:8px;
+    border:1px solid rgba(227,252,2,.25);
+    background:rgba(227,252,2,.07);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0;
+  }
+  .pkg-item-text strong{ display:block; font-size:13px; font-weight:900; color:#fff; }
+  .pkg-item-text span{ color:rgba(255,255,255,.55); font-size:12px; }
+
+  /* Info bar */
+  .info-bar{
+    margin:0 0 16px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.28);
+    font-size:13px;
+    line-height:1.45;
+    color:#d0d0d0;
+  }
+  .info-bar strong{ color:#fff; font-weight:900; }
+  .info-bar a{ color:var(--accent); font-weight:900; text-decoration:none; white-space:nowrap; }
+  .info-bar a:hover{ text-decoration:underline; }
+
+  /* Progress bar */
+  .prog{ margin:0 0 14px; }
+  .prog-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:7px; }
+  .prog-step{ font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+  .prog-label{
+    font-size:12px; font-weight:800; color:var(--accent);
+    text-align:right; overflow:hidden; text-overflow:ellipsis;
+    white-space:nowrap; max-width:62%;
+  }
+  .prog-track{ display:flex; gap:5px; }
+  .prog-seg{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.12); transition:background .35s ease, box-shadow .35s ease; }
+  .prog-seg.done{ background:rgba(227,252,2,.45); }
+  .prog-seg.now{ background:var(--accent); box-shadow:0 0 10px rgba(227,252,2,.45); }
+  @media(max-width:420px){
+    .prog-label{ font-size:11.5px; max-width:56%; }
+    .prog-seg{ height:5px; }
+  }
+
+  .pf.is-first .nav{ display:none; }
+
+  .wizard{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .viewport{ overflow:hidden; border-radius:14px; width:100%; }
+  .viewport.is-ready{ transition:height .35s ease; }
+  .track{
+    display:flex;
+    width:100%;
+    align-items:flex-start;
+    transition:transform .45s ease;
+  }
+  .step{ flex:0 0 100%; padding:18px; min-width:100%; overflow:hidden; overflow:clip; }
+  .step h3{
+    font-size:clamp(18px,2.4vw,22px);
+    line-height:1.25;
+    margin:0 0 12px;
+    font-weight:950;
+    letter-spacing:-.01em;
+    color:var(--accent);
+  }
+
+  /* Options */
+  .opts{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:12px;
+    padding:14px;
+    background:var(--muted);
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    position:relative;
+    width:100%;
+  }
+  .opt:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .opt[aria-selected="true"]{ border-color:rgba(227,252,2,.9); background:rgba(227,252,2,.08); }
+
+  .opt .row{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:10px; font-weight:950; flex-wrap:wrap;
+  }
+  .opt .row span:first-child{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+
+  .price-pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.5);
+    background:rgba(227,252,2,.12);
+    padding:4px 10px; border-radius:999px;
+    white-space:nowrap; flex:0 0 auto;
+  }
+
+  /* Add-on cards */
+  .opt-premium{
+    position:relative;
+    padding:16px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+    box-shadow:0 14px 40px rgba(0,0,0,.55);
+  }
+  .opt[aria-selected="true"].opt-premium{
+    border-color:rgba(227,252,2,.28);
+    background:linear-gradient(180deg,rgba(227,252,2,.085),rgba(255,255,255,.02));
+  }
+  .prem-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .prem-head > div:first-child{ flex:1 1 auto; min-width:0; }
+  .prem-kicker{ font-size:12px; color:rgba(255,255,255,.72); letter-spacing:.02em; margin-bottom:2px; padding-right:86px; }
+  .prem-name{ font-size:16px; font-weight:950; letter-spacing:-.01em; overflow-wrap:anywhere; padding-right:86px; }
+  .prem-price{
+    position:absolute; top:14px; right:14px; z-index:2;
+    font-size:13px; font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.32);
+    background:rgba(227,252,2,.08);
+    padding:6px 10px; border-radius:999px;
+    white-space:nowrap; line-height:1; margin:0;
+  }
+  .prem-desc{ margin-top:10px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.72); overflow-wrap:anywhere; }
+  .prem-incl{
+    display:inline-flex; align-items:center; gap:6px;
+    max-width:100%;
+    margin-top:8px; font-size:12px; font-weight:900; line-height:1.35;
+    padding:4px 10px; border-radius:999px; white-space:normal;
+    color:rgba(227,252,2,.92);
+    border:1px solid rgba(227,252,2,.28);
+    background:rgba(227,252,2,.06);
+  }
+  .prem-incl.is-quote{
+    color:var(--ocean);
+    border-color:rgba(0,184,255,.35);
+    background:rgba(0,184,255,.07);
+  }
+
+  .step-note{
+    margin:-4px 0 12px;
+    font-size:12.5px;
+    color:rgba(255,255,255,.58);
+    line-height:1.5;
+  }
+  .step-note strong{ color:#fff; }
+
+  /* "No leather in my car" — quiet, under the two cards */
+  .pf .skip-link{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    padding:12px 14px;
+    border:1px dashed rgba(255,255,255,.22);
+    border-radius:12px;
+    background:transparent;
+    color:rgba(255,255,255,.72);
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:800;
+    cursor:pointer;
+    text-align:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .pf .skip-link:hover,
+  .pf .skip-link:focus-visible{ border-color:rgba(255,255,255,.5); color:#fff; outline:none; }
+  .pf .skip-link[aria-pressed="true"]{ border-style:solid; border-color:rgba(227,252,2,.6); color:#fff; }
+
+  /* Ceramic coating: three pills inside one card */
+  .coat-pills{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px;
+  }
+  .coat-pill{
+    appearance:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    padding:11px 6px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    font-family:inherit;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .coat-pill:hover,
+  .coat-pill:focus-visible{ border-color:var(--accent); transform:translateY(-1px); outline:none; }
+  .coat-pill .cp-yr{ font-size:14.5px; font-weight:950; letter-spacing:-.01em; }
+  .coat-pill .cp-pr{ font-size:12.5px; font-weight:900; color:var(--accent); }
+  .coat-pill[aria-checked="true"]{
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .coat-pill[aria-checked="true"] .cp-yr,
+  .coat-pill[aria-checked="true"] .cp-pr{ color:#0b0b0b; }
+  .coat-card{ cursor:default; }
+  .coat-card:hover{ transform:none; }
+
+  /* Breakdown */
+  .bd{ margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12); }
+  .bd-sec{ margin-top:16px; }
+  .bd-sec:first-child{ margin-top:0; }
+  .bd-title{
+    display:flex; align-items:center; gap:7px;
+    font-size:11px; text-transform:uppercase; letter-spacing:.12em;
+    font-weight:900; margin-bottom:6px;
+  }
+  .pkg-dot{ display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--accent); margin-right:7px; vertical-align:1px; }
+  .bd-title .bd-star{ font-size:14px; line-height:1; }
+  .bd-inc .bd-title{ color:var(--accent); }
+  .bd-add .bd-title{ color:var(--ocean); }
+
+  .bd-row{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; padding:7px 0;
+    border-top:1px solid rgba(255,255,255,.06);
+    font-size:13px; font-weight:900;
+  }
+  .bd-row:first-of-type{ border-top:none; }
+  .bd-row .bd-nm{ color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+  .bd-row .bd-amt{ flex:0 0 auto; white-space:nowrap; }
+  .bd-inc .bd-amt{ color:var(--accent); }
+  .bd-add .bd-amt{ color:var(--ocean); }
+  .bd-sub{ font-size:12px; font-weight:400; color:rgba(255,255,255,.55); margin-top:2px; line-height:1.4; }
+  .bd-was{ color:rgba(255,255,255,.38); text-decoration:line-through; font-weight:900; margin-right:7px; font-size:.85em; }
+  .bd-row.bd-disc .bd-amt{ color:var(--ocean); }
+  .bd-row.bd-removable{ align-items:center; }
+  .bd-amt-wrap{ display:flex; align-items:center; gap:9px; flex:0 0 auto; }
+  .bd-remove{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.2);
+    background:transparent;
+    color:rgba(255,255,255,.5);
+    width:22px; height:22px; border-radius:50%;
+    font-size:14px; line-height:1; font-family:inherit;
+    cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:0; flex:0 0 22px;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .bd-remove:hover,
+  .bd-remove:focus-visible{ border-color:#FF6B5A; color:#FF6B5A; background:rgba(255,107,90,.1); outline:none; }
+  @media(max-width:420px){
+    .bd-remove{ width:26px; height:26px; flex-basis:26px; font-size:15px; }
+  }
+  .bd-none{ font-size:13px; color:#bdbdbd; padding:6px 0; }
+  .bd-total{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; margin-top:14px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.16);
+  }
+  .bd-total .bd-nm{ font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .bd-total .bd-amt{ font-size:22px; font-weight:950; color:var(--accent); }
+
+  /* Payment box */
+  .pay-box{
+    margin-top:14px; padding:14px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.03);
+  }
+  .pay-head{ display:flex; align-items:center; gap:9px; font-size:14px; font-weight:950; color:#fff; letter-spacing:-.01em; line-height:1.3; }
+  .pay-head svg{ width:18px; height:18px; flex:0 0 18px; stroke:var(--accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .pay-head em{ font-style:normal; color:var(--accent); }
+  .pay-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; flex-wrap:wrap;
+    margin-top:12px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.1);
+  }
+  .pay-item{ display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:800; color:var(--ocean); white-space:nowrap; }
+  .pay-item svg{ width:16px; height:16px; flex:0 0 16px; stroke:var(--ocean); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+  @media(max-width:420px){
+    .pay-box{ padding:13px 12px; }
+    .pay-head{ font-size:13.5px; gap:8px; }
+    .pay-row{ gap:8px; }
+    .pay-item{ font-size:11.5px; gap:6px; }
+    .pay-item svg{ width:15px; height:15px; flex-basis:15px; }
+  }
+  @media(max-width:340px){
+    .pay-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  }
+
+  .summary{
+    margin-top:14px;
+    background:rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:14px;
+  }
+
+  /* ── Request panel (coating bookings) ─────────────────────────── */
+  .rq{
+    margin-top:14px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(0,184,255,.35);
+    background:rgba(0,184,255,.05);
+  }
+  .rq[hidden]{ display:none; }
+  .rq-head{ margin:0 0 4px; font-size:14px; font-weight:950; color:#fff; }
+  .rq-copy{ margin:0 0 12px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.66); }
+  .rq-fields{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .rq-field{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .rq-field.full{ grid-column:1 / -1; }
+  .rq-field label{ font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+  .rq-field input,
+  .rq-field textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    font-family:inherit;
+    font-size:16px;              /* 16px stops iPhones zooming in */
+    line-height:1.4;
+    color-scheme:dark;
+  }
+  .rq-field textarea{ min-height:170px; resize:vertical; font-size:14px; }
+  .rq-field input:focus,
+  .rq-field textarea:focus{ outline:none; border-color:var(--ocean); }
+  .rq-err{ margin:4px 0 0; font-size:12.5px; font-weight:900; color:#FF6B5A; }
+  .rq-err[hidden]{ display:none; }
+  .rq-send{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .pf .btn-quiet-blue{
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+  }
+  .pf .btn-quiet-blue:hover{ background:rgba(0,184,255,.12); border-color:var(--ocean); box-shadow:none; }
+  @media(max-width:480px){
+    .rq-fields{ grid-template-columns:1fr; }
+    .rq-send{ grid-template-columns:1fr; }
+  }
+
+  /* Cleaning power */
+  .power-compact{
+    margin-top:14px; padding:12px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.03);
+  }
+  .power-compact:empty{ display:none; }
+  .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+  .pc-title{ font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .pc-badge{ font-size:11px; font-weight:900; border:1px solid rgba(227,252,2,.28); background:rgba(227,252,2,.06); color:rgba(227,252,2,.92); padding:4px 10px; border-radius:999px; white-space:nowrap; }
+  .pc-rows{ display:flex; flex-direction:column; gap:8px; }
+  .pc-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:8px; border-top:1px solid rgba(255,255,255,.06); }
+  .pc-row:first-child{ border-top:none; padding-top:0; }
+  .pc-left{ font-weight:900; font-size:13px; color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; }
+  .pc-stars{ display:inline-flex; align-items:center; gap:3px; font-size:19px; line-height:1; white-space:nowrap; }
+  .pc-stars .on{ color:var(--accent); }
+  .pc-stars .off{ color:rgba(255,255,255,.16); }
+  .pc-stars .blue{ color:var(--ocean); }
+
+  /* Nav */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; padding:12px 14px;
+    border-top:1px solid rgba(255,255,255,.08);
+    background:rgba(0,0,0,.18);
+    border-radius:0 0 14px 14px;
+  }
+  .btn{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent;
+    color:#fff;
+    border-radius:999px;
+    padding:10px 14px;
+    font-family:inherit;
+    font-weight:900;
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 8px 18px rgba(227,252,2,.10); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-primary-glow{
+    border:none;
+    background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+    color:var(--accent-ink);
+    box-shadow:0 8px 20px rgba(227,252,2,.25);
+    padding:12px 16px;
+  }
+  .btn-primary-glow:hover{ box-shadow:0 12px 28px rgba(227,252,2,.35),0 0 20px rgba(227,252,2,.2); filter:saturate(1.05); }
+  .book-note{
+    margin:8px 0 0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:rgba(255,255,255,.62);
+    text-align:center;
+  }
+  .book-note[hidden]{ display:none; }
+
+  .pf .btn-learn{
+    display:block;
+    width:100%;
+    margin-top:12px;
+    padding:13px 16px;
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+    font-weight:900;
+    font-size:14.5px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .pf .btn-learn:hover,
+  .pf .btn-learn:focus-visible{
+    background:rgba(0,184,255,.12);
+    box-shadow:0 6px 18px rgba(0,184,255,.16);
+    transform:translateY(-1px);
+    outline:none;
+  }
+
+  @media(max-width:420px){
+    .pf{ padding:16px; }
+    .step{ padding:14px; }
+    .pc-stars{ font-size:18px; }
+    .pf .btn-learn{ font-size:14px; padding:12px 14px; min-height:46px; }
+  }
+
+  /* Mobile refinements */
+  @media(max-width:640px){
+    .pf{ padding:16px 14px; border-radius:12px; }
+    .step{ padding:14px 12px; }
+    .topbar{ gap:10px; margin-bottom:6px; }
+    .topbar h1{ font-size:19px; line-height:1.2; }
+    .topbar h3{ font-size:13px; margin-top:3px; }
+    .lead{ font-size:12px; margin:3px 0 10px; }
+
+    .totalbox{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:baseline;
+      column-gap:12px;
+      row-gap:3px;
+      padding:11px 13px;
+      text-align:left;
+    }
+    .totalbox .lbl{ font-size:11.5px; white-space:nowrap; letter-spacing:.02em; }
+    .totalbox .val{ font-size:23px; margin-top:0; text-align:right; white-space:nowrap; line-height:1.1; }
+    .totalbox .note{ grid-column:1 / -1; margin-top:1px; font-size:11.5px; line-height:1.35; color:#b8b8b8; }
+
+    .info-bar{ font-size:12px; padding:9px 12px; margin-bottom:12px; }
+
+    .opt{ padding:13px 12px; }
+    .opt-premium{ padding:13px 12px; box-shadow:0 8px 20px rgba(0,0,0,.4); }
+    .step h3{ font-size:17px; line-height:1.28; }
+    .step-note{ font-size:12px; }
+    .prem-kicker{ font-size:11px; }
+    .prem-name{ font-size:14px; }
+    .prem-desc{ font-size:12px; line-height:1.45; margin-top:8px; }
+    .prem-incl{ font-size:11px; }
+    .prem-price{ font-size:11.5px; }
+    .opt .row{ font-size:14px; }
+    .pc-title, .pc-badge{ font-size:10.5px; }
+    .prem-head{ gap:8px; }
+    .prem-price{ top:12px; right:12px; font-size:12px; padding:5px 9px; }
+    .prem-name, .prem-kicker{ padding-right:76px; }
+
+    .pc-left{ font-size:12.5px; }
+    .pc-stars{ font-size:17px; gap:2px; }
+    .power-compact{ padding:10px; }
+
+    .nav{ padding:10px 12px; gap:8px; }
+    .btn{ padding:12px 14px; font-size:14px; min-height:46px; }
+    .btn-primary-glow{ padding:13px 16px; }
+
+    .summary{ padding:12px; }
+    .bd-row{ font-size:12.5px; }
+    .bd-total .bd-amt{ font-size:20px; }
+
+    .coat-pill .cp-yr{ font-size:13.5px; }
+    .coat-pill .cp-pr{ font-size:12px; }
+  }
+
+  @media(max-width:380px){
+    .topbar h1{ font-size:18px; }
+    .totalbox{ grid-template-columns:1fr; row-gap:1px; }
+    .totalbox .val{ text-align:left; grid-column:1; font-size:25px; }
+    .totalbox .lbl{ font-size:11px; }
+    .pc-stars{ font-size:16px; }
+    .btn{ padding:11px 12px; font-size:13.5px; }
+    .coat-pills{ gap:6px; }
+  }
+
+  /* ── Rating dots (replaces the stars) ────────────────────────────
+     Same system as the All Services page: yellow = included,
+     blue = added by a choice, grey = the rest of the scale.        */
+  .pc-stars{ display:inline-flex !important; align-items:center; gap:5px !important; font-size:0 !important; line-height:1; }
+  .pc-stars span{
+    display:inline-block; width:10px; height:10px; border-radius:50%;
+    background:rgba(255,255,255,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .pc-stars span.on{ background:var(--accent); box-shadow:0 0 7px rgba(227,252,2,.45); }
+  .pc-stars span.blue{ background:var(--ocean); box-shadow:0 0 7px rgba(0,184,255,.4); }
+  .bd-title .bd-star{
+    display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:currentColor; font-size:0;
+  }
+</style>
+
+<!-- Set as early as possible: browsers restore the old scroll position
+     during load, and on mobile doing this later is too late. -->
+<script>
+  (function(){
+    try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+  })();
+</script>
+
+<!-- ===== GOOGLE REVIEWS BADGE ======================================== -->
+<style>
+  .mps-reviews{ max-width:900px; margin:0 auto 18px; display:flex; justify-content:center; }
+  .mps-rv-badge{
+    display:inline-flex; align-items:center; gap:11px;
+    padding:10px 16px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.04);
+    text-decoration:none;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .mps-rv-badge:hover{ border-color:rgba(227,252,2,.4); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+  .mps-rv-g{ width:20px; height:20px; flex:0 0 20px; }
+  .mps-rv-score{ font-size:17px; font-weight:950; color:#fff; line-height:1; letter-spacing:-.01em; }
+  .mps-rv-stars{ display:inline-flex; gap:1px; font-size:15px; line-height:1; color:#FBBC05; letter-spacing:1px; }
+  .mps-rv-count{ font-size:13px; font-weight:700; color:#fff; line-height:1; white-space:nowrap; }
+  .mps-rv-tick{ width:15px; height:15px; flex:0 0 15px; color:var(--ocean); }
+  @media(max-width:480px){
+    .mps-rv-badge{ gap:9px; padding:9px 13px; }
+    .mps-rv-score{ font-size:16px; }
+    .mps-rv-stars{ font-size:14px; }
+    .mps-rv-count{ font-size:12px; }
+  }
+  @media(max-width:360px){
+    .mps-rv-badge{ gap:8px; padding:8px 11px; }
+    .mps-rv-count{ font-size:11.5px; }
+  }
+  @media(max-width:640px){ .mps-reviews{ margin-bottom:12px; } }
+</style>
+
+<div class="mps-reviews">
+  <a class="mps-rv-badge" id="mpsRvBadge"
+     href="https://maps.google.com/maps?cid=15620201708594115788"
+     target="_blank" rel="noopener"
+     aria-label="Rated 5.0 out of 5 from 81 Google reviews. Opens Google in a new tab.">
+    <svg class="mps-rv-g" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2 5-4.4 6.6v5.5h7.1c4.1-3.8 6.6-9.4 6.6-16.1z"/>
+      <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.4l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.4 46 24 46z"/>
+      <path fill="#FBBC05" d="M11.8 28.2c-.4-1.3-.7-2.7-.7-4.2s.2-2.9.7-4.2v-5.7H4.5C3 17 2 20.4 2 24s1 7 2.5 9.9l7.3-5.7z"/>
+      <path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.3 29.9 2 24 2 15.4 2 8.1 6.9 4.5 14.1l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/>
+    </svg>
+    <span class="mps-rv-score" id="mpsRvScore">5.0</span>
+    <span class="mps-rv-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <span class="mps-rv-count" id="mpsRvCount">81 Google reviews</span>
+    <svg class="mps-rv-tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".16"/>
+      <path d="M8 12.5l2.6 2.5L16 9.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  /* Numbers come from window.MPS_REVIEWS in sitewide header injection, so
+     one edit updates every page. The markup values above are fallbacks. */
+  var cfg = window.MPS_REVIEWS;
+  if(!cfg) return;
+  var badge = document.getElementById('mpsRvBadge');
+  var score = document.getElementById('mpsRvScore');
+  var count = document.getElementById('mpsRvCount');
+  if(!badge) return;
+  var s = cfg.score != null ? String(cfg.score) : null;
+  var n = cfg.count != null ? Number(cfg.count) : null;
+  if(score && s) score.textContent = s;
+  if(count && n) count.textContent = n + ' Google reviews';
+  if(cfg.url)    badge.setAttribute('href', cfg.url);
+  if(s && n){
+    badge.setAttribute('aria-label',
+      'Rated ' + s + ' out of 5 from ' + n + ' Google reviews. Opens Google in a new tab.');
+  }
+})();
+</script>
+
+<!-- ===== PROMO CODE BAR =================================================
+     Unchanged from the live page. The code is passed to Acuity as
+     &certificate= (Acuity's own coupon parameter). The price shown here is
+     a preview; Acuity is the gate at checkout. Percentages MUST match the
+     Acuity coupons of the same name. On a coating request the code is
+     written into the WhatsApp / email message instead.
+     ===================================================================== -->
+<style>
+  .mps-promo{
+    max-width:900px;
+    margin:0 auto 14px;
+    padding:13px 14px;
+    border-radius:14px;
+    border:1px solid rgba(0,184,255,.38);
+    background:rgba(0,184,255,.06);
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  .mps-promo.is-on{ border-color:rgba(227,252,2,.45); background:rgba(227,252,2,.07); }
+  .mps-promo-head{ display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:8px; }
+  .mps-promo-flag{
+    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    padding:4px 10px; border-radius:999px; white-space:nowrap;
+    background:#00B8FF; color:#00131c;
+  }
+  .mps-promo.is-on .mps-promo-flag{ background:#E3FC02; color:#0b0b0b; }
+  .mps-promo-title{ font-size:14px; font-weight:950; }
+  .mps-promo-copy[hidden]{ display:none; }
+  .mps-promo-copy{ margin:0 0 10px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.68); }
+  .mps-promo-copy strong{ color:#00B8FF; font-weight:900; }
+  .mps-promo.is-on .mps-promo-copy strong{ color:#E3FC02; }
+  .mps-promo-form{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .mps-promo-input{
+    flex:1 1 190px; min-width:0;
+    padding:11px 13px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.22);
+    background:rgba(0,0,0,.35); color:#fff;
+    font-family:inherit; font-size:14px; font-weight:900;
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .mps-promo-input::placeholder{ color:rgba(255,255,255,.3); letter-spacing:.02em; font-weight:700; text-transform:none; }
+  .mps-promo-input:focus{ outline:none; border-color:#00B8FF; }
+  .mps-promo-btn{
+    flex:0 0 auto; appearance:none; border:none; cursor:pointer;
+    padding:11px 20px; border-radius:999px;
+    font-family:inherit; font-size:14px; font-weight:950;
+    background:#00B8FF; color:#00131c;
+    transition:filter .15s ease, transform .15s ease;
+  }
+  .mps-promo-btn:hover{ transform:translateY(-1px); filter:brightness(1.08); }
+  .mps-promo-clear{
+    flex:0 0 auto; appearance:none; cursor:pointer;
+    padding:11px 18px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent; color:#fff;
+    font-family:inherit; font-size:13.5px; font-weight:900;
+  }
+  .mps-promo-clear:hover{ border-color:#E3FC02; }
+  .mps-promo-msg{ margin:9px 0 0; font-size:12.5px; font-weight:900; line-height:1.45; }
+  .mps-promo-msg.err{ color:#FF6B5A; }
+  .mps-was{ color:rgba(255,255,255,.4); text-decoration:line-through; font-weight:900; margin-right:8px; font-size:.62em; }
+  @media(max-width:640px){
+    .mps-promo{ padding:12px; margin-bottom:12px; }
+    .mps-promo-input{ flex:1 1 100%; }
+    .mps-promo-btn, .mps-promo-clear{ flex:1 1 auto; }
+  }
+</style>
+
+<div class="mps-promo" id="fvpPromo">
+  <div class="mps-promo-head">
+    <span class="mps-promo-flag" id="fvpPromoFlag">Discount code</span>
+    <span class="mps-promo-title" id="fvpPromoTitle">Got a code? Enter it here</span>
+  </div>
+  <p class="mps-promo-copy" id="fvpPromoCopy" hidden></p>
+  <div class="mps-promo-form" id="fvpPromoForm">
+    <label for="fvpPromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>
+    <input class="mps-promo-input" id="fvpPromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">
+    <button class="mps-promo-btn" id="fvpPromoApply" type="button">Apply</button>
+  </div>
+  <p class="mps-promo-msg" id="fvpPromoMsg" hidden></p>
+</div>
+
+<script>
+(function(){
+  /* CODES — the percentage MUST match the Acuity coupon of the same name.
+     `expires` is YYYY-MM-DD; the code stops working at the end of that day. */
+  var PROMO_CODES = {
+    'AUTUMN20': { off:20, label:'Autumn offer', expires:null }
+  };
+
+  var PFX = 'fvp';
+  var box, flag, title, copy, form, msg;
+
+  function grabEls(){
+    box   = document.getElementById(PFX + 'Promo');
+    flag  = document.getElementById(PFX + 'PromoFlag');
+    title = document.getElementById(PFX + 'PromoTitle');
+    copy  = document.getElementById(PFX + 'PromoCopy');
+    form  = document.getElementById(PFX + 'PromoForm');
+    msg   = document.getElementById(PFX + 'PromoMsg');
+    return !!box;
+  }
+
+  var TOTAL_IDS = ["fvpTotal", "fvpFinalTotal"];
+  var active = null;
+  var obs    = null;
+  var busy   = false;
+
+  window.MPS_PROMO = window.MPS_PROMO || {};
+  window.MPS_PROMO.off  = function(){ return active ? active.off  : 0; };
+  window.MPS_PROMO.code = function(){ return active ? active.code : null; };
+
+  function announce(){
+    try{ document.dispatchEvent(new CustomEvent('mps:promo')); }catch(e){}
+  }
+
+  window.MPS_PROMO.decorate = function(url){
+    if(!active || !url) return url;
+    if(url.indexOf('certificate=') > -1) return url;
+    return url + (url.indexOf('?') > -1 ? '&' : '?') +
+           'certificate=' + encodeURIComponent(active.code);
+  };
+
+  /* O/0, I/1, S/5 read the same on a phone keyboard, so both sides are
+     normalised before comparing and OUR spelling goes to Acuity. */
+  function normaliseCode(raw){
+    return String(raw || '')
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, '')
+      .replace(/O/g, '0')
+      .replace(/[IL]/g, '1')
+      .replace(/S/g, '5');
+  }
+
+  function lookupCode(raw, table){
+    var want = normaliseCode(raw);
+    if(!want) return null;
+    for(var key in table){
+      if(Object.prototype.hasOwnProperty.call(table, key) && normaliseCode(key) === want){
+        return { code: key, entry: table[key] };
+      }
+    }
+    return null;
+  }
+
+  function notExpired(entry){
+    if(!entry.expires) return true;
+    var end = new Date(entry.expires + 'T23:59:59');
+    return !isNaN(end.getTime()) && new Date() <= end;
+  }
+
+  function money(n){
+    return '\u00a3' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, '');
+  }
+
+  function paintTotals(){
+    if(!active) return;
+    busy = true;
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      var raw = el.getAttribute('data-mps-full');
+      if(raw === null) raw = el.textContent;
+      var m = String(raw).match(/£\s*([\d,]+(?:\.\d+)?)/);
+      if(!m) return;
+      var full = parseFloat(m[1].replace(/,/g, ''));
+      if(!isFinite(full) || full <= 0) return;
+      el.setAttribute('data-mps-full', money(full));
+      var desired = '<span class="mps-was">' + money(full) + '</span>' +
+                    money(full * (1 - active.off / 100));
+      if(el.innerHTML !== desired) el.innerHTML = desired;
+    });
+    if(obs) obs.takeRecords();
+    busy = false;
+  }
+
+  function clearTotals(){
+    busy = true;
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      var raw = el.getAttribute('data-mps-full');
+      if(raw !== null && el.textContent !== raw){ el.textContent = raw; }
+      el.removeAttribute('data-mps-full');
+    });
+    if(obs) obs.takeRecords();
+    busy = false;
+  }
+
+  function attachObserver(){
+    if(!window.MutationObserver) return;
+    obs = new MutationObserver(function(){
+      if(busy || !active) return;
+      TOTAL_IDS.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && el.querySelector('.mps-was') === null) el.removeAttribute('data-mps-full');
+      });
+      paintTotals();
+    });
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) obs.observe(el, { childList:true, characterData:true, subtree:true });
+    });
+  }
+
+  function showMsg(text, kind){
+    if(!msg) return;
+    if(!text){ msg.hidden = true; msg.textContent = ''; return; }
+    msg.hidden = false;
+    msg.textContent = text;
+    msg.className = 'mps-promo-msg ' + (kind || '');
+  }
+
+  function renderOn(){
+    box.classList.add('is-on');
+    flag.textContent  = active.off + '% off applied';
+    title.textContent = 'Discount applied';
+    copy.hidden = false;
+    copy.innerHTML = 'Code <strong>' + active.code + '</strong> is applied &mdash; ' +
+      active.off + '% off this booking. It carries through to checkout automatically, ' +
+      'so there&rsquo;s no need to type it again.';
+    form.innerHTML = '<button class="mps-promo-clear" id="' + PFX + 'PromoClear" type="button">Remove code</button>';
+    document.getElementById(PFX + 'PromoClear')
+      .addEventListener('click', function(){ clearCode(); });
+  }
+
+  function renderOff(){
+    box.classList.remove('is-on');
+    flag.textContent  = 'Discount code';
+    title.textContent = 'Got a code? Enter it here';
+    copy.innerHTML = '';
+    copy.hidden = true;
+    form.innerHTML =
+      '<label for="' + PFX + 'PromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>' +
+      '<input class="mps-promo-input" id="' + PFX + 'PromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">' +
+      '<button class="mps-promo-btn" id="' + PFX + 'PromoApply" type="button">Apply</button>';
+    wire();
+  }
+
+  function applyCode(raw){
+    if(!String(raw || '').trim()){ showMsg('Enter your code first.', 'err'); return; }
+    var found = lookupCode(raw, PROMO_CODES);
+    if(!found){
+      showMsg('That code isn\u2019t recognised. Check it and try again, or give us a ring.', 'err');
+      return;
+    }
+    if(!notExpired(found.entry)){
+      showMsg('That code has expired. Get in touch and we\u2019ll see what we can do.', 'err');
+      return;
+    }
+    active = { code: found.code, off: found.entry.off };
+    try{ sessionStorage.setItem('mps_promo_code', found.code); }catch(e){}
+    renderOn();
+    showMsg('');
+    paintTotals();
+    announce();
+  }
+
+  function clearCode(){
+    active = null;
+    try{ sessionStorage.removeItem('mps_promo_code'); }catch(e){}
+    clearTotals();
+    renderOff();
+    showMsg('');
+    announce();
+  }
+
+  function wire(){
+    var input = document.getElementById(PFX + 'PromoInput');
+    var apply = document.getElementById(PFX + 'PromoApply');
+    if(apply) apply.addEventListener('click', function(){ applyCode(input ? input.value : ''); });
+    if(input){
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ e.preventDefault(); applyCode(input.value); }
+      });
+      input.addEventListener('input', function(){ showMsg(''); });
+    }
+  }
+
+  function start(){
+    if(!grabEls()) return;
+    renderOff();
+    attachObserver();
+    var pre = null;
+    try{ pre = new URLSearchParams(window.location.search).get('code'); }catch(e){}
+    if(!pre){ try{ pre = sessionStorage.getItem('mps_promo_code'); }catch(e){} }
+    if(pre && lookupCode(pre, PROMO_CODES)) applyCode(pre);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+
+<div class="pf" id="priceFinderFullValetPremium">
+
+  <div class="topbar">
+    <div>
+      <h1>Protection Detail</h1>
+      <h3>Deep cleaned, clayed and sealed for 6 months.</h3>
+    </div>
+    <div class="totalbox" aria-live="polite">
+      <div class="lbl">Your total</div>
+      <div class="val" id="fvpTotal">From £210</div>
+      <div class="note" id="fvpNote">Select your vehicle size</div>
+    </div>
+  </div>
+
+  <div class="pkg-badge">
+    <span class="pkg-main"><span class="pkg-dot"></span>Protection Detail</span>
+    <span class="pkg-sub"><span class="pkg-dash">&mdash; </span>6-month ceramic protection as standard</span>
+  </div>
+
+  <div class="pkg-includes">
+    <div class="pkg-includes-title">Everything in this package</div>
+    <div class="pkg-items">
+      <div class="pkg-item">
+        <div class="pkg-item-icon">🚗</div>
+        <div class="pkg-item-text">
+          <strong>Exterior Deep Clean &amp; Decontamination</strong>
+          <span>Snow foam, safe hand wash, wheels &amp; arches, tar and iron removed</span>
+        </div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">✨</div>
+        <div class="pkg-item-text">
+          <strong>Clay Bar Treatment</strong>
+          <span>Paint left glass-smooth, ready to take protection</span>
+        </div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">🛡️</div>
+        <div class="pkg-item-text">
+          <strong>6-Month Ceramic Sealant</strong>
+          <span>Gloss and water beading &mdash; upgrade to a 1, 3 or 7-year coating below</span>
+        </div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">💧</div>
+        <div class="pkg-item-text">
+          <strong>Glaco Glass Coating</strong>
+          <span>Rain beads off the windscreen and windows</span>
+        </div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">🧼</div>
+        <div class="pkg-item-text">
+          <strong>Full Interior Deep Clean</strong>
+          <span>Compressed air, steam, vacuum, crevices, plastics &amp; glass</span>
+        </div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">🫧</div>
+        <div class="pkg-item-text">
+          <strong>Full Steam, Shampoo &amp; Extraction</strong>
+          <span>Seats, mats, carpets &amp; boot &mdash; touch-dry finish</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <strong>Prefer to speak to us?</strong>
+    Call/Text: <a href="tel:07592196929">07592 196929</a>
+    &nbsp;·&nbsp; Email: <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a>
+  </div>
+
+  <div class="prog" id="fvpProg" aria-hidden="true">
+    <div class="prog-top">
+      <span class="prog-step" id="fvpProgStep">Step 1</span>
+      <span class="prog-label" id="fvpProgLabel"></span>
+    </div>
+    <div class="prog-track" id="fvpProgTrack"></div>
+  </div>
+
+  <div class="wizard">
+    <div class="viewport">
+      <div class="track" id="fvpTrack">
+
+        <!-- STEP 0: Vehicle size -->
+        <section class="step" data-step="0">
+          <h3>1) What type of vehicle do you have?</h3>
+          <div class="opts" role="listbox" aria-label="Vehicle type">
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="3door" aria-selected="false">
+              <div class="row"><span>3-Door / 4–5 Seater Car</span><span class="price-pill">£210</span></div>
+            </div>
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="5door" aria-selected="false">
+              <div class="row"><span>5-Door / 5-Seater Car</span><span class="price-pill">£230</span></div>
+            </div>
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="7seater" aria-selected="false">
+              <div class="row"><span>5-Door / 7-Seater Car</span><span class="price-pill">£250</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 1: Engine bay -->
+        <section class="step" data-step="1">
+          <h3>2) Would you like your engine bay detailed?</h3>
+          <div class="opts" role="listbox" aria-label="Engine bay detail">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="engineBay" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker">Optional add-on</div>
+                  <div class="prem-name">Yes &mdash; Add Engine Bay Detail</div>
+                </div>
+                <div class="prem-price">+£30</div>
+              </div>
+              <div class="prem-desc">Careful degreasing and detailing under the bonnet &mdash; built-up grime, grease and road dirt removed, plastics and hoses left clean and dressed.</div>
+              <div class="power-compact" aria-label="What engine bay detail adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Under the bonnet</div></div>
+                <div class="pc-rows" id="fvpPowEngine"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="engineBay" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No &mdash; Skip engine bay</div></div>
+                <div class="prem-price">£0</div>
+              </div>
+              <div class="prem-desc">Everything else in the Protection Detail still applies.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 2: Leather coating -->
+        <section class="step" data-step="2">
+          <h3>3) Protect your leather interior?</h3>
+          <div class="opts" role="listbox" aria-label="Leather ceramic coating">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="leather" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker">Interior protection &middot; CarPro CQuartz</div>
+                  <div class="prem-name">Yes &mdash; CQuartz Leather Coating</div>
+                </div>
+                <div class="prem-price" id="fvpLeatherPrice">+£150</div>
+              </div>
+              <div class="prem-desc">CarPro CQuartz Leather &amp; Vinyl, applied to the seats and steering wheel once they&rsquo;re deep cleaned. Spills, dirt and jean dye stay on the surface instead of soaking in, and wipe off with a damp cloth. No added shine &mdash; the leather keeps its natural soft feel, protected from UV fading for up to 2 years.</div>
+              <div class="prem-tags">
+                <span class="prem-incl">Resists dye transfer</span>
+                <span class="prem-incl">Stain &amp; UV resistant</span>
+                <span class="prem-incl">Seats &amp; steering wheel</span>
+              </div>
+              <div class="power-compact" aria-label="What leather coating adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Interior protection</div></div>
+                <div class="pc-rows" id="fvpPowLeather"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="leather" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No thanks</div></div>
+                <div class="prem-price">£0</div>
+              </div>
+              <div class="prem-desc">Leather is still deep cleaned and moisturised as part of the package.</div>
+            </div>
+          </div>
+          <button class="skip-link" type="button" id="fvpNoLeather" aria-pressed="false">No leather in my car &mdash; skip</button>
+        </section>
+
+        <!-- STEP 3: Paint enhancement -->
+        <section class="step" data-step="3">
+          <h3>4) Polish out the swirl marks?</h3>
+          <div class="opts" role="listbox" aria-label="Paint enhancement">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="enhance" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker">Best finish</div>
+                  <div class="prem-name">Yes &mdash; Paint Enhancement</div>
+                </div>
+                <div class="prem-price" id="fvpEnhancePrice">+£185</div>
+              </div>
+              <div class="prem-desc">A 1-stage machine polish across all paintwork &mdash; removes swirl marks, light scratches and water marks that washing can&rsquo;t reach, and brings back depth and gloss before the protection goes on.</div>
+              <span class="prem-incl">Clay bar prep already included</span>
+              <div class="power-compact" aria-label="What paint enhancement adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Gloss upgrade</div></div>
+                <div class="pc-rows" id="fvpPowEnhance"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="enhance" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No &mdash; Skip polishing</div></div>
+                <div class="prem-price">£0</div>
+              </div>
+              <div class="prem-desc">The paint is still decontaminated, clayed and sealed &mdash; just not polished.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4: Ceramic coating upgrade -->
+        <section class="step" data-step="4">
+          <h3>5) Ceramic coat your paintwork?</h3>
+          <div class="opts">
+            <div class="opt opt-premium coat-card" id="fvpCoatCard" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker" style="padding-right:0">Paintwork &middot; by&nbsp;quote &middot; weather&nbsp;dependent</div>
+                  <div class="prem-name" style="padding-right:0">Upgrade your 6-month sealant to a coating</div>
+                </div>
+              </div>
+              <div class="prem-desc">Prices are the step up from the <strong>6-month ceramic sealant already in your package</strong> &mdash; the coating replaces it, so you&rsquo;re not paying for protection twice.</div>
+              <div class="coat-pills" role="radiogroup" aria-label="Paint coating length">
+                <button type="button" class="coat-pill" role="radio" aria-checked="false" data-coat="1">
+                  <span class="cp-yr">1 Year</span><span class="cp-pr" data-coat-price="1">+£60</span>
+                </button>
+                <button type="button" class="coat-pill" role="radio" aria-checked="false" data-coat="3">
+                  <span class="cp-yr">3 Years</span><span class="cp-pr" data-coat-price="3">+£140</span>
+                </button>
+                <button type="button" class="coat-pill" role="radio" aria-checked="false" data-coat="7">
+                  <span class="cp-yr">7 Years</span><span class="cp-pr" data-coat-price="7">+£240</span>
+                </button>
+              </div>
+              <span class="prem-incl is-quote">We confirm your date first</span>
+              <div class="power-compact" aria-label="What a ceramic coating adds">
+                <div class="pc-top"><div class="pc-title">What this adds</div><div class="pc-badge">Paint protection</div></div>
+                <div class="pc-rows" id="fvpPowCoat"></div>
+              </div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="coat" data-value="none" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No &mdash; Keep the paint sealant</div></div>
+                <div class="prem-price">£0</div>
+              </div>
+              <div class="prem-desc">Book straight into the calendar. The 6-month ceramic sealant and Glaco are still included.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 5: Done -->
+        <section class="step" data-step="5">
+          <h3>You&rsquo;re all set</h3>
+
+          <div class="totalbox" id="fvpFinalBox" aria-live="polite" style="margin:10px 0 14px; text-align:left; min-width:0;">
+            <div class="lbl">Final total</div>
+            <div class="val" id="fvpFinalTotal">£0</div>
+            <div class="note" id="fvpFinalNote">Ready to book when you are.</div>
+          </div>
+
+          <div class="power-compact" aria-label="Final Cleaning Power">
+            <div class="pc-top">
+              <div class="pc-title">Cleaning Power</div>
+              <div class="pc-badge" id="fvpPowerBadge">Protection Detail</div>
+            </div>
+            <div class="pc-rows" id="fvpPowerRows"></div>
+          </div>
+
+          <div class="summary">
+            <button class="btn btn-primary-glow" id="fvpDoneBtn" type="button" style="width:100%;">View Calendar</button>
+            <p class="book-note" id="fvpBookNote" hidden>Coatings depend on dry weather, so we&rsquo;ll confirm your date with you first.</p>
+
+            <!-- Request panel: coating bookings only -->
+            <div class="rq" id="fvpRequest" hidden>
+              <p class="rq-head">Send us your request</p>
+              <p class="rq-copy">Tell us when suits you. We&rsquo;ll check the forecast and confirm your date &mdash; usually the same day.</p>
+              <div class="rq-fields">
+                <div class="rq-field">
+                  <label for="fvpRqName">Your name</label>
+                  <input id="fvpRqName" type="text" autocomplete="name">
+                </div>
+                <div class="rq-field">
+                  <label for="fvpRqPostcode">Postcode</label>
+                  <input id="fvpRqPostcode" type="text" autocomplete="postal-code" autocapitalize="characters">
+                </div>
+                <div class="rq-field full">
+                  <label for="fvpRqDate">Preferred date</label>
+                  <input id="fvpRqDate" type="date">
+                </div>
+                <div class="rq-field full">
+                  <label for="fvpRqMsg">Your message &mdash; edit if you like</label>
+                  <textarea id="fvpRqMsg"></textarea>
+                </div>
+              </div>
+              <p class="rq-err" id="fvpRqErr" hidden></p>
+              <div class="rq-send">
+                <button class="btn btn-primary-glow" id="fvpRqWhatsApp" type="button">Send on WhatsApp</button>
+                <button class="btn btn-quiet-blue" id="fvpRqEmail" type="button">Send by email</button>
+              </div>
+            </div>
+
+            <div class="pay-box" id="fvpPayBox">
+              <div class="pay-head">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7L9.5 17.5 4 12"/></svg>
+                <span>To book, pay a <em>10% deposit</em></span>
+              </div>
+              <div class="pay-row">
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg>Card</span>
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>Cash</span>
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9.5 13h6M9.5 17h4"/></svg>Invoice</span>
+              </div>
+            </div>
+
+            <div class="bd" id="fvpBreakdown"></div>
+
+            <div style="margin-top:10px; color:#bdbdbd; font-size:13px; line-height:1.45;" id="fvpBookHint">
+              Tap View Calendar to choose your date &amp; time.
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn" id="fvpBack" type="button">Back</button>
+    </div>
+  </div>
+
+  <button class="btn btn-learn" type="button" id="fvpLearnMoreBtn">See what&rsquo;s included</button>
+</div>
+
+<script>
+(function(){
+  var ROOT_ID = 'priceFinderFullValetPremium';
+  var root    = document.getElementById(ROOT_ID);
+  if(!root) return;
+
+  var track   = root.querySelector('#fvpTrack');
+  var btnBack = root.querySelector('#fvpBack');
+
+  var totalEl      = root.querySelector('#fvpTotal');
+  var noteEl       = root.querySelector('#fvpNote');
+  var finalTotalEl = root.querySelector('#fvpFinalTotal');
+  var finalNoteEl  = root.querySelector('#fvpFinalNote');
+  var powerRowsEl  = root.querySelector('#fvpPowerRows');
+  var bookHintEl   = root.querySelector('#fvpBookHint');
+  var bookNoteEl   = root.querySelector('#fvpBookNote');
+  var doneBtn      = root.querySelector('#fvpDoneBtn');
+  var payBox       = root.querySelector('#fvpPayBox');
+  var breakdownEl  = root.querySelector('#fvpBreakdown');
+
+  var leatherPriceEl = root.querySelector('#fvpLeatherPrice');
+  var enhancePriceEl = root.querySelector('#fvpEnhancePrice');
+  var coatCard       = root.querySelector('#fvpCoatCard');
+  var coatPills      = Array.prototype.slice.call(root.querySelectorAll('.coat-pill'));
+  var coatNoteEl     = root.querySelector('#fvpCoatNote');
+  var noLeatherBtn   = root.querySelector('#fvpNoLeather');
+
+  var steps      = Array.prototype.slice.call(track.querySelectorAll('.step'));
+  var STEP_COUNT = steps.length;
+
+  /* ======================================================================
+     PRICES
+     ====================================================================== */
+  var BASE_PRICES    = { '3door':210, '5door':230, '7seater':250 };
+  var ENGINE_PRICE   = 30;
+  var LEATHER_PRICES = { '3door':150, '5door':150, '7seater':200 };
+  var ENH_PRICES     = { '3door':185, '5door':220, '7seater':265 };
+  /* coating upgrade — replaces the 6-month sealant, by quote */
+  var COAT_PRICES = {
+    '1': { '3door':60,  '5door':90,  '7seater':140 },
+    '3': { '3door':140, '5door':170, '7seater':220 },
+    '7': { '3door':240, '5door':270, '7seater':320 }
+  };
+  var COAT_LABEL = { '1':'1 year', '3':'3 years', '7':'7 years' };
+
+  var VEHICLE_LABELS = {
+    '3door':'3-Door / 4-5 Seater',
+    '5door':'5-Door / 5-Seater',
+    '7seater':'5-Door / 7-Seater'
+  };
+
+  /* ======================================================================
+     ACUITY
+     Key: vehicle : leather (yes/no) : enhancement (yes/no)
+     12 existing Premium types, edited in place — see the table at the top.
+     Engine bay travels in the Extras intake field instead.
+     ====================================================================== */
+  var ACUITY_BASE  = 'https://mobilepitstop.as.me/';
+  var ACUITY_QUOTE = 84640446;
+  var ACUITY_TYPE_MAP = {
+    '3door:no:no':    93617563,
+    '5door:no:no':    93617618,
+    '7seater:no:no':  93617649,
+    '3door:yes:no':   93617603,
+    '5door:yes:no':   93617631,
+    '7seater:yes:no': 93617654,
+    '3door:no:yes':   97061113,
+    '5door:no:yes':   97061263,
+    '7seater:no:yes': 97061395,
+    '3door:yes:yes':  97061160,
+    '5door:yes:yes':  97061292,
+    '7seater:yes:yes':97061426
+  };
+
+  var FIELD_ID        = '18506559';   /* Google click ID (existing)          */
+  var EXTRAS_FIELD_ID = '';           /* <-- new "Extras" intake field ID    */
+
+  var WHATSAPP_NUMBER = '447592196929';
+  var EMAIL_TO        = 'mobilepitstopvalet@gmail.com';
+
+  (function captureGclid(){
+    try{
+      var qs = new URLSearchParams(window.location.search);
+      var types = ['gclid','gbraid','wbraid'];
+      for(var i = 0; i < types.length; i++){
+        var v = qs.get(types[i]);
+        if(v){
+          var tagged = types[i] + ':' + v;
+          try{ localStorage.setItem('captured_gclid', tagged); }catch(e){}
+          try{ sessionStorage.setItem('captured_gclid', tagged); }catch(e){}
+          break;
+        }
+      }
+    }catch(e){}
+  })();
+  function getGclid(){
+    var v = null;
+    try{ v = localStorage.getItem('captured_gclid'); }catch(e){}
+    if(!v){ try{ v = sessionStorage.getItem('captured_gclid'); }catch(e){} }
+    return v || null;
+  }
+
+  function fmtGBP(n){ return '\u00a3' + Number(n || 0).toFixed(0); }
+
+  var state = { step:0, vehicle:null, engineBay:null, leather:null, enhance:null, coat:null };
+
+  /* ---- price helpers ---- */
+  function leatherPrice(){ return state.vehicle ? LEATHER_PRICES[state.vehicle] : 0; }
+  function enhPrice(){     return state.vehicle ? ENH_PRICES[state.vehicle]     : 0; }
+  function coatPrice(tier){
+    tier = tier || state.coat;
+    if(!state.vehicle || !tier || tier === 'none') return 0;
+    return COAT_PRICES[tier][state.vehicle] || 0;
+  }
+  function hasCoat(){ return !!state.coat && state.coat !== 'none'; }
+
+  function calcTotal(){
+    if(!state.vehicle) return 0;
+    var t = BASE_PRICES[state.vehicle];
+    if(state.engineBay === 'yes') t += ENGINE_PRICE;
+    if(state.leather   === 'yes') t += leatherPrice();
+    if(state.enhance   === 'yes') t += enhPrice();
+    if(hasCoat())                 t += coatPrice();
+    return t;
+  }
+
+  function acuityKey(){
+    if(!state.vehicle) return null;
+    return state.vehicle + ':' + (state.leather === 'yes' ? 'yes' : 'no') +
+                           ':' + (state.enhance === 'yes' ? 'yes' : 'no');
+  }
+
+  function buildUrl(typeId){
+    if(!typeId) typeId = ACUITY_QUOTE;
+    var url = ACUITY_BASE + '?appointmentType=' + encodeURIComponent(typeId);
+    var g = getGclid();
+    if(g) url += '&' + encodeURIComponent('field:' + FIELD_ID) + '=' + encodeURIComponent(g);
+    if(EXTRAS_FIELD_ID && state.engineBay === 'yes'){
+      url += '&' + encodeURIComponent('field:' + EXTRAS_FIELD_ID) + '=' +
+             encodeURIComponent('Engine bay detail (+\u00a3' + ENGINE_PRICE + ')');
+    }
+    return url;
+  }
+
+  function getBookingUrl(){
+    var key = acuityKey();
+    return buildUrl(key ? (ACUITY_TYPE_MAP[key] || ACUITY_QUOTE) : ACUITY_QUOTE);
+  }
+
+  /* ======================================================================
+     PROGRESS
+     ====================================================================== */
+  var PROG_LABELS = ['Your vehicle','Engine bay','Leather interior','Paint polish','Paint coating','Done'];
+  var progTrack = root.querySelector('#fvpProgTrack');
+  var progStep  = root.querySelector('#fvpProgStep');
+  var progLabel = root.querySelector('#fvpProgLabel');
+
+  function renderProg(){
+    if(!progTrack) return;
+    if(!progTrack.children.length){
+      for(var i = 0; i < STEP_COUNT; i++){
+        var d = document.createElement('span');
+        d.className = 'prog-seg';
+        progTrack.appendChild(d);
+      }
+    }
+    var segs = progTrack.children;
+    for(var j = 0; j < segs.length; j++){
+      segs[j].className = 'prog-seg' +
+        (j < state.step ? ' done' : j === state.step ? ' now' : '');
+    }
+    if(progStep)  progStep.textContent  = 'Step ' + (state.step + 1) + ' of ' + STEP_COUNT;
+    if(progLabel) progLabel.textContent = PROG_LABELS[state.step] || '';
+  }
+
+  /* ======================================================================
+     CLEANING POWER (dots) — Exterior, Interior, Paint, Protection (out of 5)
+       Exterior    5  clay bar included
+       Interior    4  full extraction included; leather coating adds 1
+       Paint       3  decontaminated + clayed; enhancement to 5/5
+       Protection  3  6-month sealant; any paint coating to 5/5
+     Yellow = included, blue = added by a choice.
+     ====================================================================== */
+  function stars(on, blue){
+    var h = '';
+    for(var i = 0; i < 5; i++){
+      h += i < on ? '<span class="on"></span>'
+         : i < on + blue ? '<span class="blue"></span>'
+         : '<span class="off"></span>';
+    }
+    return h;
+  }
+  function row(label, on, blue){
+    return '<div class="pc-row"><div class="pc-left">' + label + '</div>' +
+           '<div class="pc-stars">' + stars(on, blue) + '</div></div>';
+  }
+  function coatBlue(tier){ return (tier === '1' || tier === '3' || tier === '7') ? 2 : 0; }
+
+  function renderPower(){
+    if(!powerRowsEl) return;
+    powerRowsEl.innerHTML =
+        row('Exterior',   5, 0)
+      + row('Interior',   4, state.leather === 'yes' ? 1 : 0)
+      + row('Paint',      3, state.enhance === 'yes' ? 2 : 0)
+      + row('Protection', 3, coatBlue(state.coat));
+  }
+
+  /* previews on the add-on cards show only the row that choice changes */
+  var POW_ENGINE  = root.querySelector('#fvpPowEngine');
+  var POW_LEATHER = root.querySelector('#fvpPowLeather');
+  var POW_ENHANCE = root.querySelector('#fvpPowEnhance');
+  var POW_COAT    = root.querySelector('#fvpPowCoat');
+  function renderCardPreviews(){
+    if(POW_ENGINE)  POW_ENGINE.innerHTML  = row('Engine bay', 0, 5);
+    if(POW_LEATHER) POW_LEATHER.innerHTML = row('Interior', 4, 1);
+    if(POW_ENHANCE) POW_ENHANCE.innerHTML = row('Paint', 3, 2);
+    if(POW_COAT){
+      var t = hasCoat() ? state.coat : '1';
+      POW_COAT.innerHTML = row('Protection', 3, coatBlue(t));
+    }
+  }
+
+  /* ======================================================================
+     PRICE PILLS — update once a vehicle size is known
+     ====================================================================== */
+  function updatePricePills(){
+    if(leatherPriceEl) leatherPriceEl.textContent = state.vehicle ? '+' + fmtGBP(leatherPrice()) : 'from +\u00a3150';
+    if(enhancePriceEl) enhancePriceEl.textContent = state.vehicle ? '+' + fmtGBP(enhPrice())     : 'from +\u00a3185';
+    root.querySelectorAll('[data-coat-price]').forEach(function(el){
+      var tier = el.getAttribute('data-coat-price');
+      el.textContent = '+' + fmtGBP(state.vehicle ? COAT_PRICES[tier][state.vehicle]
+                                                  : COAT_PRICES[tier]['3door']);
+    });
+    if(coatNoteEl){
+      coatNoteEl.innerHTML =
+        'Your package already includes a 6-month ceramic sealant and Glaco on the glass. ' +
+        'A coating replaces the sealant with protection that lasts years.' +
+        (state.enhance === 'yes'
+          ? ' It goes on over your freshly polished paint.'
+          : ' Without paint enhancement it protects the paint as it is &mdash; swirls included.');
+    }
+  }
+
+  /* ======================================================================
+     BREAKDOWN
+     ====================================================================== */
+  function promoOff(){
+    try{ return (window.MPS_PROMO && window.MPS_PROMO.off) ? (window.MPS_PROMO.off() || 0) : 0; }
+    catch(e){ return 0; }
+  }
+  function promoCode(){
+    try{ return (window.MPS_PROMO && window.MPS_PROMO.code) ? window.MPS_PROMO.code() : null; }
+    catch(e){ return null; }
+  }
+  function bdAmt(n, plus){
+    var off = promoOff();
+    var p   = plus ? '+' : '';
+    if(!off) return p + fmtGBP(n);
+    return '<span class="bd-was">' + p + fmtGBP(n) + '</span>' + p + fmtGBP(n * (1 - off / 100));
+  }
+  function removeBtn(key, label){
+    return '<button class="bd-remove" type="button" data-remove="' + key +
+           '" aria-label="Remove ' + label + '" title="Remove">&times;</button>';
+  }
+  function addedRow(key, name, sub, amount, label){
+    return '<div class="bd-row bd-removable"><div class="bd-nm">' + name +
+           (sub ? '<div class="bd-sub">' + sub + '</div>' : '') + '</div>' +
+           '<div class="bd-amt-wrap"><span class="bd-amt">' + bdAmt(amount, true) + '</span>' +
+           removeBtn(key, label) + '</div></div>';
+  }
+
+  function renderBreakdown(){
+    if(!breakdownEl) return;
+    if(!state.vehicle){
+      breakdownEl.innerHTML = '<div class="bd-none">Choose a vehicle to see the breakdown.</div>';
+      return;
+    }
+    var VM = { '3door':'3-Door Car', '5door':'5-Door / 5-Seater Car', '7seater':'5-Door / 7-Seater Car' };
+    var off = promoOff();
+
+    var html =
+      '<div class="bd-sec bd-inc">' +
+        '<div class="bd-title"><span class="bd-star"></span> What\u2019s included</div>' +
+        '<div class="bd-row"><div class="bd-nm">Protection Detail &mdash; ' + VM[state.vehicle] + '</div>' +
+          '<div class="bd-amt">' + bdAmt(BASE_PRICES[state.vehicle]) + '</div></div>' +
+      '</div>';
+
+    var add = '';
+    if(state.engineBay === 'yes') add += addedRow('engineBay', 'Engine bay detail', '', ENGINE_PRICE, 'engine bay detail');
+    if(state.leather   === 'yes') add += addedRow('leather', 'CQuartz leather coating', '', leatherPrice(), 'leather coating');
+    if(state.enhance   === 'yes') add += addedRow('enhance', 'Paint enhancement', '', enhPrice(), 'paint enhancement');
+    if(hasCoat())                 add += addedRow('coat', 'Paint ceramic coating &mdash; ' + COAT_LABEL[state.coat],
+                                           'Upgrade from your included 6-month sealant', coatPrice(), 'paint ceramic coating');
+    if(add){
+      html += '<div class="bd-sec bd-add"><div class="bd-title"><span class="bd-star"></span> What\u2019s added</div>' + add + '</div>';
+    }
+
+    var full = calcTotal();
+    if(off){
+      html += '<div class="bd-sec bd-add"><div class="bd-row bd-disc"><div class="bd-nm">Discount applied' +
+              '<div class="bd-sub">Code ' + (promoCode() || '') + '</div></div>' +
+              '<div class="bd-amt">&minus;' + fmtGBP(full * off / 100) + '</div></div></div>';
+    }
+    html += '<div class="bd-total"><div class="bd-nm">Total</div>' +
+            '<div class="bd-amt">' + fmtGBP(full * (1 - off / 100)) + '</div></div>';
+
+    breakdownEl.innerHTML = html;
+  }
+
+  /* remove an add-on straight from the summary */
+  if(breakdownEl){
+    breakdownEl.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.bd-remove') : null;
+      if(!btn) return;
+      var key = btn.getAttribute('data-remove');
+      if(key === 'coat'){
+        state.coat = 'none';
+        markCoat('none');
+      } else if(key === 'engineBay' || key === 'leather' || key === 'enhance'){
+        state[key] = 'no';
+        root.querySelectorAll('.opt[data-pick="' + key + '"]').forEach(function(o){
+          o.setAttribute('aria-selected', o.getAttribute('data-value') === 'no' ? 'true' : 'false');
+        });
+        if(key === 'leather' && noLeatherBtn) noLeatherBtn.setAttribute('aria-pressed','false');
+      } else {
+        return;
+      }
+      update();
+    });
+  }
+
+  /* ======================================================================
+     REQUEST PANEL (coating bookings)
+     ====================================================================== */
+  var rqBox   = root.querySelector('#fvpRequest');
+  var rqName  = root.querySelector('#fvpRqName');
+  var rqPc    = root.querySelector('#fvpRqPostcode');
+  var rqDate  = root.querySelector('#fvpRqDate');
+  var rqMsg   = root.querySelector('#fvpRqMsg');
+  var rqErr   = root.querySelector('#fvpRqErr');
+  var rqWa    = root.querySelector('#fvpRqWhatsApp');
+  var rqEmail = root.querySelector('#fvpRqEmail');
+  var rqDirty = false;   /* true once they've typed in the message box */
+
+  /* earliest selectable date = tomorrow */
+  if(rqDate){
+    try{
+      var tm = new Date(); tm.setDate(tm.getDate() + 1);
+      rqDate.min = tm.toISOString().slice(0, 10);
+    }catch(e){}
+  }
+
+  function niceDate(iso){
+    if(!iso) return '';
+    try{
+      var d = new Date(iso + 'T12:00:00');
+      return d.toLocaleDateString('en-GB', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+    }catch(e){ return iso; }
+  }
+
+  function requestMessage(){
+    if(!state.vehicle) return '';
+    var off  = promoOff();
+    var code = promoCode();
+    var full = calcTotal();
+    var L = [];
+    L.push('Hi MobilePitStop, I\u2019d like to request a Protection Detail booking.');
+    L.push('');
+    L.push('Vehicle: ' + VEHICLE_LABELS[state.vehicle] + ' (' + fmtGBP(BASE_PRICES[state.vehicle]) + ')');
+    if(state.engineBay === 'yes') L.push('Engine bay detail: +' + fmtGBP(ENGINE_PRICE));
+    if(state.leather   === 'yes') L.push('CQuartz leather coating (seats & steering wheel): +' + fmtGBP(leatherPrice()));
+    if(state.enhance   === 'yes') L.push('Paint enhancement: +' + fmtGBP(enhPrice()));
+    if(hasCoat())                 L.push('Paint ceramic coating, ' + COAT_LABEL[state.coat] +
+                                         ' (upgrade from the included 6-month sealant): +' + fmtGBP(coatPrice()));
+    L.push('Total shown: ' + fmtGBP(full * (1 - off / 100)) + (off && code ? ' (code ' + code + ', ' + off + '% off)' : ''));
+    L.push('');
+    L.push('Preferred date: ' + (rqDate && rqDate.value ? niceDate(rqDate.value) : ''));
+    L.push('Name: '     + (rqName && rqName.value ? rqName.value.trim() : ''));
+    L.push('Postcode: ' + (rqPc   && rqPc.value   ? rqPc.value.trim().toUpperCase() : ''));
+    return L.join('\n');
+  }
+
+  function refreshMessage(){
+    if(rqMsg && !rqDirty) rqMsg.value = requestMessage();
+  }
+
+  function showRqErr(t){
+    if(!rqErr) return;
+    rqErr.hidden = !t;
+    rqErr.textContent = t || '';
+  }
+
+  function checkRequest(){
+    if(!rqName || !rqName.value.trim()){ showRqErr('Add your name so we know who we\u2019re talking to.'); rqName && rqName.focus(); return false; }
+    if(!rqDate || !rqDate.value){ showRqErr('Pick a preferred date so we can check the forecast.'); rqDate && rqDate.focus(); return false; }
+    showRqErr('');
+    return true;
+  }
+
+  function trackRequest(channel){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event:        'pf_request_click',
+      component:    'price_finder',
+      service:      'protection_detail',
+      channel:      channel,
+      vehicle_type: state.vehicle,
+      engine_bay:   state.engineBay,
+      leather:      state.leather,
+      enhancement:  state.enhance,
+      coating:      state.coat,
+      price_total:  calcTotal(),
+      promo_code:   promoCode(),
+      gclid:        getGclid()
+    });
+  }
+
+  [rqName, rqPc, rqDate].forEach(function(el){
+    if(!el) return;
+    el.addEventListener('input',  function(){ showRqErr(''); refreshMessage(); });
+    el.addEventListener('change', function(){ refreshMessage(); });
+  });
+  if(rqMsg) rqMsg.addEventListener('input', function(){ rqDirty = true; });
+
+  if(rqWa) rqWa.addEventListener('click', function(){
+    if(!checkRequest()) return;
+    var text = rqMsg && rqMsg.value.trim() ? rqMsg.value : requestMessage();
+    trackRequest('whatsapp');
+    var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
+    var w = window.open(url, '_blank', 'noopener');
+    if(!w) window.location.href = url;
+  });
+
+  if(rqEmail) rqEmail.addEventListener('click', function(){
+    if(!checkRequest()) return;
+    var text = rqMsg && rqMsg.value.trim() ? rqMsg.value : requestMessage();
+    trackRequest('email');
+    var subject = 'Protection Detail request \u2014 ' + (state.vehicle ? VEHICLE_LABELS[state.vehicle] : '');
+    window.location.href = 'mailto:' + EMAIL_TO +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body='    + encodeURIComponent(text);
+  });
+
+  /* ======================================================================
+     UPDATE
+     ====================================================================== */
+  function update(){
+    renderBreakdown();
+
+    var total    = calcTotal();
+    var totalStr = state.vehicle ? fmtGBP(total) : 'From \u00a3210';
+    var noteStr  = !state.vehicle           ? 'Select your vehicle size'
+                 : state.engineBay === null ? 'Choose the engine bay option to continue'
+                 : state.leather   === null ? 'Choose a leather option to continue'
+                 : state.enhance   === null ? 'Choose a paintwork option to continue'
+                 : state.coat      === null ? 'Choose your protection to continue'
+                 : hasCoat()                ? 'Price shown \u2014 date confirmed with you'
+                 : 'Price confirmed';
+
+    if(totalEl.textContent      !== totalStr) totalEl.textContent      = totalStr;
+    if(noteEl.textContent       !== noteStr)  noteEl.textContent       = noteStr;
+    if(finalTotalEl.textContent !== totalStr) finalTotalEl.textContent = totalStr;
+
+    var req = hasCoat();
+    if(finalNoteEl) finalNoteEl.textContent = req ? 'Coatings are confirmed with you before booking.' : 'Ready to book when you are.';
+    if(doneBtn)     doneBtn.textContent     = req ? 'Request This Booking' : 'View Calendar';
+    if(bookNoteEl)  bookNoteEl.hidden       = !req;
+    if(payBox)      payBox.hidden           = req;
+    if(bookHintEl)  bookHintEl.textContent  = req
+      ? 'Send your request and we\u2019ll confirm the date. The 10% deposit is taken once it\u2019s booked.'
+      : 'Tap View Calendar to choose your date & time.';
+    if(!req && rqBox) rqBox.hidden = true;
+
+    updatePricePills();
+    renderPower();
+    renderCardPreviews();
+    refreshMessage();
+    syncViewportHeight();
+  }
+
+  /* the promo bar repaints the totals itself; only the lines that quote
+     prices need redrawing here */
+  document.addEventListener('mps:promo', function(){ renderBreakdown(); refreshMessage(); });
+
+  /* ======================================================================
+     LAYOUT HELPERS
+     ====================================================================== */
+  var viewportEl = root.querySelector('.viewport');
+
+  function syncViewportHeight(){
+    if(!viewportEl) return;
+    var active = steps[state.step];
+    if(!active) return;
+    var h = active.offsetHeight;
+    if(!h) return;
+    viewportEl.style.height = h + 'px';
+    if(!viewportEl.classList.contains('is-ready')){
+      requestAnimationFrame(function(){ viewportEl.classList.add('is-ready'); });
+    }
+  }
+
+  function headerOffset(){
+    var tallest = 0;
+    var nodes = document.querySelectorAll('header, .Header, #header, .sqs-announcement-bar-dropzone');
+    for(var i = 0; i < nodes.length; i++){
+      var cs = window.getComputedStyle(nodes[i]);
+      if(cs.position !== 'fixed' && cs.position !== 'sticky') continue;
+      var r = nodes[i].getBoundingClientRect();
+      if(r.top <= 4 && r.height > 0) tallest = Math.max(tallest, r.height);
+    }
+    return tallest ? tallest + 12 : 16;
+  }
+
+  var MOTION_OK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  /* only scrolls if the question has gone completely out of view */
+  function scrollToWidgetTop(){
+    var anchor = root.querySelector('.wizard') || root;
+    var off = headerOffset();
+    var r   = anchor.getBoundingClientRect();
+    var vh  = window.innerHeight || document.documentElement.clientHeight;
+    if(!(r.bottom < off + 40) && !(r.top > vh - 80)) return;
+    var y = Math.max(0, r.top + window.pageYOffset - off - 10);
+    if(Math.abs(window.pageYOffset - y) < 10) return;
+    window.scrollTo({ top:y, behavior: MOTION_OK ? 'smooth' : 'auto' });
+  }
+
+  if(window.ResizeObserver){
+    var ro = new ResizeObserver(function(){ syncViewportHeight(); });
+    steps.forEach(function(s){ ro.observe(s); });
+  } else {
+    window.addEventListener('resize', syncViewportHeight);
+  }
+
+  /* ======================================================================
+     NAVIGATION
+     ====================================================================== */
+  function clearStep(i){
+    var s = steps[i];
+    if(!s) return;
+    s.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
+    if(i === 2 && noLeatherBtn) noLeatherBtn.setAttribute('aria-pressed','false');
+    if(i === 4) markCoat(null);
+  }
+
+  var _hasNavigated = false;
+  function goTo(i){
+    state.step = Math.max(0, Math.min(STEP_COUNT - 1, i));
+    track.style.transform = 'translateX(-' + (state.step * 100) + '%)';
+
+    root.classList.toggle('is-done',        state.step === STEP_COUNT - 1);
+    root.classList.toggle('is-first',       state.step === 0);
+    root.classList.toggle('is-questioning', state.step > 0);
+    renderProg();
+    btnBack.disabled = state.step === 0;
+    update();
+
+    if(state.step > 0) scrollToWidgetTop();
+
+    if(_hasNavigated){
+      var h = steps[state.step].querySelector('h3');
+      if(h){
+        h.setAttribute('tabindex','-1');
+        try{ h.focus({ preventScroll:true }); }catch(e){}
+      }
+    }
+    _hasNavigated = true;
+  }
+
+  /* each answer clears the answers after it, so a changed vehicle size
+     can't leave stale prices further down */
+  var ORDER = ['vehicle','engineBay','leather','enhance','coat'];
+  function resetAfter(pick){
+    var idx = ORDER.indexOf(pick);
+    for(var k = idx + 1; k < ORDER.length; k++){
+      state[ORDER[k]] = null;
+      clearStep(k);
+    }
+  }
+
+  function advance(){
+    update();
+    if(state.step < STEP_COUNT - 1) goTo(state.step + 1);
+  }
+
+  function activate(opt){
+    var pick  = opt.getAttribute('data-pick');
+    var value = opt.getAttribute('data-value');
+    var stepIdx = Number(opt.closest('.step').getAttribute('data-step'));
+
+    state[pick] = value;
+    resetAfter(pick);
+    clearStep(stepIdx);
+    state[pick] = value;          /* clearStep on step 4 resets coat — put it back */
+    opt.setAttribute('aria-selected','true');
+    if(pick === 'coat') markCoat('none');
+    advance();
+  }
+
+  root.querySelectorAll('.opt[role="option"]').forEach(function(opt){
+    opt.addEventListener('click', function(){ activate(opt); });
+    opt.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(opt); }
+    });
+  });
+
+  /* "No leather in my car" — same outcome as No thanks, straight on */
+  if(noLeatherBtn){
+    noLeatherBtn.addEventListener('click', function(){
+      state.leather = 'no';
+      resetAfter('leather');
+      steps[2].querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
+      noLeatherBtn.setAttribute('aria-pressed','true');
+      advance();
+    });
+  }
+
+  /* ceramic coating pills */
+  function markCoat(tier){
+    coatPills.forEach(function(p){
+      p.setAttribute('aria-checked', p.getAttribute('data-coat') === tier ? 'true' : 'false');
+    });
+    if(coatCard) coatCard.setAttribute('aria-selected', tier && tier !== 'none' ? 'true' : 'false');
+    var noneOpt = root.querySelector('.opt[data-pick="coat"][data-value="none"]');
+    if(noneOpt) noneOpt.setAttribute('aria-selected', tier === 'none' ? 'true' : 'false');
+  }
+
+  coatPills.forEach(function(p){
+    p.addEventListener('click', function(){
+      state.coat = p.getAttribute('data-coat');
+      markCoat(state.coat);
+      advance();
+    });
+  });
+
+  /* ======================================================================
+     BUTTONS
+     ====================================================================== */
+  var learnMoreBtn = document.getElementById('fvpLearnMoreBtn');
+  if(learnMoreBtn){
+    learnMoreBtn.addEventListener('click', function(){
+      var el = document.getElementById('WhatIncludedFullValetPremium');
+      if(el) el.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' });
+    });
+  }
+
+  btnBack.addEventListener('click', function(){ if(state.step > 0) goTo(state.step - 1); });
+
+  doneBtn.addEventListener('click', function(){
+    if(hasCoat()){
+      /* coating: open the request panel instead of the calendar */
+      if(rqBox){
+        rqBox.hidden = false;
+        refreshMessage();
+        syncViewportHeight();
+        try{ rqName.focus({ preventScroll:true }); }catch(e){}
+        try{ rqBox.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'nearest' }); }catch(e){}
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event:'pf_request_open', service:'protection_detail', coating:state.coat, price_total:calcTotal() });
+      return;
+    }
+
+    var url = getBookingUrl();
+    var key = acuityKey();
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event:           'pf_book_click',
+      component:       'price_finder',
+      service:         'protection_detail',
+      vehicle_type:    state.vehicle,
+      engine_bay:      state.engineBay,
+      leather:         state.leather,
+      enhancement:     state.enhance,
+      price_total:     calcTotal(),
+      acuity_type_id:  key ? (ACUITY_TYPE_MAP[key] || null) : null,
+      acuity_key:      key,
+      gclid:           getGclid(),
+      destination_url: url
+    });
+    window.location.href = (window.MPS_PROMO && window.MPS_PROMO.decorate)
+      ? window.MPS_PROMO.decorate(url) : url;
+  });
+
+  /* ======================================================================
+     INIT
+     ====================================================================== */
+  goTo(0);
+
+  /* size handed over from the homepage router: ?size=small|medium|large */
+  (function prefillFromRouter(){
+    var MAP = { small:'3door', medium:'5door', large:'7seater' };
+    var want;
+    try{ want = new URLSearchParams(window.location.search).get('size'); }catch(e){ return; }
+    if(!want) return;
+    var value = MAP[String(want).trim().toLowerCase()];
+    if(!value) return;
+    var el = root.querySelector('.opt[data-pick="vehicle"][data-value="' + value + '"]');
+    if(el) setTimeout(function(){ el.click(); }, 0);
+  })();
+
+  /* land at the top unless the visitor has already moved or there's a #hash */
+  var _touched = false;
+  ['touchstart','wheel','keydown','pointerdown','mousedown'].forEach(function(ev){
+    window.addEventListener(ev, function(){ _touched = true; }, { once:true, passive:true });
+  });
+  function settleAtTop(){
+    if(_touched || window.location.hash || window.pageYOffset <= 4) return;
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('load', function(){ syncViewportHeight(); settleAtTop(); });
+  setTimeout(function(){ syncViewportHeight(); settleAtTop(); }, 250);
+  setTimeout(settleAtTop, 700);
+})();
+</script>

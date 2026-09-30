@@ -1,0 +1,1079 @@
+
+<!-- ==========================================================================
+     MobilePitStop — Window Tinting request block
+     https://mobilepitstop.uk/window-tinting
+
+     Not a price questionnaire: this service is BY QUOTE and done at the
+     unit, so the block gathers what you need to quote it and sends the
+     whole thing as a WhatsApp or email request.
+
+     NO ACUITY TYPES. Nothing here books a calendar slot.
+
+     WHEN YOU HAVE PRICES, tell me and I'll turn this into a proper
+     questionnaire with a running total, like the other services.
+     ========================================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root{
+    --bg:#0b0b0b;
+    --card:#121212;
+    --muted:#1b1b1b;
+    --text:#fff;
+    --accent:#E3FC02;
+    --accent-ink:#0b0b0b;
+    --ocean:#00B8FF;
+    --radius:16px;
+    --border:rgba(255,255,255,.12);
+  }
+  *{ box-sizing:border-box; }
+
+  .pf{
+    max-width:900px;
+    margin:0 auto;
+    padding:24px;
+    color:var(--text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+
+  /* Header */
+  .topbar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .topbar h1{ margin:0; font-size:clamp(20px,3vw,26px); font-weight:950; letter-spacing:.2px; color:var(--accent); }
+  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
+  .lead{ margin:6px 0 14px; color:#d0d0d0; font-size:14px; }
+
+  .totalbox{
+    min-width:210px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(0,0,0,.22);
+    border-radius:14px;
+    padding:12px;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .totalbox .lbl{ font-size:12px; color:#cfcfcf; }
+  .totalbox .val{ font-size:26px; font-weight:950; color:var(--accent); margin-top:2px; }
+  .totalbox .note{ font-size:12px; color:#bdbdbd; margin-top:4px; line-height:1.35; }
+  .pf.is-done .topbar .totalbox{ display:none; }
+
+  /* Intro sections collapse once the questions start */
+  .pkg-badge,
+  .pkg-includes,
+  .info-bar{
+    transition:max-height .35s ease, opacity .35s ease, margin .35s ease, padding .35s ease;
+    max-height:600px;
+    opacity:1;
+    overflow:hidden;
+  }
+  .pf.is-questioning .pkg-badge,
+  .pf.is-questioning .pkg-includes,
+  .pf.is-questioning .info-bar{
+    max-height:0;
+    opacity:0;
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:0;
+    padding-bottom:0;
+  }
+
+  @media(max-width:720px){
+    .topbar{ flex-direction:column; }
+    .totalbox{ width:100%; text-align:left; min-width:0; }
+  }
+
+  /* Package badge */
+  .pkg-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid rgba(227,252,2,.35);
+    background:rgba(227,252,2,.07);
+    font-size:13px;
+    font-weight:900;
+    color:var(--accent);
+  }
+  .pkg-badge .pkg-sub{ color:rgba(255,255,255,.6); font-weight:700; }
+  @media(max-width:640px){
+    /* stack instead of squeezing two columns into a pill */
+    .pkg-badge{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      border-radius:12px;
+      padding:9px 13px;
+    }
+    .pkg-badge .pkg-sub{ font-size:12px; }
+    .pkg-badge .pkg-dash{ display:none; }
+  }
+
+  /* What's in the package */
+  .pkg-includes{
+    margin:0 0 16px;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(0,0,0,.28);
+  }
+  .pkg-includes-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:950;
+    color:rgba(255,255,255,.55);
+    margin-bottom:10px;
+  }
+  .pkg-items{ display:grid; gap:8px; grid-template-columns:1fr; }
+  @media(min-width:600px){ .pkg-items{ grid-template-columns:1fr 1fr; } }
+
+  .pkg-item{ display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.4; }
+  .pkg-item-icon{
+    width:28px; height:28px; border-radius:8px;
+    border:1px solid rgba(227,252,2,.25);
+    background:rgba(227,252,2,.07);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0;
+  }
+  .pkg-item-text strong{ display:block; font-size:13px; font-weight:900; color:#fff; }
+  .pkg-item-text span{ color:rgba(255,255,255,.55); font-size:12px; }
+
+  /* Info bar */
+  .info-bar{
+    margin:0 0 16px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.28);
+    font-size:13px;
+    line-height:1.45;
+    color:#d0d0d0;
+  }
+  .info-bar strong{ color:#fff; font-weight:900; }
+  .info-bar a{ color:var(--accent); font-weight:900; text-decoration:none; white-space:nowrap; }
+  .info-bar a:hover{ text-decoration:underline; }
+
+  /* Progress bar */
+  .prog{ margin:0 0 14px; }
+  .prog-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:7px; }
+  .prog-step{ font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+  .prog-label{
+    font-size:12px; font-weight:800; color:var(--accent);
+    text-align:right; overflow:hidden; text-overflow:ellipsis;
+    white-space:nowrap; max-width:62%;
+  }
+  .prog-track{ display:flex; gap:5px; }
+  .prog-seg{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.12); transition:background .35s ease, box-shadow .35s ease; }
+  .prog-seg.done{ background:rgba(227,252,2,.45); }
+  .prog-seg.now{ background:var(--accent); box-shadow:0 0 10px rgba(227,252,2,.45); }
+  @media(max-width:420px){
+    .prog-label{ font-size:11.5px; max-width:56%; }
+    .prog-seg{ height:5px; }
+  }
+
+  .pf.is-first .nav{ display:none; }
+
+  .wizard{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .viewport{ overflow:hidden; border-radius:14px; width:100%; }
+  .viewport.is-ready{ transition:height .35s ease; }
+  .track{
+    display:flex;
+    width:100%;
+    align-items:flex-start;
+    transition:transform .45s ease;
+  }
+  .step{ flex:0 0 100%; padding:18px; min-width:100%; overflow:hidden; overflow:clip; }
+  .step h3{
+    font-size:clamp(18px,2.4vw,22px);
+    line-height:1.25;
+    margin:0 0 12px;
+    font-weight:950;
+    letter-spacing:-.01em;
+    color:var(--accent);
+  }
+
+  /* Options */
+  .opts{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:12px;
+    padding:14px;
+    background:var(--muted);
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    position:relative;
+    width:100%;
+  }
+  .opt:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .opt[aria-selected="true"]{ border-color:rgba(227,252,2,.9); background:rgba(227,252,2,.08); }
+
+  .opt .row{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:10px; font-weight:950; flex-wrap:wrap;
+  }
+  .opt .row span:first-child{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+
+  .price-pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.5);
+    background:rgba(227,252,2,.12);
+    padding:4px 10px; border-radius:999px;
+    white-space:nowrap; flex:0 0 auto;
+  }
+
+  /* Add-on cards */
+  .opt-premium{
+    position:relative;
+    padding:16px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+    box-shadow:0 14px 40px rgba(0,0,0,.55);
+  }
+  .opt[aria-selected="true"].opt-premium{
+    border-color:rgba(227,252,2,.28);
+    background:linear-gradient(180deg,rgba(227,252,2,.085),rgba(255,255,255,.02));
+  }
+  .prem-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .prem-head > div:first-child{ flex:1 1 auto; min-width:0; }
+  .prem-kicker{ font-size:12px; color:rgba(255,255,255,.72); letter-spacing:.02em; margin-bottom:2px; padding-right:86px; }
+  .prem-name{ font-size:16px; font-weight:950; letter-spacing:-.01em; overflow-wrap:anywhere; padding-right:86px; }
+  .prem-price{
+    position:absolute; top:14px; right:14px; z-index:2;
+    font-size:13px; font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.32);
+    background:rgba(227,252,2,.08);
+    padding:6px 10px; border-radius:999px;
+    white-space:nowrap; line-height:1; margin:0;
+  }
+  .prem-desc{ margin-top:10px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.72); overflow-wrap:anywhere; }
+  .prem-incl{
+    display:inline-flex; align-items:center; gap:6px;
+    max-width:100%;
+    margin-top:8px; font-size:12px; font-weight:900; line-height:1.35;
+    padding:4px 10px; border-radius:999px; white-space:normal;
+    color:rgba(227,252,2,.92);
+    border:1px solid rgba(227,252,2,.28);
+    background:rgba(227,252,2,.06);
+  }
+  .prem-incl.is-quote{
+    color:var(--ocean);
+    border-color:rgba(0,184,255,.35);
+    background:rgba(0,184,255,.07);
+  }
+
+  .step-note{
+    margin:-4px 0 12px;
+    font-size:12.5px;
+    color:rgba(255,255,255,.58);
+    line-height:1.5;
+  }
+  .step-note strong{ color:#fff; }
+
+  /* "No leather in my car" — quiet, under the two cards */
+  .pf .skip-link{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    padding:12px 14px;
+    border:1px dashed rgba(255,255,255,.22);
+    border-radius:12px;
+    background:transparent;
+    color:rgba(255,255,255,.72);
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:800;
+    cursor:pointer;
+    text-align:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .pf .skip-link:hover,
+  .pf .skip-link:focus-visible{ border-color:rgba(255,255,255,.5); color:#fff; outline:none; }
+  .pf .skip-link[aria-pressed="true"]{ border-style:solid; border-color:rgba(227,252,2,.6); color:#fff; }
+
+  /* Ceramic coating: three pills inside one card */
+  .coat-pills{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px;
+  }
+  .coat-pill{
+    appearance:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    padding:11px 6px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    font-family:inherit;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .coat-pill:hover,
+  .coat-pill:focus-visible{ border-color:var(--accent); transform:translateY(-1px); outline:none; }
+  .coat-pill .cp-yr{ font-size:14.5px; font-weight:950; letter-spacing:-.01em; }
+  .coat-pill .cp-pr{ font-size:12.5px; font-weight:900; color:var(--accent); }
+  .coat-pill[aria-checked="true"]{
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .coat-pill[aria-checked="true"] .cp-yr,
+  .coat-pill[aria-checked="true"] .cp-pr{ color:#0b0b0b; }
+  .coat-card{ cursor:default; }
+  .coat-card:hover{ transform:none; }
+
+  /* Breakdown */
+  .bd{ margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12); }
+  .bd-sec{ margin-top:16px; }
+  .bd-sec:first-child{ margin-top:0; }
+  .bd-title{
+    display:flex; align-items:center; gap:7px;
+    font-size:11px; text-transform:uppercase; letter-spacing:.12em;
+    font-weight:900; margin-bottom:6px;
+  }
+  .pkg-dot{ display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--accent); margin-right:7px; vertical-align:1px; }
+  .bd-title .bd-star{ font-size:14px; line-height:1; }
+  .bd-inc .bd-title{ color:var(--accent); }
+  .bd-add .bd-title{ color:var(--ocean); }
+
+  .bd-row{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; padding:7px 0;
+    border-top:1px solid rgba(255,255,255,.06);
+    font-size:13px; font-weight:900;
+  }
+  .bd-row:first-of-type{ border-top:none; }
+  .bd-row .bd-nm{ color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+  .bd-row .bd-amt{ flex:0 0 auto; white-space:nowrap; }
+  .bd-inc .bd-amt{ color:var(--accent); }
+  .bd-add .bd-amt{ color:var(--ocean); }
+  .bd-sub{ font-size:12px; font-weight:400; color:rgba(255,255,255,.55); margin-top:2px; line-height:1.4; }
+  .bd-was{ color:rgba(255,255,255,.38); text-decoration:line-through; font-weight:900; margin-right:7px; font-size:.85em; }
+  .bd-row.bd-disc .bd-amt{ color:var(--ocean); }
+  .bd-row.bd-removable{ align-items:center; }
+  .bd-amt-wrap{ display:flex; align-items:center; gap:9px; flex:0 0 auto; }
+  .bd-remove{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.2);
+    background:transparent;
+    color:rgba(255,255,255,.5);
+    width:22px; height:22px; border-radius:50%;
+    font-size:14px; line-height:1; font-family:inherit;
+    cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:0; flex:0 0 22px;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .bd-remove:hover,
+  .bd-remove:focus-visible{ border-color:#FF6B5A; color:#FF6B5A; background:rgba(255,107,90,.1); outline:none; }
+  @media(max-width:420px){
+    .bd-remove{ width:26px; height:26px; flex-basis:26px; font-size:15px; }
+  }
+  .bd-none{ font-size:13px; color:#bdbdbd; padding:6px 0; }
+  .bd-total{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; margin-top:14px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.16);
+  }
+  .bd-total .bd-nm{ font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .bd-total .bd-amt{ font-size:22px; font-weight:950; color:var(--accent); }
+
+  /* Payment box */
+  .pay-box{
+    margin-top:14px; padding:14px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.03);
+  }
+  .pay-head{ display:flex; align-items:center; gap:9px; font-size:14px; font-weight:950; color:#fff; letter-spacing:-.01em; line-height:1.3; }
+  .pay-head svg{ width:18px; height:18px; flex:0 0 18px; stroke:var(--accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .pay-head em{ font-style:normal; color:var(--accent); }
+  .pay-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; flex-wrap:wrap;
+    margin-top:12px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.1);
+  }
+  .pay-item{ display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:800; color:var(--ocean); white-space:nowrap; }
+  .pay-item svg{ width:16px; height:16px; flex:0 0 16px; stroke:var(--ocean); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+  @media(max-width:420px){
+    .pay-box{ padding:13px 12px; }
+    .pay-head{ font-size:13.5px; gap:8px; }
+    .pay-row{ gap:8px; }
+    .pay-item{ font-size:11.5px; gap:6px; }
+    .pay-item svg{ width:15px; height:15px; flex-basis:15px; }
+  }
+  @media(max-width:340px){
+    .pay-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  }
+
+  .summary{
+    margin-top:14px;
+    background:rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:14px;
+  }
+
+  /* ── Request panel (coating bookings) ─────────────────────────── */
+  .rq{
+    margin-top:14px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(0,184,255,.35);
+    background:rgba(0,184,255,.05);
+  }
+  .rq[hidden]{ display:none; }
+  .rq-head{ margin:0 0 4px; font-size:14px; font-weight:950; color:#fff; }
+  .rq-copy{ margin:0 0 12px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.66); }
+  .rq-fields{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .rq-field{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .rq-field.full{ grid-column:1 / -1; }
+  .rq-field label{ font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+  .rq-field input,
+  .rq-field textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    font-family:inherit;
+    font-size:16px;              /* 16px stops iPhones zooming in */
+    line-height:1.4;
+    color-scheme:dark;
+  }
+  .rq-field textarea{ min-height:170px; resize:vertical; font-size:14px; }
+  .rq-field input:focus,
+  .rq-field textarea:focus{ outline:none; border-color:var(--ocean); }
+  .rq-err{ margin:4px 0 0; font-size:12.5px; font-weight:900; color:#FF6B5A; }
+  .rq-err[hidden]{ display:none; }
+  .rq-send{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .pf .btn-quiet-blue{
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+  }
+  .pf .btn-quiet-blue:hover{ background:rgba(0,184,255,.12); border-color:var(--ocean); box-shadow:none; }
+  @media(max-width:480px){
+    .rq-fields{ grid-template-columns:1fr; }
+    .rq-send{ grid-template-columns:1fr; }
+  }
+
+  /* Cleaning power */
+  .power-compact{
+    margin-top:14px; padding:12px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.03);
+  }
+  .power-compact:empty{ display:none; }
+  .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+  .pc-title{ font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .pc-badge{ font-size:11px; font-weight:900; border:1px solid rgba(227,252,2,.28); background:rgba(227,252,2,.06); color:rgba(227,252,2,.92); padding:4px 10px; border-radius:999px; white-space:nowrap; }
+  .pc-rows{ display:flex; flex-direction:column; gap:8px; }
+  .pc-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:8px; border-top:1px solid rgba(255,255,255,.06); }
+  .pc-row:first-child{ border-top:none; padding-top:0; }
+  .pc-left{ font-weight:900; font-size:13px; color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; }
+  .pc-stars{ display:inline-flex; align-items:center; gap:3px; font-size:19px; line-height:1; white-space:nowrap; }
+  .pc-stars .on{ color:var(--accent); }
+  .pc-stars .off{ color:rgba(255,255,255,.16); }
+  .pc-stars .blue{ color:var(--ocean); }
+
+  /* Nav */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; padding:12px 14px;
+    border-top:1px solid rgba(255,255,255,.08);
+    background:rgba(0,0,0,.18);
+    border-radius:0 0 14px 14px;
+  }
+  .btn{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent;
+    color:#fff;
+    border-radius:999px;
+    padding:10px 14px;
+    font-family:inherit;
+    font-weight:900;
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 8px 18px rgba(227,252,2,.10); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-primary-glow{
+    border:none;
+    background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+    color:var(--accent-ink);
+    box-shadow:0 8px 20px rgba(227,252,2,.25);
+    padding:12px 16px;
+  }
+  .btn-primary-glow:hover{ box-shadow:0 12px 28px rgba(227,252,2,.35),0 0 20px rgba(227,252,2,.2); filter:saturate(1.05); }
+  .book-note{
+    margin:8px 0 0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:rgba(255,255,255,.62);
+    text-align:center;
+  }
+  .book-note[hidden]{ display:none; }
+
+  .pf .btn-learn{
+    display:block;
+    width:100%;
+    margin-top:12px;
+    padding:13px 16px;
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+    font-weight:900;
+    font-size:14.5px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .pf .btn-learn:hover,
+  .pf .btn-learn:focus-visible{
+    background:rgba(0,184,255,.12);
+    box-shadow:0 6px 18px rgba(0,184,255,.16);
+    transform:translateY(-1px);
+    outline:none;
+  }
+
+  @media(max-width:420px){
+    .pf{ padding:16px; }
+    .step{ padding:14px; }
+    .pc-stars{ font-size:18px; }
+    .pf .btn-learn{ font-size:14px; padding:12px 14px; min-height:46px; }
+  }
+
+  /* Mobile refinements */
+  @media(max-width:640px){
+    .pf{ padding:16px 14px; border-radius:12px; }
+    .step{ padding:14px 12px; }
+    .topbar{ gap:10px; margin-bottom:6px; }
+    .topbar h1{ font-size:19px; line-height:1.2; }
+    .topbar h3{ font-size:13px; margin-top:3px; }
+    .lead{ font-size:12px; margin:3px 0 10px; }
+
+    .totalbox{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:baseline;
+      column-gap:12px;
+      row-gap:3px;
+      padding:11px 13px;
+      text-align:left;
+    }
+    .totalbox .lbl{ font-size:11.5px; white-space:nowrap; letter-spacing:.02em; }
+    .totalbox .val{ font-size:23px; margin-top:0; text-align:right; white-space:nowrap; line-height:1.1; }
+    .totalbox .note{ grid-column:1 / -1; margin-top:1px; font-size:11.5px; line-height:1.35; color:#b8b8b8; }
+
+    .info-bar{ font-size:12px; padding:9px 12px; margin-bottom:12px; }
+
+    .opt{ padding:13px 12px; }
+    .opt-premium{ padding:13px 12px; box-shadow:0 8px 20px rgba(0,0,0,.4); }
+    .step h3{ font-size:17px; line-height:1.28; }
+    .step-note{ font-size:12px; }
+    .prem-kicker{ font-size:11px; }
+    .prem-name{ font-size:14px; }
+    .prem-desc{ font-size:12px; line-height:1.45; margin-top:8px; }
+    .prem-incl{ font-size:11px; }
+    .prem-price{ font-size:11.5px; }
+    .opt .row{ font-size:14px; }
+    .pc-title, .pc-badge{ font-size:10.5px; }
+    .prem-head{ gap:8px; }
+    .prem-price{ top:12px; right:12px; font-size:12px; padding:5px 9px; }
+    .prem-name, .prem-kicker{ padding-right:76px; }
+
+    .pc-left{ font-size:12.5px; }
+    .pc-stars{ font-size:17px; gap:2px; }
+    .power-compact{ padding:10px; }
+
+    .nav{ padding:10px 12px; gap:8px; }
+    .btn{ padding:12px 14px; font-size:14px; min-height:46px; }
+    .btn-primary-glow{ padding:13px 16px; }
+
+    .summary{ padding:12px; }
+    .bd-row{ font-size:12.5px; }
+    .bd-total .bd-amt{ font-size:20px; }
+
+    .coat-pill .cp-yr{ font-size:13.5px; }
+    .coat-pill .cp-pr{ font-size:12px; }
+  }
+
+  @media(max-width:380px){
+    .topbar h1{ font-size:18px; }
+    .totalbox{ grid-template-columns:1fr; row-gap:1px; }
+    .totalbox .val{ text-align:left; grid-column:1; font-size:25px; }
+    .totalbox .lbl{ font-size:11px; }
+    .pc-stars{ font-size:16px; }
+    .btn{ padding:11px 12px; font-size:13.5px; }
+    .coat-pills{ gap:6px; }
+  }
+
+  /* ---- Other vehicle types (by quote) ---- */
+  .q1-actions{ display:flex; gap:10px; margin-top:12px; flex-wrap:wrap; }
+  .q1-actions .btn{ flex:1 1 100%; min-width:0; }
+  .more-panel{
+    margin-top:14px; padding:14px; border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(0,0,0,.22);
+  }
+  .more-panel[hidden]{ display:none; }
+  .more-title{
+    font-size:11px; text-transform:uppercase; letter-spacing:.14em;
+    font-weight:950; color:rgba(255,255,255,.72); margin:2px 0 10px;
+  }
+  .more-note{ margin-top:10px; color:#cfcfcf; font-size:13px; line-height:1.45; }
+  .more-cta{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
+  .more-cta .btn{ flex:1 1 100%; min-width:0; }
+
+  .prem-incl[hidden]{ display:none; }
+  .prem-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .prem-tags .prem-incl{ margin-top:0; }
+
+  /* ── Rating dots (replaces the stars) ────────────────────────────
+     Same system as the All Services page: yellow = included,
+     blue = added by a choice, grey = the rest of the scale.        */
+  .pc-stars{ display:inline-flex !important; align-items:center; gap:5px !important; font-size:0 !important; line-height:1; }
+  .pc-stars span{
+    display:inline-block; width:10px; height:10px; border-radius:50%;
+    background:rgba(255,255,255,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .pc-stars span.on{ background:var(--accent); box-shadow:0 0 7px rgba(227,252,2,.45); }
+  .pc-stars span.blue{ background:var(--ocean); box-shadow:0 0 7px rgba(0,184,255,.4); }
+  .bd-title .bd-star{
+    display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:currentColor; font-size:0;
+  }
+</style>
+
+<!-- Set as early as possible: browsers restore the old scroll position
+     during load, and on mobile doing this later is too late. -->
+<script>
+  (function(){
+    try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+  })();
+</script>
+
+<!-- ===== GOOGLE REVIEWS BADGE ======================================== -->
+<style>
+  .mps-reviews{ max-width:900px; margin:0 auto 18px; display:flex; justify-content:center; }
+  .mps-rv-badge{
+    display:inline-flex; align-items:center; gap:11px;
+    padding:10px 16px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.04);
+    text-decoration:none;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .mps-rv-badge:hover{ border-color:rgba(227,252,2,.4); background:rgba(255,255,255,.06); transform:translateY(-1px); }
+  .mps-rv-g{ width:20px; height:20px; flex:0 0 20px; }
+  .mps-rv-score{ font-size:17px; font-weight:950; color:#fff; line-height:1; letter-spacing:-.01em; }
+  .mps-rv-stars{ display:inline-flex; gap:1px; font-size:15px; line-height:1; color:#FBBC05; letter-spacing:1px; }
+  .mps-rv-count{ font-size:13px; font-weight:700; color:#fff; line-height:1; white-space:nowrap; }
+  .mps-rv-tick{ width:15px; height:15px; flex:0 0 15px; color:var(--ocean); }
+  @media(max-width:480px){
+    .mps-rv-badge{ gap:9px; padding:9px 13px; }
+    .mps-rv-score{ font-size:16px; }
+    .mps-rv-stars{ font-size:14px; }
+    .mps-rv-count{ font-size:12px; }
+  }
+  @media(max-width:360px){
+    .mps-rv-badge{ gap:8px; padding:8px 11px; }
+    .mps-rv-count{ font-size:11.5px; }
+  }
+  @media(max-width:640px){ .mps-reviews{ margin-bottom:12px; } }
+</style>
+
+<div class="mps-reviews">
+  <a class="mps-rv-badge" id="mpsRvBadge"
+     href="https://maps.google.com/maps?cid=15620201708594115788"
+     target="_blank" rel="noopener"
+     aria-label="Rated 5.0 out of 5 from 81 Google reviews. Opens Google in a new tab.">
+    <svg class="mps-rv-g" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2 5-4.4 6.6v5.5h7.1c4.1-3.8 6.6-9.4 6.6-16.1z"/>
+      <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.4l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.4 46 24 46z"/>
+      <path fill="#FBBC05" d="M11.8 28.2c-.4-1.3-.7-2.7-.7-4.2s.2-2.9.7-4.2v-5.7H4.5C3 17 2 20.4 2 24s1 7 2.5 9.9l7.3-5.7z"/>
+      <path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.3 29.9 2 24 2 15.4 2 8.1 6.9 4.5 14.1l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/>
+    </svg>
+    <span class="mps-rv-score" id="mpsRvScore">5.0</span>
+    <span class="mps-rv-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+    <span class="mps-rv-count" id="mpsRvCount">81 Google reviews</span>
+    <svg class="mps-rv-tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".16"/>
+      <path d="M8 12.5l2.6 2.5L16 9.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+(function(){
+  /* Numbers come from window.MPS_REVIEWS in sitewide header injection, so
+     one edit updates every page. The markup values above are fallbacks. */
+  var cfg = window.MPS_REVIEWS;
+  if(!cfg) return;
+  var badge = document.getElementById('mpsRvBadge');
+  var score = document.getElementById('mpsRvScore');
+  var count = document.getElementById('mpsRvCount');
+  if(!badge) return;
+  var s = cfg.score != null ? String(cfg.score) : null;
+  var n = cfg.count != null ? Number(cfg.count) : null;
+  if(score && s) score.textContent = s;
+  if(count && n) count.textContent = n + ' Google reviews';
+  if(cfg.url)    badge.setAttribute('href', cfg.url);
+  if(s && n){
+    badge.setAttribute('aria-label',
+      'Rated ' + s + ' out of 5 from ' + n + ' Google reviews. Opens Google in a new tab.');
+  }
+})();
+</script>
+
+<style>
+  /* ── Options as toggle chips ─────────────────────────────────── */
+  .qopts{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 4px; }
+  .qopt{
+    appearance:none; cursor:pointer;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.03);
+    color:#fff; font-family:inherit; font-size:13.5px; font-weight:800;
+    padding:10px 14px; border-radius:999px; min-height:44px;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .qopt:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .qopt[aria-pressed="true"]{
+    border-color:rgba(227,252,2,.9); background:rgba(227,252,2,.12); color:#fff;
+  }
+  .qgroup{ margin-bottom:16px; }
+  .qgroup h4{
+    margin:0 0 8px; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+    font-weight:950; color:rgba(255,255,255,.6);
+  }
+  .qgroup .qnote{ margin:8px 0 0; font-size:12.5px; color:rgba(255,255,255,.5); line-height:1.5; }
+  .qcard{
+    background:var(--card); border:1px solid rgba(255,255,255,.08);
+    border-radius:14px; padding:18px;
+  }
+  @media(max-width:480px){ .qcard{ padding:14px 12px; } .qopt{ font-size:13px; padding:10px 12px; } }
+  .rq-also{
+    margin-top:12px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  .rq-also[hidden]{ display:none; }
+  .rq-also p{ margin:0 0 8px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.66); }
+  .rq-also .btn{ width:100%; }
+  .qbadge{
+    display:inline-flex; align-items:center; gap:8px; flex-wrap:wrap;
+    margin:0 0 14px; padding:8px 13px; border-radius:999px;
+    border:1px solid rgba(0,184,255,.4); background:rgba(0,184,255,.07);
+    font-size:12.5px; font-weight:900; color:var(--ocean);
+  }
+</style>
+
+<div class="pf" id="wtRoot">
+
+  <div class="topbar">
+    <div>
+      <h1>Window Tinting</h1>
+      <h3>Cooler, more private, and legal where it needs to be.</h3>
+    </div>
+  </div>
+
+  <div class="qbadge">
+    <span>At our unit in Birkenhead</span><span>&middot;</span><span>Priced by quote</span>
+  </div>
+
+  <div class="pkg-includes">
+    <div class="pkg-includes-title">How we work</div>
+    <div class="pkg-items">
+      <div class="pkg-item">
+        <div class="pkg-item-icon">🌡️</div>
+        <div class="pkg-item-text"><strong>Heat Rejection</strong><span>Quality film keeps the cabin noticeably cooler in summer</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">☀️</div>
+        <div class="pkg-item-text"><strong>99% UV Blocked</strong><span>Protects the dash, seats and the people in them</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">🕶️</div>
+        <div class="pkg-item-text"><strong>Privacy on the Rears</strong><span>Bags and kids out of sight at the lights</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">⚖️</div>
+        <div class="pkg-item-text"><strong>Legal on the Fronts</strong><span>Front sides and windscreen have legal limits &mdash; we work to them</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">🧼</div>
+        <div class="pkg-item-text"><strong>Windows Deep Cleaned First</strong><span>Any speck under the film shows forever, so this part is slow</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">📄</div>
+        <div class="pkg-item-text"><strong>Film Warranty</strong><span>No purpling or bubbling &mdash; warranted film, not market-stall stuff</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <strong>Every job is different.</strong>
+    Tint prices depend on the car, the windows you want done and the film you choose.
+    Tell us what you&rsquo;re after below and we&rsquo;ll come back with a price &mdash; usually the same day.
+  </div>
+
+  <div class="qcard">
+      <div class="qgroup">
+        <h4>Which windows?</h4>
+        <div class="qopts" id="wtGroupwindows" aria-label="Which windows?">
+          <button class="qopt" type="button" role="button" aria-pressed="false" data-group="windows" data-value="Rear sides & rear screen">Rear sides & rear screen</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="windows" data-value="Front sides">Front sides</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="windows" data-value="Sun strip">Sun strip</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="windows" data-value="Whole car">Whole car</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="windows" data-value="Headlights / rear lights">Headlights / rear lights</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="windows" data-value="Not sure yet">Not sure yet</button>
+        </div>
+
+      </div>
+      <div class="qgroup">
+        <h4>Film type</h4>
+        <div class="qopts" id="wtGroupfilm" aria-label="Film type">
+          <button class="qopt" type="button" role="button" aria-pressed="false" data-group="film" data-value="Standard privacy">Standard privacy</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="film" data-value="Chameleon / colour shift">Chameleon / colour shift</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="film" data-value="Ceramic (max heat rejection)">Ceramic (max heat rejection)</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="film" data-value="Not sure &mdash; advise me">Not sure &mdash; advise me</button>
+        </div>
+<p class="qnote">Front side windows must let through at least 70% of light, and the windscreen 75%. We&rsquo;ll tell you what&rsquo;s legal before you book.</p>
+      </div>
+      <div class="qgroup">
+        <h4>How dark?</h4>
+        <div class="qopts" id="wtGroupshade" aria-label="How dark?">
+          <button class="qopt" type="button" role="button" aria-pressed="false" data-group="shade" data-value="Light (35%)">Light (35%)</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="shade" data-value="Medium (20%)">Medium (20%)</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="shade" data-value="Dark (5% limo)">Dark (5% limo)</button><button class="qopt" type="button" role="button" aria-pressed="false" data-group="shade" data-value="Advise me">Advise me</button>
+        </div>
+
+      </div>
+
+    <div class="rq" id="wtRequest">
+      <p class="rq-head">Send us your request</p>
+      <p class="rq-copy">The more you tell us, the more accurate the quote. A photo of the car helps too &mdash; you can attach one in WhatsApp.</p>
+
+      <div class="rq-fields">
+        <div class="rq-field">
+          <label for="wtRqName">Your name</label>
+          <input type="text" id="wtRqName" autocomplete="name" placeholder="Name">
+        </div>
+        <div class="rq-field">
+          <label for="wtRqCar">Make &amp; model</label>
+          <input type="text" id="wtRqCar" placeholder="e.g. Golf GTI">
+        </div>
+        <div class="rq-field">
+          <label for="wtRqYear">Year</label>
+          <input type="text" id="wtRqYear" inputmode="numeric" placeholder="e.g. 2019">
+        </div>
+        <div class="rq-field">
+          <label for="wtRqPostcode">Postcode</label>
+          <input type="text" id="wtRqPostcode" autocomplete="postal-code" placeholder="Optional">
+        </div>
+        <div class="rq-field">
+          <label for="wtRqDate">Preferred week</label>
+          <input type="date" id="wtRqDate">
+        </div>
+        <div class="rq-field full">
+          <label for="wtRqMsg">Your message</label>
+          <textarea id="wtRqMsg"></textarea>
+        </div>
+      </div>
+
+      <p class="rq-err" id="wtRqErr" hidden></p>
+
+      <div class="rq-send">
+        <button class="btn btn-primary-glow" type="button" id="wtRqWhatsApp">Send on WhatsApp</button>
+        <button class="btn btn-quiet-blue" type="button" id="wtRqEmail">Send by email</button>
+      </div>
+
+      <div class="rq-also" id="wtRqAlso" hidden>
+        <p>Tinting is fitted by our specialist. Send them the same request so you both have it &mdash; it opens a WhatsApp chat with the message already written.</p>
+        <button class="btn btn-quiet-blue" type="button" id="wtRqAlsoBtn">Send a copy on WhatsApp</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-learn" type="button" id="wtLearnMoreBtn">See what&rsquo;s included</button>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('wtRoot');
+  if(!root) return;
+
+  /* ====================================================================
+     GO LIVE SWITCH
+     While this is false the block hides itself and shows a short holding
+     note instead, so the page can be published before the service is.
+     Flip it to true when it's approved — nothing else to change.
+     ==================================================================== */
+  var APPROVED = true;
+
+  var SERVICE   = "window tinting";
+  var WHATSAPP_NUMBER = '447592196929';
+  var EMAIL_TO        = 'mobilepitstopvalet@gmail.com';
+
+  /* Second pair of eyes on this service.
+     PARTNER_EMAIL is CC'd automatically on the email route.
+     PARTNER_WHATSAPP gets a "send a copy" button after the first send —
+     WhatsApp has no way to start a GROUP chat with a message already in
+     it, so a copy to a second number is the closest thing that works
+     every time. (See the note at the top of this file.) */
+  var PARTNER_EMAIL    = "";
+  var PARTNER_WHATSAPP = "447426487900";
+
+  var rqName = root.querySelector('#wtRqName');
+  var rqCar  = root.querySelector('#wtRqCar');
+  var rqYear = root.querySelector('#wtRqYear');
+  var rqPc   = root.querySelector('#wtRqPostcode');
+  var rqDate = root.querySelector('#wtRqDate');
+  var rqMsg  = root.querySelector('#wtRqMsg');
+  var rqErr  = root.querySelector('#wtRqErr');
+  var rqDirty = false;
+
+  if(rqDate){
+    try{
+      var tm = new Date(); tm.setDate(tm.getDate() + 1);
+      rqDate.min = tm.toISOString().slice(0, 10);
+    }catch(e){}
+  }
+  function niceDate(iso){
+    if(!iso) return '';
+    try{
+      return new Date(iso + 'T12:00:00').toLocaleDateString('en-GB',
+        { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+    }catch(e){ return iso; }
+  }
+
+  /* chips: multi-select, and every choice ends up in the message */
+  var chips = Array.prototype.slice.call(root.querySelectorAll('.qopt'));
+  function picked(groupId){
+    return chips.filter(function(c){
+      return c.getAttribute('data-group') === groupId && c.getAttribute('aria-pressed') === 'true';
+    }).map(function(c){ return c.getAttribute('data-value'); });
+  }
+  chips.forEach(function(c){
+    c.addEventListener('click', function(){
+      c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      refreshMessage();
+    });
+  });
+
+  var GROUPS = [{"id": "windows", "label": "Windows"}, {"id": "film", "label": "Film"}, {"id": "shade", "label": "Shade"}];
+
+  function requestMessage(){
+    var L = [];
+    L.push('Hi MobilePitStop, I\u2019d like a quote for ' + SERVICE + '.');
+    L.push('');
+    if(rqCar && rqCar.value.trim()){
+      L.push('Vehicle: ' + rqCar.value.trim() +
+             (rqYear && rqYear.value.trim() ? ' (' + rqYear.value.trim() + ')' : ''));
+    }
+    GROUPS.forEach(function(g){
+      var vals = picked(g.id);
+      if(vals.length) L.push(g.label + ': ' + vals.join(', '));
+    });
+    if(rqName && rqName.value.trim()) L.push('Name: ' + rqName.value.trim());
+    if(rqPc && rqPc.value.trim())     L.push('Postcode: ' + rqPc.value.trim());
+    if(rqDate && rqDate.value)        L.push('Preferred week: ' + niceDate(rqDate.value));
+    return L.join('\n');
+  }
+  function refreshMessage(){ if(rqMsg && !rqDirty) rqMsg.value = requestMessage(); }
+  function showErr(t){ if(!rqErr) return; rqErr.hidden = !t; rqErr.textContent = t || ''; }
+  function valid(){
+    if(!rqName || !rqName.value.trim()){ showErr('Add your name so we know who we\u2019re talking to.'); if(rqName) rqName.focus(); return false; }
+    if(!rqCar || !rqCar.value.trim()){ showErr('Tell us the make and model so we can price it.'); if(rqCar) rqCar.focus(); return false; }
+    if(!rqYear || !rqYear.value.trim()){ showErr('Add the year — trim and panel shapes change between facelifts.'); if(rqYear) rqYear.focus(); return false; }
+    showErr('');
+    return true;
+  }
+  function track(via){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event:'pf_request_click', component:'quote_request',
+                            service:"window_tinting", via:via });
+  }
+
+  [rqName, rqCar, rqYear, rqPc, rqDate].forEach(function(el){
+    if(!el) return;
+    el.addEventListener('input',  function(){ showErr(''); refreshMessage(); });
+    el.addEventListener('change', refreshMessage);
+  });
+  if(rqMsg) rqMsg.addEventListener('input', function(){ rqDirty = true; });
+
+  function sendWhatsApp(number, text){
+    var url = 'https://wa.me/' + number + '?text=' + encodeURIComponent(text);
+    var w = window.open(url, '_blank', 'noopener');
+    if(!w) window.location.href = url;
+  }
+
+  root.querySelector('#wtRqWhatsApp').addEventListener('click', function(){
+    if(!valid()) return;
+    var text = rqMsg && rqMsg.value.trim() ? rqMsg.value : requestMessage();
+    track('whatsapp');
+    sendWhatsApp(WHATSAPP_NUMBER, text);
+    /* offer the copy AFTER the first send, so one tap isn't two popups */
+    var also = root.querySelector('#wtRqAlso');
+    if(PARTNER_WHATSAPP && also) also.hidden = false;
+  });
+
+  var alsoBtn = root.querySelector('#wtRqAlsoBtn');
+  if(alsoBtn){
+    alsoBtn.addEventListener('click', function(){
+      var text = rqMsg && rqMsg.value.trim() ? rqMsg.value : requestMessage();
+      track('whatsapp_partner');
+      sendWhatsApp(PARTNER_WHATSAPP, text);
+    });
+  }
+
+  root.querySelector('#wtRqEmail').addEventListener('click', function(){
+    if(!valid()) return;
+    var text = rqMsg && rqMsg.value.trim() ? rqMsg.value : requestMessage();
+    track('email');
+    var subject = "Window tint quote request" + (rqCar && rqCar.value.trim() ? ' \u2014 ' + rqCar.value.trim() : '');
+    var href = 'mailto:' + EMAIL_TO + '?subject=' + encodeURIComponent(subject);
+    if(PARTNER_EMAIL) href += '&cc=' + encodeURIComponent(PARTNER_EMAIL);
+    href += '&body=' + encodeURIComponent(text);
+    window.location.href = href;
+  });
+
+  var learn = document.getElementById('wtLearnMoreBtn');
+  if(learn){
+    learn.addEventListener('click', function(){
+      var el = document.getElementById("learnMoreWindowTint");
+      if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+
+  if(!APPROVED){
+    root.setAttribute('hidden', '');
+    var holder = document.createElement('div');
+    holder.className = 'pf';
+    holder.innerHTML =
+      '<div class="topbar"><div><h1>Window Tinting</h1>' +
+      '<h3>Coming soon.</h3></div></div>' +
+      '<div class="info-bar">We’re not taking window tinting bookings through the website just yet. ' +
+      'Call or message <a href="tel:07592196929">07592 196929</a> and we’ll talk it through.</div>';
+    root.parentNode.insertBefore(holder, root);
+    return;
+  }
+
+  refreshMessage();
+})();
+</script>

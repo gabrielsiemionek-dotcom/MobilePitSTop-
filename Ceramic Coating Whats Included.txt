@@ -1,0 +1,876 @@
+
+<!-- ==========================================================================
+     MobilePitStop — CERAMIC COATING: What's included block
+     Section ID is learnMoreCeramicCoating, which the questionnaire's
+     "See what's included" button scrolls to. Its Book button comes back
+     to #priceFinderCeramicCoating.
+
+     WHAT'S IN IT
+       • Included: safe wash, decontamination, clay bar, panel wipe, the
+         coating itself, Glaco on the glass, and the curing rules.
+       • Add-ons: paint enhancement (from £185) and engine bay (£30) —
+         the same two the questionnaire offers, at the same prices.
+       • A full price table: 1 / 3 / 7 years by vehicle size, all-in.
+       • FAQs answer the two things people actually ask: does it stop
+         scratches (no), and why they request a date instead of booking.
+
+     TWO CARDS HAVE NO PHOTO YET — Glaco and the engine bay. Each shows a
+     plain panel; the marked line in each card is where the image goes.
+     A beading shot on a coated bonnet would be the best photo on the page.
+     ========================================================================== -->
+<link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
+<link rel="dns-prefetch" href="//images.squarespace-cdn.com">
+
+<style>
+  :root{
+    --mps-accent:#E3FC02;
+    --mps-ocean:#00B8FF;
+    --mps-border:rgba(255,255,255,.2);
+    --radius:14px;
+    --accent-ink:#0b0b0b;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  .mps-services{
+    max-width:1100px; margin:0 auto; padding:40px 20px;
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    line-height:1.6; background:#0b0b0b; border-radius:16px;
+  }
+  .mps-title{
+    color:var(--mps-accent); font-size:clamp(26px,5vw,38px); font-weight:950;
+    line-height:1.15; text-align:center; margin:0 0 10px;
+  }
+  .mps-subnote{ text-align:center; color:rgba(255,255,255,.65); font-size:14px; margin:0 0 26px; }
+
+  .mps-topstack{ display:flex; flex-direction:column; gap:18px; }
+
+  .mps-visual-grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+  @media(min-width:760px){ .mps-visual-grid{ grid-template-columns:repeat(3,1fr); } }
+
+  .mps-vcard{
+    border:1px solid var(--mps-border); border-radius:var(--radius);
+    overflow:hidden; display:flex; flex-direction:column;
+    background:rgba(255,255,255,.03);
+  }
+  .mps-vmedia{ position:relative; aspect-ratio:16/10; background:#0b0b0b; overflow:hidden; }
+  .mps-vmedia img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* card with no photo yet */
+  .mps-vmedia--blank{
+    display:flex; align-items:center; justify-content:center;
+    background:
+      radial-gradient(120% 90% at 20% 10%, rgba(0,184,255,.20), transparent 60%),
+      radial-gradient(90% 80% at 90% 100%, rgba(227,252,2,.10), transparent 55%),
+      #0d0f12;
+  }
+  .mps-vmedia--blank svg{
+    width:64px; height:64px;
+    stroke:rgba(255,255,255,.28); fill:none; stroke-width:1.4;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+
+  .mps-vbadge{
+    position:absolute; top:10px; left:10px; z-index:2;
+    background:var(--mps-accent); color:#0b0b0b;
+    font-weight:900; font-size:12px; padding:5px 10px; border-radius:999px;
+  }
+  .mps-vbody{ padding:12px 14px 14px; }
+  .mps-vbody h3{ margin:0 0 5px; font-size:16px; color:var(--mps-accent); font-weight:900; }
+  .mps-vbody p{ margin:0; font-size:13px; color:rgba(255,255,255,.75); }
+
+  /* before / after */
+  .mps-compare{ border:1px solid var(--mps-border); border-radius:var(--radius); padding:14px; background:rgba(255,255,255,.03); }
+  .mps-compare h3{ margin:0 0 5px; font-size:18px; color:var(--mps-accent); font-weight:900; }
+  .mps-compare .desc{ margin:0 0 10px; color:rgba(255,255,255,.65); font-size:13px; }
+  .mps-compare .frame{
+    position:relative; aspect-ratio:16/10; overflow:hidden;
+    border-radius:10px; border:1px solid var(--mps-border);
+    background:#000; cursor:col-resize;
+  }
+  .mps-compare .frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .mps-compare .before{ z-index:1; }
+  .mps-compare-labels{
+    display:flex; justify-content:space-between;
+    font-size:12px; color:rgba(255,255,255,.6);
+    margin:6px 2px 2px; text-transform:uppercase; letter-spacing:.06em;
+  }
+  @media(max-width:480px){ .mps-compare-labels{ font-size:11px; } }
+  .mps-compare .slider-wrap{ margin-top:8px; }
+  .mps-compare input[type="range"]{ -webkit-appearance:none; appearance:none; width:100%; background:transparent; cursor:pointer; }
+  .mps-compare input[type="range"]::-webkit-slider-runnable-track{ height:8px; background:rgba(255,255,255,.15); border-radius:999px; }
+  .mps-compare input[type="range"]::-moz-range-track{ height:8px; background:rgba(255,255,255,.15); border-radius:999px; }
+  .mps-compare input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+    background:var(--mps-accent); border:2px solid #000; margin-top:-9px;
+  }
+  .mps-compare input[type="range"]::-moz-range-thumb{ width:26px; height:26px; border-radius:50%; background:var(--mps-accent); border:2px solid #000; }
+  .mps-compare .hint{ font-size:12px; color:rgba(255,255,255,.45); margin-top:5px; text-align:center; }
+
+  /* CTA */
+  .mps-btn{
+    display:block; margin:16px 0; padding:14px; border-radius:12px;
+    text-align:center; font-weight:900; font-size:15px; text-decoration:none;
+    border:2px solid var(--mps-accent); color:var(--mps-accent); background:transparent;
+    transition:background .2s ease,color .2s ease,box-shadow .2s ease,transform .15s ease;
+  }
+  .mps-btn:hover{
+    background:var(--mps-accent); color:#0b0b0b;
+    box-shadow:0 0 14px rgba(227,252,2,.7),0 0 28px rgba(227,252,2,.4);
+    transform:translateY(-2px);
+  }
+  .mps-btn.is-visible{ animation:pulseGlow 3s infinite ease-in-out; }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 0 rgba(227,252,2,0); }
+    50%{ box-shadow:0 0 14px rgba(227,252,2,.55),0 0 26px rgba(227,252,2,.3); }
+  }
+  @media(prefers-reduced-motion:reduce){ .mps-btn.is-visible{ animation:none; } }
+
+  /* list cards */
+  .mps-card{
+    border:1px solid var(--mps-border); border-radius:var(--radius);
+    padding:18px; display:flex; flex-direction:column;
+    background:rgba(255,255,255,.03);
+  }
+  .mps-card + .mps-card{ margin-top:18px; }
+  .mps-card > h3{ margin:0 0 4px; font-size:22px; color:var(--mps-accent); font-weight:950; }
+
+  .mps-sectionhead{ margin:16px 0 8px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .mps-sectionhead h4{ margin:0; font-size:11px; text-transform:uppercase; letter-spacing:.14em; font-weight:950; color:rgba(255,255,255,.6); }
+  .mps-sectionpill{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:5px 10px; border-radius:999px;
+    font-size:11px; font-weight:900; white-space:nowrap;
+  }
+  .mps-sectionpill--soft{ color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.2); }
+  .mps-sectionpill--optional{ background:var(--mps-ocean); color:#00131c; }
+  .mps-sectionnote{ margin:-2px 0 10px; font-size:12.5px; color:rgba(255,255,255,.55); line-height:1.5; }
+
+  /* accordions */
+  .mps-acc{ border:1px solid var(--mps-border); border-radius:12px; overflow:hidden; background:rgba(0,0,0,.18); margin-bottom:4px; }
+  .mps-acc details{ margin:0; border-top:1px solid rgba(255,255,255,.1); }
+  .mps-acc details:first-of-type{ border-top:none; }
+  .mps-acc summary{
+    list-style:none; cursor:pointer; padding:11px 14px;
+    font-weight:700; font-size:14px;
+    display:flex; align-items:center; gap:10px;
+    color:#fff; user-select:none;
+  }
+  .mps-acc summary::-webkit-details-marker{ display:none; }
+  .mps-acc .plus{ margin-left:auto; width:18px; height:18px; position:relative; flex:0 0 18px; }
+  .mps-acc .plus::before,.mps-acc .plus::after{
+    content:""; position:absolute; inset:0; margin:auto;
+    width:14px; height:2px; background:rgba(255,255,255,.6); border-radius:2px;
+  }
+  .mps-acc .plus::after{ transform:rotate(90deg); transition:transform .2s ease; }
+  .mps-acc details[open] .plus::after{ transform:rotate(0deg); }
+  .mps-acc .content{
+    padding:10px 14px 13px; border-top:1px solid rgba(255,255,255,.08);
+    font-size:13px; color:rgba(255,255,255,.8); line-height:1.55; overflow-wrap:break-word;
+  }
+  .mps-acc .content p{ margin:0 0 6px; }
+  .mps-acc .content p:last-child{ margin-bottom:0; }
+  .mps-acc .content ul{ padding-left:16px; margin:6px 0 0; }
+  .mps-acc .content li{ margin-bottom:3px; }
+
+  .mps-acc--addons{ border-color:rgba(0,184,255,.3); }
+  .mps-acc--addons details{ border-top-color:rgba(0,184,255,.15); }
+  .mps-acc--addons .plus::before,
+  .mps-acc--addons .plus::after{ background:rgba(0,184,255,.7); }
+
+  .mps-tag{
+    margin-left:auto; font-size:12px; font-weight:900;
+    color:var(--mps-ocean); background:rgba(0,184,255,.1);
+    border:1px solid rgba(0,184,255,.35);
+    padding:3px 9px; border-radius:999px; white-space:nowrap;
+  }
+  .mps-acc summary .mps-tag + .plus{ margin-left:10px; }
+
+  .mps-incl-chip{
+    display:inline-block; font-size:11.5px; font-weight:900;
+    color:rgba(227,252,2,.92); border:1px solid rgba(227,252,2,.3);
+    background:rgba(227,252,2,.07);
+    padding:3px 9px; border-radius:999px; margin:0 6px 8px 0;
+  }
+
+  .mps-ptable{ width:100%; border-collapse:collapse; margin:8px 0 0; font-size:12.5px; }
+  .mps-ptable th, .mps-ptable td{ text-align:left; padding:6px 8px; border-top:1px solid rgba(255,255,255,.1); }
+  .mps-ptable thead th{ border-top:none; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.5); font-weight:900; }
+  .mps-ptable td:last-child, .mps-ptable th:last-child{ text-align:right; white-space:nowrap; }
+  .mps-ptable .p-now{ color:var(--mps-accent); font-weight:900; }
+
+  /* trust */
+  .mps-trust{ display:grid; gap:10px; margin-top:24px; grid-template-columns:repeat(2,1fr); }
+  @media(min-width:700px){ .mps-trust{ grid-template-columns:repeat(4,1fr); } }
+  .mps-trust-pill{ border:1px dashed rgba(255,255,255,.3); border-radius:12px; padding:12px 10px; text-align:center; }
+  .mps-trust-pill strong{ display:block; color:var(--mps-accent); font-size:13px; font-weight:900; margin-bottom:3px; }
+  .mps-trust-pill span{ font-size:12px; color:rgba(255,255,255,.6); }
+
+  /* FAQs */
+  .mps-faqs{ margin-top:36px; }
+  .mps-faqs h3{ color:var(--mps-accent); font-size:22px; font-weight:950; margin:0 0 14px; text-align:center; }
+  .mps-areas{ display:grid; gap:14px; margin-top:8px; }
+  @media(min-width:700px){ .mps-areas{ grid-template-columns:repeat(3,1fr); } }
+  .mps-areas h4{ margin:0 0 6px; font-size:14px; font-weight:900; color:var(--mps-accent); }
+  .mps-areas ul{ margin:0; padding-left:18px; }
+  .mps-areas li{ margin:4px 0; }
+  .mps-nearby{ margin-top:12px; color:var(--mps-accent); font-weight:700; }
+
+  .mps-contact-bar{
+    margin-top:28px; background:#111; border:1px solid rgba(255,255,255,.15);
+    border-radius:14px; padding:18px 20px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .mps-contact-bar h4{ margin:0; font-size:16px; font-weight:900; color:var(--mps-accent); }
+  .mps-contact-links{ display:flex; gap:20px; flex-wrap:wrap; font-size:14px; align-items:center; }
+  .mps-contact-links span{ white-space:nowrap; color:rgba(255,255,255,.75); }
+  .mps-contact-links a{ color:var(--mps-accent); text-decoration:none; font-weight:700; }
+  .mps-contact-links a:hover{ text-decoration:underline; }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* showcase boxes */
+  .mps-showbox{ border:1px solid; border-radius:var(--radius); padding:14px; }
+  .mps-showbox--inc{ border-color:rgba(227,252,2,.35); background:rgba(227,252,2,.04); }
+  .mps-showbox--add{ border-color:rgba(0,184,255,.38); background:rgba(0,184,255,.05); }
+  .mps-showbox-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:0 0 4px; }
+  .mps-showbox-head h3{ margin:0; font-size:18px; font-weight:900; }
+  .mps-showbox--inc .mps-showbox-head h3{ color:var(--mps-accent); }
+  .mps-showbox--add .mps-showbox-head h3{ color:var(--mps-ocean); }
+  .mps-showbox-pill{
+    display:inline-flex; align-items:center; padding:5px 11px; border-radius:999px;
+    font-size:11px; font-weight:900; white-space:nowrap; letter-spacing:.04em;
+  }
+  .mps-showbox--inc .mps-showbox-pill{ background:var(--mps-accent); color:var(--accent-ink); }
+  .mps-showbox--add .mps-showbox-pill{ background:var(--mps-ocean); color:#00131c; }
+  .mps-showbox .boxdesc{ margin:0 0 12px; color:rgba(255,255,255,.65); font-size:13px; }
+
+  .mps-vcard--addon{ border-color:rgba(0,184,255,.28); }
+  .mps-vbadge--addon{ background:var(--mps-ocean); color:#00131c; }
+  .mps-vcard--addon .mps-vbody h3{ color:var(--mps-ocean); }
+  .mps-vprice{ display:block; margin:8px 0 0; font-size:15px; font-weight:950; color:var(--mps-accent); }
+  .mps-vprice small{ font-size:11.5px; font-weight:700; color:rgba(255,255,255,.5); margin-left:5px; }
+  .mps-vlink{
+    display:inline-flex; align-items:center; gap:6px; margin-top:10px; padding:8px 13px;
+    border-radius:999px; border:1px solid rgba(0,184,255,.45);
+    background:transparent; color:var(--mps-ocean);
+    font-family:inherit; font-size:12.5px; font-weight:900; cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+  }
+  .mps-vlink:hover{ background:var(--mps-ocean); color:#00131c; }
+  .mps-acc details.mps-flash{ box-shadow:inset 0 0 0 2px rgba(0,184,255,.55); border-radius:10px; }
+
+  /* carousels — 3 in view on desktop, 1 on mobile */
+  .mps-vcarousel{ position:relative; }
+  .mps-vslider{
+    grid-template-columns:none; display:flex; overflow-x:auto;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .mps-vslider::-webkit-scrollbar{ display:none; }
+  .mps-vslider .mps-vcard{ scroll-snap-align:start; }
+  .mps-vcarousel-controls{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:12px; }
+  .mps-vcarousel-arrow{
+    width:40px; height:40px; flex:0 0 40px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.05); color:#fff;
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mps-vcarousel-arrow:hover,
+  .mps-vcarousel-arrow:active{ border-color:rgba(227,252,2,.6); background:rgba(227,252,2,.1); }
+  .mps-vcarousel-arrow svg{ width:18px; height:18px; }
+  .mps-vcarousel-arrow:disabled{ opacity:.35; cursor:default; }
+  .mps-vcarousel-dots{ display:flex; align-items:center; gap:8px; }
+  .mps-vcarousel-dots button{
+    width:8px; height:8px; padding:0; border-radius:999px;
+    border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.25);
+    cursor:pointer; transition:background .15s ease, transform .15s ease, border-color .15s ease;
+  }
+  .mps-vcarousel-dots button.is-active{ background:var(--mps-accent); border-color:var(--mps-accent); transform:scale(1.2); }
+  #idcAddonCarousel .mps-vcarousel-dots button.is-active{ background:var(--mps-ocean); border-color:var(--mps-ocean); }
+  #idcAddonCarousel .mps-vcarousel-arrow:hover,
+  #idcAddonCarousel .mps-vcarousel-arrow:active{ border-color:rgba(0,184,255,.6); background:rgba(0,184,255,.1); }
+
+  @media(min-width:760px){
+    .mps-vslider{ gap:14px; padding-bottom:2px; }
+    .mps-vslider .mps-vcard{ flex:0 0 calc((100% - 28px) / 3); }
+  }
+  @media(max-width:759px){
+    .mps-topstack .mps-compare{ order:-1; }
+    .mps-topstack .mps-showbox--inc{ order:0; }
+    .mps-topstack .mps-showbox--add{ order:1; }
+    .mps-vslider{ gap:0; }
+    .mps-vslider .mps-vcard{ flex:0 0 100%; width:100%; }
+  }
+
+  /* small phones */
+  @media(max-width:480px){
+    .mps-services{ padding:26px 14px; border-radius:12px; }
+    .mps-title{ font-size:clamp(22px,6.4vw,28px); }
+    .mps-subnote{ font-size:13px; margin-bottom:20px; }
+    .mps-card{ padding:14px 12px; }
+    .mps-card > h3{ font-size:19px; }
+    .mps-showbox{ padding:12px 10px; }
+    .mps-showbox-head h3{ font-size:16.5px; }
+    .mps-showbox .boxdesc{ font-size:12.5px; margin-bottom:10px; }
+    .mps-vbody{ padding:11px 12px 13px; }
+    .mps-vbody h3{ font-size:15px; }
+    .mps-vbody p{ font-size:12.5px; }
+    .mps-acc summary{ padding:12px 12px; font-size:13.5px; gap:8px; min-height:46px; }
+    .mps-acc .content{ padding:10px 12px 12px; font-size:12.5px; }
+    .mps-compare{ padding:12px 10px; }
+    .mps-compare h3{ font-size:16.5px; }
+    .mps-compare .desc{ font-size:12.5px; }
+    .mps-btn{ padding:14px 12px; font-size:14.5px; }
+    .mps-contact-bar{ padding:14px 14px; }
+    .mps-contact-links{ gap:12px; font-size:13px; }
+    .mps-faqs h3{ font-size:19px; }
+    .mps-vbody h3, .mps-acc summary, .mps-acc .content{ overflow-wrap:anywhere; }
+  }
+  @media(max-width:390px){
+    .mps-services{ padding:22px 11px; }
+    .mps-title{ font-size:21px; }
+    .mps-card{ padding:12px 10px; }
+    .mps-showbox{ padding:11px 9px; }
+    .mps-acc summary{ padding:11px 10px; font-size:13px; }
+    .mps-acc .content{ padding:9px 10px 11px; }
+    .mps-vbody{ padding:10px 11px 12px; }
+    .mps-ptable{ font-size:11.5px; }
+    .mps-ptable th, .mps-ptable td{ padding:6px 5px; }
+    .mps-trust{ gap:8px; }
+    .mps-trust-pill{ padding:10px 7px; }
+    .mps-trust-pill strong{ font-size:12.5px; }
+    .mps-trust-pill span{ font-size:11.5px; }
+    .mps-btn{ padding:13px 10px; font-size:14px; }
+  }
+</style>
+
+
+<section class="mps-services" id="learnMoreCeramicCoating" aria-label="Ceramic Coating service details">
+
+  <h2 class="mps-title">What&rsquo;s in a Ceramic Coating</h2>
+  <p class="mps-subnote">Years of protection, applied on your driveway &mdash; with the prep that makes it stick.</p>
+
+  <div class="mps-topstack">
+
+    <!-- ===== Included ===== -->
+    <div class="mps-showbox mps-showbox--inc" aria-label="What's included with every ceramic coating">
+      <div class="mps-showbox-head">
+        <h3>What&rsquo;s Included</h3>
+        <span class="mps-showbox-pill">Every coating</span>
+      </div>
+      <p class="boxdesc">A coating is only as good as what happens before it. All of this comes as standard.</p>
+
+      <div class="mps-vcarousel" id="ccCarousel">
+        <div class="mps-visual-grid mps-vslider" id="ccVisualGrid">
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge">Safe Hand Wash</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4bc24f7e-4db0-4f26-9939-172303f1bd7a/exterior+deep+clean+%282%29.webp?format=800w&content-type=image%2Fwebp"
+                   alt="Snow foam pre-wash before a safe hand wash"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Nothing goes on dirty paint</h3>
+              <p>Snow foam, two-bucket hand wash, wheels, arches and shuts. Anything left on the paint gets sealed under the coating for years, so this part isn&rsquo;t rushed.</p>
+            </div>
+          </article>
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge">Decontamination</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/09a34b05-ee40-4f89-82c5-d4a5a2bddbab/clay+bar.webp?content-type=image%2Fwebp&format=800w"
+                   alt="Clay bar lifting bonded contamination from paintwork"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Chemical decon &amp; clay bar</h3>
+              <p>Tar and iron fallout dissolved, then the bonded grit clayed off until the paint is glass-smooth. A coating can only key to clean paint.</p>
+            </div>
+          </article>
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge">Ceramic Coating</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/077aba80-ea37-4306-ab3d-ecfcd93c02b0/ceramic+coating.png?content-type=image%2Fpng&format=800w"
+                   alt="Water beading tightly on ceramic coated paintwork"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Applied panel by panel</h3>
+              <p>Laid down in sections and levelled by hand before it flashes, so there are no high spots or streaks left in the finish.</p>
+            </div>
+          </article>
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia mps-vmedia--blank">
+              <span class="mps-vbadge">Glaco Glass</span>
+              <!-- GLACO PHOTO: replace the <svg> below with
+                   <img src="YOUR-IMAGE-URL?format=800w" alt="Rain beading off a treated windscreen" loading="lazy" decoding="async" width="800" height="500">
+                   and remove " mps-vmedia--blank" from the div above -->
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 40V22a4 4 0 0 1 4-4h32a4 4 0 0 1 4 4v18"/><path d="M8 40h48"/><path d="M20 30l-4 6M34 28l-4 6M46 31l-4 6"/><circle cx="24" cy="46" r="2"/><circle cx="36" cy="48" r="2"/><circle cx="46" cy="45" r="2"/></svg>
+            </div>
+            <div class="mps-vbody">
+              <h3>Glaco on the glass</h3>
+              <p>Included with every coating. Above about 40mph the rain clears itself and you barely need the wipers.</p>
+            </div>
+          </article>
+
+        </div>
+        <div class="mps-vcarousel-controls">
+          <button class="mps-vcarousel-arrow" id="ccCarPrev" type="button" aria-label="Previous card">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="mps-vcarousel-dots" id="ccCarDots"></div>
+          <button class="mps-vcarousel-arrow" id="ccCarNext" type="button" aria-label="Next card">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Optional add-ons ===== -->
+    <div class="mps-showbox mps-showbox--add" aria-label="Optional add-ons">
+      <div class="mps-showbox-head">
+        <h3>Optional Add-ons</h3>
+        <span class="mps-showbox-pill">Extra cost</span>
+      </div>
+      <p class="boxdesc">One of these changes how the coating looks for years. The other is just nice to have.</p>
+
+      <div class="mps-vcarousel" id="ccAddonCarousel">
+        <div class="mps-visual-grid mps-vslider" id="ccAddonGrid">
+
+          <article class="mps-vcard mps-vcard--addon">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge mps-vbadge--addon">Paint Enhancement</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5a2af57b-7aca-4f87-bcf0-7896ac490166/paint+enhancement.png?content-type=image%2Fpng&format=800w"
+                   alt="Machine polisher refining paintwork before coating"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Polish the swirls out first</h3>
+              <p>A coating locks in whatever is underneath it. Swirled paint stays swirled for the life of the coating &mdash; this is the one add-on worth thinking hard about.</p>
+              <span class="mps-vprice">from +&pound;185 <small>1-stage machine polish</small></span>
+              <button class="mps-vlink" type="button" data-open-addon="ccAddonEnhance">Details &amp; pricing &rarr;</button>
+            </div>
+          </article>
+
+          <article class="mps-vcard mps-vcard--addon">
+            <div class="mps-vmedia mps-vmedia--blank">
+              <span class="mps-vbadge mps-vbadge--addon">Engine Bay</span>
+              <!-- ENGINE BAY PHOTO: replace the <svg> below with
+                   <img src="YOUR-IMAGE-URL?format=800w" alt="Cleaned and dressed engine bay" loading="lazy" decoding="async" width="800" height="500">
+                   and remove " mps-vmedia--blank" from the div above -->
+              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 40V28a4 4 0 0 1 4-4h10l6-6h12v10h8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4z"/><path d="M20 44v6M44 44v6"/><path d="M26 30h12"/></svg>
+            </div>
+            <div class="mps-vbody">
+              <h3>Clean under the bonnet</h3>
+              <p>Degreased and detailed while we&rsquo;re there &mdash; grime and grease off, plastics and hoses dressed.</p>
+              <span class="mps-vprice">+&pound;30 <small>all sizes</small></span>
+              <button class="mps-vlink" type="button" data-open-addon="ccAddonEngine">Details &amp; pricing &rarr;</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="mps-vcarousel-controls">
+          <button class="mps-vcarousel-arrow" id="ccAddonPrev" type="button" aria-label="Previous add-on">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="mps-vcarousel-dots" id="ccAddonDots"></div>
+          <button class="mps-vcarousel-arrow" id="ccAddonNext" type="button" aria-label="Next add-on">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Before / after ===== -->
+    <div class="mps-compare" aria-label="Paint decontamination before and after comparison">
+      <h3>Decontamination &mdash; Before the Coating</h3>
+      <p class="desc">Embedded brake dust and road film off the wheels, tar and fallout off the paint. Every coating starts here. Slide to compare.</p>
+
+      <div class="frame" id="ccFrame" role="img" aria-label="Before and after decontamination">
+        <img class="before"
+             src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ed3b4be7-1b1f-4314-9703-1aac55a85bea/before+wheel+deep+clean.jpg?format=800w&content-type=image%2Fjpeg"
+             alt="Before: wheel with embedded brake dust"
+             loading="lazy" decoding="async" width="800" height="500">
+        <div id="ccAfterWrap" style="position:absolute;top:0;left:0;bottom:0;width:50%;overflow:hidden;z-index:2;">
+          <img class="after"
+               src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/59c687da-e8f8-4bfa-a687-29cb595ff0b3/after+wheel+deep+clean.jpg?format=800w&content-type=image%2Fjpeg"
+               alt="After: wheel clean after decontamination"
+               loading="lazy" decoding="async" width="800" height="500"
+               style="position:absolute;top:0;left:0;height:100%;object-fit:cover;max-width:none;">
+        </div>
+      </div>
+
+      <div class="mps-compare-labels" aria-hidden="true">
+        <span>&#9664; After (Clean)</span>
+        <span>Before (Dirty) &#9654;</span>
+      </div>
+
+      <div class="slider-wrap">
+        <label for="ccCompareRange" class="sr-only">Drag to compare before and after decontamination</label>
+        <input id="ccCompareRange" type="range" min="0" max="100" value="50" aria-label="Compare before and after decontamination">
+      </div>
+      <p class="hint">&#8592; Drag to compare &#8594;</p>
+    </div>
+
+  </div>
+
+  <a class="mps-btn" href="#priceFinderCeramicCoating" id="ccCTA">Request a Ceramic Coating</a>
+
+  <!-- ===== Prices ===== -->
+  <article class="mps-card" aria-label="Ceramic coating prices">
+    <h3>Coating Prices</h3>
+    <p class="mps-sectionnote">Each price is the whole job &mdash; the exterior prep, the clay bar, Glaco on the glass and the coating itself. Nothing else to add unless you want the paint polished first.</p>
+
+    <table class="mps-ptable">
+      <thead><tr><th>Vehicle</th><th>1 yr</th><th>3 yrs</th><th>7 yrs</th></tr></thead>
+      <tbody>
+        <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;190</span></td><td><span class="p-now">&pound;270</span></td><td><span class="p-now">&pound;370</span></td></tr>
+        <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;230</span></td><td><span class="p-now">&pound;310</span></td><td><span class="p-now">&pound;410</span></td></tr>
+        <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;290</span></td><td><span class="p-now">&pound;370</span></td><td><span class="p-now">&pound;470</span></td></tr>
+      </tbody>
+    </table>
+    <p class="mps-ptable-note">Vans, pick-ups and campervans are by quote. Coatings need dry conditions to cure, so you send us your preferred date and we confirm it against the forecast &mdash; the price doesn&rsquo;t change.</p>
+  </article>
+
+  <!-- ===== Included list ===== -->
+  <article class="mps-card" id="WhatIncludedCeramicCoating" aria-label="Included with every ceramic coating">
+    <h3>Included in Every Coating</h3>
+
+    <div class="mps-sectionhead">
+      <h4>Preparation</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Included</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>Snow Foam &amp; Two-Bucket Hand Wash<span class="plus"></span></summary>
+        <div class="content"><p>Foam dwells to soften traffic film, then a hand wash with grit guards and clean mitts. Whatever is on the paint when we coat it is there for years, so the wash is done properly first.</p></div>
+      </details>
+      <details>
+        <summary>Wheels, Tyres &amp; Arches<span class="plus"></span></summary>
+        <div class="content"><p>Deep cleaned and dressed before we start, so brake dust isn&rsquo;t flicked back onto freshly coated paint.</p></div>
+      </details>
+      <details>
+        <summary>Chemical Decontamination<span class="plus"></span></summary>
+        <div class="content"><p>Tar and iron fallout dissolved off the paint. These are the contaminants that sit <em>in</em> the surface rather than on it, and they&rsquo;ll stop a coating bonding evenly.</p></div>
+      </details>
+      <details>
+        <summary>Clay Bar Treatment<span class="plus"></span></summary>
+        <div class="content"><p>Lifts what the chemicals leave behind &mdash; the bonded grit you can feel with your fingertips. The paint ends up glass-smooth, which is the surface a coating needs to key to.</p></div>
+      </details>
+      <details>
+        <summary>Panel Wipe<span class="plus"></span></summary>
+        <div class="content"><p>Every panel wiped down to strip any oils and polishing residue immediately before coating, so nothing sits between the paint and the ceramic.</p></div>
+      </details>
+    </div>
+
+    <div class="mps-sectionhead">
+      <h4>The coating</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Included</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>Ceramic Coating on All Paintwork<span class="plus"></span></summary>
+        <div class="content">
+          <p>Applied section by section and levelled by hand before it flashes off, which is what prevents high spots and streaking. Once cured, water sheets off instead of sitting on the panel, dirt struggles to bond, and washing gets much easier.</p>
+          <p>Choose <strong>1, 3 or 7 years</strong> &mdash; the longer coatings are harder, thicker and more chemical resistant.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Glaco Hydrophobic Glass Coating<span class="plus"></span></summary>
+        <div class="content"><p>Included with every coating. Above roughly <strong>40mph the rain clears itself</strong> and you barely need the wipers &mdash; most obvious on a motorway in heavy rain at night. Lasts around a year and can be topped up on any visit.</p></div>
+      </details>
+      <details>
+        <summary>Curing &amp; Aftercare<span class="plus"></span></summary>
+        <div class="content">
+          <p>The coating is touch dry before we leave but keeps hardening for about a week. <strong>Leave it unwashed for 7 days</strong> and keep it out of the rain for the first 12 hours if you can.</p>
+          <p>After that: no automatic car washes, no harsh detergents. A safe hand wash is all it needs &mdash; which is exactly what the <a href="https://mobilepitstop.uk/car-detailing-maintenance-plan" style="color:#E3FC02;font-weight:900;text-decoration:none">Maintenance Plan</a> is for.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="mps-sectionhead">
+      <h4>Add-ons</h4>
+      <span class="mps-sectionpill mps-sectionpill--optional">Optional</span>
+    </div>
+
+    <div class="mps-acc mps-acc--addons">
+      <details id="ccAddonEnhance">
+        <summary>Paint Enhancement<span class="mps-tag">from +&pound;185</span><span class="plus"></span></summary>
+        <div class="content">
+          <span class="mps-incl-chip">No clay charge &mdash; the coating already includes it</span>
+          <p>A <strong>1-stage machine polish</strong> across all paintwork before the coating goes on. Removes swirl marks, light scratches and water marks, so the coating locks in a corrected finish rather than sealing in the damage.</p>
+          <p><strong>Worth knowing:</strong> this is the difference between paint that looks protected and paint that looks new. On a dark car in sunlight it&rsquo;s the single biggest change we can make.</p>
+          <table class="mps-ptable">
+            <thead><tr><th>Vehicle</th><th>Add-on price</th></tr></thead>
+            <tbody>
+              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;185</span></td></tr>
+              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;220</span></td></tr>
+              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;265</span></td></tr>
+            </tbody>
+          </table>
+          <p class="mps-ptable-note">Deeper scratches &mdash; the ones you can catch a fingernail in &mdash; need multi-stage correction at our unit. We&rsquo;ll assess the paint and tell you honestly before we coat it.</p>
+        </div>
+      </details>
+
+      <details id="ccAddonEngine">
+        <summary>Engine Bay Detail<span class="mps-tag">+&pound;30</span><span class="plus"></span></summary>
+        <div class="content">
+          <p>Careful degreasing and detailing under the bonnet &mdash; built-up grime, grease and road dirt removed, plastics and hoses left clean and dressed. Same price for every vehicle size.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="mps-trust" aria-label="Why drivers choose MobilePitStop">
+      <div class="mps-trust-pill"><strong>Fully Mobile</strong><span>Coated on your driveway</span></div>
+      <div class="mps-trust-pill"><strong>Prep Included</strong><span>Decon, clay &amp; panel wipe</span></div>
+      <div class="mps-trust-pill"><strong>10% to Book</strong><span>Balance after the job</span></div>
+      <div class="mps-trust-pill"><strong>5&#9733; Rated</strong><span id="ccTrustReviews">81 Google reviews</span></div>
+    </div>
+  </article>
+
+</section>
+
+<!-- ===== FAQs ===== -->
+<section class="mps-faqs" aria-label="Ceramic Coating FAQs">
+  <h3>Ceramic Coating FAQs</h3>
+
+  <div class="mps-acc" id="ccFAQs">
+    <details>
+      <summary>What does a ceramic coating actually do?<span class="plus"></span></summary>
+      <div class="content">It bonds a hard, slick layer to the paint. Water sheets off instead of sitting there, dirt and road film struggle to bond, and the car washes far more easily &mdash; a rinse takes most of it off. It also protects against UV fading and light chemical etching from bird mess and fallout, as long as it&rsquo;s cleaned off reasonably promptly.</div>
+    </details>
+    <details>
+      <summary>Will it stop scratches and stone chips?<span class="plus"></span></summary>
+      <div class="content">No, and anyone who says otherwise is selling. A coating is thin &mdash; it resists light marring and makes washing safer, which prevents <em>new</em> swirl marks. It won&rsquo;t stop a stone chip or a key. For impact protection you want <strong>paint protection film</strong>, which we do at the unit.</div>
+    </details>
+    <details>
+      <summary>Do I need the paint polished first?<span class="plus"></span></summary>
+      <div class="content">If the paint is new or already corrected, no. If it has swirl marks, yes &mdash; a coating locks in whatever is underneath it, so those marks stay for its whole life. We&rsquo;ll look at the paint on the day and tell you straight before we start.</div>
+    </details>
+    <details>
+      <summary>How long does it take?<span class="plus"></span></summary>
+      <div class="content">Most of the day for the coating alone, longer with the machine polish. The prep is the bulk of it &mdash; the coating itself goes on relatively quickly.</div>
+    </details>
+    <details>
+      <summary>Why do I have to request a date instead of booking?<span class="plus"></span></summary>
+      <div class="content">Coatings need dry conditions to cure, and on a driveway that depends on the weather. You send your preferred date, we check the forecast and confirm &mdash; usually the same day. <strong>The price you see doesn&rsquo;t change.</strong></div>
+    </details>
+    <details>
+      <summary>What do I do afterwards?<span class="plus"></span></summary>
+      <div class="content">Leave it unwashed for <strong>7 days</strong> while it hardens, and out of the rain for the first 12 hours if you can. After that, no automatic car washes and no harsh detergents &mdash; a safe hand wash every few weeks keeps it performing for its full term.</div>
+    </details>
+    <details>
+      <summary>Can you coat a car on my driveway?<span class="plus"></span></summary>
+      <div class="content">Yes &mdash; that&rsquo;s what this service is. We need somewhere reasonably sheltered and out of direct sun where the car can sit undisturbed while we work, plus access to a standard 13A socket. We carry our own water.</div>
+    </details>
+    <details>
+      <summary>What areas do you cover?<span class="plus"></span></summary>
+      <div class="content">We cover <strong>Cheshire, Merseyside and Flintshire</strong> and surrounding areas within approximately 20 miles of Ellesmere Port.</div>
+    </details>
+    <details>
+      <summary>How do I pay?<span class="plus"></span></summary>
+      <div class="content">Once we&rsquo;ve agreed the date, a <strong>10% deposit</strong> secures it, with the balance paid after the job by <strong>card, cash or invoice</strong>.</div>
+    </details>
+  </div>
+
+  <div class="mps-contact-bar" role="contentinfo" aria-label="Contact MobilePitStop">
+    <h4>Not sure which coating your car needs?</h4>
+    <div class="mps-contact-links">
+      <span><strong>Call/Text:</strong> <a href="tel:+447592196929">07592 196929</a></span>
+      <span><strong>Email:</strong> <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></span>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+
+  function init(){
+
+    /* -- review count from the sitewide config -- */
+    try{
+      var cfg = window.MPS_REVIEWS;
+      var rv  = document.getElementById('ccTrustReviews');
+      if(cfg && cfg.count && rv) rv.textContent = Number(cfg.count) + ' Google reviews';
+    }catch(e){}
+
+    /* -- Before/After slider -- */
+    var afterWrap = document.getElementById('ccAfterWrap');
+    var range     = document.getElementById('ccCompareRange');
+    var frame     = document.getElementById('ccFrame');
+
+    if(afterWrap && range){
+      var afterImg = afterWrap.querySelector('img');
+      function sizeAfterImg(){ if(frame && afterImg) afterImg.style.width = frame.offsetWidth + 'px'; }
+      sizeAfterImg();
+      window.addEventListener('resize', sizeAfterImg);
+
+      function setWidth(v){ afterWrap.style.width = v + '%'; }
+      setWidth(range.value);
+      range.addEventListener('input',  function(){ setWidth(this.value); });
+      range.addEventListener('change', function(){ setWidth(this.value); });
+
+      if(frame){
+        var dragging = false;
+        frame.addEventListener('mousedown',  function(){ dragging = true; });
+        frame.addEventListener('mousemove',  function(e){
+          if(!dragging) return;
+          var r = frame.getBoundingClientRect();
+          var p = Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100));
+          range.value = Math.round(p); setWidth(p);
+        });
+        frame.addEventListener('mouseup',    function(){ dragging = false; });
+        frame.addEventListener('mouseleave', function(){ dragging = false; });
+
+        /* only claim a touch once it's clearly horizontal, so a vertical
+           swipe that starts on the image still scrolls the page */
+        var tX = 0, tY = 0, axis = null, AXIS_THRESHOLD = 8;
+        frame.addEventListener('touchstart', function(e){
+          if(!e.touches[0]) return;
+          tX = e.touches[0].clientX; tY = e.touches[0].clientY;
+          axis = null; dragging = true;
+        }, {passive:true});
+        frame.addEventListener('touchmove', function(e){
+          if(!dragging || !e.touches[0]) return;
+          var dx = e.touches[0].clientX - tX, dy = e.touches[0].clientY - tY;
+          if(axis === null){
+            if(Math.abs(dx) < AXIS_THRESHOLD && Math.abs(dy) < AXIS_THRESHOLD) return;
+            axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+          }
+          if(axis === 'y'){ dragging = false; return; }
+          e.preventDefault();
+          var r = frame.getBoundingClientRect();
+          var p = Math.max(0, Math.min(100, ((e.touches[0].clientX - r.left) / r.width) * 100));
+          range.value = Math.round(p); setWidth(p);
+        }, {passive:false});
+        frame.addEventListener('touchend',    function(){ dragging = false; axis = null; });
+        frame.addEventListener('touchcancel', function(){ dragging = false; axis = null; });
+      }
+    }
+
+    /* -- CTA glow -- */
+    var cta = document.getElementById('ccCTA');
+    if(cta && 'IntersectionObserver' in window){
+      new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ cta.classList.toggle('is-visible', e.isIntersecting); });
+      }, {threshold:0.5}).observe(cta);
+    }
+
+    /* -- Carousels -- */
+    function initCarousel(gridId, prevId, nextId, dotsId, label){
+      var grid = document.getElementById(gridId);
+      var prev = document.getElementById(prevId);
+      var next = document.getElementById(nextId);
+      var dots = document.getElementById(dotsId);
+      if(!grid || !prev || !next || !dots) return;
+
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('.mps-vcard'));
+      if(!cards.length){ prev.parentNode.style.display = 'none'; return; }
+      var idx = 0;
+
+      function perView(){
+        var w = cards[0].getBoundingClientRect().width;
+        if(!w) return 1;
+        return Math.max(1, Math.round(grid.clientWidth / w));
+      }
+      function maxIdx(){ return Math.max(0, cards.length - perView()); }
+
+      cards.forEach(function(_, i){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', label + ' ' + (i + 1));
+        b.addEventListener('click', function(){ goTo(i); });
+        dots.appendChild(b);
+      });
+      var dotEls = Array.prototype.slice.call(dots.children);
+
+      function paint(){
+        var mx = maxIdx();
+        dotEls.forEach(function(d, i){
+          d.classList.toggle('is-active', i === idx);
+          d.style.display = (i > mx) ? 'none' : '';
+        });
+        prev.disabled = (idx <= 0);
+        next.disabled = (idx >= mx);
+        prev.parentNode.style.visibility = (mx === 0) ? 'hidden' : '';
+      }
+      function goTo(i){
+        idx = Math.max(0, Math.min(maxIdx(), i));
+        var card = cards[idx];
+        if(card) grid.scrollTo({ left: card.offsetLeft - grid.offsetLeft, behavior:'smooth' });
+        paint();
+      }
+
+      var rt = null;
+      window.addEventListener('resize', function(){
+        clearTimeout(rt);
+        rt = setTimeout(function(){ if(idx > maxIdx()) goTo(maxIdx()); else paint(); }, 150);
+      });
+      prev.addEventListener('click', function(){ goTo(idx - 1); });
+      next.addEventListener('click', function(){ goTo(idx + 1); });
+
+      var t = null;
+      grid.addEventListener('scroll', function(){
+        clearTimeout(t);
+        t = setTimeout(function(){
+          var nearest = 0, best = Infinity;
+          cards.forEach(function(c, i){
+            var d = Math.abs((c.offsetLeft - grid.offsetLeft) - grid.scrollLeft);
+            if(d < best){ best = d; nearest = i; }
+          });
+          nearest = Math.min(nearest, maxIdx());
+          if(nearest !== idx){ idx = nearest; paint(); }
+        }, 80);
+      }, { passive:true });
+
+      paint();
+    }
+    initCarousel('ccVisualGrid', 'ccCarPrev',   'ccCarNext',   'ccCarDots',   'Go to card');
+    initCarousel('ccAddonGrid',  'ccAddonPrev', 'ccAddonNext', 'ccAddonDots', 'Go to add-on');
+
+    /* -- Add-on cards open their matching accordion -- */
+    Array.prototype.slice.call(document.querySelectorAll('#learnMoreCeramicCoating [data-open-addon]'))
+      .forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var target = document.getElementById(btn.getAttribute('data-open-addon'));
+          if(!target) return;
+          Array.prototype.slice.call(document.querySelectorAll(
+            '#learnMoreCeramicCoating .mps-acc details[open], #ccFAQs details[open]'
+          )).forEach(function(d){ if(d !== target) d.open = false; });
+          target.open = true;
+          target.scrollIntoView({ behavior:'smooth', block:'center' });
+          target.classList.add('mps-flash');
+          setTimeout(function(){ target.classList.remove('mps-flash'); }, 1600);
+        });
+      });
+
+    /* -- Accordions: only one open at a time -- */
+    var allSummaries = Array.prototype.slice.call(document.querySelectorAll(
+      '#learnMoreCeramicCoating .mps-acc details summary, #ccFAQs details summary'
+    ));
+    allSummaries.forEach(function(summary){
+      summary.addEventListener('click', function(){
+        var thisDetails = summary.parentElement;
+        allSummaries.forEach(function(other){
+          var od = other.parentElement;
+          if(od !== thisDetails && od.open) od.open = false;
+        });
+      });
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    setTimeout(init, 0);
+  }
+
+})();
+</script>

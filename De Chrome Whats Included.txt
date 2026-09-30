@@ -1,0 +1,556 @@
+
+<!-- ==========================================================================
+     MobilePitStop — De-Chrome: what's included block
+     Section ID is learnMoreDeChrome, which the request block's
+     "See what's included" button scrolls to. Its button comes back to
+     #dcRoot.
+
+     NO PRICES ANYWHERE — everything on this page is by quote. When you
+     have numbers, say the word and I'll add the tables.
+
+     NO PHOTOS YET either, so the benefits are text cards rather than
+     picture cards. Send me shots of finished jobs and I'll swap them in.
+     ========================================================================== -->
+<link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
+<link rel="dns-prefetch" href="//images.squarespace-cdn.com">
+
+<style>
+  :root{
+    --mps-accent:#E3FC02;
+    --mps-ocean:#00B8FF;
+    --mps-border:rgba(255,255,255,.2);
+    --radius:14px;
+    --accent-ink:#0b0b0b;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  .mps-services{
+    max-width:1100px; margin:0 auto; padding:40px 20px;
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    line-height:1.6; background:#0b0b0b; border-radius:16px;
+  }
+  .mps-title{
+    color:var(--mps-accent); font-size:clamp(26px,5vw,38px); font-weight:950;
+    line-height:1.15; text-align:center; margin:0 0 10px;
+  }
+  .mps-subnote{ text-align:center; color:rgba(255,255,255,.65); font-size:14px; margin:0 0 26px; }
+
+  .mps-topstack{ display:flex; flex-direction:column; gap:18px; }
+
+  .mps-visual-grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+  @media(min-width:760px){ .mps-visual-grid{ grid-template-columns:repeat(3,1fr); } }
+
+  .mps-vcard{
+    border:1px solid var(--mps-border); border-radius:var(--radius);
+    overflow:hidden; display:flex; flex-direction:column;
+    background:rgba(255,255,255,.03);
+  }
+  .mps-vmedia{ position:relative; aspect-ratio:16/10; background:#0b0b0b; overflow:hidden; }
+  .mps-vmedia img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* card with no photo yet */
+  .mps-vmedia--blank{
+    display:flex; align-items:center; justify-content:center;
+    background:
+      radial-gradient(120% 90% at 20% 10%, rgba(0,184,255,.20), transparent 60%),
+      radial-gradient(90% 80% at 90% 100%, rgba(227,252,2,.10), transparent 55%),
+      #0d0f12;
+  }
+  .mps-vmedia--blank svg{
+    width:64px; height:64px;
+    stroke:rgba(255,255,255,.28); fill:none; stroke-width:1.4;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+
+  .mps-vbadge{
+    position:absolute; top:10px; left:10px; z-index:2;
+    background:var(--mps-accent); color:#0b0b0b;
+    font-weight:900; font-size:12px; padding:5px 10px; border-radius:999px;
+  }
+  .mps-vbody{ padding:12px 14px 14px; }
+  .mps-vbody h3{ margin:0 0 5px; font-size:16px; color:var(--mps-accent); font-weight:900; }
+  .mps-vbody p{ margin:0; font-size:13px; color:rgba(255,255,255,.75); }
+
+  /* before / after */
+  .mps-compare{ border:1px solid var(--mps-border); border-radius:var(--radius); padding:14px; background:rgba(255,255,255,.03); }
+  .mps-compare h3{ margin:0 0 5px; font-size:18px; color:var(--mps-accent); font-weight:900; }
+  .mps-compare .desc{ margin:0 0 10px; color:rgba(255,255,255,.65); font-size:13px; }
+  .mps-compare .frame{
+    position:relative; aspect-ratio:16/10; overflow:hidden;
+    border-radius:10px; border:1px solid var(--mps-border);
+    background:#000; cursor:col-resize;
+  }
+  .mps-compare .frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .mps-compare .before{ z-index:1; }
+  .mps-compare-labels{
+    display:flex; justify-content:space-between;
+    font-size:12px; color:rgba(255,255,255,.6);
+    margin:6px 2px 2px; text-transform:uppercase; letter-spacing:.06em;
+  }
+  @media(max-width:480px){ .mps-compare-labels{ font-size:11px; } }
+  .mps-compare .slider-wrap{ margin-top:8px; }
+  .mps-compare input[type="range"]{ -webkit-appearance:none; appearance:none; width:100%; background:transparent; cursor:pointer; }
+  .mps-compare input[type="range"]::-webkit-slider-runnable-track{ height:8px; background:rgba(255,255,255,.15); border-radius:999px; }
+  .mps-compare input[type="range"]::-moz-range-track{ height:8px; background:rgba(255,255,255,.15); border-radius:999px; }
+  .mps-compare input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+    background:var(--mps-accent); border:2px solid #000; margin-top:-9px;
+  }
+  .mps-compare input[type="range"]::-moz-range-thumb{ width:26px; height:26px; border-radius:50%; background:var(--mps-accent); border:2px solid #000; }
+  .mps-compare .hint{ font-size:12px; color:rgba(255,255,255,.45); margin-top:5px; text-align:center; }
+
+  /* CTA */
+  .mps-btn{
+    display:block; margin:16px 0; padding:14px; border-radius:12px;
+    text-align:center; font-weight:900; font-size:15px; text-decoration:none;
+    border:2px solid var(--mps-accent); color:var(--mps-accent); background:transparent;
+    transition:background .2s ease,color .2s ease,box-shadow .2s ease,transform .15s ease;
+  }
+  .mps-btn:hover{
+    background:var(--mps-accent); color:#0b0b0b;
+    box-shadow:0 0 14px rgba(227,252,2,.7),0 0 28px rgba(227,252,2,.4);
+    transform:translateY(-2px);
+  }
+  .mps-btn.is-visible{ animation:pulseGlow 3s infinite ease-in-out; }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 0 rgba(227,252,2,0); }
+    50%{ box-shadow:0 0 14px rgba(227,252,2,.55),0 0 26px rgba(227,252,2,.3); }
+  }
+  @media(prefers-reduced-motion:reduce){ .mps-btn.is-visible{ animation:none; } }
+
+  /* list cards */
+  .mps-card{
+    border:1px solid var(--mps-border); border-radius:var(--radius);
+    padding:18px; display:flex; flex-direction:column;
+    background:rgba(255,255,255,.03);
+  }
+  .mps-card + .mps-card{ margin-top:18px; }
+  .mps-card > h3{ margin:0 0 4px; font-size:22px; color:var(--mps-accent); font-weight:950; }
+
+  .mps-sectionhead{ margin:16px 0 8px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .mps-sectionhead h4{ margin:0; font-size:11px; text-transform:uppercase; letter-spacing:.14em; font-weight:950; color:rgba(255,255,255,.6); }
+  .mps-sectionpill{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:5px 10px; border-radius:999px;
+    font-size:11px; font-weight:900; white-space:nowrap;
+  }
+  .mps-sectionpill--soft{ color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.2); }
+  .mps-sectionpill--optional{ background:var(--mps-ocean); color:#00131c; }
+  .mps-sectionnote{ margin:-2px 0 10px; font-size:12.5px; color:rgba(255,255,255,.55); line-height:1.5; }
+
+  /* accordions */
+  .mps-acc{ border:1px solid var(--mps-border); border-radius:12px; overflow:hidden; background:rgba(0,0,0,.18); margin-bottom:4px; }
+  .mps-acc details{ margin:0; border-top:1px solid rgba(255,255,255,.1); }
+  .mps-acc details:first-of-type{ border-top:none; }
+  .mps-acc summary{
+    list-style:none; cursor:pointer; padding:11px 14px;
+    font-weight:700; font-size:14px;
+    display:flex; align-items:center; gap:10px;
+    color:#fff; user-select:none;
+  }
+  .mps-acc summary::-webkit-details-marker{ display:none; }
+  .mps-acc .plus{ margin-left:auto; width:18px; height:18px; position:relative; flex:0 0 18px; }
+  .mps-acc .plus::before,.mps-acc .plus::after{
+    content:""; position:absolute; inset:0; margin:auto;
+    width:14px; height:2px; background:rgba(255,255,255,.6); border-radius:2px;
+  }
+  .mps-acc .plus::after{ transform:rotate(90deg); transition:transform .2s ease; }
+  .mps-acc details[open] .plus::after{ transform:rotate(0deg); }
+  .mps-acc .content{
+    padding:10px 14px 13px; border-top:1px solid rgba(255,255,255,.08);
+    font-size:13px; color:rgba(255,255,255,.8); line-height:1.55; overflow-wrap:break-word;
+  }
+  .mps-acc .content p{ margin:0 0 6px; }
+  .mps-acc .content p:last-child{ margin-bottom:0; }
+  .mps-acc .content ul{ padding-left:16px; margin:6px 0 0; }
+  .mps-acc .content li{ margin-bottom:3px; }
+
+  .mps-acc--addons{ border-color:rgba(0,184,255,.3); }
+  .mps-acc--addons details{ border-top-color:rgba(0,184,255,.15); }
+  .mps-acc--addons .plus::before,
+  .mps-acc--addons .plus::after{ background:rgba(0,184,255,.7); }
+
+  .mps-tag{
+    margin-left:auto; font-size:12px; font-weight:900;
+    color:var(--mps-ocean); background:rgba(0,184,255,.1);
+    border:1px solid rgba(0,184,255,.35);
+    padding:3px 9px; border-radius:999px; white-space:nowrap;
+  }
+  .mps-acc summary .mps-tag + .plus{ margin-left:10px; }
+
+  .mps-incl-chip{
+    display:inline-block; font-size:11.5px; font-weight:900;
+    color:rgba(227,252,2,.92); border:1px solid rgba(227,252,2,.3);
+    background:rgba(227,252,2,.07);
+    padding:3px 9px; border-radius:999px; margin:0 6px 8px 0;
+  }
+
+  .mps-ptable{ width:100%; border-collapse:collapse; margin:8px 0 0; font-size:12.5px; }
+  .mps-ptable th, .mps-ptable td{ text-align:left; padding:6px 8px; border-top:1px solid rgba(255,255,255,.1); }
+  .mps-ptable thead th{ border-top:none; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.5); font-weight:900; }
+  .mps-ptable td:last-child, .mps-ptable th:last-child{ text-align:right; white-space:nowrap; }
+  .mps-ptable .p-now{ color:var(--mps-accent); font-weight:900; }
+
+  /* trust */
+  .mps-trust{ display:grid; gap:10px; margin-top:24px; grid-template-columns:repeat(2,1fr); }
+  @media(min-width:700px){ .mps-trust{ grid-template-columns:repeat(4,1fr); } }
+  .mps-trust-pill{ border:1px dashed rgba(255,255,255,.3); border-radius:12px; padding:12px 10px; text-align:center; }
+  .mps-trust-pill strong{ display:block; color:var(--mps-accent); font-size:13px; font-weight:900; margin-bottom:3px; }
+  .mps-trust-pill span{ font-size:12px; color:rgba(255,255,255,.6); }
+
+  /* FAQs */
+  .mps-faqs{ margin-top:36px; }
+  .mps-faqs h3{ color:var(--mps-accent); font-size:22px; font-weight:950; margin:0 0 14px; text-align:center; }
+  .mps-areas{ display:grid; gap:14px; margin-top:8px; }
+  @media(min-width:700px){ .mps-areas{ grid-template-columns:repeat(3,1fr); } }
+  .mps-areas h4{ margin:0 0 6px; font-size:14px; font-weight:900; color:var(--mps-accent); }
+  .mps-areas ul{ margin:0; padding-left:18px; }
+  .mps-areas li{ margin:4px 0; }
+  .mps-nearby{ margin-top:12px; color:var(--mps-accent); font-weight:700; }
+
+  .mps-contact-bar{
+    margin-top:28px; background:#111; border:1px solid rgba(255,255,255,.15);
+    border-radius:14px; padding:18px 20px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .mps-contact-bar h4{ margin:0; font-size:16px; font-weight:900; color:var(--mps-accent); }
+  .mps-contact-links{ display:flex; gap:20px; flex-wrap:wrap; font-size:14px; align-items:center; }
+  .mps-contact-links span{ white-space:nowrap; color:rgba(255,255,255,.75); }
+  .mps-contact-links a{ color:var(--mps-accent); text-decoration:none; font-weight:700; }
+  .mps-contact-links a:hover{ text-decoration:underline; }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* showcase boxes */
+  .mps-showbox{ border:1px solid; border-radius:var(--radius); padding:14px; }
+  .mps-showbox--inc{ border-color:rgba(227,252,2,.35); background:rgba(227,252,2,.04); }
+  .mps-showbox--add{ border-color:rgba(0,184,255,.38); background:rgba(0,184,255,.05); }
+  .mps-showbox-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:0 0 4px; }
+  .mps-showbox-head h3{ margin:0; font-size:18px; font-weight:900; }
+  .mps-showbox--inc .mps-showbox-head h3{ color:var(--mps-accent); }
+  .mps-showbox--add .mps-showbox-head h3{ color:var(--mps-ocean); }
+  .mps-showbox-pill{
+    display:inline-flex; align-items:center; padding:5px 11px; border-radius:999px;
+    font-size:11px; font-weight:900; white-space:nowrap; letter-spacing:.04em;
+  }
+  .mps-showbox--inc .mps-showbox-pill{ background:var(--mps-accent); color:var(--accent-ink); }
+  .mps-showbox--add .mps-showbox-pill{ background:var(--mps-ocean); color:#00131c; }
+  .mps-showbox .boxdesc{ margin:0 0 12px; color:rgba(255,255,255,.65); font-size:13px; }
+
+  .mps-vcard--addon{ border-color:rgba(0,184,255,.28); }
+  .mps-vbadge--addon{ background:var(--mps-ocean); color:#00131c; }
+  .mps-vcard--addon .mps-vbody h3{ color:var(--mps-ocean); }
+  .mps-vprice{ display:block; margin:8px 0 0; font-size:15px; font-weight:950; color:var(--mps-accent); }
+  .mps-vprice small{ font-size:11.5px; font-weight:700; color:rgba(255,255,255,.5); margin-left:5px; }
+  .mps-vlink{
+    display:inline-flex; align-items:center; gap:6px; margin-top:10px; padding:8px 13px;
+    border-radius:999px; border:1px solid rgba(0,184,255,.45);
+    background:transparent; color:var(--mps-ocean);
+    font-family:inherit; font-size:12.5px; font-weight:900; cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+  }
+  .mps-vlink:hover{ background:var(--mps-ocean); color:#00131c; }
+  .mps-acc details.mps-flash{ box-shadow:inset 0 0 0 2px rgba(0,184,255,.55); border-radius:10px; }
+
+  /* carousels — 3 in view on desktop, 1 on mobile */
+  .mps-vcarousel{ position:relative; }
+  .mps-vslider{
+    grid-template-columns:none; display:flex; overflow-x:auto;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .mps-vslider::-webkit-scrollbar{ display:none; }
+  .mps-vslider .mps-vcard{ scroll-snap-align:start; }
+  .mps-vcarousel-controls{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:12px; }
+  .mps-vcarousel-arrow{
+    width:40px; height:40px; flex:0 0 40px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.05); color:#fff;
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mps-vcarousel-arrow:hover,
+  .mps-vcarousel-arrow:active{ border-color:rgba(227,252,2,.6); background:rgba(227,252,2,.1); }
+  .mps-vcarousel-arrow svg{ width:18px; height:18px; }
+  .mps-vcarousel-arrow:disabled{ opacity:.35; cursor:default; }
+  .mps-vcarousel-dots{ display:flex; align-items:center; gap:8px; }
+  .mps-vcarousel-dots button{
+    width:8px; height:8px; padding:0; border-radius:999px;
+    border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.25);
+    cursor:pointer; transition:background .15s ease, transform .15s ease, border-color .15s ease;
+  }
+  .mps-vcarousel-dots button.is-active{ background:var(--mps-accent); border-color:var(--mps-accent); transform:scale(1.2); }
+  #idcAddonCarousel .mps-vcarousel-dots button.is-active{ background:var(--mps-ocean); border-color:var(--mps-ocean); }
+  #idcAddonCarousel .mps-vcarousel-arrow:hover,
+  #idcAddonCarousel .mps-vcarousel-arrow:active{ border-color:rgba(0,184,255,.6); background:rgba(0,184,255,.1); }
+
+  @media(min-width:760px){
+    .mps-vslider{ gap:14px; padding-bottom:2px; }
+    .mps-vslider .mps-vcard{ flex:0 0 calc((100% - 28px) / 3); }
+  }
+  @media(max-width:759px){
+    .mps-topstack .mps-compare{ order:-1; }
+    .mps-topstack .mps-showbox--inc{ order:0; }
+    .mps-topstack .mps-showbox--add{ order:1; }
+    .mps-vslider{ gap:0; }
+    .mps-vslider .mps-vcard{ flex:0 0 100%; width:100%; }
+  }
+
+  /* small phones */
+  @media(max-width:480px){
+    .mps-services{ padding:26px 14px; border-radius:12px; }
+    .mps-title{ font-size:clamp(22px,6.4vw,28px); }
+    .mps-subnote{ font-size:13px; margin-bottom:20px; }
+    .mps-card{ padding:14px 12px; }
+    .mps-card > h3{ font-size:19px; }
+    .mps-showbox{ padding:12px 10px; }
+    .mps-showbox-head h3{ font-size:16.5px; }
+    .mps-showbox .boxdesc{ font-size:12.5px; margin-bottom:10px; }
+    .mps-vbody{ padding:11px 12px 13px; }
+    .mps-vbody h3{ font-size:15px; }
+    .mps-vbody p{ font-size:12.5px; }
+    .mps-acc summary{ padding:12px 12px; font-size:13.5px; gap:8px; min-height:46px; }
+    .mps-acc .content{ padding:10px 12px 12px; font-size:12.5px; }
+    .mps-compare{ padding:12px 10px; }
+    .mps-compare h3{ font-size:16.5px; }
+    .mps-compare .desc{ font-size:12.5px; }
+    .mps-btn{ padding:14px 12px; font-size:14.5px; }
+    .mps-contact-bar{ padding:14px 14px; }
+    .mps-contact-links{ gap:12px; font-size:13px; }
+    .mps-faqs h3{ font-size:19px; }
+    .mps-vbody h3, .mps-acc summary, .mps-acc .content{ overflow-wrap:anywhere; }
+  }
+  @media(max-width:390px){
+    .mps-services{ padding:22px 11px; }
+    .mps-title{ font-size:21px; }
+    .mps-card{ padding:12px 10px; }
+    .mps-showbox{ padding:11px 9px; }
+    .mps-acc summary{ padding:11px 10px; font-size:13px; }
+    .mps-acc .content{ padding:9px 10px 11px; }
+    .mps-vbody{ padding:10px 11px 12px; }
+    .mps-ptable{ font-size:11.5px; }
+    .mps-ptable th, .mps-ptable td{ padding:6px 5px; }
+    .mps-trust{ gap:8px; }
+    .mps-trust-pill{ padding:10px 7px; }
+    .mps-trust-pill strong{ font-size:12.5px; }
+    .mps-trust-pill span{ font-size:11.5px; }
+    .mps-btn{ padding:13px 10px; font-size:14px; }
+  }
+</style>
+
+
+<style>
+  /* text-only benefit cards, for services with no photos yet */
+  .mps-bgrid{ display:grid; gap:14px; grid-template-columns:1fr; margin-top:4px; }
+  @media(min-width:760px){ .mps-bgrid{ grid-template-columns:repeat(3,1fr); } }
+  .mps-bcard{
+    border:1px solid var(--mps-border); border-radius:var(--radius);
+    padding:16px; background:rgba(255,255,255,.03);
+  }
+  .mps-bcard .ic{ font-size:22px; line-height:1; display:block; margin-bottom:8px; }
+  .mps-bcard h3{ margin:0 0 5px; font-size:16px; font-weight:900; color:var(--mps-accent); }
+  .mps-bcard p{ margin:0; font-size:13px; color:rgba(255,255,255,.75); line-height:1.55; }
+  .mps-bcard--blue{ border-color:rgba(0,184,255,.3); background:rgba(0,184,255,.05); }
+  .mps-bcard--blue h3{ color:var(--mps-ocean); }
+  .mps-quote-pill{
+    display:inline-flex; align-items:center; gap:8px; margin:0 0 18px;
+    padding:8px 14px; border-radius:999px;
+    border:1px solid rgba(0,184,255,.4); background:rgba(0,184,255,.07);
+    font-size:12.5px; font-weight:900; color:var(--mps-ocean);
+  }
+  @media(max-width:480px){ .mps-bcard{ padding:14px 12px; } }
+</style>
+
+<section class="mps-services" id="learnMoreDeChrome" aria-label="De-Chrome details">
+
+  <h2 class="mps-title">De-Chrome &mdash; Blackout the Brightwork</h2>
+  <p class="mps-subnote">The cheapest change you can make that people actually notice.</p>
+
+  <div class="mps-quote-pill">At our unit in Birkenhead &middot; priced by quote</div>
+
+  <div class="mps-bgrid">
+      <article class="mps-bcard">
+        <span class="ic">🖤</span>
+        <h3>Modern instead of dated</h3>
+        <p>Chrome window surrounds are the single thing that makes a car look its age. Blacking them out takes years off it for a fraction of any other change.</p>
+      </article>
+      <article class="mps-bcard">
+        <span class="ic">↩️</span>
+        <h3>Completely reversible</h3>
+        <p>It&rsquo;s film over the chrome, not paint on it. Peel it off before you sell and the car is factory again &mdash; which matters on a lease.</p>
+      </article>
+      <article class="mps-bcard">
+        <span class="ic">🎯</span>
+        <h3>As much or as little as you like</h3>
+        <p>Window surrounds alone make the biggest difference. Grille, badges, handles and roof rails take it further.</p>
+      </article>
+      <article class="mps-bcard">
+        <span class="ic">🔧</span>
+        <h3>Done properly, off the car</h3>
+        <p>Trim removed where it can be, so the film wraps around the edges instead of stopping at a cut line that lifts later.</p>
+      </article>
+      <article class="mps-bcard">
+        <span class="ic">✨</span>
+        <h3>Gloss, satin or matte</h3>
+        <p>Gloss reads as factory black trim. Satin is the subtle one. Matte suits aggressive cars. We&rsquo;ll show you the difference.</p>
+      </article>
+      <article class="mps-bcard">
+        <span class="ic">💷</span>
+        <h3>Far cheaper than painting</h3>
+        <p>And unlike paint, if you change your mind it comes back off.</p>
+      </article>
+  </div>
+
+  <a class="mps-btn" href="#dcRoot" id="dcWiCTA">Request a Quote</a>
+
+  <article class="mps-card" id="WhatIncludedDeChrome" aria-label="De-Chrome detail">
+    <h3>De-Chrome Detail</h3>
+    <div class="mps-sectionhead">
+      <h4>What can be done</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Pick any</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>Window surrounds<span class="plus"></span></summary>
+        <div class="content"><p>The big one. On most cars this alone changes how modern it looks, and it&rsquo;s the piece people notice without knowing why.</p></div>
+      </details>
+      <details>
+        <summary>Grille<span class="plus"></span></summary>
+        <div class="content"><p>Chrome slats and surrounds blacked out. Often done alongside the badge for a cleaner front end.</p></div>
+      </details>
+      <details>
+        <summary>Badges<span class="plus"></span></summary>
+        <div class="content"><p>Grille, boot and wing badges in gloss or satin black. Or removed entirely and the paint left clean &mdash; say which you prefer.</p></div>
+      </details>
+      <details>
+        <summary>Door handles &amp; mirror caps<span class="plus"></span></summary>
+        <div class="content"><p>Small pieces, quick to do, and they finish the job off once the window trim is done.</p></div>
+      </details>
+      <details>
+        <summary>Roof rails &amp; exhaust tips<span class="plus"></span></summary>
+        <div class="content"><p>The bits people forget, and the ones that stand out as the only chrome left once everything else is black.</p></div>
+      </details>
+    </div>
+    <div class="mps-sectionhead">
+      <h4>How we fit it</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Included</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>Cleaned and decontaminated<span class="plus"></span></summary>
+        <div class="content"><p>Chrome and trim are cleaned, decontaminated and wiped down. Film on dirty trim lifts within weeks.</p></div>
+      </details>
+      <details>
+        <summary>Removed where possible<span class="plus"></span></summary>
+        <div class="content"><p>Trim pieces come off the car where they&rsquo;re designed to, so the film wraps right around. Edges you can&rsquo;t see are edges that can&rsquo;t peel.</p></div>
+      </details>
+      <details>
+        <summary>Heated and sealed<span class="plus"></span></summary>
+        <div class="content"><p>Every edge post-heated so the film sets in place rather than creeping back over the first hot summer.</p></div>
+      </details>
+    </div>
+    <div class="mps-sectionhead">
+      <h4>Looking after it</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Included</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>Washing<span class="plus"></span></summary>
+        <div class="content"><p>Hand wash as normal. Keep a pressure washer lance away from the edges &mdash; that&rsquo;s the one thing that lifts film early, on any job.</p></div>
+      </details>
+      <details>
+        <summary>How long it lasts<span class="plus"></span></summary>
+        <div class="content"><p>Several years on quality film, fitted properly. If a piece ever does lift, it&rsquo;s a small job to redo rather than a whole-car problem.</p></div>
+      </details>
+    </div>
+
+    <div class="mps-trust" aria-label="Why drivers choose MobilePitStop">
+      <div class="mps-trust-pill"><strong>Reversible</strong><span>Chrome still underneath</span></div>
+      <div class="mps-trust-pill"><strong>Trim Removed</strong><span>Wrapped edges, not cut lines</span></div>
+      <div class="mps-trust-pill"><strong>Quoted First</strong><span>Price agreed before we start</span></div>
+      <div class="mps-trust-pill"><strong>5&#9733; Rated</strong><span id="dcTrustReviews">81 Google reviews</span></div>
+    </div>
+  </article>
+
+</section>
+
+<section class="mps-faqs" aria-label="De-Chrome FAQs">
+  <h3>De-Chrome FAQs</h3>
+
+  <div class="mps-acc" id="dcFAQs">
+    <details>
+      <summary>Is it paint or film?<span class="plus"></span></summary>
+      <div class="content"><strong>Film.</strong> Which is the point &mdash; it&rsquo;s reversible, far cheaper, and there&rsquo;s no risk of overspray or a colour match that isn&rsquo;t quite right.</div>
+    </details>
+    <details>
+      <summary>Will it come off when I sell the car?<span class="plus"></span></summary>
+      <div class="content">Yes. That&rsquo;s exactly why people choose it over painting the trim, especially on lease and PCP cars that have to go back standard.</div>
+    </details>
+    <details>
+      <summary>How long does it take?<span class="plus"></span></summary>
+      <div class="content">Most de-chromes are done in a day. A car with a lot of trim, or where pieces need removing carefully, may take longer &mdash; we&rsquo;ll say when we quote.</div>
+    </details>
+    <details>
+      <summary>Can you match it to another car I&rsquo;ve seen?<span class="plus"></span></summary>
+      <div class="content">Send the photo. Nine times out of ten we can tell you which finish it is and get the same.</div>
+    </details>
+    <details>
+      <summary>Does it damage the chrome underneath?<span class="plus"></span></summary>
+      <div class="content">No. It protects it, if anything &mdash; the chrome underneath stays out of the salt and the weather.</div>
+    </details>
+    <details>
+      <summary>Why is it by quote?<span class="plus"></span></summary>
+      <div class="content">Because the number of trim pieces varies wildly between cars, and some come off easily while others really don&rsquo;t. Tell us the car and what you want done.</div>
+    </details>
+  </div>
+
+  <div class="mps-contact-bar" role="contentinfo" aria-label="Contact MobilePitStop">
+    <h4>Send us a photo and we&rsquo;ll tell you what&rsquo;s worth doing</h4>
+    <div class="mps-contact-links">
+      <span><strong>Call/Text:</strong> <a href="tel:+447592196929">07592 196929</a></span>
+      <span><strong>Email:</strong> <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></span>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  function init(){
+    try{
+      var cfg = window.MPS_REVIEWS;
+      var rv  = document.getElementById('dcTrustReviews');
+      if(cfg && cfg.count && rv) rv.textContent = Number(cfg.count) + ' Google reviews';
+    }catch(e){}
+
+    var cta = document.getElementById('dcWiCTA');
+    if(cta && 'IntersectionObserver' in window){
+      new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ cta.classList.toggle('is-visible', e.isIntersecting); });
+      }, { threshold:0.5 }).observe(cta);
+    }
+
+    /* one accordion open at a time, across the block and the FAQs */
+    var all = Array.prototype.slice.call(document.querySelectorAll(
+      '#learnMoreDeChrome .mps-acc details summary, #dcFAQs details summary'
+    ));
+    all.forEach(function(summary){
+      summary.addEventListener('click', function(){
+        var self = summary.parentElement;
+        all.forEach(function(other){
+          var od = other.parentElement;
+          if(od !== self && od.open) od.open = false;
+        });
+      });
+    });
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    setTimeout(init, 0);
+  }
+})();
+</script>
