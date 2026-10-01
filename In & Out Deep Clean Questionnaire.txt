@@ -1925,7 +1925,7 @@
      PRICES AND ACUITY IDS — the only block you'd normally edit
 
      Base types (mats, carpets and boot extraction INCLUDED):
-       3-door  £100   5-door  £110   7-seater  £120
+       3-door  £140   5-door  £160   7-seater  £180
      ====================================================================== */
   var BASE_PRICES = { '3door':140, '5door':160, '7seats':180 };
 

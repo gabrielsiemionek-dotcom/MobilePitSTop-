@@ -801,7 +801,7 @@
     <article class="mps-card">
       <div class="mps-head">
         <h3>In &amp; Out Deep Clean</h3>
-        <span class="mps-price">&pound;140&ndash;170</span>
+        <span class="mps-price">&pound;140&ndash;180</span>
       </div>
       <p class="mps-blurb">The full reset. Everything in the Interior Deep Clean and the Exterior Detail, plus full steam, shampoo and extraction through the seats and carpets — included, not sold as an extra.</p>
       <div class="mps-power">

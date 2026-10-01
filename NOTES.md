@@ -46,17 +46,40 @@ File: `In & Out Deep Clean Questionnaire.txt`
 
 ---
 
+## Confirmed base prices
+
+| Service             | 3-door | 5-door | 7-seater |
+|---------------------|--------|--------|----------|
+| Interior Deep Clean | £90    | £100   | £120     |
+| In & Out Deep Clean | £140   | £160   | £180     |
+
+Both questionnaires already charge these. Interior Deep Clean's code is
+correct as it stands.
+
+### In & Out price references brought in line (2026-10-01)
+- Script comment above `BASE_PRICES` said £100 / £110 / £120 → now
+  £140 / £160 / £180.
+- `All Services.txt` In & Out card said £140–170 → now **£140–180**.
+- Already correct: header comment, size pills (£140 / £160 / £180),
+  "From £140" starting total.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
   live one. `Exterior Detail.txt` is an older version and could be deleted.
-- **Interior Deep Clean prices don't match its notes.** The header says
-  £100 / £120 / £140 with 48 Acuity types and an `ACUITY_TYPE_MAP`, but the
-  code still has `BASE_PRICES` £90 / £100 / £120 and no `ACUITY_TYPE_MAP`.
-  The new pricing looks unbuilt.
-- **In & Out pricing comment vs code.** The script comment above
-  `BASE_PRICES` says £100 / £110 / £120 but the prices used are
-  £140 / £160 / £180. Prices were left as they are; the comment is stale.
+- **Interior Deep Clean header comment is stale.** The prices in the code
+  (£90 / £100 / £120) are correct. The comment at the top of the file
+  describes a different plan (£100 / £120 / £140, 48 Acuity types, an
+  `ACUITY_TYPE_MAP` that doesn't exist) and should be rewritten to match
+  the code. Nothing on the page is affected.
+- **All Services "from" prices.** The Interior Deep Clean and Exterior
+  Detail cards both say "from £60", but those pages start at £90 and £70.
+- **In & Out What's Included: 1-year coating table.** It lists
+  £325 / £390 / £475 "including clay + paint enhancement". In the
+  questionnaire, enhancement + 1-year coating comes to £305 / £370 / £465.
+  Needs confirming which is right.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
