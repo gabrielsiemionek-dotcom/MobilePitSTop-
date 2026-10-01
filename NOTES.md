@@ -262,7 +262,7 @@ legal in the UK).
 
 ## 2026-10-01 — All Services page brought up to date and linked
 
-File: `All Services.txt` (live at /book-your-valet-now).
+File: `All Services.txt` (live at /all-services; /book-your-valet-now should 301 there).
 
 Every mobile card now mirrors its questionnaire — price, what's
 included, add-ons, cleaning-power dots:
@@ -324,6 +324,25 @@ standalone service is gone.
   AUTUMN20 → £200, deposit £20.
 - Old types to HIDE in Acuity (not delete): 92502309, 92502362, 92502371,
   92502382, 92502407, 92502425, 92502427, 92502318, 92502323, 92502332.
+
+---
+
+## 2026-10-01 — Homepage section points at /all-services
+
+File: `homepage section` ("Our Approach to Car Detailing" + service pills).
+
+- "See All Services" button and every garage pill → /all-services
+  (garage pills use #correction / #ppf / #wrap / #tint / #dechrome, which
+  open the All Services page on its Garage half). Enhancement Polish →
+  /all-services#machine-polishing until its own page is live.
+- Fixed links: /mini-valet → /maintenance-wash, /car-exterior-deep-clean
+  → /exterior-detail, Ceramic Coating → /ceramic-coating; nothing points
+  at the non-existent /mobile-detailing-services any more.
+- Pill prices brought in line: Interior £90, Exterior £70, Protection
+  Detail £210, Enhancement Polish £285, Ceramic Coating £190, Odour
+  Removal £250 (Maintenance £60, In & Out £140 unchanged).
+- Unit location Ellesmere Port → Birkenhead (matches every other page).
+- All 8 linked pages checked live (200); fits 375px with no overflow.
 
 ---
 
