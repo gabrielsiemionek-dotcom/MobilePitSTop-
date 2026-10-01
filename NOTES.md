@@ -98,6 +98,44 @@ in line with the questionnaire:
 
 ---
 
+## 2026-10-01 — Protection Detail: on-page calendar + What's Included
+
+### Questionnaire (`Protection Detail Questionnaire.txt`)
+Was the old setup: "View Calendar" sent people to Acuity's own page using
+12 combined appointment types, and the engine bay went in an intake field
+whose ID was never filled in (so it never reached the booking). Now books
+like Exterior Detail / In & Out: calendar on the page → details → 10%
+Stripe deposit → Make creates the booking. Coatings still go to
+"Request This Booking".
+
+| Acuity | ID | Page price |
+|---|---|---|
+| Protection Detail 3-door (base) | 93617563 | £210 |
+| Protection Detail 5-door (base) | 98922355 | £230 |
+| Protection Detail 7-seater (base) | 98922374 | £250 |
+| Engine bay add-on | 7307199 | £30 |
+| CQuartz leather, 3/5-door | 7336744 | £150 |
+| CQuartz leather, 7-seater | 7336746 | £200 |
+| Paint enhancement 3 / 5 / 7 | 7264641 / 7334380 / 7334385 | £185 / £220 / £265 |
+
+- Deposit follows the discount code, and shows pence (£74.50, not £75).
+- Tested with the webhooks stubbed: 7-seater + all add-ons → type
+  98922374, add-ons [7307199, 7336746, 7334385], deposit 7450p on £745;
+  with AUTUMN20 → £59.60 deposit, £536.40 balance; 3-door + 3-yr coating →
+  £350, request form, no diary call.
+- The 11 old combined types (93617603, 93617618, 93617631, 93617649,
+  93617654, 97061113, 97061160, 97061263, 97061292, 97061395, 97061426)
+  are no longer used — hide them in Acuity, don't delete.
+
+### What's Included (`Protection Detail - Whats included.txt`)
+- Removed the 3 vehicle-size price tables ("from" prices + "exact price
+  in the questionnaire above").
+- Add-ons in blue (prices, heading, accordion), as on In & Out.
+- FAQ fixes: In & Out difference (seats are an add-on there); coatings
+  mention "Request This Booking".
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -110,6 +148,18 @@ in line with the questionnaire:
 - **All Services page — to be updated later.** The Interior Deep Clean and
   Exterior Detail cards both say "from £60", but those pages start at £90
   and £70.
+- **Paint enhancement price in Acuity (Protection Detail).** The page charges
+  £185 / £220 / £265 (clay already included) but uses the shared
+  enhancement add-ons, which In & Out prices at £215 / £250 / £295. The
+  deposit is right (worked out on the page) but Acuity's appointment will
+  show £30 more unless Protection Detail gets its own enhancement add-ons.
+- **Only 4 add-ons are checked for free slots** (`slice(0,4)` in
+  `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
+  and now Protection Detail). Needs the Make availability scenario to
+  accept more first. User has this noted.
+- **Exterior Detail deposit ignores discount codes** and rounds the
+  deposit to whole pounds — fixed on In & Out / Protection Detail, not yet
+  on Exterior Detail (and probably Interior / Maintenance Wash).
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.

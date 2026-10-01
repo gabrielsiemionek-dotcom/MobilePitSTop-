@@ -9,45 +9,49 @@
                   Glaco on the glass
 
      QUESTIONS    1 Vehicle size
-                  2 Engine bay detail        +£30            (hidden field)
-                  3 Leather coating (CQuartz) +£150/£150/£200 (Acuity type)
+                  2 Engine bay detail        +£30
+                  3 Leather coating (CQuartz) +£150/£150/£200
                                              "No leather in my car" skips it
-                  4 Paint enhancement        +£185/£220/£265  (Acuity type)
-                  5 Ceramic coating upgrade, replaces the sealant — BY QUOTE
+                  4 Paint enhancement        +£185/£220/£265
+                  5 Ceramic coating upgrade, replaces the sealant — BY REQUEST
                        1 year   +£60  / £90  / £140
                        3 years  +£140 / £170 / £220
                        7 years  +£240 / £270 / £320
 
-     BOOKING      No coating  -> "View Calendar" -> Acuity
+     BOOKING      Same as Exterior Detail and In & Out:
+                  No coating  -> "View Calendar" -> calendar on this page
+                                 (free slots from Acuity via Make) -> details
+                                 -> 10% Stripe deposit -> Make books it
                   Coating     -> "Request This Booking" -> WhatsApp / email,
                                  message pre-filled with every choice
 
      ------------------------------------------------------------------------
-     ACUITY — 12 EXISTING TYPES, EDITED IN PLACE (no new types needed)
-     Rename each, set the price, and extend the duration where noted.
+     ACUITY — 3 base types + add-ons (same add-on IDs as In & Out)
 
-       ID         was (old Premium)              becomes                       price
-       93617563   3-door, no ozone, no engine    Protection Detail 3-door      £210
-       93617618   5-door, no ozone, no engine    Protection Detail 5-door      £230
-       93617649   7-seat, no ozone, no engine    Protection Detail 7-seater    £250
-       93617603   3-door, ozone                  PD 3-door + Leather           £360
-       93617631   5-door, ozone                  PD 5-door + Leather           £380
-       93617654   7-seat, ozone                  PD 7-seater + Leather         £450
-       97061113   3-door, enhancement            PD 3-door + Enhancement       £395
-       97061263   5-door, enhancement            PD 5-door + Enhancement       £450
-       97061395   7-seat, enhancement            PD 7-seater + Enhancement     £515
-       97061160   3-door, ozone + enhancement    PD 3-door + Leather + Enh     £545
-       97061292   5-door, ozone + enhancement    PD 5-door + Leather + Enh     £600
-       97061426   7-seat, ozone + enhancement    PD 7-seater + Leather + Enh   £715
+       Base types                      ID          price
+         Protection Detail 3-door      93617563    £210
+         Protection Detail 5-door      98922355    £230
+         Protection Detail 7-seater    98922374    £250
 
-     The "+ Leather" types need about an hour more than the old ozone ones.
-     The other 24 old Premium types: HIDE them in Acuity, don't delete —
-     old links in emails, ads or bookmarks may still point at them.
+       Add-ons                         ID          page price
+         Engine bay detail             7307199     £30
+         CQuartz leather, 3/5-door     7336744     £150
+         CQuartz leather, 7-seater     7336746     £200
+         Paint enhancement 3-door      7264641     £185  (In & Out: £215)
+         Paint enhancement 5-door      7334380     £220  (In & Out: £250)
+         Paint enhancement 7-seater    7334385     £265  (In & Out: £295)
 
-     ENGINE BAY goes through a hidden intake field, like the Google click ID.
-     Create a short-text intake question in Acuity (e.g. "Extras"), then put
-     its number in EXTRAS_FIELD_ID below. Until you do, engine bay still
-     prices correctly on this page but won't be written into the booking.
+     The enhancement add-ons are shared with In & Out, where they cost £30
+     more because they include a clay bar. Protection Detail already has
+     the clay, so the page charges £30 less. The deposit is worked out here
+     from the page price; Acuity's own add-on price will read £30 higher on
+     the appointment unless Protection Detail gets its own enhancement
+     add-ons.
+
+     The old 12 combined Premium types (93617603, 93617618, 93617631,
+     93617649, 93617654, 97061113, 97061160, 97061263, 97061292, 97061395,
+     97061426) are no longer used by this page. HIDE them in Acuity, don't
+     delete — old links in emails, ads or bookmarks may still point at them.
      ========================================================================== -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -685,6 +689,177 @@
     display:inline-block; width:9px; height:9px; border-radius:50%;
     background:currentColor; font-size:0;
   }
+
+  /* ── booking panel ─────────────────────────────────────────────────
+     Grafted onto the existing questionnaire. Uses the same tokens as
+     everything else so it reads as one page, not a bolted-on form. */
+  .bk{ margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.14); }
+  .bk[hidden]{ display:none; }
+  .bk-sec{ margin-bottom:16px; }
+  .bk-h{
+    margin:0 0 9px; font-size:11px; font-weight:950; letter-spacing:.13em;
+    text-transform:uppercase; color:rgba(255,255,255,.5);
+  }
+  .bk-load{ margin:0 0 10px; font-size:13px; color:rgba(255,255,255,.45); }
+  .bk-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .bk-chip{
+    cursor:pointer; font:inherit; font-size:13.5px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:11px; padding:10px 13px; min-height:44px;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .bk-chip:hover{ border-color:rgba(227,252,2,.55); transform:translateY(-1px); }
+  .bk-chip[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-chip .d{ display:block; font-size:11px; font-weight:700; color:rgba(255,255,255,.45); }
+  .bk-more{
+    margin-top:10px; background:none; border:0; cursor:pointer; padding:6px 0;
+    font:inherit; font-size:13.5px; font-weight:800; color:var(--ocean); text-decoration:underline;
+  }
+  .bk-yn{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 9px; }
+  .bk-yn .q{ flex:1 1 220px; font-size:13px; color:rgba(255,255,255,.66); line-height:1.5; }
+  .bk-yn .pair{ display:flex; gap:6px; }
+  .bk-yn button{
+    cursor:pointer; font:inherit; font-size:13px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:999px; padding:8px 15px; min-height:40px;
+  }
+  .bk-yn button[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-err{ margin:0 0 10px; font-size:13.5px; font-weight:700; color:#ff7676; }
+  .bk-err[hidden]{ display:none; }
+  .bk-fine{ margin:9px 0 0; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.45); }
+
+  /* ── takeover: while the calendar is up, the questions get out of the way ── */
+  .pf.is-booking .wizard .step:not([data-step="5"]),
+  .pf.is-booking .prog,
+  .pf.is-booking .nav,
+  .pf.is-booking .btn-learn,
+  .pf.is-booking .power-compact,
+  .pf.is-booking #fvpBreakdown,
+  .pf.is-booking .pay-box,
+  .pf.is-booking #fvpBookNote,
+  .pf.is-booking #fvpUpsell,
+  .pf.is-booking .upsell,
+  .pf.is-booking .totalbox .note,
+  .pf.is-booking #fvpCodeReopen,
+  .pf.is-booking #fvpBookHint{ display:none !important; }
+
+  /* the page has a photo behind it, so the booking panel has to be solid
+     enough to read against anything */
+  .pf.is-booking{
+    background:#0d0d0d;
+    border-color:rgba(255,255,255,.14);
+  }
+  .pf.is-booking .bk-cal,
+  .pf.is-booking .bk-wheel{
+    background:#141414;
+    border-color:rgba(255,255,255,.2);
+  }
+  .pf.is-booking .bk-cell{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); }
+  .pf.is-booking .bk-cell:disabled{ background:transparent; border-color:transparent; }
+  .pf.is-booking .rq-field input{ background:#0b0b0b; }
+  .pf.is-booking .bk-yn button{ background:#181818; }
+  .pf.is-booking .bk-yn button[aria-pressed="true"],
+  .bk-yn button[aria-pressed="true"]{
+    background:var(--accent) !important;
+    border-color:var(--accent) !important;
+    color:#0b0b0b !important;
+    font-weight:950;
+    box-shadow:0 0 14px rgba(227,252,2,.3);
+  }
+  .pf.is-booking #fvpFinalBox{ background:#141414; border-color:rgba(255,255,255,.18); }
+  .pf.is-booking .wizard{ background:transparent; border:0; }
+  .pf.is-booking .viewport{ height:auto !important; overflow:visible; }
+  /* the steps live in a sliding track. With the other four hidden, the
+     track was still shifted 400% to the left, so the one remaining pane
+     sat off screen — hence the blank page. */
+  .pf.is-booking .track{ transform:none !important; display:block; width:100%; }
+  .pf.is-booking .step[data-step="5"]{ flex:1 1 auto; min-width:0; width:100%; }
+  .pf.is-booking .step{ padding:0; }
+  .pf.is-booking .summary{ background:none; border:0; padding:0; margin-top:0; }
+  .pf.is-booking #fvpFinalBox{ margin-bottom:16px; }
+  .bk-back{
+    appearance:none; background:none; border:0; cursor:pointer; padding:6px 0; margin:0 0 10px;
+    font:inherit; font-size:13.5px; font-weight:800; color:rgba(255,255,255,.75);
+  }
+  .bk-back:hover{ color:#fff; }
+  .bk-back[hidden]{ display:none; }
+
+  /* ── month calendar ─────────────────────────────────────────────────── */
+  .bk-cal{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:14px 12px;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-calhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
+  .bk-month{ font-size:15.5px; font-weight:950; color:#fff; letter-spacing:-.01em; }
+  .bk-navmonth{
+    appearance:none; cursor:pointer; width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04);
+    color:#fff; font-size:20px; line-height:1; font-family:inherit;
+  }
+  .bk-navmonth:hover:not(:disabled){ border-color:var(--accent); }
+  .bk-navmonth:disabled{ opacity:.25; cursor:default; }
+  .bk-dow{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px;
+    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    color:rgba(255,255,255,.62); text-align:center;
+  }
+  .bk-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .bk-cell{
+    appearance:none; font:inherit; cursor:pointer; padding:0;
+    aspect-ratio:1/1; min-height:40px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);
+    color:#fff; font-size:14px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .bk-cell:hover:not(:disabled){ border-color:rgba(227,252,2,.6); }
+  .bk-cell:disabled{ color:rgba(255,255,255,.22); background:transparent; border-color:transparent; cursor:default; }
+  .bk-cell.is-empty{ border:0; background:none; cursor:default; }
+  .bk-cell[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:#0b0b0b; }
+
+  /* ── hour / minute wheels ───────────────────────────────────────────── */
+  .bk-wheels{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .bk-wheel{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-wheel-lbl{
+    display:block; padding:9px 12px 7px; font-size:11px; font-weight:900;
+    letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.62);
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .bk-wheel-scroll{
+    max-height:184px; overflow-y:auto; scroll-snap-type:y proximity;
+    -webkit-overflow-scrolling:touch; padding:4px;
+  }
+  .bk-wheel-scroll::-webkit-scrollbar{ width:6px; }
+  .bk-wheel-scroll::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:99px; }
+  .bk-tick{
+    display:block; width:100%; appearance:none; cursor:pointer; scroll-snap-align:center;
+    padding:11px 8px; border:0; border-radius:9px; background:none;
+    font:inherit; font-size:16px; font-weight:800; color:#fff; text-align:center;
+  }
+  .bk-tick:hover{ background:rgba(255,255,255,.06); }
+  .bk-tick[aria-pressed="true"]{ background:var(--accent); color:#0b0b0b; font-weight:950; }
+  .bk-chosen{
+    margin:12px 0 0; font-size:14px; font-weight:900; color:var(--accent); text-align:center;
+  }
+  .bk-chosen[hidden]{ display:none; }
+
+  /* ── contrast: this panel reads white, not grey ─────────────────────── */
+  .bk-h{ color:rgba(255,255,255,.72); }
+  .bk-load{ color:rgba(255,255,255,.62); }
+  .bk-yn .q{ color:rgba(255,255,255,.88); }
+  .bk .rq-field label{ color:rgba(255,255,255,.72); }
+  .bk .rq-field input{ color:#fff; }
+  .bk-fine{ color:rgba(255,255,255,.66); }
+
+  @media(max-width:480px){
+    .bk-cal{ padding:12px 8px; }
+    .bk-cell{ min-height:38px; font-size:13.5px; border-radius:9px; }
+    .bk-dow{ font-size:10px; }
+    .bk-wheel-scroll{ max-height:168px; }
+  }
 </style>
 
 <!-- Set as early as possible: browsers restore the old scroll position
@@ -1317,6 +1492,79 @@
 
           <div class="summary">
             <button class="btn btn-primary-glow" id="fvpDoneBtn" type="button" style="width:100%;">View Calendar</button>
+
+            <div class="bk" id="fvpBook" hidden>
+
+              <button class="bk-back" type="button" id="fvpBkBack" hidden>&#8592; Back to your quote</button>
+
+              <div class="bk-sec" id="fvpBkWhen">
+                <div class="bk-cal">
+                  <div class="bk-calhead">
+                    <button class="bk-navmonth" type="button" id="fvpBkPrev" aria-label="Previous month">&#8249;</button>
+                    <span class="bk-month" id="fvpBkMonthName">&nbsp;</span>
+                    <button class="bk-navmonth" type="button" id="fvpBkNextMonth" aria-label="Next month">&#8250;</button>
+                  </div>
+                  <div class="bk-dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                  <div class="bk-grid" id="fvpBkDays"></div>
+                  <p class="bk-load" id="fvpBkDaysLoad" hidden>Checking the diary&hellip;</p>
+                </div>
+
+                <div id="fvpBkTimesWrap" hidden>
+                  <p class="bk-h" style="margin-top:18px;">Start time</p>
+                  <p class="bk-load" id="fvpBkTimesLoad" hidden>Checking that day&hellip;</p>
+                  <div class="bk-wheels">
+                    <div class="bk-wheel">
+                      <span class="bk-wheel-lbl">Hour</span>
+                      <div class="bk-wheel-scroll" id="fvpBkHours" role="listbox" aria-label="Hour"></div>
+                    </div>
+                    <div class="bk-wheel">
+                      <span class="bk-wheel-lbl">Minutes</span>
+                      <div class="bk-wheel-scroll" id="fvpBkMins" role="listbox" aria-label="Minutes"></div>
+                    </div>
+                  </div>
+                  <p class="bk-chosen" id="fvpBkChosen" hidden></p>
+                </div>
+              </div>
+
+              <div class="bk-sec" id="fvpBkDetails" hidden>
+                <p class="bk-h">Your details</p>
+                <div class="rq-fields">
+                  <div class="rq-field"><label for="fvpBkFirst">First name</label><input type="text" id="fvpBkFirst" autocomplete="given-name"></div>
+                  <div class="rq-field"><label for="fvpBkLast">Last name</label><input type="text" id="fvpBkLast" autocomplete="family-name"></div>
+                  <div class="rq-field"><label for="fvpBkEmail">Email</label><input type="email" id="fvpBkEmail" autocomplete="email"></div>
+                  <div class="rq-field"><label for="fvpBkPhone">Mobile</label><input type="tel" id="fvpBkPhone" autocomplete="tel"></div>
+                  <div class="rq-field full"><label for="fvpBkAddr">Full address &amp; postcode</label><input type="text" id="fvpBkAddr" autocomplete="street-address"></div>
+                  <div class="rq-field full"><label for="fvpBkCar">Vehicle &mdash; make, model &amp; year</label><input type="text" id="fvpBkCar" placeholder="e.g. Golf GTI 2019"></div>
+                </div>
+
+                <div class="bk-yn" data-yn="power">
+                  <span class="q">Can we use a plug socket? We bring a 45m cable.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="water">
+                  <span class="q">An outside tap? If not, we bring our own water.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="space">
+                  <span class="q">Room to park the van within 3m of the car?</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="agree">
+                  <span class="q">If the car needs more than this, we&rsquo;ll tell you the price before touching it.</span>
+                  <span class="pair"><button type="button" data-v="yes">Understood</button></span>
+                </div>
+                <div class="bk-yn" data-yn="marketing">
+                  <span class="q">Occasional offers by email? Entirely optional.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+              </div>
+
+              <p class="bk-err" id="fvpBkErr" hidden></p>
+
+              <button class="btn btn-primary-glow" type="button" id="fvpBkPay" style="width:100%;" disabled>Pay the deposit &amp; book</button>
+              <p class="bk-fine" id="fvpBkFine">You pay the deposit now. The balance is paid on the day, once you&rsquo;ve seen the work.</p>
+            </div>
+
             <p class="book-note" id="fvpBookNote" hidden>Coatings depend on dry weather, so we&rsquo;ll confirm your date with you first.</p>
 
             <!-- Request panel: coating bookings only -->
@@ -1431,30 +1679,23 @@
   };
 
   /* ======================================================================
-     ACUITY
-     Key: vehicle : leather (yes/no) : enhancement (yes/no)
-     12 existing Premium types, edited in place — see the table at the top.
-     Engine bay travels in the Extras intake field instead.
+     ACUITY — one base type per size, everything else as add-ons
+     (same add-on IDs as the In & Out page). The calendar on this page
+     asks Make for free slots; Make creates the booking once the Stripe
+     deposit lands. Coatings never reach Acuity — they're a request.
      ====================================================================== */
-  var ACUITY_BASE  = 'https://mobilepitstop.as.me/';
-  var ACUITY_QUOTE = 84640446;
-  var ACUITY_TYPE_MAP = {
-    '3door:no:no':    93617563,
-    '5door:no:no':    93617618,
-    '7seater:no:no':  93617649,
-    '3door:yes:no':   93617603,
-    '5door:yes:no':   93617631,
-    '7seater:yes:no': 93617654,
-    '3door:no:yes':   97061113,
-    '5door:no:yes':   97061263,
-    '7seater:no:yes': 97061395,
-    '3door:yes:yes':  97061160,
-    '5door:yes:yes':  97061292,
-    '7seater:yes:yes':97061426
-  };
+  var SIZE_TYPE = { '3door':93617563, '5door':98922355, '7seater':98922374 };
 
-  var FIELD_ID        = '18506559';   /* Google click ID (existing)          */
-  var EXTRAS_FIELD_ID = '';           /* <-- new "Extras" intake field ID    */
+  var ADDON_ENGINE  = 7307199;                                   /* +£30 */
+  var ADDON_LEATHER = { '3door':7336744, '5door':7336744, '7seater':7336746 };
+  var ADDON_ENHANCE = { '3door':7264641, '5door':7334380, '7seater':7334385 };
+
+  /* ---- booking. This token is PUBLIC: free-slot lookups and a Stripe
+     checkout, nothing else. The booking scenarios use a different one. ---- */
+  var MPS_TOKEN    = 'mps-b4yz-2026-acuity';
+  var AVAILABILITY = 'https://hook.eu1.make.com/daly9ho8eix9b1xf4bmc4w2vihd8e4r3';
+  var DEPOSIT_HOOK = 'https://hook.eu1.make.com/5ihvcgcu4842swdljuoi5dxg1xjtlwjt';
+  var DEPOSIT_PCT  = 10;
 
   var WHATSAPP_NUMBER = '447592196929';
   var EMAIL_TO        = 'mobilepitstopvalet@gmail.com';
@@ -1505,28 +1746,20 @@
     return t;
   }
 
-  function acuityKey(){
-    if(!state.vehicle) return null;
-    return state.vehicle + ':' + (state.leather === 'yes' ? 'yes' : 'no') +
-                           ':' + (state.enhance === 'yes' ? 'yes' : 'no');
+  function bookingTypeId(){ return state.vehicle ? (SIZE_TYPE[state.vehicle] || null) : null; }
+  function addonIds(){
+    if(!state.vehicle) return [];
+    var a = [];
+    if(state.engineBay === 'yes') a.push(ADDON_ENGINE);
+    if(state.leather   === 'yes') a.push(ADDON_LEATHER[state.vehicle]);
+    if(state.enhance   === 'yes') a.push(ADDON_ENHANCE[state.vehicle]);
+    return a;
   }
-
-  function buildUrl(typeId){
-    if(!typeId) typeId = ACUITY_QUOTE;
-    var url = ACUITY_BASE + '?appointmentType=' + encodeURIComponent(typeId);
-    var g = getGclid();
-    if(g) url += '&' + encodeURIComponent('field:' + FIELD_ID) + '=' + encodeURIComponent(g);
-    if(EXTRAS_FIELD_ID && state.engineBay === 'yes'){
-      url += '&' + encodeURIComponent('field:' + EXTRAS_FIELD_ID) + '=' +
-             encodeURIComponent('Engine bay detail (+\u00a3' + ENGINE_PRICE + ')');
-    }
-    return url;
-  }
-
-  function getBookingUrl(){
-    var key = acuityKey();
-    return buildUrl(key ? (ACUITY_TYPE_MAP[key] || ACUITY_QUOTE) : ACUITY_QUOTE);
-  }
+  /* the deposit and the balance follow the discount code, if one is on */
+  function netTotal(){ return calcTotal() * (1 - promoOff() / 100); }
+  function depositAmount(){ return Math.max(1, Math.round(netTotal() * DEPOSIT_PCT) / 100); }
+  /* deposits can be £74.50 — show the pence rather than rounding to £75 */
+  function fmtMoney(n){ var r = Math.round(n * 100) / 100; return '£' + (r % 1 ? r.toFixed(2) : r.toFixed(0)); }
 
   /* ======================================================================
      PROGRESS
@@ -2042,26 +2275,329 @@
       return;
     }
 
-    var url = getBookingUrl();
-    var key = acuityKey();
+    /* everything else books right here */
+    if(!bk.hidden){
+      bk.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' });
+      return;
+    }
+    bk.hidden = false;
+    doneBtn.hidden = true;
+    root.classList.add('is-booking');
+    var back = root.querySelector('#fvpBkBack');
+    if(back) back.hidden = false;
+    if(bookNoteEl) bookNoteEl.hidden = true;
+
+    loadDays(monthStr(new Date()));
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event:           'pf_book_click',
-      component:       'price_finder',
-      service:         'protection_detail',
-      vehicle_type:    state.vehicle,
-      engine_bay:      state.engineBay,
-      leather:         state.leather,
-      enhancement:     state.enhance,
-      price_total:     calcTotal(),
-      acuity_type_id:  key ? (ACUITY_TYPE_MAP[key] || null) : null,
-      acuity_key:      key,
-      gclid:           getGclid(),
-      destination_url: url
-    });
-    window.location.href = (window.MPS_PROMO && window.MPS_PROMO.decorate)
-      ? window.MPS_PROMO.decorate(url) : url;
+    window.dataLayer.push({ event:'pf_calendar_open', component:'price_finder',
+      service:'protection_detail', vehicle_type:state.vehicle, price_total:calcTotal() });
+    setTimeout(function(){ bk.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' }); }, 60);
   });
+
+  /* ======================================================================
+     BOOKING PANEL
+     The old button sent people to Acuity's own booking screen. Now the
+     whole thing happens here: real slots from the diary, the intake
+     questions, then a Stripe deposit. The appointment itself is created
+     by Make once the payment lands, so nothing here can book anything
+     without money having moved.
+     ====================================================================== */
+  var bk        = root.querySelector('#fvpBook');
+  var bkDays    = root.querySelector('#fvpBkDays');
+  var bkTimes   = root.querySelector('#fvpBkTimes');
+  var bkPay     = root.querySelector('#fvpBkPay');
+  var bkErr     = root.querySelector('#fvpBkErr');
+  var bkDetails = root.querySelector('#fvpBkDetails');
+  var booking   = { day:null, time:null, month:null, answers:{}, autoSkipped:false };
+
+  function bkFail(msg, el){
+    bkErr.textContent = msg; bkErr.hidden = false;
+    if(el) el.focus();
+    return false;
+  }
+  function monthStr(d){ return d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2); }
+
+  function askAcuity(params){
+    var q = Object.keys(params).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+    }).join('&');
+    return fetch(AVAILABILITY + '?token=' + encodeURIComponent(MPS_TOKEN) + '&' + q)
+      .then(function(r){ return r.json(); });
+  }
+  function addonParams(){
+    var p = {};
+    addonIds().slice(0,4).forEach(function(id,i){ p['a' + (i+1)] = id; });
+    return p;
+  }
+
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+
+  function loadDays(month){
+    var type = bookingTypeId();
+    if(!type) return;
+    booking.month = month;
+
+    var grid = root.querySelector('#fvpBkDays');
+    grid.innerHTML = '';
+    root.querySelector('#fvpBkTimesWrap').hidden = true;
+    root.querySelector('#fvpBkDaysLoad').hidden = false;
+    bkErr.hidden = true;
+
+    var y = +month.slice(0,4), m = +month.slice(5,7);
+    root.querySelector('#fvpBkMonthName').textContent = MONTHS[m-1] + ' ' + y;
+    /* can't go back past this month */
+    var now = new Date();
+    root.querySelector('#fvpBkPrev').disabled =
+      (y < now.getFullYear()) || (y === now.getFullYear() && m <= now.getMonth() + 1);
+
+    var p = addonParams(); p.type = type; p.month = month;
+    askAcuity(p).then(function(days){
+      root.querySelector('#fvpBkDaysLoad').hidden = true;
+      var free = {};
+      (days || []).forEach(function(d){ free[d.date || d] = true; });
+      drawMonth(y, m, free);
+      if(!days || !days.length){
+        /* nothing left this month — step forward rather than showing an
+           empty grid and making them work it out */
+        if(!booking.autoSkipped){
+          booking.autoSkipped = true;
+          shiftMonth(1);
+          return;
+        }
+        bkFail('Nothing free in ' + MONTHS[m-1] + ' \u2014 try the next month.');
+      }
+    }).catch(function(){
+      root.querySelector('#fvpBkDaysLoad').hidden = true;
+      bkFail('Couldn\u2019t reach the diary. Try again, or message us on WhatsApp.');
+    });
+  }
+
+  function drawMonth(y, m, free){
+    var grid = root.querySelector('#fvpBkDays');
+    grid.innerHTML = '';
+
+    var first = new Date(y, m - 1, 1);
+    var lead  = (first.getDay() + 6) % 7;          /* weeks start Monday */
+    var count = new Date(y, m, 0).getDate();
+
+    for(var i = 0; i < lead; i++){
+      var blank = document.createElement('span');
+      blank.className = 'bk-cell is-empty';
+      grid.appendChild(blank);
+    }
+
+    for(var day = 1; day <= count; day++){
+      var iso = y + '-' + ('0' + m).slice(-2) + '-' + ('0' + day).slice(-2);
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'bk-cell'; b.textContent = day;
+      b.setAttribute('aria-pressed','false');
+      if(!free[iso]){
+        b.disabled = true;
+        b.setAttribute('aria-label', day + ' \u2014 fully booked');
+      } else {
+        b.setAttribute('data-iso', iso);
+        (function(isoDay, btn){
+          btn.addEventListener('click', function(){
+            Array.prototype.forEach.call(grid.children, function(o){
+              if(o.setAttribute) o.setAttribute('aria-pressed','false');
+            });
+            btn.setAttribute('aria-pressed','true');
+            booking.day = isoDay; booking.time = null;
+            bkPay.disabled = true; bkPay.textContent = 'Pay the deposit & book';
+            root.querySelector('#fvpBkChosen').hidden = true;
+            loadTimes(isoDay);
+          });
+        })(iso, b);
+      }
+      grid.appendChild(b);
+    }
+  }
+
+  /* ---- hour and minute wheels, built from what's actually free ---- */
+  var slotsByHour = {};
+
+  function loadTimes(iso){
+    var type = bookingTypeId();
+    root.querySelector('#fvpBkTimesWrap').hidden = false;
+    root.querySelector('#fvpBkTimesLoad').hidden = false;
+    root.querySelector('#fvpBkHours').innerHTML = '';
+    root.querySelector('#fvpBkMins').innerHTML  = '';
+
+    var p = addonParams(); p.type = type; p.when = iso;
+    askAcuity(p).then(function(times){
+      root.querySelector('#fvpBkTimesLoad').hidden = true;
+      slotsByHour = {};
+      (times || []).forEach(function(t){
+        var raw = t.time || t;
+        var hm  = String(raw).match(/T(\d{2}):(\d{2})/);
+        if(!hm) return;
+        (slotsByHour[hm[1]] = slotsByHour[hm[1]] || []).push({ mm:hm[2], raw:raw });
+      });
+
+      var hours = Object.keys(slotsByHour).sort();
+      if(!hours.length){
+        root.querySelector('#fvpBkHours').innerHTML = '<p class="bk-load" style="padding:10px;">That day filled up.</p>';
+        return;
+      }
+      hours.forEach(function(hh){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'bk-tick'; b.textContent = hh;
+        b.setAttribute('aria-pressed','false');
+        b.addEventListener('click', function(){
+          Array.prototype.forEach.call(root.querySelector('#fvpBkHours').children, function(o){
+            if(o.setAttribute) o.setAttribute('aria-pressed','false');
+          });
+          b.setAttribute('aria-pressed','true');
+          drawMinutes(hh);
+        });
+        root.querySelector('#fvpBkHours').appendChild(b);
+      });
+      drawMinutes(hours[0]);
+      root.querySelector('#fvpBkHours').firstChild.setAttribute('aria-pressed','true');
+    }).catch(function(){
+      root.querySelector('#fvpBkTimesLoad').hidden = true;
+      bkFail('Couldn\u2019t load that day. Try another.');
+    });
+  }
+
+  function drawMinutes(hh){
+    var wrap = root.querySelector('#fvpBkMins');
+    wrap.innerHTML = '';
+    (slotsByHour[hh] || []).forEach(function(slot){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'bk-tick'; b.textContent = slot.mm;
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(wrap.children, function(o){
+          if(o.setAttribute) o.setAttribute('aria-pressed','false');
+        });
+        b.setAttribute('aria-pressed','true');
+        booking.time = slot.raw;
+
+        var chosen = root.querySelector('#fvpBkChosen');
+        chosen.textContent = new Date(String(slot.raw).slice(0,10) + 'T12:00:00')
+          .toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' }) +
+          ' at ' + hh + ':' + slot.mm;
+        chosen.hidden = false;
+
+        bkDetails.hidden = false;
+        bkPay.disabled = false;
+        bkPay.textContent = 'Pay ' + fmtMoney(depositAmount()) + ' deposit & book';
+        var fine = root.querySelector('#fvpBkFine');
+        if(fine){
+          fine.textContent = fmtMoney(depositAmount()) + ' now holds the slot. The remaining ' +
+            fmtMoney(netTotal() - depositAmount()) + ' is paid on the day, once you\u2019ve seen the work.';
+        }
+      });
+      wrap.appendChild(b);
+    });
+  }
+
+  function shiftMonth(by){
+    var d = new Date((booking.month || monthStr(new Date())) + '-01T12:00:00');
+    d.setMonth(d.getMonth() + by);
+    loadDays(monthStr(d));
+  }
+  root.querySelector('#fvpBkNextMonth').addEventListener('click', function(){ shiftMonth(1); });
+  root.querySelector('#fvpBkPrev').addEventListener('click', function(){ shiftMonth(-1); });
+
+  Array.prototype.forEach.call(root.querySelectorAll('.bk-yn'), function(row){
+    var key = row.getAttribute('data-yn');
+    Array.prototype.forEach.call(row.querySelectorAll('button'), function(b){
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(row.querySelectorAll('button'), function(o){ o.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed','true');
+        booking.answers[key] = b.getAttribute('data-v');
+      });
+    });
+  });
+
+  bkPay.addEventListener('click', function(){
+    bkErr.hidden = true;
+    if(!booking.time) return bkFail('Pick a day and a start time first.');
+
+    var first = root.querySelector('#fvpBkFirst').value.trim();
+    var last  = root.querySelector('#fvpBkLast').value.trim();
+    var email = root.querySelector('#fvpBkEmail').value.trim();
+    var phone = root.querySelector('#fvpBkPhone').value.trim();
+    var addr  = root.querySelector('#fvpBkAddr').value.trim();
+    var car   = root.querySelector('#fvpBkCar').value.trim();
+
+    if(!first) return bkFail('We need a first name for the booking.', root.querySelector('#fvpBkFirst'));
+    if(!last)  return bkFail('And a surname.', root.querySelector('#fvpBkLast'));
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return bkFail('That email doesn\u2019t look right \u2014 your confirmation goes there.', root.querySelector('#fvpBkEmail'));
+    if(phone.replace(/\D/g,'').length < 10) return bkFail('A mobile number, so we can say when we\u2019re on the way.', root.querySelector('#fvpBkPhone'));
+    if(addr.length < 8) return bkFail('The full address and postcode \u2014 we\u2019re driving to it.', root.querySelector('#fvpBkAddr'));
+    if(!car) return bkFail('Make, model and year, so we bring the right kit.', root.querySelector('#fvpBkCar'));
+    if(booking.answers.agree !== 'yes') return bkFail('Please confirm you\u2019re happy for us to quote before any extra work.');
+    if(!booking.answers.power || !booking.answers.water || !booking.answers.space)
+      return bkFail('Answer the three yes/no questions and we\u2019ll know what to bring.');
+
+    bkPay.disabled = true;
+    bkPay.textContent = 'Taking you to checkout\u2026';
+
+    var label = '10% deposit \u2014 Protection Detail, ' + (VEHICLE_LABELS[state.vehicle] || state.vehicle) +
+                (state.engineBay === 'yes' ? ' + engine bay' : '') +
+                (state.leather   === 'yes' ? ' + leather coating' : '') +
+                (state.enhance   === 'yes' ? ' + enhancement' : '');
+
+    var p = {
+      token: MPS_TOKEN,
+      deposit: Math.round(depositAmount() * 100),
+      label: label,
+      type: bookingTypeId(),
+      datetime: booking.time,
+      addons: '[' + addonIds().join(',') + ']',
+      firstName: first, lastName: last, email: email, phone: phone, address: addr,
+      vehicle: car,
+      power: booking.answers.power,
+      water: booking.answers.water,
+      space: booking.answers.space,
+      agree: booking.answers.agree,
+      marketing: booking.answers.marketing || 'no',
+      certificate: (window.MPS_PROMO && window.MPS_PROMO.code) ? (window.MPS_PROMO.code() || '') : '',
+      notes: 'Total ' + fmtGBP(netTotal()) + ' \u2014 ' + car,
+      source: getGclid() || ''
+    };
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event:'pf_book_click', component:'price_finder',
+      service:'protection_detail', vehicle_type:state.vehicle, leather:state.leather,
+      enhancement:state.enhance, engine_bay:state.engineBay,
+      price_total:calcTotal(), deposit:depositAmount(), gclid:getGclid() });
+
+    var q = Object.keys(p).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(p[k]);
+    }).join('&');
+
+    fetch(DEPOSIT_HOOK + '?' + q)
+      .then(function(r){ return r.json(); })
+      .then(function(session){
+        if(session && session.url){ window.location.href = session.url; return; }
+        throw new Error('no url');
+      })
+      .catch(function(){
+        bkPay.disabled = false;
+        bkPay.textContent = 'Pay ' + fmtMoney(depositAmount()) + ' deposit & book';
+        bkErr.innerHTML = 'Checkout didn\u2019t open. Nothing has been charged and nothing is booked \u2014 ' +
+          '<a href="https://wa.me/447592196929" target="_blank" rel="noopener" style="color:var(--ocean);font-weight:900;">message us</a> ' +
+          'and we\u2019ll book it by hand.';
+        bkErr.hidden = false;
+      });
+  });
+
+  var bkBack = root.querySelector('#fvpBkBack');
+  if(bkBack){
+    bkBack.addEventListener('click', function(){
+      root.classList.remove('is-booking');
+      bk.hidden = true;
+      bkBack.hidden = true;
+      doneBtn.hidden = false;
+      syncViewportHeight();
+      root.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' });
+    });
+  }
 
   /* ======================================================================
      INIT
