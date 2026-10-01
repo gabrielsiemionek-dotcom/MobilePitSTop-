@@ -925,18 +925,17 @@
   <!-- ===================== ODOUR ===================== -->
   <section class="mps-sec" id="odour">
     <h2>Odour removal</h2>
-
     <article class="mps-card">
       <div class="mps-head">
-        <h3>Odour Removal</h3>
-        <span class="mps-price">from &pound;120</span>
+        <h3>Odour Removal Treatment</h3>
+        <span class="mps-price">&pound;250&ndash;300</span>
       </div>
-      <p class="mps-blurb">Cigarette smoke, spilt milk, pets and biological spills. Air fresheners mask odour; this removes what's causing it, then treats what's left in the fabric, foam and ventilation.</p>
+      <p class="mps-blurb">Cigarette smoke, spilt milk, pets and biological spills. Air fresheners mask odour; this removes it in four stages &mdash; the source, the air-con system, then the whole cabin treated and disinfected.</p>
       <div class="mps-power">
         <p class="mps-power-t">Cleaning power</p>
         <ul>
           <li><span>Exterior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
-          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
           <li><span>Paint</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
           <li><span>Protection</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
         </ul>
@@ -944,13 +943,14 @@
       <details class="mps-more">
         <summary>See what's included</summary>
         <ul class="mps-inc">
-        <li>Treatment chosen to match the odour type</li>
-        <li><b>Source removal</b> by steam, shampoo and extraction</li>
-        <li><b>Ozone or chlorine dioxide</b> treatment where suitable</li>
-        <li>Ventilation system treated, not just the surfaces</li>
-        <li>Cabin air filter advice so the smell doesn't return</li>
+        <li><b>Stage 1</b> &mdash; steam clean with enzyme or chlorine, then full extraction</li>
+        <li><b>Stage 2</b> &mdash; air-con system foam clean</li>
+        <li><b>Stage 3</b> &mdash; ozone treatment, 1 hr 30 min</li>
+        <li><b>Stage 4</b> &mdash; ultrasonic purifying, disinfecting mist</li>
+        <li>Your new cabin air filter fitted at the end &mdash; you supply it</li>
         </ul>
       </details>
+      <p class="mps-aside">One price per car size, whatever the smell. Please have a new cabin air filter ready on the day.</p>
       <a class="mps-go" href="/smoke/milk/bio-odour-removal">See prices &amp; book</a>
     </article>
   </section>
@@ -964,7 +964,7 @@
       <li><span>Heavy pet hair removal</span><b>+&pound;50</b></li>
       <li><span>Heavy sand removal</span><b>+&pound;50</b></li>
       <li><span>Roof lining clean</span><b>+&pound;25</b></li>
-      <li><span>Ultrasonic odour treatment</span><b>+&pound;40</b></li>
+      <li><span>Ultrasonic odour treatment (add-on to a clean)</span><b>+&pound;40</b></li>
       <li><span>Anti-fog glass coating</span><b>+&pound;15</b></li>
       <li><span>Glaco front windows, 1 year</span><b>+&pound;30</b></li>
       <li><span>Engine bay detail</span><b>+&pound;30</b></li>

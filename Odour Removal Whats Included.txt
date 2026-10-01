@@ -2,7 +2,15 @@
 <link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
 <link rel="dns-prefetch" href="//images.squarespace-cdn.com">
 
-<!-- MobilePitStop: Learn More — Smoke / Milk / Bio Odour Removal -->
+<!-- MobilePitStop: Learn More — Odour Removal Treatment
+     One 4-stage service (the chlorine dioxide option is gone):
+       1 steam clean with enzyme or chlorine + full extraction
+       2 air-con system foam clean
+       3 ozone treatment, 1 hr 30 min
+       4 ultrasonic purifying, disinfecting mist
+     Customer supplies a new cabin air filter; we fit it at the end.
+     Prices (3-door £250 / 5-door £270 / 7-seater £300) live in the
+     questionnaire above, so none are shown here. -->
 <style>
   :root{
     --mps-bg:#000000;
@@ -628,8 +636,8 @@
 </style>
 
 <section class="mps-services" id="learnMoreOdourRemoval">
-  <h2 class="mps-title">Learn More About Our Odour Removal Service</h2>
-  <p class="mps-subnote">Specialist treatment for smoke, milk spills, bio odours and stubborn smells trapped inside the vehicle.</p>
+  <h2 class="mps-title">What&rsquo;s in the Odour Removal Treatment</h2>
+  <p class="mps-subnote">Four stages in one visit &mdash; the source cleaned out, the air system cleaned, then the whole cabin treated and disinfected.</p>
 
   <div class="mps-visual-grid">
     <article class="mps-vcard">
@@ -639,8 +647,8 @@
              alt="Enzyme cleaner sprayed onto car seats" loading="lazy" decoding="async">
       </div>
       <div class="mps-vbody">
-        <h3>Seats treated first</h3>
-        <p>Enzyme cleaner helps break down organic odour sources before deeper treatment begins.</p>
+        <h3>Stage 1 &mdash; source broken down</h3>
+        <p>Enzyme or chlorine, chosen for the odour, breaks down what&rsquo;s causing the smell before anything is extracted.</p>
       </div>
     </article>
 
@@ -663,8 +671,8 @@
              alt="Steam shampoo and extraction on car carpets" loading="lazy" decoding="async">
       </div>
       <div class="mps-vbody">
-        <h3>Fabric reset</h3>
-        <p>Steam, shampoo and extraction remove trapped residue from seats, carpets, mats and boot.</p>
+        <h3>Stage 1 &mdash; steam &amp; full extraction</h3>
+        <p>Steam, shampoo and extraction pull the residue out of the seats, carpets, mats, boot and headliner.</p>
       </div>
     </article>
 
@@ -675,128 +683,69 @@
              alt="Ozone generator treatment inside a car" loading="lazy" decoding="async">
       </div>
       <div class="mps-vbody">
-        <h3>Final odour treatment</h3>
-        <p>Specialist odour treatment helps neutralise smells at the source, not just mask them.</p>
+        <h3>Stage 3 &mdash; ozone, 1 hr 30 min</h3>
+        <p>Ozone circulated through the cabin breaks down what&rsquo;s left in the fabric and foam &mdash; removed, not masked.</p>
       </div>
     </article>
   </div>
 
-  <div class="mps-switch-wrap">
-    <div class="mps-switch" aria-label="Choose treatment information">
-      <button type="button" class="active" data-treatment-btn="ozone">Ozone Treatment</button>
-      <button type="button" data-treatment-btn="chlorine">Chlorine Dioxide Treatment</button>
-    </div>
-  </div>
-
-  <article class="mps-card mps-treatment-panel active" data-treatment-panel="ozone">
-    <h3>Option A — Full Interior Odour Reset + Ozone Treatment</h3>
-
+  <article class="mps-card mps-treatment-panel active" data-treatment-panel="four-stage">
+    <h3>The Four Stages</h3>
     <div class="mps-sectionhead">
-      <h4>Ozone Treatment</h4>
-      <span class="mps-sectionpill">Premium Reset</span>
+      <h4>Odour Removal Treatment</h4>
+      <span class="mps-sectionpill">One visit</span>
     </div>
-
-    <div class="mps-acc" data-acc="ozone-info">
+    <div class="mps-acc" data-acc="stages">
       <details open>
-        <summary>What is included?<span class="plus"></span></summary>
+        <summary>Stage 1 &mdash; Steam clean, enzyme or chlorine, full extraction<span class="plus"></span></summary>
         <div class="content">
-          <p>This option includes enzyme cleaner treatment, steam cleaning, shampoo and extraction across the full interior.</p>
+          <p>The source of the smell comes out first. We choose <strong>enzyme or chlorine</strong> on the day to suit the odour, work it in, then steam, shampoo and extract the whole interior.</p>
           <ul>
-            <li>Seats treated with enzyme cleaner</li>
-            <li>Headliner carefully treated</li>
             <li>Seats, carpets, mats and boot shampooed and extracted</li>
-            <li>Interior steam cleaning to help sanitise and loosen odour-causing contamination</li>
-            <li>Final ozone treatment inside the vehicle</li>
+            <li>Headliner carefully treated &mdash; odours rise and settle in the roof lining</li>
+            <li>Steam through the hard surfaces and contact points</li>
           </ul>
         </div>
       </details>
-
       <details>
-        <summary>How ozone treatment works<span class="plus"></span></summary>
+        <summary>Stage 2 &mdash; Air-con system foam clean<span class="plus"></span></summary>
         <div class="content">
-          <p>Ozone treatment works by circulating ozone through the cabin. The ozone reacts with odour molecules and helps oxidise them, reducing smells caused by smoke, milk spills, damp and organic contamination.</p>
+          <p>A foam cleaner goes through the air-con system, vents and evaporator. Smells live in there and get blown back into the cabin every time the fan comes on &mdash; cleaning the fabrics alone doesn&rsquo;t reach them.</p>
         </div>
       </details>
-
       <details>
-        <summary>Best for<span class="plus"></span></summary>
+        <summary>Stage 3 &mdash; Ozone treatment, 1 hr 30 min<span class="plus"></span></summary>
         <div class="content">
-          <p>Best for heavily contaminated interiors where the smell may be trapped inside fabrics, seats, carpets, mats, boot lining and the headliner.</p>
+          <p>Ozone is circulated through the sealed cabin for an hour and a half. It reacts with odour molecules and breaks them down in the fabric, foam and air system, rather than covering them up.</p>
         </div>
       </details>
-
+      <details>
+        <summary>Stage 4 &mdash; Ultrasonic purifying mist<span class="plus"></span></summary>
+        <div class="content">
+          <p>To finish, an ultrasonic nebuliser fills the cabin with a fine purifying, disinfecting mist that settles into every surface and gap &mdash; killing off anything left in the interior.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Your new cabin air filter<span class="plus"></span></summary>
+        <div class="content">
+          <p><strong>Please have a new cabin air filter for your car ready on the day.</strong> We take the old one out before the treatment and fit your new one at the end, so nothing old is blown back into a freshly treated car.</p>
+        </div>
+      </details>
       <details>
         <summary>Things to know before booking<span class="plus"></span></summary>
         <div class="content">
-          <p>The car will need to be ventilated after ozone treatment. A light ozone scent may remain briefly after the service, but this usually clears with ventilation.</p>
+          <p>The car is aired out after the ozone and the mist. A light, clean treatment scent can linger briefly, and clears with ventilation.</p>
         </div>
       </details>
-    </div>
-
-    <div class="mps-warning">
-      <strong>Main drawback:</strong><br>
-      This option is more expensive because it includes the full interior steam, shampoo and extraction process before the ozone treatment.
     </div>
   </article>
-
-  <article class="mps-card mps-treatment-panel" data-treatment-panel="chlorine">
-    <h3>Option B — Interior Deep Clean + Chlorine Dioxide Treatment</h3>
-
-    <div class="mps-sectionhead">
-      <h4>Chlorine Dioxide Treatment</h4>
-      <span class="mps-sectionpill">24 Hour Treatment</span>
-    </div>
-
-    <div class="mps-acc" data-acc="chlorine-info">
-      <details open>
-        <summary>What is included?<span class="plus"></span></summary>
-        <div class="content">
-          <p>This option uses low-moisture cleaning methods only. No shampooing or extraction is carried out before the chlorine dioxide treatment.</p>
-          <ul>
-            <li>Thorough air blast to loosen debris and dust</li>
-            <li>Deep vacuum of seats, carpets, mats and boot</li>
-            <li>Precision tools used to clean crevices, seams, vents and tight areas</li>
-            <li>Interior surfaces carefully cleaned using controlled moisture</li>
-            <li>Chlorine dioxide treatment placed inside the sealed vehicle for 24 hours</li>
-          </ul>
-        </div>
-      </details>
-
-      <details>
-        <summary>How chlorine dioxide treatment works<span class="plus"></span></summary>
-        <div class="content">
-          <p>A chlorine dioxide treatment is placed inside the vehicle in a specialist container. The vehicle must then remain fully closed and sealed for 24 hours so the gas can circulate and neutralise odours inside the cabin, fabrics and air system.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>Important 24-hour rule<span class="plus"></span></summary>
-        <div class="content">
-          <p>No one can enter the vehicle, open the doors, open the windows or disturb the treatment during the 24-hour period. If the car is opened too early, the treatment may fail or become much less effective.</p>
-        </div>
-      </details>
-
-      <details>
-        <summary>Best for<span class="plus"></span></summary>
-        <div class="content">
-          <p>Best for customers who want strong odour neutralisation at a lower price and are happy for the vehicle to stay sealed and unused for 24 hours.</p>
-        </div>
-      </details>
-    </div>
-
-    <div class="mps-warning">
-      <strong>Main drawbacks:</strong><br>
-      The car cannot be used for 24 hours. The vehicle must stay fully sealed during treatment. A treatment scent may remain for 2–3 days afterwards.
-    </div>
-  </article>
-
   <a class="mps-btn" href="#priceFinderOdourRemoval" aria-label="Book odour removal service">Book Now</a>
 
   <div class="mps-trust">
     <div class="mps-pill"><strong>Fully Mobile</strong>We come to you</div>
     <div class="mps-pill"><strong>Odour Focused</strong>Smoke, milk &amp; bio smells</div>
-    <div class="mps-pill"><strong>Pay After</strong>Cash or card</div>
-    <div class="mps-pill"><strong>5★ Rated</strong>Local customers</div>
+    <div class="mps-pill"><strong>10% to Book</strong>Balance after the job</div>
+    <div class="mps-pill"><strong>4 Stages</strong>Source, air system, ozone, mist</div>
   </div>
 </section>
 
@@ -805,30 +754,30 @@
 
   <div class="mps-acc" data-acc="faqs">
     <details>
-      <summary>Which option should I choose?<span class="plus"></span></summary>
+      <summary>Is there more than one option?<span class="plus"></span></summary>
       <div class="content">
-        If the interior needs a full fabric reset, choose <strong>Ozone Treatment</strong>. If you want a lower-cost odour neutralisation option and can leave the car sealed for 24 hours, choose <strong>Chlorine Dioxide Treatment</strong>.
+        No &mdash; there&rsquo;s one treatment, and it includes all four stages whatever the smell. The price depends only on the size of the car. We choose enzyme or chlorine for stage 1 on the day, to suit the odour.
       </div>
     </details>
 
     <details>
       <summary>Will the smell be completely removed?<span class="plus"></span></summary>
       <div class="content">
-        Both treatments are designed to neutralise strong odours, but results can depend on the source, severity and how long the contamination has been in the vehicle.
+        The four stages are designed to remove strong odours at the source, in the air system and in the cabin itself. Results can still depend on the source, how severe it is and how long it&rsquo;s been in the vehicle &mdash; we&rsquo;ll tell you honestly before we start.
       </div>
     </details>
 
     <details>
-      <summary>Should I replace my cabin air filter?<span class="plus"></span></summary>
+      <summary>Do I need a new cabin air filter?<span class="plus"></span></summary>
       <div class="content">
-        Yes. For the best and longest-lasting results, we highly recommend replacing the cabin air filter before your appointment. Old or contaminated filters can reintroduce odours back into the vehicle, even after treatment.
+        Yes &mdash; please <strong>have a new cabin air filter for your car ready on the day</strong> and we&rsquo;ll fit it for you. We take the old one out before the treatment and put your new one in at the end. An old filter would blow the smell straight back in.
       </div>
     </details>
 
     <details>
       <summary>Can I use the car straight after treatment?<span class="plus"></span></summary>
       <div class="content">
-        After ozone treatment, the car needs ventilation before use. After chlorine dioxide treatment, the car must remain sealed and unused for 24 hours.
+        Yes, once it&rsquo;s been aired out after the ozone and the purifying mist &mdash; we do that before we hand it back.
       </div>
     </details>
 
@@ -874,7 +823,7 @@
 
     <details>
       <summary>How do I pay?<span class="plus"></span></summary>
-      <div class="content">Payment is taken <strong>after the job</strong>. We accept <strong>cash or card</strong>.</div>
+      <div class="content">A <strong>10% deposit</strong> secures the booking, with the balance paid after the job by <strong>card, cash or invoice</strong>.</div>
     </details>
   </div>
 
