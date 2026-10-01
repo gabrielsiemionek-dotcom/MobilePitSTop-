@@ -32,9 +32,18 @@
      the category pills swap to match. With JavaScript off, no switching
      happens and both halves simply show one after the other.
 
-     GARAGE CARDS have no price and a "Get a quote" button. Those buttons
-     all point at /contact-we-respond-24/7 for now — swap them for the
-     quote form once the service pages are built.
+     LINKS (checked against the live sitemap, 1 Oct 2026)
+       live      /maintenance-wash  /interior-deep-clean  /exterior-detail
+                 /full-valet (In & Out)  /full-valet-premium (Protection
+                 Detail)  /ceramic-coating  /smoke/milk/bio-odour-removal
+       NOT LIVE YET — create these pages at exactly these addresses:
+                 /paint-enhancement-machine-polishing  (Machine Polishing,
+                 also the Paint Correction quote)  /window-tinting  /de-chrome
+       Vinyl Wrap and PPF have no page yet, so their "Get a quote" goes
+       to /contact-we-respond-24/7.
+
+     PRICES AND ADD-ONS on each card mirror that service's questionnaire.
+     If a price changes there, change it here too.
 
      THE DEPTH METER on each card reads:
        Interior / Exterior      lit when the service covers it
@@ -686,7 +695,6 @@
   <!-- ===================== MAINTENANCE ===================== -->
   <section class="mps-sec" id="maintenance">
     <h2>Maintenance</h2>
-
     <article class="mps-card">
       <div class="mps-head">
         <h3>Maintenance Wash</h3>
@@ -699,13 +707,13 @@
           <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i></i><i></i><i></i></span></li>
           <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
           <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i></i><i></i><i></i><i></i></span></li>
-          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i></i><i></i><i></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i><i></i><i></i></span></li>
         </ul>
       </div>
       <details class="mps-more">
         <summary>See what's included</summary>
         <ul class="mps-inc">
-        <li><b>Snow foam pre-wash</b> — dirt lifted before contact</li>
+        <li><b>Snow foam pre-wash</b> &mdash; dirt lifted before contact</li>
         <li><b>Two-bucket safe hand wash</b> with grit guards</li>
         <li>Wheels, tyres and arches cleaned</li>
         <li><b>Hand dried</b> with plush microfibre, no water spots</li>
@@ -713,23 +721,20 @@
         <li>Glass streak-free, inside and out</li>
         </ul>
       </details>
-      <p class="mps-extra"><b>Add:</b> seat stain removal <b>+&pound;30</b> &middot; full steam, shampoo &amp; extraction <b>+&pound;50</b></p>
-      <p class="mps-aside">Not a first clean. If the car hasn't been properly cleaned in months, start with an In &amp; Out Deep Clean and keep it there with this.</p>
-      <a class="mps-go" href="/mini-valet">See prices &amp; book</a>
+      <p class="mps-extra"><b>Add:</b> 8-week protection wax <b>+&pound;10</b> &middot; Glaco front windows <b>+&pound;30</b> &middot; seat stain removal <b>+&pound;30</b> &middot; full steam, shampoo &amp; extraction <b>+&pound;50</b></p>
+      <p class="mps-aside">Not a first clean. If the car hasn&rsquo;t been properly cleaned in months, start with an In &amp; Out Deep Clean and keep it there with this.</p>
+      <a class="mps-go" href="/maintenance-wash">See prices &amp; book</a>
     </article>
   </section>
-
-
   <!-- ===================== INTERIOR ===================== -->
   <section class="mps-sec" id="interior">
     <h2>Interior</h2>
-
     <article class="mps-card">
       <div class="mps-head">
         <h3>Interior Deep Clean</h3>
-        <span class="mps-price">from &pound;60</span>
+        <span class="mps-price">&pound;90&ndash;120</span>
       </div>
-      <p class="mps-blurb">Compressed air and steam do the work here. Grit is blown out of the joins it hides in first, then every contact surface is steam sanitised rather than wiped over.</p>
+      <p class="mps-blurb">Compressed air and steam do the work here. Grit is blown out of the joins it hides in first, every contact surface is steam sanitised rather than wiped over, and the mats, carpets and boot are shampooed and extracted as standard.</p>
       <div class="mps-power">
         <p class="mps-power-t">Cleaning power</p>
         <ul>
@@ -743,37 +748,34 @@
         <summary>See what's included</summary>
         <ul class="mps-inc">
         <li><b>Compressed air</b> through seat rails, joins and vents</li>
-        <li><b>Deep vacuum</b> — seats, carpets, mats, boot and edges</li>
-        <li><b>Steam cleaning</b> — sanitises contact areas and loosens grime</li>
-        <li>Steering wheel sanitised, leather moisturised</li>
-        <li>Crevices, seams and vents agitated by hand</li>
-        <li>Plastics scrubbed to a natural satin finish, not greased</li>
+        <li><b>Deep vacuum</b> &mdash; seats, carpets, mats, boot and edges</li>
+        <li><b>Steam cleaning</b> &mdash; contact surfaces sanitised, not just wiped</li>
+        <li><b>Mats, carpets &amp; boot shampooed and extracted</b> &mdash; included, not an add-on</li>
+        <li>Crevices, seams and vents detailed by hand</li>
+        <li>Plastics scrubbed to a natural satin finish, never greasy</li>
         <li>Interior glass cleaned streak-free</li>
         </ul>
       </details>
-      <p class="mps-extra"><b>Add:</b> seat stain removal <b>+&pound;30</b> &middot; full steam, shampoo &amp; extraction <b>+&pound;50</b> &middot; heavy pet hair <b>+&pound;50</b> &middot; roof lining <b>+&pound;25</b> &middot; ozone treatment <b>+&pound;40</b></p>
+      <p class="mps-extra"><b>Add:</b> seat treatment <b>+&pound;30</b> cloth / <b>+&pound;40</b> leather or alcantara &middot; seat protection <b>from +&pound;100</b> &middot; heavy pet hair <b>+&pound;50</b> &middot; heavy sand <b>+&pound;50</b> &middot; roof lining <b>+&pound;25</b> &middot; odour treatment <b>+&pound;40</b> &middot; anti-fog glass <b>+&pound;15</b></p>
       <a class="mps-go" href="/interior-deep-clean">See prices &amp; book</a>
     </article>
   </section>
-
-
   <!-- ===================== EXTERIOR ===================== -->
   <section class="mps-sec" id="exterior">
     <h2>Exterior</h2>
-
     <article class="mps-card">
       <div class="mps-head">
         <h3>Exterior Detail</h3>
-        <span class="mps-price">from &pound;60</span>
+        <span class="mps-price">&pound;70&ndash;90</span>
       </div>
-      <p class="mps-blurb">A wash removes what's sitting on the paint. This removes what's bonded into it — tar, iron fallout from brake dust, and road film — so the paint is genuinely clean before it's sealed.</p>
+      <p class="mps-blurb">A wash removes what&rsquo;s sitting on the paint. This removes what&rsquo;s bonded into it &mdash; tar, iron fallout from brake dust, and road film &mdash; so the paint is genuinely clean before it&rsquo;s protected.</p>
       <div class="mps-power">
         <p class="mps-power-t">Cleaning power</p>
         <ul>
           <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
           <li><span>Interior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
-          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
-          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
         </ul>
       </div>
       <details class="mps-more">
@@ -781,33 +783,58 @@
         <ul class="mps-inc">
         <li><b>Snow foam pre-wash</b>, then two-bucket safe hand wash</li>
         <li>Wheels, tyres and arches deep cleaned</li>
-        <li>Trims, door shuts and badges detailed</li>
-        <li><b>Chemical decontamination</b> — tar, iron fallout, road film</li>
+        <li><b>Chemical decontamination</b> &mdash; tar, iron fallout, road film</li>
         <li>Glass compound polished</li>
         <li>Hand dried, water traps cleared</li>
-        <li><b>6-month ceramic sealant</b> — gloss, beading and easier washing</li>
+        <li><b>8-week protection wax</b> &mdash; gloss, beading and easier washing</li>
+        <li>Tyres dressed</li>
         </ul>
       </details>
-      <p class="mps-extra"><b>Add:</b> clay bar decontamination <b>+&pound;30</b> — leaves the paint glass-smooth, and it's the step machine polishing needs first</p>
-      <a class="mps-go" href="/car-exterior-deep-clean">See prices &amp; book</a>
+      <p class="mps-extra"><b>Add:</b> engine bay <b>+&pound;30</b> &middot; clay bar <b>+&pound;30</b> &middot; paint enhancement <b>from +&pound;215</b> &middot; 6-month ceramic sealant <b>+&pound;60</b> &middot; Glaco front windows <b>+&pound;30</b> &middot; ceramic coating 1, 3 or 7 years <b>from +&pound;120</b></p>
+      <a class="mps-go" href="/exterior-detail">See prices &amp; book</a>
     </article>
   </section>
-
-
   <!-- ===================== IN & OUT ===================== -->
   <section class="mps-sec" id="in-and-out">
     <h2>In &amp; Out</h2>
-
     <article class="mps-card">
       <div class="mps-head">
         <h3>In &amp; Out Deep Clean</h3>
         <span class="mps-price">&pound;140&ndash;180</span>
       </div>
-      <p class="mps-blurb">The full reset. Everything in the Interior Deep Clean and the Exterior Detail, plus full steam, shampoo and extraction through the seats and carpets — included, not sold as an extra.</p>
+      <p class="mps-blurb">The full reset in one visit. Everything in the Interior Deep Clean and the Exterior Detail &mdash; including steam, shampoo and extraction through the mats, carpets and boot as standard.</p>
       <div class="mps-power">
         <p class="mps-power-t">Cleaning power</p>
         <ul>
           <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+        </ul>
+      </div>
+      <details class="mps-more">
+        <summary>See what's included</summary>
+        <ul class="mps-inc">
+        <li>Complete <b>Exterior Detail</b> &mdash; decontamination and 8-week protection wax</li>
+        <li>Complete <b>Interior Deep Clean</b> &mdash; air, vacuum and steam</li>
+        <li><b>Mats, carpets &amp; boot shampooed and extracted</b></li>
+        <li>Glass cleaned inside and out</li>
+        <li>Plastics and trim scrubbed to a natural satin finish</li>
+        </ul>
+      </details>
+      <p class="mps-extra"><b>Add:</b> seat treatment <b>+&pound;30&ndash;&pound;40</b> &middot; seat protection <b>from +&pound;100</b> &middot; clay bar <b>+&pound;30</b> &middot; paint enhancement <b>from +&pound;215</b> &middot; 6-month ceramic sealant <b>+&pound;60</b> &middot; ceramic coating <b>from +&pound;120</b> &middot; engine bay <b>+&pound;30</b> &middot; pet hair or sand <b>+&pound;50</b> &middot; odour treatment <b>+&pound;40</b></p>
+      <a class="mps-go" href="/full-valet">See prices &amp; book</a>
+    </article>
+    <article class="mps-card">
+      <div class="mps-head">
+        <h3>Protection Detail</h3>
+        <span class="mps-price">&pound;210&ndash;250</span>
+      </div>
+      <p class="mps-blurb">The In &amp; Out Deep Clean with the seats extracted too, then the paint clayed smooth and sealed under a 6-month ceramic sealant, with Glaco on the glass. It protects the paint you&rsquo;ve got rather than correcting it &mdash; add paint enhancement if you want the swirls gone.</p>
+      <div class="mps-power">
+        <p class="mps-power-t">Cleaning power</p>
+        <ul>
+          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
           <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
           <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
           <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
@@ -816,65 +843,33 @@
       <details class="mps-more">
         <summary>See what's included</summary>
         <ul class="mps-inc">
-        <li>Complete <b>Exterior Detail</b> — decontamination and 6-month sealant</li>
-        <li>Complete <b>Interior Deep Clean</b> — air, vacuum and steam</li>
-        <li><b>Steam, shampoo and extraction</b> — seats, carpets, mats and boot</li>
-        <li>Glass polished and cleaned throughout</li>
-        <li>Plastics and trim dressed to an anti-static satin finish</li>
-        </ul>
-      </details>
-      <p class="mps-extra"><b>Add:</b> engine bay detail <b>+&pound;40</b> &middot; seat stain treatment <b>+&pound;30</b> &middot; clay bar <b>+&pound;30</b> &middot; ozone treatment <b>+&pound;40</b></p>
-      <a class="mps-go" href="/full-valet">See prices &amp; book</a>
-    </article>
-
-    <article class="mps-card">
-      <div class="mps-head">
-        <h3>Protection Detail</h3>
-        <span class="mps-price">&pound;250&ndash;280</span>
-      </div>
-      <p class="mps-blurb">The deep clean, then the paint is clayed smooth and sealed under a one-year ceramic coating. It protects the paint you've got rather than correcting it — if it's swirled and you want the marks gone, add paint enhancement.</p>
-      <div class="mps-power">
-        <p class="mps-power-t">Cleaning power</p>
-        <ul>
-          <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
-          <li><span>Interior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i></span></li>
-          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i></i></span></li>
-          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
-        </ul>
-      </div>
-      <details class="mps-more">
-        <summary>See what's included</summary>
-        <ul class="mps-inc">
         <li>Everything in the <b>In &amp; Out Deep Clean</b></li>
-        <li><b>Clay bar decontamination</b> — paint left glass-smooth</li>
-        <li><b>1-year ceramic coating</b> on all paint</li>
+        <li><b>Full steam, shampoo &amp; extraction</b> &mdash; seats, mats, carpets and boot</li>
+        <li><b>Clay bar decontamination</b> &mdash; paint left glass-smooth</li>
+        <li><b>6-month ceramic sealant</b> on all paint</li>
         <li><b>Glaco hydrophobic coating</b> on the glass</li>
-        <li>Engine bay detail included</li>
         </ul>
       </details>
-      <p class="mps-extra"><b>Add:</b> paint enhancement, 1-stage machine polish <b>+&pound;150</b> — swirl marks and light scratches polished out before the coating goes on</p>
+      <p class="mps-extra"><b>Add:</b> engine bay <b>+&pound;30</b> &middot; CQuartz leather coating <b>from +&pound;150</b> &middot; paint enhancement <b>from +&pound;185</b> &middot; upgrade to a ceramic coating, 1, 3 or 7 years, <b>from +&pound;60</b></p>
       <a class="mps-go" href="/full-valet-premium">See prices &amp; book</a>
     </article>
   </section>
-
-
   <!-- ===================== MACHINE POLISHING ===================== -->
   <section class="mps-sec" id="machine-polishing">
     <h2>Machine polishing</h2>
-
     <article class="mps-card">
       <div class="mps-head">
         <h3>Enhancement Polish &mdash; 1 stage</h3>
-        <span class="mps-price">&pound;275&ndash;425</span>
+        <span class="mps-price">&pound;285&ndash;385</span>
       </div>
-      <p class="mps-blurb">For paint that looks dull, hazy or swirled under direct light. One machine polishing stage removes most of the light damage and brings back depth, gloss and clarity.</p>
+      <p class="mps-blurb">For paint that looks dull, hazy or swirled under direct light. One machine polishing stage removes most of the light damage and brings back depth, gloss and clarity &mdash; done on your driveway in a day.</p>
       <div class="mps-power">
         <p class="mps-power-t">Cleaning power</p>
         <ul>
           <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
           <li><span>Interior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
           <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i></i></span></li>
-          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
+          <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i class="mps-d-add"></i></span></li>
         </ul>
       </div>
       <details class="mps-more">
@@ -882,55 +877,51 @@
         <ul class="mps-inc">
         <li>Snow foam pre-wash and two-bucket safe hand wash</li>
         <li>Wheels, tyres and arches cleaned</li>
-        <li><b>Chemical decontamination and clay bar</b> — included, not extra</li>
+        <li><b>Chemical decontamination and clay bar</b> &mdash; included, not extra</li>
         <li>Hand dried, trims and badges masked</li>
         <li><b>Single-stage machine polish</b> across all paint panels</li>
-        <li>Removes 60&ndash;80% of light swirls, water marks and light scratches</li>
         <li>Finish inspected under a dedicated inspection light</li>
-        <li><b>6-month ceramic sealant</b> included to protect the work</li>
+        <li><b>8-week protection wax</b> to finish</li>
         </ul>
       </details>
-      <p class="mps-extra"><b>Upgrade:</b> lock the finish in under a <b>1-year ceramic coating</b> instead of the sealant &mdash; see Ceramic Coating below</p>
+      <p class="mps-extra"><b>Protect it:</b> 6-month ceramic sealant <b>+&pound;30</b> &middot; ceramic coating, 1, 3 or 7 years, <b>from +&pound;90</b> &mdash; both cheaper here because the clay is already paid for</p>
+      <p class="mps-aside">Deeper scratches need multi-stage correction &mdash; from &pound;600 at our unit, by quote. See Paint Correction under Garage Based.</p>
       <a class="mps-go" href="/paint-enhancement-machine-polishing">See prices &amp; book</a>
     </article>
   </section>
-
-
-  <!-- ===================== CERAMIC ===================== -->
+  <!-- ===================== CERAMIC COATING ===================== -->
   <section class="mps-sec" id="ceramic">
     <h2>Ceramic coating</h2>
-
     <article class="mps-card">
       <div class="mps-head">
         <h3>Ceramic Coating</h3>
-        <span class="mps-price">from &pound;385</span>
+        <span class="mps-price">from &pound;190</span>
       </div>
-      <p class="mps-blurb">A coating locks in whatever condition the paint is in, so the paint is corrected first. Water sheets off instead of sitting on the panel, dirt struggles to bond, and washing gets considerably easier for a year rather than weeks.</p>
+      <p class="mps-blurb">A ceramic coating on all paintwork, in a choice of 1, 3 or 7 years. Water sheets off instead of sitting on the panel, dirt struggles to bond, and washing gets far easier. A coating locks in whatever is underneath it &mdash; so if the paint is swirled, add the polish first.</p>
       <div class="mps-power">
         <p class="mps-power-t">Cleaning power</p>
         <ul>
           <li><span>Exterior</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
           <li><span>Interior</span><span class="mps-dots"><i></i><i></i><i></i><i></i><i></i></span></li>
-          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i></i></span></li>
+          <li><span>Paint</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-add"></i><i class="mps-d-add"></i><i></i></span></li>
           <li><span>Protection</span><span class="mps-dots"><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i><i class="mps-d-on"></i></span></li>
         </ul>
       </div>
       <details class="mps-more">
         <summary>See what's included</summary>
         <ul class="mps-inc">
-        <li>Full decontamination and clay bar preparation</li>
-        <li><b>1-stage machine polish</b> included &mdash; the paint is corrected first</li>
-        <li><b>1-year ceramic coating</b> on all paint</li>
+        <li>Snow foam, safe hand wash, wheels and arches</li>
+        <li><b>Chemical decontamination and clay bar</b></li>
+        <li><b>Ceramic coating</b> on all paint &mdash; 1, 3 or 7 years</li>
         <li><b>Glaco</b> hydrophobic coating on the glass</li>
         <li>Aftercare guidance so the coating lasts its full life</li>
         </ul>
       </details>
-      <p class="mps-extra"><b>Ask about:</b> longer-life coatings, wheel coatings, and coating over a multi-stage correction</p>
+      <p class="mps-extra"><b>Add:</b> paint enhancement, 1-stage polish first, <b>from +&pound;185</b> &middot; engine bay <b>+&pound;30</b></p>
+      <p class="mps-aside">1 year from &pound;190 &middot; 3 years from &pound;270 &middot; 7 years from &pound;370. Coatings need dry weather, so you send a request with your preferred date and we confirm it against the forecast.</p>
       <a class="mps-go" href="/ceramic-coating">See prices &amp; book</a>
     </article>
   </section>
-
-
   <!-- ===================== ODOUR ===================== -->
   <section class="mps-sec" id="odour">
     <h2>Odour removal</h2>
@@ -963,25 +954,25 @@
       <a class="mps-go" href="/smoke/milk/bio-odour-removal">See prices &amp; book</a>
     </article>
   </section>
-
-
   <!-- ===================== ADD-ONS ===================== -->
   <section class="mps-sec" id="add-ons">
     <h2>Add-ons</h2>
-
     <ul class="mps-addons">
-      <li><span>Seat stain removal</span><b>+&pound;30</b></li>
-      <li><span>Full steam, shampoo &amp; extraction</span><b>+&pound;50</b></li>
+      <li><span>Seat treatment &mdash; cloth</span><b>+&pound;30</b></li>
+      <li><span>Seat treatment &mdash; leather or alcantara</span><b>+&pound;40</b></li>
+      <li><span>Seat protection (Gtechniq / CQuartz)</span><b>from +&pound;100</b></li>
       <li><span>Heavy pet hair removal</span><b>+&pound;50</b></li>
+      <li><span>Heavy sand removal</span><b>+&pound;50</b></li>
       <li><span>Roof lining clean</span><b>+&pound;25</b></li>
-      <li><span>Leather deep clean &amp; condition</span><b>+&pound;50</b></li>
-      <li><span>Ozone odour treatment</span><b>+&pound;40</b></li>
-      <li><span>Engine bay detail</span><b>+&pound;40</b></li>
+      <li><span>Ultrasonic odour treatment</span><b>+&pound;40</b></li>
+      <li><span>Anti-fog glass coating</span><b>+&pound;15</b></li>
+      <li><span>Glaco front windows, 1 year</span><b>+&pound;30</b></li>
+      <li><span>Engine bay detail</span><b>+&pound;30</b></li>
       <li><span>Clay bar decontamination</span><b>+&pound;30</b></li>
+      <li><span>6-month ceramic sealant</span><b>+&pound;60</b></li>
     </ul>
+    <p class="mps-aside">Which add-ons you can pick depends on the service &mdash; each page&rsquo;s questionnaire shows the ones that apply and the exact price for your car.</p>
   </section>
-
-
   </div><!-- /mobile half -->
 
 
@@ -1017,12 +1008,12 @@
         <li><b>Stage two</b> &mdash; refinement polishing to remove haze and restore gloss</li>
         <li>Removes 100% of light swirls, plus marks a single stage leaves behind</li>
         <li>Finish checked panel by panel under inspection lighting</li>
-        <li>Two days or more, depending on condition</li>
+        <li>Done at our unit in Birkenhead &mdash; the car stays overnight</li>
         </ul>
       </details>
       <p class="mps-extra"><b>Finish it with:</b> a ceramic coating, so the corrected paint stays that way</p>
-      <p class="mps-aside">From &pound;550, depending on size and how far gone the paint is. Send a few photos in daylight and we'll tell you honestly whether it needs two stages or whether a single-stage Enhancement Polish will do.</p>
-      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+      <p class="mps-aside">From &pound;600, depending on size and how far gone the paint is. Send a few photos in daylight and we'll tell you honestly whether it needs multi-stage or whether a single-stage Enhancement Polish will do.</p>
+      <a class="mps-go mps-quiet" href="/paint-enhancement-machine-polishing">Get a quote</a>
     </article>
   </section>
 
@@ -1096,7 +1087,7 @@
         </ul>
       </details>
       <p class="mps-aside">UK law: the windscreen must let through at least 75% of light and the front side windows at least 70%, so those can only be tinted lightly. Everything behind the driver is unrestricted.</p>
-      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+      <a class="mps-go mps-quiet" href="/window-tinting">Get a quote</a>
     </article>
   </section>
 
@@ -1120,7 +1111,7 @@
         <li>Done on its own or alongside a wrap</li>
         </ul>
       </details>
-      <a class="mps-go mps-quiet" href="/contact-we-respond-24/7">Get a quote</a>
+      <a class="mps-go mps-quiet" href="/de-chrome">Get a quote</a>
     </article>
   </section>
   </div><!-- /garage half -->
