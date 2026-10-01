@@ -2395,7 +2395,7 @@
 
   var learn = root.querySelector('#iodLearnMoreBtn');
   if(learn) learn.addEventListener('click', function(){
-    var el = document.getElementById('WhatIncludedInteriorDeepClean');
+    var el = document.getElementById('WhatIncludedInAndOut');
     if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
   });
   /* ======================================================================

@@ -1,15 +1,14 @@
-<!-- MobilePitStop — Full Valet: Detail & Learn More block -->
-<!-- v5 UPDATES:
-     • Shampoo & Extraction card added as the 4th optional add-on
-     • Desktop: the Optional Add-ons row is now a 3-up swipe slider with
-       arrows and dots, so a 4th card doesn't create an orphan row.
-       The Included row stays a plain 3-column grid.
-     • Carousel arrow/dot styling hoisted out of the mobile media query
-       so it applies on desktop too
-     • initCarousel now measures how many cards are in view and clamps
-       the last index accordingly, so "next" stops at the right place
-       and surplus dots hide themselves; recalculated on resize
-     • Add-on carousel controls use ocean blue to match their box
+<!-- MobilePitStop — In & Out Deep Clean: What's Included block
+     Sits under the In & Out questionnaire (#priceFinderInAndOut). Content and
+     prices mirror the questionnaire — if a price changes there, change it
+     here too:
+       base £140 / £160 / £180 · seat treatment +£30 cloth, +£40 leather /
+       alcantara · seat protection £100/£150 cloth, £150/£200 leather /
+       alcantara · clay +£30 · enhancement £215/£250/£295 · sealant +£60 ·
+       ceramic coating 1/3/7 yrs (by request) · extras: anti-fog £15,
+       front windows £30, engine bay £30, odour £40, sand £50, pet hair £50
+     The questionnaire's "See what's included" button scrolls to
+     #WhatIncludedInAndOut.
 -->
 <link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
 <link rel="dns-prefetch" href="//images.squarespace-cdn.com">
@@ -542,6 +541,16 @@
   .mps-ptable th:last-child{ text-align:right; white-space:nowrap; }
   .mps-ptable .p-now{ color:var(--accent); font-weight:900; }
 
+  .mps-ptable th + th,
+  .mps-ptable td + td{ text-align:right; white-space:nowrap; }
+  .mps-ptable-note{ margin:8px 0 0; font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); }
+  .mps-incl-chip--quote{
+    color:var(--ocean) !important;
+    border-color:rgba(0,184,255,.35) !important;
+    background:rgba(0,184,255,.07) !important;
+    margin-right:6px !important;
+  }
+
   /* "includes" chip inside add-on content */
   .mps-incl-chip{
     display:inline-block;
@@ -741,20 +750,20 @@
 
 </style>
 
-<section class="mps-fv" id="WhatIncludedFullValet" aria-label="Full Valet service details">
+<section class="mps-fv" id="WhatIncludedInAndOut" aria-label="In &amp; Out Deep Clean service details">
 
-  <h2 class="mps-fv-title">See What&rsquo;s Included In Our Full Valet</h2>
-  <p class="mps-fv-sub">Deep exterior &amp; interior clean &mdash; decontamination + protection.</p>
+  <h2 class="mps-fv-title">What&rsquo;s in the In &amp; Out Deep Clean</h2>
+  <p class="mps-fv-sub">The full Exterior Detail and a deep interior clean in one visit &mdash; steam, shampoo and extraction included as standard.</p>
 
   <div class="mps-topstack">
 
     <!-- Included cards -->
-    <div class="mps-showbox mps-showbox--inc" aria-label="What's included in every Full Valet">
+    <div class="mps-showbox mps-showbox--inc" aria-label="What's included in every In &amp; Out Deep Clean">
       <div class="mps-showbox-head">
         <h3>What&rsquo;s Included</h3>
-        <span class="mps-showbox-pill">In every Full Valet</span>
+        <span class="mps-showbox-pill">In every In &amp; Out</span>
       </div>
-      <p class="desc">Every Full Valet covers all of this as standard &mdash; no upgrades needed.</p>
+      <p class="desc">Inside and out, all of this comes as standard &mdash; no upgrades needed.</p>
 
       <div class="mps-vcarousel" id="fvCarousel">
       <div class="mps-visual-grid mps-vslider" id="fvVisualGrid">
@@ -769,7 +778,7 @@
         </div>
         <div class="mps-vbody">
           <h3>Every edge addressed</h3>
-          <p>Soft brushes and detailing tools work grime out of trims, badges, seams and tight exterior gaps.</p>
+          <p>Snow foam, safe hand wash and chemical decontamination, with detailing brushes working grime out of trims, badges and seams.</p>
         </div>
       </article>
 
@@ -778,26 +787,26 @@
           <span class="mps-vbadge">8-Week Protection</span>
           <img
             src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=800w&content-type=image%2Fjpeg"
-            alt="Hydrophobic sealant beading water on paintwork"
+            alt="Hydrophobic wax beading water on paintwork"
             loading="lazy" decoding="async" width="800" height="500">
         </div>
         <div class="mps-vbody">
           <h3>Protection that beads</h3>
-          <p>Hydrophobic sealant for easier maintenance and improved wet-weather visibility. Lasts approx. 8 weeks &mdash; upgrade to a 1-year ceramic coating below.</p>
+          <p>Protection wax over the decontaminated paint for gloss and tight beading. Lasts around 8 weeks &mdash; step up to a 6-month sealant or a 1, 3 or 7 year ceramic coating below.</p>
         </div>
       </article>
 
       <article class="mps-vcard">
         <div class="mps-vmedia">
-          <span class="mps-vbadge">Steam Sanitisation</span>
+          <span class="mps-vbadge">Steam &amp; Extraction</span>
           <img
             src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=800w&content-type=image%2Fwebp"
             alt="Steam cleaning high-touch interior surfaces"
             loading="lazy" decoding="async" width="800" height="500">
         </div>
         <div class="mps-vbody">
-          <h3>Steam sanitisation</h3>
-          <p>Steam on high-touch points and key interior areas for a fresher, hygienic cabin feel.</p>
+          <h3>Steamed, shampooed &amp; extracted</h3>
+          <p>Touch points steam sanitised, and the mats, carpets and boot shampooed and extracted &mdash; included, not sold as an extra.</p>
         </div>
       </article>
 
@@ -820,10 +829,26 @@
         <h3>Optional Add-ons</h3>
         <span class="mps-showbox-pill">Extra cost</span>
       </div>
-      <p class="desc">Bolt any of these onto your valet. Paintwork upgrades build on each other, so you pick one level rather than several &mdash; each includes everything below it, so you never pay twice for the same prep.</p>
+      <p class="desc">Add any of these in the questionnaire above. Paintwork upgrades build on each other, so you never pay twice for the same clay bar.</p>
 
       <div class="mps-vcarousel" id="fvAddonCarousel">
         <div class="mps-visual-grid mps-vslider" id="fvAddonGrid">
+
+          <article class="mps-vcard mps-vcard--addon">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge mps-vbadge--addon">Seat Treatment</span>
+              <img
+                src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/999f8c14-6d7b-4fdd-b81b-343e7863ee0e/Full+Valet+Interior+Deep+Clean.webp?content-type=image%2Fwebp&format=800w"
+                alt="Seats being deep cleaned with shampoo and wet-vac extraction"
+                loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Seats brought back</h3>
+              <p>Cloth seats steamed, shampooed and extracted. Leather and alcantara brushed with Koch Chemie to lift the grease and shine.</p>
+              <span class="mps-vprice">+&pound;30&ndash;&pound;40 <small>by seat fabric</small></span>
+              <button class="mps-vlink" type="button" data-open-addon="addonSeats">Details &amp; pricing &rarr;</button>
+            </div>
+          </article>
 
           <article class="mps-vcard mps-vcard--addon">
             <div class="mps-vmedia">
@@ -851,7 +876,7 @@
             </div>
             <div class="mps-vbody">
               <h3>Swirls polished out</h3>
-              <p>A 1-stage machine polish on all paint and glass, removing swirl marks, light scratches and etched water marks.</p>
+              <p>A single machine polishing stage that takes out most swirl marks and light scratches rather than filling them.</p>
               <span class="mps-vprice">from +&pound;215 <small>clay bar included</small></span>
               <button class="mps-vlink" type="button" data-open-addon="addonEnhance">Details &amp; pricing &rarr;</button>
             </div>
@@ -866,26 +891,10 @@
                 loading="lazy" decoding="async" width="800" height="500">
             </div>
             <div class="mps-vbody">
-              <h3>A year of protection</h3>
-              <p>1-year ceramic on all paint plus Glaco on the glass, applied over corrected paintwork rather than over swirls.</p>
-              <span class="mps-vprice">from +&pound;325 <small>clay + polish included</small></span>
+              <h3>Years, not months</h3>
+              <p>A 1, 3 or 7 year ceramic coating in place of the wax, with the front windows coated too. Weather dependent, so we confirm the date with you.</p>
+              <span class="mps-vprice">from +&pound;120 <small>clay bar included</small></span>
               <button class="mps-vlink" type="button" data-open-addon="addonCeramic">Details &amp; pricing &rarr;</button>
-            </div>
-          </article>
-
-          <article class="mps-vcard mps-vcard--addon">
-            <div class="mps-vmedia">
-              <span class="mps-vbadge mps-vbadge--addon">Shampoo &amp; Extraction</span>
-              <img
-                src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/999f8c14-6d7b-4fdd-b81b-343e7863ee0e/Full+Valet+Interior+Deep+Clean.webp?content-type=image%2Fwebp&format=800w"
-                alt="Interior deep clean with shampoo and wet-vac extraction on seats and carpets"
-                loading="lazy" decoding="async" width="800" height="500">
-            </div>
-            <div class="mps-vbody">
-              <h3>Stains lifted out</h3>
-              <p>Shampoo and wet-vac extraction for staining and odours, followed by high-heat drying. Leather is deep cleaned and moisturised.</p>
-              <span class="mps-vprice">+&pound;30&ndash;&pound;50 <small>seats or full interior</small></span>
-              <button class="mps-vlink" type="button" data-open-addon="addonShampoo">Details &amp; pricing &rarr;</button>
             </div>
           </article>
 
@@ -937,11 +946,21 @@
   </div>
 
   <!-- CTA scrolls up to the booking wizard at the top of the page -->
-  <a class="mps-btn" href="#priceFinderFullValet" id="fvCTA">Book Full Valet Now</a>
+  <a class="mps-btn" href="#priceFinderInAndOut" id="fvCTA">Book In &amp; Out Deep Clean</a>
 
   <!-- What's included -->
-  <article class="mps-card" aria-label="Full Valet inclusions and add-ons">
-    <h3>Included in Every Full Valet</h3>
+  <article class="mps-card" aria-label="In &amp; Out Deep Clean inclusions and add-ons">
+    <h3>Included in Every In &amp; Out Deep Clean</h3>
+
+    <table class="mps-ptable" style="margin:4px 0 14px;">
+      <thead><tr><th>Vehicle</th><th>Price</th></tr></thead>
+      <tbody>
+        <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;140</span></td></tr>
+        <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;160</span></td></tr>
+        <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;180</span></td></tr>
+        <tr><td>Van, pick-up, minibus or camper</td><td><span class="p-now">By quote</span></td></tr>
+      </tbody>
+    </table>
 
     <!-- EXTERIOR -->
     <div class="mps-sectionhead">
@@ -952,34 +971,38 @@
     <div class="mps-acc">
       <details>
         <summary>Wheels, Tyres &amp; Arches &mdash; Deep Clean<span class="plus"></span></summary>
-        <div class="content"><p>Thorough wheel and arch clean with safe products and detailing tools to lift embedded dirt and brake dust.</p></div>
+        <div class="content"><p>Thorough wheel, tyre and arch clean using safe products and detailing tools to lift embedded grime and brake dust.</p></div>
       </details>
       <details>
         <summary>Pre-Wash + Snow Foam<span class="plus"></span></summary>
-        <div class="content"><p>Pre-wash followed by snow foam to loosen traffic film safely before any contact washing, reducing swirl risk.</p></div>
+        <div class="content"><p>Pre-wash and snow foam to loosen traffic film safely before any contact washing, reducing swirl risk.</p></div>
       </details>
       <details>
-        <summary>Hand Wash<span class="plus"></span></summary>
-        <div class="content"><p>Careful hand wash with attention to trims, badges, fuel cap and door shuts, followed by a thorough rinse.</p></div>
+        <summary>Safe Hand Wash<span class="plus"></span></summary>
+        <div class="content"><p>Two-bucket hand wash with attention to trims, badges, door shuts and the fuel cap area, followed by a full rinse.</p></div>
       </details>
       <details>
         <summary>Chemical Decontamination<span class="plus"></span></summary>
-        <div class="content"><p>Dissolves bonded contaminants like tar, iron fallout and road film, restoring a smoother, cleaner surface before protection is applied.</p></div>
+        <div class="content"><p>Tar and iron fallout removal dissolves bonded contamination, leaving the paint cleaner and smoother than a normal wash.</p></div>
       </details>
       <details>
         <summary>Compound Polished Glass<span class="plus"></span></summary>
-        <div class="content"><p>Hand polishing removes embedded contamination from exterior glass, improving clarity, slickness and wet-weather visibility.</p></div>
+        <div class="content"><p>Hand polishing removes embedded contamination from exterior glass, improving clarity and wet-weather visibility.</p></div>
       </details>
       <details>
-        <summary>Hydrophobic Sealant Protection<span class="plus"></span></summary>
+        <summary>8-Week Protection Wax<span class="plus"></span></summary>
         <div class="content">
-          <p>Water and grime bead off for easier maintenance and improved wet-weather visibility, with added gloss. Lasts approximately <strong>8 weeks</strong>.</p>
-          <p>Want protection that lasts a year rather than a couple of months? See <strong>Ceramic Coating</strong> in the add-ons below.</p>
+          <p>Applied over the decontaminated paint for gloss, tighter water beading and easier washing. Lasts around <strong>8 weeks</strong>.</p>
+          <p>Want it to last longer? See the <strong>6-Month Ceramic Sealant</strong> and <strong>Ceramic Coating</strong> upgrades below.</p>
         </div>
       </details>
       <details>
-        <summary>Full Car Drying<span class="plus"></span></summary>
-        <div class="content"><p>Precision drying leaving no water spots on paint, glass or trim.</p></div>
+        <summary>Full Exterior Drying<span class="plus"></span></summary>
+        <div class="content"><p>Hand dried with plush microfibre, water traps cleared, no water spots on paint, glass or trim.</p></div>
+      </details>
+      <details>
+        <summary>Tyre Dressing<span class="plus"></span></summary>
+        <div class="content"><p>Tyres finished for a darker, richer look that completes the exterior &mdash; satin, not greasy.</p></div>
       </details>
     </div>
 
@@ -991,71 +1014,78 @@
 
     <div class="mps-acc">
       <details>
-        <summary>Blow Out + Deep Vacuum<span class="plus"></span></summary>
-        <div class="content"><p>Compressed air blow-out followed by deep vacuum of seats, carpets, mats and boot, including rails, edges and tight joins.</p></div>
+        <summary>Compressed Air Blow Out<span class="plus"></span></summary>
+        <div class="content"><p>Grit and dust lifted out of seat rails, joins and vents with compressed air before anything else happens.</p></div>
       </details>
       <details>
-        <summary>Seat Maintenance Wipe<span class="plus"></span></summary>
-        <div class="content"><p>Fabric, leather or alcantara seats are wiped down for a tidy finish. For stains or heavy soiling, add Shampooing &amp; Extraction below.</p></div>
+        <summary>Deep Vacuum Throughout<span class="plus"></span></summary>
+        <div class="content"><p>Seats, carpets, mats, boot and every edge vacuumed, including rails and tight joins. The seats are vacuumed, blown out and wiped down as standard.</p></div>
       </details>
       <details>
-        <summary>Touch Point Sanitisation<span class="plus"></span></summary>
-        <div class="content"><p>Steering wheel deep cleaned and moisturised, plus controls and high-touch zones sanitised for a clean, safe feel.</p></div>
+        <summary>Steam Cleaning<span class="plus"></span></summary>
+        <div class="content"><p>Steering wheel, controls and other contact surfaces steam sanitised &mdash; properly cleaned, not just wiped over.</p></div>
+      </details>
+      <details>
+        <summary>Mats, Carpets &amp; Boot &mdash; Shampooed &amp; Extracted<span class="plus"></span></summary>
+        <div class="content"><p>Shampooed and pulled back out with hot-water extraction, lifting what a vacuum can&rsquo;t reach. <strong>Included, not an add-on.</strong> For the seats themselves, see Seat Treatment below.</p></div>
       </details>
       <details>
         <summary>Crevices Detailed<span class="plus"></span></summary>
-        <div class="content"><p>Micro brushes and precision tools lift hidden dust from vents, seams and tight joins for a thorough detail throughout.</p></div>
+        <div class="content"><p>Micro brushes and precision tools lift hidden dust from vents, seams and tight joins.</p></div>
       </details>
       <details>
-        <summary>Door Shuts<span class="plus"></span></summary>
-        <div class="content"><p>Door shuts, trims and seals cleaned inside and out.</p></div>
+        <summary>Plastics &amp; Trim<span class="plus"></span></summary>
+        <div class="content"><p>Dashboard, door cards and all plastics scrubbed to a natural satin finish &mdash; never greasy.</p></div>
       </details>
       <details>
-        <summary>Streak-Free Glass (Interior)<span class="plus"></span></summary>
-        <div class="content"><p>Interior glass cleaned streak-free for crystal-clear visibility and a sharper overall finish.</p></div>
-      </details>
-      <details>
-        <summary>Plastics Dressed &amp; Protected<span class="plus"></span></summary>
-        <div class="content"><p>Dashboard, door cards and all plastics scrubbed to a natural satin finish and dressed with an anti-static protector.</p></div>
+        <summary>Interior Glass<span class="plus"></span></summary>
+        <div class="content"><p>Cleaned streak-free on the inside of every window.</p></div>
       </details>
     </div>
 
-    <!-- INTERIOR ADD-ONS -->
+    <!-- SEATS -->
     <div class="mps-sectionhead">
-      <h4>Interior Add-ons</h4>
+      <h4>Seats</h4>
       <span class="mps-pill-label mps-pill-label--optional">Optional</span>
     </div>
+    <p class="mps-sectionnote">The questionnaire asks what your seats are made of, so you only see the treatment that suits them.</p>
 
     <div class="mps-acc mps-acc--addons">
-      <details id="addonShampoo">
-        <summary>Shampooing &amp; Extraction (Stains + Odours)<span class="mps-tag">+&pound;30&ndash;&pound;50</span><span class="plus"></span></summary>
+      <details id="addonSeats">
+        <summary>Seat Treatment<span class="mps-tag">+&pound;30&ndash;&pound;40</span><span class="plus"></span></summary>
         <div class="content">
-          <p>Targeted shampooing and wet-vac extraction for staining and odours. Always followed by high-heat drying for a fresh finish. Leather seats are deep cleaned and moisturised as part of this.</p>
           <ul>
-            <li><strong>Seats only</strong> &mdash; <strong>+&pound;30</strong></li>
-            <li><strong>Full interior</strong> (seats, carpets, mats &amp; boot) &mdash; <strong>+&pound;50</strong></li>
+            <li><strong>Textile / cloth</strong> &mdash; steamed, shampooed &amp; extracted, taking stains with it &mdash; <strong>+&pound;30</strong></li>
+            <li><strong>Leather</strong> &mdash; all seats brushed with Koch Chemie to lift grease out of the grain, back to matt and soft &mdash; <strong>+&pound;40</strong></li>
+            <li><strong>Alcantara / suede</strong> &mdash; brushed carefully to lift the grease and stand the pile back up &mdash; <strong>+&pound;40</strong></li>
           </ul>
         </div>
       </details>
-      <details>
-        <summary>Ozone Odour Removal (Professional Grade)<span class="mps-tag">+&pound;40</span><span class="plus"></span></summary>
+      <details id="addonSeatProt">
+        <summary>Seat Protection<span class="mps-tag">from +&pound;100</span><span class="plus"></span></summary>
         <div class="content">
-          <p>Professional ozone treatment oxidises smoke, pet and organic odours at a molecular level for a genuinely fresher cabin. Treats the whole cabin rather than a single surface, so it reaches the areas shampooing can&rsquo;t.</p>
-          <ul>
-            <li><strong>Cigarette, pet &amp; organic odours</strong> &mdash; <strong>+&pound;40</strong></li>
-          </ul>
+          <p><strong>Textile:</strong> Gtechniq Smart Fabric &mdash; spills bead up and can be wiped away instead of soaking in.<br>
+             <strong>Leather:</strong> CQuartz Leather 2.0 &mdash; guards against dye transfer, body oils and UV, keeping a matt finish.<br>
+             <strong>Alcantara:</strong> CarPro CQuartz 2.0 &mdash; spills and body oils struggle to soak in, so the pile stays looking new.</p>
+          <table class="mps-ptable">
+            <thead><tr><th>Vehicle</th><th>Textile</th><th>Leather / Alcantara</th></tr></thead>
+            <tbody>
+              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;100</span></td><td><span class="p-now">&pound;150</span></td></tr>
+              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;100</span></td><td><span class="p-now">&pound;150</span></td></tr>
+              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;150</span></td><td><span class="p-now">&pound;200</span></td></tr>
+            </tbody>
+          </table>
         </div>
       </details>
     </div>
 
-    <!-- PAINTWORK UPGRADES -->
+    <!-- PAINTWORK & PROTECTION -->
     <div class="mps-sectionhead">
-      <h4>Paintwork Upgrades</h4>
+      <h4>Paintwork &amp; Protection</h4>
       <span class="mps-pill-label mps-pill-label--optional">Optional</span>
     </div>
     <p class="mps-sectionnote">
-      These build on each other, so you pick one level rather than several.
-      Each step includes everything below it, so you never pay twice for the same prep.
+      Each of these includes a clay bar, so if you add more than one you only pay for the clay once.
     </p>
 
     <div class="mps-acc mps-acc--addons">
@@ -1063,19 +1093,16 @@
       <details id="addonClay">
         <summary>Clay Bar Treatment<span class="mps-tag">+&pound;30</span><span class="plus"></span></summary>
         <div class="content">
-          <p>Physically removes bonded contamination left behind after washing and chemical decontamination &mdash; the grit you can feel with your fingertips but can&rsquo;t see. Paintwork is left glass-smooth and far better prepared for protection.</p>
-          <p><strong>Best for:</strong> a car that looks clean but feels rough to the touch.</p>
-          <ul>
-            <li><strong>Full car clay bar</strong> &mdash; <strong>+&pound;30</strong> (all vehicle sizes)</li>
-          </ul>
+          <p>Physically removes bonded contamination left behind after washing and chemical decontamination &mdash; the grit you can feel with your fingertips but can&rsquo;t see. Paint is left glass-smooth and takes protection far better.</p>
+          <p><strong>Best for:</strong> a car that looks clean but feels rough to the touch. Same price for every vehicle size.</p>
         </div>
       </details>
 
       <details id="addonEnhance">
         <summary>Paint Enhancement<span class="mps-tag">from +&pound;215</span><span class="plus"></span></summary>
         <div class="content">
-          <span class="mps-incl-chip">Includes clay bar treatment</span>
-          <p>A <strong>1-stage machine polish</strong> across all paint surfaces and glass. Removes swirl marks, light scratches and the etched water erosion that builds up on glass over time, bringing back depth and gloss rather than just cleaning the surface.</p>
+          <span class="mps-incl-chip">Clay bar included</span>
+          <p>A <strong>single machine polishing stage</strong>. Takes out most of the swirl marks and light scratches rather than filling them, so the gloss is real.</p>
           <p><strong>Best for:</strong> paint that looks dull or cobwebbed in direct sunlight.</p>
           <table class="mps-ptable">
             <thead><tr><th>Vehicle</th><th>Add-on price</th></tr></thead>
@@ -1085,29 +1112,71 @@
               <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;295</span></td></tr>
             </tbody>
           </table>
-          <p style="margin-top:8px;font-size:12px;color:rgba(255,255,255,.5)">Deeper scratches may need a multi-stage correction &mdash; we&rsquo;ll tell you honestly on the day.</p>
+          <p class="mps-ptable-note">Deeper scratches may need a multi-stage correction &mdash; we&rsquo;ll tell you honestly on the day.</p>
+        </div>
+      </details>
+
+      <details id="addonSealant">
+        <summary>6-Month Ceramic Sealant<span class="mps-tag">+&pound;60</span><span class="plus"></span></summary>
+        <div class="content">
+          <span class="mps-incl-chip">Clay bar included</span>
+          <p>Replaces the wax &mdash; six months of gloss and beading, and every wash after it is easier.</p>
+          <p class="mps-ptable-note">Shows as <strong>+&pound;30</strong> if you&rsquo;ve already added clay or enhancement.</p>
         </div>
       </details>
 
       <details id="addonCeramic">
-        <summary>Ceramic Coating &mdash; 1 Year<span class="mps-tag">from +&pound;325</span><span class="plus"></span></summary>
+        <summary>Ceramic Coating &mdash; 1, 3 or 7 Years<span class="mps-tag">from +&pound;120</span><span class="plus"></span></summary>
         <div class="content">
-          <span class="mps-incl-chip">Includes clay bar + paint enhancement</span>
-          <p>A <strong>1-year ceramic coating</strong> applied to all paint surfaces, with <strong>Glaco hydrophobic coating</strong> on the glass. Because the paint is clayed and machine polished first, the coating locks in a corrected finish rather than sealing in swirls.</p>
-          <p>Water and dirt sheet straight off, washing gets quicker, and the gloss holds through the winter.</p>
-          <p><strong>How it differs from the included protection:</strong> the sealant in every Full Valet lasts around <strong>8 weeks</strong>. This lasts around <strong>12 months</strong> and is applied over corrected paint.</p>
+          <span class="mps-incl-chip mps-incl-chip--quote">By quote &middot; weather dependent</span>
+          <span class="mps-incl-chip">Clay bar + front windows included</span>
+          <p>A <strong>1, 3 or 7 year</strong> coating in place of the wax. Water sheets off, dirt struggles to bond, washing gets easier &mdash; and the front windows are coated too.</p>
           <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>Add-on price</th></tr></thead>
+            <thead><tr><th>Vehicle</th><th>1 yr</th><th>3 yrs</th><th>7 yrs</th></tr></thead>
             <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;325</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;390</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;475</span></td></tr>
+              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;120</span></td><td><span class="p-now">&pound;200</span></td><td><span class="p-now">&pound;300</span></td></tr>
+              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;150</span></td><td><span class="p-now">&pound;230</span></td><td><span class="p-now">&pound;330</span></td></tr>
+              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;200</span></td><td><span class="p-now">&pound;280</span></td><td><span class="p-now">&pound;380</span></td></tr>
             </tbody>
           </table>
-          
+          <p class="mps-ptable-note"><strong>&pound;30 off</strong> if clay or enhancement is already added. Coatings need dry weather, so instead of the calendar you send us a request and we confirm the date with you.</p>
         </div>
       </details>
 
+    </div>
+
+    <!-- EXTRAS -->
+    <div class="mps-sectionhead">
+      <h4>Extras</h4>
+      <span class="mps-pill-label mps-pill-label--optional">Optional</span>
+    </div>
+    <p class="mps-sectionnote">Pick as many as you like on the last question.</p>
+
+    <div class="mps-acc mps-acc--addons">
+      <details>
+        <summary>Anti-Fog Glass Coating<span class="mps-tag">+&pound;15</span><span class="plus"></span></summary>
+        <div class="content"><p>Applied to the inside of the glass. The screen clears far faster on a cold morning and stays clear while you drive.</p></div>
+      </details>
+      <details>
+        <summary>Front Windows Coating &mdash; 1 Year<span class="mps-tag">+&pound;30</span><span class="plus"></span></summary>
+        <div class="content"><p>Glaco hydrophobic coating on the outside of the glass. Rain beads up and, above about 40mph, blows straight off the windscreen. Lasts around a year &mdash; and it&rsquo;s already included with a ceramic coating.</p></div>
+      </details>
+      <details>
+        <summary>Engine Bay Detail<span class="mps-tag">+&pound;30</span><span class="plus"></span></summary>
+        <div class="content"><p>Degreased, dressed and left presentable under the bonnet.</p></div>
+      </details>
+      <details>
+        <summary>Ultrasonic Odour Treatment<span class="mps-tag">+&pound;40</span><span class="plus"></span></summary>
+        <div class="content"><p>A 30-minute mist with the air recirculating, so it reaches the ventilation as well as the surfaces.</p></div>
+      </details>
+      <details>
+        <summary>Heavy Sand Removal<span class="mps-tag">+&pound;50</span><span class="plus"></span></summary>
+        <div class="content"><p>Sand worked into the carpets and seat rails. A job on its own.</p></div>
+      </details>
+      <details>
+        <summary>Extreme Pet Hair Removal<span class="mps-tag">+&pound;50</span><span class="plus"></span></summary>
+        <div class="content"><p>Hair woven into the fabric, lifted before anything else happens.</p></div>
+      </details>
     </div>
 
   </article>
@@ -1128,32 +1197,36 @@
     </div>
     <div class="mps-trust-pill">
       <strong>5&#9733; Rated</strong>
-      <span>49 Google reviews</span>
+      <span id="fvTrustReviews">81 Google reviews</span>
     </div>
   </div>
 
 </section>
 
 <!-- FAQs -->
-<section class="mps-faqs" aria-label="Full Valet frequently asked questions">
-  <h3>Full Valet FAQs</h3>
+<section class="mps-faqs" aria-label="In &amp; Out Deep Clean frequently asked questions">
+  <h3>In &amp; Out Deep Clean FAQs</h3>
 
   <div class="mps-acc" id="fvFAQs">
     <details>
-      <summary>How long does a Full Valet take?<span class="plus"></span></summary>
-      <div class="content">Typically <strong>2&ndash;4 hours</strong> depending on vehicle size and condition. Paint enhancement and ceramic coating add several hours, so those bookings are usually a longer slot &mdash; we&rsquo;ll confirm when you book.</div>
+      <summary>How long does an In &amp; Out Deep Clean take?<span class="plus"></span></summary>
+      <div class="content">It depends on the size and condition of the car and the add-ons you choose &mdash; we&rsquo;ll confirm the timing when you book. Paint enhancement and ceramic coatings add several hours.</div>
     </details>
     <details>
-      <summary>What&rsquo;s the difference between the protection included and the ceramic coating?<span class="plus"></span></summary>
-      <div class="content">Every Full Valet includes a <strong>hydrophobic sealant</strong> that lasts around <strong>8 weeks</strong>. The <strong>Ceramic Coating</strong> add-on lasts around <strong>12 months</strong>, and because the paint is clayed and machine polished first, it locks in a corrected finish rather than sealing in existing swirl marks.</div>
+      <summary>Wax, sealant or ceramic coating &mdash; what&rsquo;s the difference?<span class="plus"></span></summary>
+      <div class="content">Every In &amp; Out includes a <strong>protection wax</strong> that lasts around <strong>8 weeks</strong>. The <strong>6-month ceramic sealant</strong> replaces it for about six months. A <strong>ceramic coating</strong> lasts <strong>1, 3 or 7 years</strong> and includes the front windows.</div>
     </details>
     <details>
-      <summary>Do I need clay bar before paint enhancement?<span class="plus"></span></summary>
-      <div class="content">Yes &mdash; polishing contaminated paint drags grit across the surface and causes new marks. That&rsquo;s why <strong>clay bar is included</strong> in the Paint Enhancement price, and both are included in the Ceramic Coating price. You never pay for the same step twice.</div>
+      <summary>Why are ceramic coatings a request rather than a booking?<span class="plus"></span></summary>
+      <div class="content">Coatings need dry weather to cure. Choose one in the questionnaire and the button changes to <strong>Request This Booking</strong> &mdash; send it on WhatsApp or by email and we&rsquo;ll check the forecast and confirm your date, usually the same day.</div>
     </details>
     <details>
-      <summary>Will this remove stains inside?<span class="plus"></span></summary>
-      <div class="content">The Full Valet includes a maintenance wipe of seats. For heavy staining we recommend adding <strong>Shampooing &amp; Extraction</strong> (+&pound;30&ndash;&pound;50) or booking an <strong>Interior Deep Clean</strong>.</div>
+      <summary>Is shampoo and extraction really included?<span class="plus"></span></summary>
+      <div class="content">Yes &mdash; the <strong>mats, carpets and boot</strong> are shampooed and extracted as standard. Seats are vacuumed and wiped down; for stains or greasy seats add <strong>Seat Treatment</strong> (+&pound;30 cloth, +&pound;40 leather or alcantara).</div>
+    </details>
+    <details>
+      <summary>Do I need a clay bar before paint enhancement?<span class="plus"></span></summary>
+      <div class="content">Yes &mdash; polishing contaminated paint drags grit across the surface. That&rsquo;s why the clay bar is <strong>included</strong> in paint enhancement, the sealant and every coating, and you never pay for it twice.</div>
     </details>
     <details>
       <summary>What areas do you cover?<span class="plus"></span></summary>
@@ -1161,11 +1234,11 @@
     </details>
     <details>
       <summary>How do I pay?<span class="plus"></span></summary>
-      <div class="content">A <strong>10% deposit</strong> secures the booking, with the balance taken after the job. We accept <strong>cash or card</strong>.</div>
+      <div class="content">A <strong>10% deposit</strong> secures the booking, with the balance paid on the day once you&rsquo;ve seen the work. We accept <strong>card, cash or invoice</strong>.</div>
     </details>
     <details>
       <summary>Do I need to provide water or electricity?<span class="plus"></span></summary>
-      <div class="content">Yes, we need access to electricity &mdash; we bring a 45m cable. We carry our own water tank, so there&rsquo;s no need for an outside tap.</div>
+      <div class="content">We need a plug socket &mdash; we bring a 45m cable. An outside tap helps, but if there isn&rsquo;t one we bring our own water.</div>
     </details>
   </div>
 
@@ -1339,6 +1412,12 @@
       }
     }
 
+    /* -- Review count from the sitewide MPS_REVIEWS, if set -------- */
+    var trustRv = document.getElementById('fvTrustReviews');
+    if(trustRv && window.MPS_REVIEWS && window.MPS_REVIEWS.count){
+      trustRv.textContent = Number(window.MPS_REVIEWS.count) + ' Google reviews';
+    }
+
     /* -- CTA glow - only when visible ------------------------------ */
     var cta = document.getElementById('fvCTA');
     if(cta && 'IntersectionObserver' in window){
@@ -1444,7 +1523,7 @@
 
           /* close any other open accordion first, same as clicking one */
           Array.prototype.slice.call(document.querySelectorAll(
-            '#WhatIncludedFullValet .mps-acc details[open], #fvFAQs details[open]'
+            '#WhatIncludedInAndOut .mps-acc details[open], #fvFAQs details[open]'
           )).forEach(function(d){ if(d !== target) d.open = false; });
 
           target.open = true;
@@ -1456,11 +1535,11 @@
       });
 
     /* -- Accordions: only one open at a time -----------------------
-       BUGFIX: this previously targeted #priceFinderFullValet, which is
+       BUGFIX: this previously targeted the booking wizard, which is
        the booking wizard — these accordions live in the section below
        it, so the close-others behaviour never ran on them.           */
     var allSummaries = Array.prototype.slice.call(document.querySelectorAll(
-      '#WhatIncludedFullValet .mps-acc details summary, #fvFAQs details summary'
+      '#WhatIncludedInAndOut .mps-acc details summary, #fvFAQs details summary'
     ));
 
     allSummaries.forEach(function(summary){
