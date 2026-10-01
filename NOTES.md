@@ -242,6 +242,56 @@ clay + sealant £130 → [7334413]; In & Out 3-door enhance + sealant £385 →
 
 ---
 
+## 2026-10-01 — Window Tinting reviewed, ready to go live
+
+Quote-only request form (no prices, no Acuity), at the Birkenhead unit.
+`APPROVED = true`, so it shows live (not "Coming soon"). Tested: name /
+car / year checks, chips into the message, WhatsApp to 07592 196929 then
+the "send a copy" to the fitter (447426487900), both links between the
+blocks, no overflow at 375px.
+
+Only change: added a "Remove old tint" option — the FAQ told people to
+mention it but the form had nowhere to say so.
+
+To confirm before launch (wording, not code): the fitter's WhatsApp
+number; that the film really carries a warranty and blocks 99% UV; the
+headlight / rear-light tint wording (smoked lights are generally not road
+legal in the UK).
+
+---
+
+## 2026-10-01 — All Services page brought up to date and linked
+
+File: `All Services.txt` (live at /book-your-valet-now).
+
+Every mobile card now mirrors its questionnaire — price, what's
+included, add-ons, cleaning-power dots:
+
+| Card | Price | Link |
+|---|---|---|
+| Maintenance Wash | from £60 | /maintenance-wash (was /mini-valet — 404) |
+| Interior Deep Clean | £90–120 (was "from £60") | /interior-deep-clean |
+| Exterior Detail | £70–90 (was "from £60") | /exterior-detail (was /car-exterior-deep-clean — 404) |
+| In & Out Deep Clean | £140–180 | /full-valet |
+| Protection Detail | £210–250 (was £250–280) | /full-valet-premium |
+| Enhancement Polish | £285–385 (was £275–425) | /paint-enhancement-machine-polishing — NOT LIVE YET |
+| Ceramic Coating | from £190 (was £385) | /ceramic-coating |
+| Odour Removal | from £120 | /smoke/milk/bio-odour-removal |
+
+Wording fixed: Exterior / In & Out include an 8-week wax, not a 6-month
+sealant; Protection Detail has a 6-month sealant (not a 1-year coating) and
+engine bay is an add-on; the polish includes a wax, not a sealant; Ceramic
+Coating doesn't include a polish. Add-ons list rebuilt from the
+questionnaires (ozone, "leather deep clean +£50", engine bay £40 gone).
+Garage: Paint Correction from £600 (was £550), at the unit overnight, quote
+→ Machine Polishing page; Window Tinting → /window-tinting; De Chrome →
+/de-chrome (both NOT LIVE YET). Vinyl Wrap / PPF still → contact page.
+
+Pages to create at exactly these addresses:
+/paint-enhancement-machine-polishing, /window-tinting, /de-chrome.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -251,9 +301,6 @@ clay + sealant £130 → [7334413]; In & Out 3-door enhance + sealant £385 →
   describes a different plan (£100 / £120 / £140, 48 Acuity types, an
   `ACUITY_TYPE_MAP` that doesn't exist) and should be rewritten to match
   the code. Nothing on the page is affected.
-- **All Services page — to be updated later.** The Interior Deep Clean and
-  Exterior Detail cards both say "from £60", but those pages start at £90
-  and £70.
 - **Only 4 add-ons are checked for free slots** (`slice(0,4)` in
   `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
   and now Protection Detail). Needs the Make availability scenario to
