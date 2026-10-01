@@ -24,11 +24,9 @@
        Correction, any coating, vans etc. -> "Request This Booking" ->
          WhatsApp / email with the price (after any discount code)
 
-     ACUITY — the Exterior Detail base types + add-ons, because it is the
-     same job:
-       base     3-door 90947300 · 5-door 90976220 · 7-seater 90976759
-       add-ons  paint enhancement 7264641 / 7334380 / 7334385
-                6-month sealant   7334413
+     ACUITY — standalone Paint Enhancement types (the whole job, 5 hrs):
+       3-door 98943820 (£285) · 5-door 98943855 (£330) · 7-seater 98943877 (£385)
+       add-on  6-month sealant without clay bar 7344721 (£30)
      The old combined types (97045121, 97045202, 97045162, 97045205,
      97045167, 97045224) are no longer used — hide them, don't delete.
      ========================================================================== -->
@@ -1652,13 +1650,12 @@
   };
 
   /* ======================================================================
-     ACUITY — a plain 1-stage is the Exterior Detail job, so it books the
-     Exterior Detail base type with enhancement (and sealant) as add-ons.
-     Correction and coatings go through the request flow instead.
+     ACUITY — a plain 1-stage books its own Paint Enhancement type (the
+     whole job: prep, clay, polish, wax — 5 hrs), with the sealant as an
+     add-on. Correction and coatings go through the request flow instead.
      ====================================================================== */
-  var SIZE_TYPE     = { '3door':90947300, '5door':90976220, '7seats':90976759 };
-  var ADDON_ENHANCE = { '3door':7264641, '5door':7334380, '7seats':7334385 };
-  var ADDON_SEALANT = 7334413;
+  var SIZE_TYPE     = { '3door':98943820, '5door':98943855, '7seats':98943877 };   /* £285 / £330 / £385 */
+  var ADDON_SEALANT = 7344721;   /* 6-month sealant without clay bar, £30 — the polish already includes the clay */
 
   /* ---- booking. This token is PUBLIC: free-slot lookups and a Stripe
      checkout, nothing else. The booking scenarios use a different one. ---- */
@@ -1723,7 +1720,7 @@
   function bookingTypeId(){ return (isRequest() || !state.vehicle) ? null : (SIZE_TYPE[state.vehicle] || null); }
   function addonIds(){
     if(isRequest() || !state.vehicle) return [];
-    var a = [ADDON_ENHANCE[state.vehicle]];
+    var a = [];
     if(hasSealant()) a.push(ADDON_SEALANT);
     return a;
   }

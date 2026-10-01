@@ -1952,6 +1952,7 @@
   var ADDON_ENGINE = { id:7307199, price:30 };
   var ADDON_CLAY   = { id:7264640, price:30 };
   var ADDON_SEAL   = { id:7334413, price:60 };   /* includes the clay stage */
+  var ADDON_SEAL_NOCLAY = 7344721;               /* £30 — when the enhancement already has the clay */
   var ADDON_GLACO  = { id:7332051, price:30 };
   var ENHANCE = { '3door':{ id:7264641, price:215 },
                   '5door':{ id:7334380, price:250 },
@@ -2057,7 +2058,7 @@
     /* clay is absorbed by the enhancement and by the sealant, so it never
        goes twice */
     if(state.paint === 'enhance' && state.vehicle) a.push(ENHANCE[state.vehicle].id);
-    if(state.prot  === 'sealant') a.push(ADDON_SEAL.id);
+    if(state.prot  === 'sealant') a.push(state.paint === 'enhance' ? ADDON_SEAL_NOCLAY : ADDON_SEAL.id);
     if(state.paint === 'clay' && state.prot !== 'sealant') a.push(ADDON_CLAY.id);
 
     Object.keys(XTRA).forEach(function(k){

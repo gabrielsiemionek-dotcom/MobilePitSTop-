@@ -1784,7 +1784,8 @@
 
   var ADDON_ENGINE  = 7307199;
   var ADDON_CLAY    = 7264640;
-  var ADDON_SEALANT = 7334413;
+  var ADDON_SEALANT = 7334413;          /* sealant incl. clay bar, £60 */
+  var ADDON_SEALANT_NOCLAY = 7344721;   /* sealant without clay bar, £30 — when the enhancement already has the clay */
   var ADDON_GLACO   = 7332051;
   var ADDON_ENHANCE = { '3door':7264641, '5door':7334380, '7seats':7334385 };
 
@@ -1893,7 +1894,7 @@
     var sealant = state.prot  === 'sealant';
 
     if(enh)     a.push(ADDON_ENHANCE[state.vehicle]);
-    if(sealant) a.push(ADDON_SEALANT);
+    if(sealant) a.push(enh ? ADDON_SEALANT_NOCLAY : ADDON_SEALANT);
 
     /* standalone clay only when nothing else already covers it */
     if(state.paint === 'clay' && !sealant) a.push(ADDON_CLAY);

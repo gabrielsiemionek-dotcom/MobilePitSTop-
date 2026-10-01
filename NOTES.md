@@ -201,16 +201,16 @@ Exterior Detail totals for the same choices.
 Questionnaire (`Machine Polishing Questionnarie.txt`):
 - Was booking six old combined types (97045121, 97045202, 97045162,
   97045205, 97045167, 97045224) by sending people to Acuity's page. Now
-  books like Exterior Detail: calendar on the page, Exterior base type
-  (90947300 / 90976220 / 90976759) + enhancement add-on
-  (7264641 / 7334380 / 7334385) + sealant add-on 7334413 → 10% Stripe
-  deposit (after any discount code, shown to the penny).
+  books on the page like Exterior Detail: calendar → 10% Stripe deposit
+  (after any discount code, shown to the penny). Uses its own standalone
+  Paint Enhancement types, 5 hrs each: 3-door 98943820 (£285), 5-door
+  98943855 (£330), 7-seater 98943877 (£385), + sealant add-on 7344721.
 - Correction, any coating, and vans etc. stay "Request This Booking";
   the request message total follows a discount code.
 - Sealant card no longer claims Glaco (Exterior charges Glaco separately);
   Cleaning Power badge "Exterior Detail" → "Machine Polishing";
   analytics sent fields this page doesn't have → now level / protection.
-- Tested: 7-seater + sealant → type 90976759, add-ons [7334385, 7334413],
+- Tested: 7-seater + sealant → type 98943877, add-ons [7344721],
   £415, deposit £41.50; 3-door + 3-yr coating → £455, request; correction
   → from £600, request; 3-door + AUTUMN20 → £228, deposit £22.80.
 
@@ -220,6 +220,25 @@ What's Included (`Machine Polishing Whats Included.txt`):
 - Add-ons in blue; sealant no longer claims Glaco; "cheaper than anywhere
   else on the site" → "£30 less than on their own" (Protection Detail
   already includes a sealant, so the old line wasn't true).
+
+---
+
+## 2026-10-01 — Sealant without clay bar (7344721, £30)
+
+When the clay is already paid for, the page charges the 6-month sealant at
+£30 but used to send add-on 7334413 (£60, includes clay), so Acuity's
+appointment read £30 high. Now:
+
+| Page | Sealant chosen with | Add-on sent |
+|---|---|---|
+| Exterior Detail, In & Out | paint enhancement | 7344721 (£30) |
+| Exterior Detail, In & Out | clay bar, or nothing | 7334413 (£60, clay included; clay add-on not sent) |
+| Machine Polishing | always (the polish includes clay) | 7344721 (£30) |
+
+Tested: Exterior 3-door enhance + sealant £315 → [7264641, 7344721];
+clay + sealant £130 → [7334413]; In & Out 3-door enhance + sealant £385 →
+[7264641, 7344721]; Machine Polishing 5-door + sealant £360 → 98943855 +
+[7344721]. Acuity's totals now match the page in every case.
 
 ---
 
@@ -239,12 +258,6 @@ What's Included (`Machine Polishing Whats Included.txt`):
   `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
   and now Protection Detail). Needs the Make availability scenario to
   accept more first. User has this noted.
-- **Sealant price in Acuity after clay / enhancement.** The pages charge the
-  6-month sealant at £30 once clay or enhancement is in (Exterior Detail,
-  Machine Polishing, In & Out), but they send add-on 7334413, which Acuity
-  prices at £60. The deposit is right (worked out on the page); Acuity's
-  appointment will read £30 higher. Fix: a "sealant after clay" add-on at
-  £30, used when clay is already paid for.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
