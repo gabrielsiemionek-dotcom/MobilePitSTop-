@@ -13,7 +13,10 @@
          routes: 1-stage £285/£330/£385 mobile, multi-stage from
          £600/£650/£700 at the unit, overnight, by quote.
        • Protection add-ons at the same prices as the questionnaire:
-         sealant +£30, coatings +£90/£170/£270 on a 3-door.
+         sealant +£30, coatings from +£90 (1 / 3 / 7 years).
+       • No vehicle-size tables: the size and exact price live in the
+         questionnaire above, so this block shows "from" prices only.
+       • Add-ons are blue (prices, heading, accordion), as on every page.
        • FAQs answer the honest questions: will it remove every scratch
          (no, and here's why), is it safe, and how to tell which level
          your paint needs from looking at it in sunlight.
@@ -181,7 +184,11 @@
   .mps-acc .content ul{ padding-left:16px; margin:6px 0 0; }
   .mps-acc .content li{ margin-bottom:3px; }
 
-  .mps-acc--addons{ border-color:rgba(0,184,255,.3); }
+  .mps-acc--addons{ border-color:rgba(0,184,255,.3); background:rgba(0,184,255,.04); }
+  .mps-acc--addons .content strong{ color:#fff; }
+  .mps-vcard--addon .mps-vprice{ color:var(--mps-ocean); }
+  .mps-sectionhead--addons h4{ color:var(--mps-ocean); }
+  .mps-ptable-note{ margin:8px 0 0; font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); }
   .mps-acc--addons details{ border-top-color:rgba(0,184,255,.15); }
   .mps-acc--addons .plus::before,
   .mps-acc--addons .plus::after{ background:rgba(0,184,255,.7); }
@@ -461,7 +468,7 @@
             </div>
             <div class="mps-vbody">
               <h3>The sensible minimum</h3>
-              <p>A ceramic sealant that holds the gloss and water beading for around six months, with Glaco on the glass.</p>
+              <p>A ceramic sealant in place of the wax, holding the gloss and water beading for around six months.</p>
               <span class="mps-vprice">+&pound;30 <small>all sizes</small></span>
               <button class="mps-vlink" type="button" data-open-addon="mpolAddonSealant">Details &amp; pricing &rarr;</button>
             </div>
@@ -520,14 +527,8 @@
         <summary>Prices<span class="mps-tag">from &pound;285</span><span class="plus"></span></summary>
         <div class="content">
           <span class="mps-incl-chip">Wash, decontamination, clay bar and an 8-week wax included</span>
-          <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>Price</th></tr></thead>
-            <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;285</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;330</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;385</span></td></tr>
-            </tbody>
-          </table>
+          <p>From <strong>&pound;285</strong>, mobile, done in a day.</p>
+          <p class="mps-ptable-note">The exact price for your vehicle shows in the questionnaire above.</p>
         </div>
       </details>
     </div>
@@ -556,15 +557,7 @@
         <div class="content">
           <span class="mps-incl-chip mps-incl-chip--quote">By quote &mdash; confirmed after we&rsquo;ve seen the paint</span>
           <p>The starting price covers the same preparation plus the correction stages. Where it lands depends on <strong>size</strong> and on <strong>how much correction the paint safely takes</strong> &mdash; which we only know once it&rsquo;s measured and a test section is done.</p>
-          <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>From</th></tr></thead>
-            <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;600</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;650</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;700</span></td></tr>
-            </tbody>
-          </table>
-          <p class="mps-ptable-note">Protection is charged at the usual price on top, whichever route you take.</p>
+          <p class="mps-ptable-note">From &pound;600, confirmed after inspection. Protection is charged at the usual price on top, whichever route you take.</p>
         </div>
       </details>
     </div>
@@ -626,18 +619,17 @@
       </details>
     </div>
 
-    <div class="mps-sectionhead">
+    <div class="mps-sectionhead mps-sectionhead--addons">
       <h4>Protection add-ons</h4>
       <span class="mps-sectionpill mps-sectionpill--optional">Optional</span>
     </div>
-    <p class="mps-sectionnote">Both are cheaper here than anywhere else on the site, because the polish has already paid for the clay bar.</p>
+    <p class="mps-sectionnote">Both are &pound;30 less than on their own, because the polish has already paid for the clay bar.</p>
 
     <div class="mps-acc mps-acc--addons">
       <details id="mpolAddonSealant">
         <summary>6-Month Ceramic Sealant<span class="mps-tag">+&pound;30</span><span class="plus"></span></summary>
         <div class="content">
-          <span class="mps-incl-chip">Glaco on the glass included</span>
-          <p>Replaces the 8-week wax with a ceramic sealant that keeps the gloss and water beading for around <strong>6 months</strong>, and puts <strong>Glaco</strong> on the glass so rain runs off the windscreen at speed.</p>
+          <p>Replaces the 8-week wax with a ceramic sealant that keeps the gloss and water beading for around <strong>6 months</strong>, and makes every wash after it easier.</p>
           <p>Same price for every vehicle size.</p>
         </div>
       </details>
@@ -648,15 +640,8 @@
           <span class="mps-incl-chip mps-incl-chip--quote">By quote &middot; weather dependent</span>
           <span class="mps-incl-chip">Clay bar &amp; Glaco included</span>
           <p>A ceramic coating over freshly corrected paint is the best moment to apply one &mdash; there&rsquo;s nothing underneath it to lock in. Water sheets off, dirt struggles to bond, and washing gets far safer, which is what keeps the swirl marks from returning.</p>
-          <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>1 yr</th><th>3 yrs</th><th>7 yrs</th></tr></thead>
-            <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;90</span></td><td><span class="p-now">&pound;170</span></td><td><span class="p-now">&pound;270</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;120</span></td><td><span class="p-now">&pound;200</span></td><td><span class="p-now">&pound;300</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;170</span></td><td><span class="p-now">&pound;250</span></td><td><span class="p-now">&pound;350</span></td></tr>
-            </tbody>
-          </table>
-          <p class="mps-ptable-note">Coatings need dry conditions to cure, so we confirm your date against the forecast &mdash; the price doesn&rsquo;t change.</p>
+          <p>Choose <strong>1, 3 or 7 years</strong>, from <strong>+&pound;90</strong>.</p>
+          <p class="mps-ptable-note">The exact price for your vehicle and coating length shows in the questionnaire above. Coatings need dry conditions to cure, so the questionnaire&rsquo;s button becomes <strong>Request This Booking</strong> and we confirm your date against the forecast &mdash; the price doesn&rsquo;t change.</p>
         </div>
       </details>
     </div>
@@ -698,7 +683,7 @@
     </details>
     <details>
       <summary>Do I need protection afterwards?<span class="plus"></span></summary>
-      <div class="content">Polished paint is bare, so a wax goes on either way &mdash; but it only lasts around 8 weeks. If you&rsquo;ve just paid for correction, a <strong>sealant</strong> or a <strong>ceramic coating</strong> is what makes that work last, and both are cheaper here because the clay bar is already included.</div>
+      <div class="content">Polished paint is bare, so a wax goes on either way &mdash; but it only lasts around 8 weeks. If you&rsquo;ve just paid for correction, a <strong>sealant</strong> or a <strong>ceramic coating</strong> is what makes that work last, and both are &pound;30 less here because the clay bar is already included.</div>
     </details>
     <details>
       <summary>How long does the result last?<span class="plus"></span></summary>
