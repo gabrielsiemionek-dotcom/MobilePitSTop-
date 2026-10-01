@@ -242,6 +242,24 @@ clay + sealant £130 → [7334413]; In & Out 3-door enhance + sealant £385 →
 
 ---
 
+## 2026-10-01 — Window Tinting reviewed, ready to go live
+
+Quote-only request form (no prices, no Acuity), at the Birkenhead unit.
+`APPROVED = true`, so it shows live (not "Coming soon"). Tested: name /
+car / year checks, chips into the message, WhatsApp to 07592 196929 then
+the "send a copy" to the fitter (447426487900), both links between the
+blocks, no overflow at 375px.
+
+Only change: added a "Remove old tint" option — the FAQ told people to
+mention it but the form had nowhere to say so.
+
+To confirm before launch (wording, not code): the fitter's WhatsApp
+number; that the film really carries a warranty and blocks 99% UV; the
+headlight / rear-light tint wording (smoked lights are generally not road
+legal in the UK).
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
