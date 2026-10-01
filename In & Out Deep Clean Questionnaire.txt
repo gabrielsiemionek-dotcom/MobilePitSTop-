@@ -1,85 +1,28 @@
 <!-- ==========================================================================
-     MobilePitStop — INTERIOR DEEP CLEAN questionnaire (same page URL)
+     MobilePitStop — IN & OUT DEEP CLEAN questionnaire
 
-     BASE PRICE   3-door £100 · 5-door £120 · 7-seater £140
-     INCLUDED     Compressed air + deep vacuum, full steam / shampoo /
-                  extraction (seat stains treated as part of it), steam
-                  sanitised touch points, crevices, plastics, interior glass
+     BASE PRICE   3-door £140 · 5-door £160 · 7-seater £180
+                  (van / pick-up / minibus / camper -> by quote on WhatsApp)
 
-     QUESTIONS    1 Vehicle size (+ "View more": pick-up, mini bus, van,
-                    lorry, campervan -> by quote)
-                  2 Severe pet hair         +£50
-                  3 Heavy sand in carpets   +£40
-                  4 Headliner stains        +£25
-                  5 Leather coating, CarPro CQuartz (up to 2 yr)
-                    +£150 / £150 / £200
-                    "No leather in my car" skips it
-                  Ozone is gone — odour removal has its own service.
+     QUESTIONS    1 Vehicle size
+                  2 Seat fabric: textile / leather / alcantara
+                  3 Seat treatment          +£30 textile, +£40 leather/alcantara
+                  4 Seat protection         Gtechniq / CQuartz, by fabric and size
+                  5 Paintwork               clay +£30 or paint enhancement
+                  6 Paint protection        6-month sealant, OR ceramic coating
+                                            1 / 3 / 7 years, OR no add-on
+                  7 Extras (multi-select)   anti-fog, front windows (Glaco),
+                                            engine bay, odour, sand, pet hair
 
-     ------------------------------------------------------------------------
-     ACUITY — 48 TYPES, every add-on in the type (no hidden fields)
-     Key = size : roof pet sand leather  (1 = yes)
+     CERAMIC COATING works like the Exterior Detail page: it is never booked
+     from the calendar. Choosing 1/3/7 years carries on to the extras (front
+     windows hidden — the coating includes them), the final button becomes
+     "Request This Booking", and the quote goes out by WhatsApp or email so
+     the date can be matched to dry weather.
 
-     16 exist already: the old "full extraction" types, and the old
-     "+ ozone" ones become "+ sand" (both +£40). Rename them; the 3-door
-     ones also drop £10 (base £110 -> £100). The 5-door prices already match.
-     32 are NEW (all leather ones, and every 7-seater) — create them and
-     send the IDs, or paste them into ACUITY_TYPE_MAP yourself.
-     Until an ID is filled in, that combination books the quote slot and
-     the summary says we'll confirm within 6 hrs — nothing breaks.
-
-       key            ID         name                                 price
-       3door:0000     89693980   IDC 3-door                           £100  rename (was 3door full, £110)
-       3door:0010     87550760   IDC 3-door + sand                    £140  rename (was 3door full+ozone, £150)
-       3door:0100     87550850   IDC 3-door + pet                     £150  rename (was 3door full+pet, £160)
-       3door:0110     87550880   IDC 3-door + pet + sand              £190  rename (was 3door full+pet+ozone, £200)
-       3door:1000     87550943   IDC 3-door + roof                    £125  rename (was 3door full+roof, £135)
-       3door:1010     87551045   IDC 3-door + roof + sand             £165  rename (was 3door full+roof+ozone, £175)
-       3door:1100     87551076   IDC 3-door + roof + pet              £175  rename (was 3door full+roof+pet, £185)
-       3door:1110     87551110   IDC 3-door + roof + pet + sand       £215  rename (was 3door full+roof+pet+ozone, £225)
-       3door:0001     __________ IDC 3-door + leather                 £250  NEW
-       3door:0011     __________ IDC 3-door + sand + leather          £290  NEW
-       3door:0101     __________ IDC 3-door + pet + leather           £300  NEW
-       3door:0111     __________ IDC 3-door + pet + sand + leather    £340  NEW
-       3door:1001     __________ IDC 3-door + roof + leather          £275  NEW
-       3door:1011     __________ IDC 3-door + roof + sand + leather   £315  NEW
-       3door:1101     __________ IDC 3-door + roof + pet + leather    £325  NEW
-       3door:1111     __________ IDC 3-door + roof + pet + sand + leather £365  NEW
-       5door:0000     87626373   IDC 5-door                           £120  rename (was 5door full)
-       5door:0010     87626412   IDC 5-door + sand                    £160  rename (was 5door full+ozone)
-       5door:0100     87626489   IDC 5-door + pet                     £170  rename (was 5door full+pet)
-       5door:0110     87626550   IDC 5-door + pet + sand              £210  rename (was 5door full+pet+ozone)
-       5door:1000     87626673   IDC 5-door + roof                    £145  rename (was 5door full+roof)
-       5door:1010     87626756   IDC 5-door + roof + sand             £185  rename (was 5door full+roof+ozone)
-       5door:1100     87626824   IDC 5-door + roof + pet              £195  rename (was 5door full+roof+pet)
-       5door:1110     87626866   IDC 5-door + roof + pet + sand       £235  rename (was 5door full+roof+pet+ozone)
-       5door:0001     __________ IDC 5-door + leather                 £270  NEW
-       5door:0011     __________ IDC 5-door + sand + leather          £310  NEW
-       5door:0101     __________ IDC 5-door + pet + leather           £320  NEW
-       5door:0111     __________ IDC 5-door + pet + sand + leather    £360  NEW
-       5door:1001     __________ IDC 5-door + roof + leather          £295  NEW
-       5door:1011     __________ IDC 5-door + roof + sand + leather   £335  NEW
-       5door:1101     __________ IDC 5-door + roof + pet + leather    £345  NEW
-       5door:1111     __________ IDC 5-door + roof + pet + sand + leather £385  NEW
-       7seats:0000    __________ IDC 7-seater                         £140  NEW
-       7seats:0010    __________ IDC 7-seater + sand                  £180  NEW
-       7seats:0100    __________ IDC 7-seater + pet                   £190  NEW
-       7seats:0110    __________ IDC 7-seater + pet + sand            £230  NEW
-       7seats:1000    __________ IDC 7-seater + roof                  £165  NEW
-       7seats:1010    __________ IDC 7-seater + roof + sand           £205  NEW
-       7seats:1100    __________ IDC 7-seater + roof + pet            £215  NEW
-       7seats:1110    __________ IDC 7-seater + roof + pet + sand     £255  NEW
-       7seats:0001    __________ IDC 7-seater + leather               £340  NEW
-       7seats:0011    __________ IDC 7-seater + sand + leather        £380  NEW
-       7seats:0101    __________ IDC 7-seater + pet + leather         £390  NEW
-       7seats:0111    __________ IDC 7-seater + pet + sand + leather  £430  NEW
-       7seats:1001    __________ IDC 7-seater + roof + leather        £365  NEW
-       7seats:1011    __________ IDC 7-seater + roof + sand + leather £405  NEW
-       7seats:1101    __________ IDC 7-seater + roof + pet + leather  £415  NEW
-       7seats:1111    __________ IDC 7-seater + roof + pet + sand + leather £455  NEW
-
-     HIDE every other In &amp; Out Deep Clean type (base, seats-only, and all
-     remaining ozone ones) — don't delete them.
+     Everything else books here: real slots from Acuity, then a 10% Stripe
+     deposit (after any discount code). Prices and Acuity IDs live in the
+     "PRICES AND ACUITY IDS" block in the script below.
      ========================================================================== -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -288,175 +231,6 @@
   .pc-stars .blue{ color:var(--ocean); }
 
   /* Nav */
-  /* ── booking panel ─────────────────────────────────────────────────
-     Grafted onto the existing questionnaire. Uses the same tokens as
-     everything else so it reads as one page, not a bolted-on form. */
-  .bk{ margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.14); }
-  .bk[hidden]{ display:none; }
-  .bk-sec{ margin-bottom:16px; }
-  .bk-h{
-    margin:0 0 9px; font-size:11px; font-weight:950; letter-spacing:.13em;
-    text-transform:uppercase; color:rgba(255,255,255,.5);
-  }
-  .bk-load{ margin:0 0 10px; font-size:13px; color:rgba(255,255,255,.45); }
-  .bk-chips{ display:flex; flex-wrap:wrap; gap:8px; }
-  .bk-chip{
-    cursor:pointer; font:inherit; font-size:13.5px; font-weight:800; color:#fff;
-    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
-    border-radius:11px; padding:10px 13px; min-height:44px;
-    transition:border-color .15s ease, background .15s ease, transform .15s ease;
-  }
-  .bk-chip:hover{ border-color:rgba(227,252,2,.55); transform:translateY(-1px); }
-  .bk-chip[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
-  .bk-chip .d{ display:block; font-size:11px; font-weight:700; color:rgba(255,255,255,.45); }
-  .bk-more{
-    margin-top:10px; background:none; border:0; cursor:pointer; padding:6px 0;
-    font:inherit; font-size:13.5px; font-weight:800; color:var(--ocean); text-decoration:underline;
-  }
-  .bk-yn{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 9px; }
-  .bk-yn .q{ flex:1 1 220px; font-size:13px; color:rgba(255,255,255,.66); line-height:1.5; }
-  .bk-yn .pair{ display:flex; gap:6px; }
-  .bk-yn button{
-    cursor:pointer; font:inherit; font-size:13px; font-weight:800; color:#fff;
-    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
-    border-radius:999px; padding:8px 15px; min-height:40px;
-  }
-  .bk-yn button[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
-  .bk-err{ margin:0 0 10px; font-size:13.5px; font-weight:700; color:#ff7676; }
-  .bk-err[hidden]{ display:none; }
-  .bk-fine{ margin:9px 0 0; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.45); }
-
-  /* ── takeover: while the calendar is up, the questions get out of the way ── */
-  .pf.is-booking .wizard .step:not([data-step="5"]),
-  .pf.is-booking .prog,
-  .pf.is-booking .nav,
-  .pf.is-booking .btn-learn,
-  .pf.is-booking .power-compact,
-  .pf.is-booking #edcBreakdown,
-  .pf.is-booking .pay-box,
-  .pf.is-booking #edcBookNote,
-  .pf.is-booking #edcUpsell,
-  .pf.is-booking .upsell,
-  .pf.is-booking .totalbox .note,
-  .pf.is-booking #edcCodeReopen{ display:none !important; }
-
-  /* the page has a photo behind it, so the booking panel has to be solid
-     enough to read against anything */
-  .pf.is-booking{
-    background:#0d0d0d;
-    border-color:rgba(255,255,255,.14);
-  }
-  .pf.is-booking .bk-cal,
-  .pf.is-booking .bk-wheel{
-    background:#141414;
-    border-color:rgba(255,255,255,.2);
-  }
-  .pf.is-booking .bk-cell{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); }
-  .pf.is-booking .bk-cell:disabled{ background:transparent; border-color:transparent; }
-  .pf.is-booking .rq-field input{ background:#0b0b0b; }
-  .pf.is-booking .bk-yn button{ background:#181818; }
-  .pf.is-booking .bk-yn button[aria-pressed="true"],
-  .bk-yn button[aria-pressed="true"]{
-    background:var(--accent) !important;
-    border-color:var(--accent) !important;
-    color:#0b0b0b !important;
-    font-weight:950;
-    box-shadow:0 0 14px rgba(227,252,2,.3);
-  }
-  .pf.is-booking #edcFinalBox{ background:#141414; border-color:rgba(255,255,255,.18); }
-  .pf.is-booking .wizard{ background:transparent; border:0; }
-  .pf.is-booking .viewport{ height:auto !important; overflow:visible; }
-  /* the steps live in a sliding track. With the other four hidden, the
-     track was still shifted 400% to the left, so the one remaining pane
-     sat off screen — hence the blank page. */
-  .pf.is-booking .track{ transform:none !important; display:block; width:100%; }
-  .pf.is-booking .step[data-step="5"]{ flex:1 1 auto; min-width:0; width:100%; }
-  .pf.is-booking .step{ padding:0; }
-  .pf.is-booking .summary{ background:none; border:0; padding:0; margin-top:0; }
-  .pf.is-booking #edcFinalBox{ margin-bottom:16px; }
-  .bk-back{
-    appearance:none; background:none; border:0; cursor:pointer; padding:6px 0; margin:0 0 10px;
-    font:inherit; font-size:13.5px; font-weight:800; color:rgba(255,255,255,.75);
-  }
-  .bk-back:hover{ color:#fff; }
-  .bk-back[hidden]{ display:none; }
-
-  /* ── month calendar ─────────────────────────────────────────────────── */
-  .bk-cal{
-    border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:14px 12px;
-    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
-  }
-  .bk-calhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
-  .bk-month{ font-size:15.5px; font-weight:950; color:#fff; letter-spacing:-.01em; }
-  .bk-navmonth{
-    appearance:none; cursor:pointer; width:38px; height:38px; border-radius:50%;
-    border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04);
-    color:#fff; font-size:20px; line-height:1; font-family:inherit;
-  }
-  .bk-navmonth:hover:not(:disabled){ border-color:var(--accent); }
-  .bk-navmonth:disabled{ opacity:.25; cursor:default; }
-  .bk-dow{
-    display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px;
-    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
-    color:rgba(255,255,255,.62); text-align:center;
-  }
-  .bk-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-  .bk-cell{
-    appearance:none; font:inherit; cursor:pointer; padding:0;
-    aspect-ratio:1/1; min-height:40px; border-radius:10px;
-    border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);
-    color:#fff; font-size:14px; font-weight:800;
-    display:flex; align-items:center; justify-content:center;
-    transition:border-color .12s ease, background .12s ease;
-  }
-  .bk-cell:hover:not(:disabled){ border-color:rgba(227,252,2,.6); }
-  .bk-cell:disabled{ color:rgba(255,255,255,.22); background:transparent; border-color:transparent; cursor:default; }
-  .bk-cell.is-empty{ border:0; background:none; cursor:default; }
-  .bk-cell[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:#0b0b0b; }
-
-  /* ── hour / minute wheels ───────────────────────────────────────────── */
-  .bk-wheels{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  .bk-wheel{
-    border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
-    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
-  }
-  .bk-wheel-lbl{
-    display:block; padding:9px 12px 7px; font-size:11px; font-weight:900;
-    letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.62);
-    border-bottom:1px solid rgba(255,255,255,.1);
-  }
-  .bk-wheel-scroll{
-    max-height:184px; overflow-y:auto; scroll-snap-type:y proximity;
-    -webkit-overflow-scrolling:touch; padding:4px;
-  }
-  .bk-wheel-scroll::-webkit-scrollbar{ width:6px; }
-  .bk-wheel-scroll::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:99px; }
-  .bk-tick{
-    display:block; width:100%; appearance:none; cursor:pointer; scroll-snap-align:center;
-    padding:11px 8px; border:0; border-radius:9px; background:none;
-    font:inherit; font-size:16px; font-weight:800; color:#fff; text-align:center;
-  }
-  .bk-tick:hover{ background:rgba(255,255,255,.06); }
-  .bk-tick[aria-pressed="true"]{ background:var(--accent); color:#0b0b0b; font-weight:950; }
-  .bk-chosen{
-    margin:12px 0 0; font-size:14px; font-weight:900; color:var(--accent); text-align:center;
-  }
-  .bk-chosen[hidden]{ display:none; }
-
-  /* ── contrast: this panel reads white, not grey ─────────────────────── */
-  .bk-h{ color:rgba(255,255,255,.72); }
-  .bk-load{ color:rgba(255,255,255,.62); }
-  .bk-yn .q{ color:rgba(255,255,255,.88); }
-  .bk .rq-field label{ color:rgba(255,255,255,.72); }
-  .bk .rq-field input{ color:#fff; }
-  .bk-fine{ color:rgba(255,255,255,.66); }
-
-  @media(max-width:480px){
-    .bk-cal{ padding:12px 8px; }
-    .bk-cell{ min-height:38px; font-size:13.5px; border-radius:9px; }
-    .bk-dow{ font-size:10px; }
-    .bk-wheel-scroll{ max-height:168px; }
-  }
 
 
   .pkg-includes{
@@ -1942,7 +1716,6 @@
                 <div class="pc-rows" id="iodPowCoat"></div>
               </div>
             </div>
-            </div>
             <div class="opt opt-premium" role="option" tabindex="0" data-pick="prot" data-value="none" aria-selected="false">
               <div class="prem-head"><div><div class="prem-name">No add-on</div></div><div class="prem-price">&pound;0</div></div>
               <div class="prem-desc">The 8-week wax is already in the price &mdash; gloss and beading for about two months.</div>
@@ -2009,6 +1782,7 @@
           <div class="summary">
             <button class="btn btn-primary-glow" id="iodDoneBtn" type="button" style="width:100%;">View Calendar</button>
             <p class="book-note" id="iodBookHint">Tap View Calendar to choose your date &amp; time.</p>
+            <p class="book-note" id="iodBookNote" hidden>Coatings depend on dry weather, so we&rsquo;ll confirm your date with you first.</p>
 
             <div class="pay-box" id="iodPayBox">
               <div class="pay-head">
@@ -2051,6 +1825,7 @@
                 <button class="btn btn-primary-glow" id="iodRqWhatsApp" type="button">Send on WhatsApp</button>
                 <button class="btn btn-quiet-blue" id="iodRqEmail" type="button">Send by email</button>
               </div>
+            </div>
 
             <div class="bk" id="iodBook" hidden>
 
@@ -2460,7 +2235,19 @@
     fabricSteps();
     syncGlacoCell();
     paintCoatPrices();
-    if(doneBtn) doneBtn.textContent = hasCoat() ? 'Request This Booking' : 'View Calendar';
+    var req = !state.more && hasCoat();
+    if(doneBtn) doneBtn.textContent = state.more ? 'Get a quote' : req ? 'Request This Booking' : 'View Calendar';
+    var bookNoteEl = root.querySelector('#iodBookNote');
+    var bookHintEl = root.querySelector('#iodBookHint');
+    var payBoxEl   = root.querySelector('#iodPayBox');
+    if(bookNoteEl) bookNoteEl.hidden = !req;
+    if(payBoxEl)   payBoxEl.hidden   = req;
+    if(bookHintEl) bookHintEl.textContent = state.more
+      ? 'Send us a few photos on WhatsApp and we\u2019ll quote it.'
+      : req ? 'Send your request and we\u2019ll confirm the date. The 10% deposit is taken once it\u2019s booked.'
+      : 'Tap View Calendar to choose your date & time.';
+    if(!req && rqBox) rqBox.hidden = true;
+    if(req) refreshMessage();
     var ep = root.querySelector('#iodEnhancePrice');
     if(ep && state.vehicle) ep.textContent = '+' + fmtGBP(ENHANCE[state.vehicle].price);
     var sp = root.querySelector('#iodSealPrice');
@@ -2477,6 +2264,7 @@
                  : state.seatprot === null ? 'Protect the seats, or skip it'
                  : state.paint === null  ? 'Choose how far the paint goes'
                  : state.prot === null   ? 'Choose your protection'
+                 : hasCoat()             ? 'Price shown \u2014 date confirmed with you'
                  : 'Price confirmed';
 
     if(totalEl.textContent !== totalStr) totalEl.textContent = totalStr;
@@ -2484,6 +2272,7 @@
     if(finalTotalEl.textContent !== totalStr) finalTotalEl.textContent = totalStr;
     if(finalNoteEl) finalNoteEl.textContent = state.more
       ? 'Send us a few photos and we\u2019ll quote it.'
+      : hasCoat() ? 'Coatings are confirmed with you before booking.'
       : 'Ready to book when you are.';
 
     syncViewportHeight();
@@ -2548,6 +2337,7 @@
         root.querySelectorAll('.xtra').forEach(function(c){ c.setAttribute('aria-selected','false'); });
       } else {
         state[ORDER[k]] = null;
+        if(ORDER[k] === 'prot'){ state.coat = null; markCoat(null); }
       }
       clearStep(k);
     }
@@ -2591,6 +2381,7 @@
     var stepIdx = Number(opt.closest('.step').getAttribute('data-step'));
     resetAfter(pick);
     clearStep(stepIdx);
+    if(pick === 'prot'){ state.coat = null; markCoat(null); }
     state[pick] = value;
     opt.setAttribute('aria-selected','true');
     update();
@@ -2774,10 +2565,6 @@
     });
   }
 
-  function depositAmount(){
-    return Math.max(1, Math.round(calcTotal() * DEPOSIT_PCT) / 100);
-  }
-
   function drawMinutes(hh){
     var wrap = root.querySelector('#iodBkMins');
     wrap.innerHTML = '';
@@ -2804,7 +2591,7 @@
         var fine = root.querySelector('#iodBkFine');
         if(fine){
           fine.textContent = fmtGBP(depositAmount()) + ' now holds the slot. The remaining ' +
-            fmtGBP(calcTotal() - depositAmount()) + ' is paid on the day, once you\u2019ve seen the work.';
+            fmtGBP(netTotal() - depositAmount()) + ' is paid on the day, once you\u2019ve seen the work.';
         }
       });
       wrap.appendChild(b);
@@ -2880,12 +2667,13 @@
 
   coatPills.forEach(function(p){
     p.addEventListener('click', function(){
+      resetAfter('prot');
       state.prot = 'coat';
       state.coat = p.getAttribute('data-coat');
       root.querySelectorAll('.opt[data-pick="prot"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
       markCoat(state.coat);
       update();
-      goTo(DONE);
+      advance();
     });
   });
 
@@ -3027,10 +2815,12 @@
     bkPay.disabled = true;
     bkPay.textContent = 'Taking you to checkout\u2026';
 
-    var label = '10% deposit \u2014 In &amp; Out Deep Clean, ' + (VEHICLE_LABELS[state.vehicle] || state.vehicle) +
+    var label = '10% deposit \u2014 In & Out Deep Clean, ' + (VEHICLE_LABELS[state.vehicle] || state.vehicle) +
                 (state.fabric ? ', ' + FABRIC_LABELS[state.fabric] : '') +
                 (state.seats === 'yes' ? ' + seats' : '') +
-                (state.prot  === 'yes' ? ' + protection' : '');
+                (state.seatprot === 'yes' ? ' + seat protection' : '') +
+                (state.paint === 'clay' ? ' + clay' : state.paint === 'enhance' ? ' + enhancement' : '') +
+                (state.prot === 'sealant' ? ' + sealant' : '');
 
     var p = {
       token: MPS_TOKEN,
@@ -3054,7 +2844,7 @@
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event:'pf_book_click', component:'price_finder',
       service:'interior_deep_clean', vehicle_type:state.vehicle, fabric:state.fabric,
-      seats:state.seats, protection:state.prot, odour:state.odour,
+      seats:state.seats, protection:state.prot, odour:state.extras.odour,
       price_total:calcTotal(), deposit:depositAmount() });
 
     var q = Object.keys(p).map(function(k){
