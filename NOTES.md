@@ -65,35 +65,36 @@ correct as it stands.
 
 ---
 
-## 2026-10-01 — In & Out What's Included rewritten to match the questionnaire
+## 2026-10-01 — In & Out What's Included rebuilt from the correct base
 
 File: `In & Out Deep Clean Whats Included.txt`
 
-The block was still the old **Full Valet** page (ozone, shampoo as an
-add-on, a 1-year-only coating at £325+, "49 reviews"). Same layout, images
-and wheel slider; the content now follows the questionnaire:
+The first upload was the old Full Valet block. Rebuilt from the user's
+In & Out draft (blue add-on styling, sealant card, 3–5 hr FAQ) and brought
+in line with the questionnaire:
 
-- **Title / wording:** In & Out Deep Clean throughout; base price table
-  £140 / £160 / £180 (+ vans etc. by quote).
-- **Included cards:** exterior detail, 8-week wax, and steam + mats,
-  carpets & boot shampooed and extracted (included, not an add-on).
-- **Add-on cards:** seat treatment, clay, paint enhancement, ceramic
-  coating 1/3/7 years (from +£120).
-- **Accordions:** Exterior (included), Interior (included), Seats
-  (treatment +£30/£40 by fabric; protection £100/£150 cloth, £150/£200
-  leather/alcantara), Paintwork & Protection (clay, enhancement, 6-month
-  sealant, ceramic coating 1/3/7 table), Extras (anti-fog, front windows,
-  engine bay, ultrasonic odour, sand, pet hair).
-- **FAQs** rewritten for In & Out, including why coatings are a request.
-- Review count 81, and it follows the sitewide `MPS_REVIEWS` like the
-  questionnaire badge.
-- **"See what's included" now works.** The questionnaire button pointed at
-  `#WhatIncludedInteriorDeepClean`, which isn't on this page. The section
-  id is now `#WhatIncludedInAndOut` and the button points there. The
-  "Book" button goes to `#priceFinderInAndOut` (was the old Full Valet id).
-
-If a price changes in the questionnaire, change it here too — the list of
-prices is in the comment at the top of the file.
+- **No vehicle sizes or size tables.** Size and exact price live in the
+  questionnaire above; this block shows "from" prices only.
+- **Seats follow the questionnaire.** Mats, carpets & boot extraction is
+  included; seat treatment is an add-on (+£30 cloth, +£40 leather /
+  alcantara). The draft said seats were included with stains pre-treated.
+- **Sealant** +£60, clay included (+£30 if clay already paid). Removed
+  "Glaco included" and "becomes a Protection Detail at the same price" —
+  the questionnaire doesn't do either; Glaco is a separate £30 extra.
+- **Ceramic coating** 1 / 3 / 7 years from +£120, replaces the wax, clay +
+  front windows included, by request ("Request This Booking").
+- **Added** (all blue, all from the questionnaire): seat treatment card +
+  Seats section (treatment, protection from +£100 / +£150), Extras section
+  (anti-fog £15, front windows £30, engine bay £30, ultrasonic odour £40,
+  sand £50, pet hair £50).
+- Add-on prices, section headings and accordions all use the blue
+  add-on styling.
+- Section id is `#WhatIncludedInAndOut` (the questionnaire's "See what's
+  included" button points here); Book button → `#priceFinderInAndOut`.
+- Removed the "How is it different from the Protection Detail?" FAQ — it
+  relied on the same-price claim.
+- Seat card and sealant card have no photo yet (plain panel; comment in
+  each card shows where to put an image link).
 
 ---
 
