@@ -37,16 +37,13 @@
          Engine bay detail             7307199     £30
          CQuartz leather, 3/5-door     7336744     £150
          CQuartz leather, 7-seater     7336746     £200
-         Paint enhancement 3-door      7264641     £185  (In & Out: £215)
-         Paint enhancement 5-door      7334380     £220  (In & Out: £250)
-         Paint enhancement 7-seater    7334385     £265  (In & Out: £295)
+         Paint enhancement 3-door      7344401     £185
+         Paint enhancement 5-door      7344405     £220
+         Paint enhancement 7-seater    7344403     £265
 
-     The enhancement add-ons are shared with In & Out, where they cost £30
-     more because they include a clay bar. Protection Detail already has
-     the clay, so the page charges £30 less. The deposit is worked out here
-     from the page price; Acuity's own add-on price will read £30 higher on
-     the appointment unless Protection Detail gets its own enhancement
-     add-ons.
+     Protection Detail has its own enhancement add-ons, £30 below the ones
+     In & Out uses (7264641 / 7334380 / 7334385) because the clay bar is
+     already in this package.
 
      The old 12 combined Premium types (93617603, 93617618, 93617631,
      93617649, 93617654, 97061113, 97061160, 97061263, 97061292, 97061395,
@@ -1688,7 +1685,7 @@
 
   var ADDON_ENGINE  = 7307199;                                   /* +£30 */
   var ADDON_LEATHER = { '3door':7336744, '5door':7336744, '7seater':7336746 };
-  var ADDON_ENHANCE = { '3door':7264641, '5door':7334380, '7seater':7334385 };
+  var ADDON_ENHANCE = { '3door':7344401, '5door':7344405, '7seater':7344403 };   /* Protection Detail's own: £185 / £220 / £265 */
 
   /* ---- booking. This token is PUBLIC: free-slot lookups and a Stripe
      checkout, nothing else. The booking scenarios use a different one. ---- */

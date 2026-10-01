@@ -116,7 +116,7 @@ Stripe deposit → Make creates the booking. Coatings still go to
 | Engine bay add-on | 7307199 | £30 |
 | CQuartz leather, 3/5-door | 7336744 | £150 |
 | CQuartz leather, 7-seater | 7336746 | £200 |
-| Paint enhancement 3 / 5 / 7 | 7264641 / 7334380 / 7334385 | £185 / £220 / £265 |
+| Paint enhancement 3 / 5 / 7 (Protection Detail's own) | 7344401 / 7344405 / 7344403 | £185 / £220 / £265 |
 
 - Deposit follows the discount code, and shows pence (£74.50, not £75).
 - Tested with the webhooks stubbed: 7-seater + all add-ons → type
@@ -173,11 +173,6 @@ discounted total.
 - **All Services page — to be updated later.** The Interior Deep Clean and
   Exterior Detail cards both say "from £60", but those pages start at £90
   and £70.
-- **Protection Detail enhancement add-ons — user is creating them.** The
-  page charges £185 / £220 / £265 but currently uses the shared
-  enhancement add-ons (£215 / £250 / £295 in Acuity). Once the separate
-  Protection Detail add-ons exist, swap their IDs into `ADDON_ENHANCE` in
-  `Protection Detail Questionnaire.txt`.
 - **Only 4 add-ons are checked for free slots** (`slice(0,4)` in
   `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
   and now Protection Detail). Needs the Make availability scenario to
