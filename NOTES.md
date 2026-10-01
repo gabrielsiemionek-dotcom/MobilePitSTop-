@@ -145,6 +145,22 @@ Now use the discounted total, and the deposit shows pence. Tested:
 
 ---
 
+## 2026-10-01 — Interior Deep Clean & Maintenance Wash deposits
+
+- **Interior Deep Clean:** `depositAmount()` was defined twice and the
+  second, discount-blind one won, so the deposit was on the full price.
+  Removed it; balance line uses the discounted total; deposit shows pence.
+  Tested: £130 with AUTUMN20 → £104, deposit £10.40 (was £13).
+- **Maintenance Wash:** deposit was already right (`calcTotal()` includes
+  the plan / promo discount). Only the display rounded to whole pounds —
+  now shows pence. Tested: CLEAN30 → £70, deposit £7, code passed on.
+
+All five booking pages (Maintenance Wash, Exterior Detail, Interior Deep
+Clean, In & Out, Protection Detail) now take the 10% deposit on the
+discounted total.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -166,10 +182,6 @@ Now use the discounted total, and the deposit shows pence. Tested:
   `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
   and now Protection Detail). Needs the Make availability scenario to
   accept more first. User has this noted.
-- **Interior Deep Clean and Maintenance Wash deposits ignore discount
-  codes** and round to whole pounds (same bug as fixed on Exterior Detail,
-  In & Out and Protection Detail). Interior defines `depositAmount()`
-  twice — the second, discount-blind one wins.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
