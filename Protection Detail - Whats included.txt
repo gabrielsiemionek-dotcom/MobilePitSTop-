@@ -17,6 +17,9 @@
          level" line is gone.
        • The honest line about coatings over unpolished paint lives here now.
        • Review count reads window.MPS_REVIEWS, like the badge above.
+       • No vehicle-size price tables: the size and exact price live in the
+         questionnaire above, so add-ons show "from" prices only.
+       • Add-ons are blue (prices, heading, accordion), as on In & Out.
 
      LEATHER CARD has no photo yet — it shows a plain panel. Drop a leather
      shot into the marked <img> line when you have one.
@@ -325,7 +328,11 @@
   .mps-acc--premium .plus::before,
   .mps-acc--premium .plus::after{ background:rgba(227,252,2,.7); }
 
-  .mps-acc--addons{ border-color:rgba(0,184,255,.3); }
+  .mps-acc--addons{ border-color:rgba(0,184,255,.3); background:rgba(0,184,255,.04); }
+  .mps-acc--addons .content{ border-top-color:rgba(0,184,255,.12); }
+  .mps-acc--addons .content strong{ color:#fff; }
+  .mps-vcard--addon .mps-vprice{ color:var(--ocean); }
+  .mps-sectionhead--addons h4{ color:var(--ocean); }
   .mps-acc--addons details{ border-top-color:rgba(0,184,255,.15); }
   .mps-acc--addons .plus::before,
   .mps-acc--addons .plus::after{ background:rgba(0,184,255,.7); }
@@ -667,7 +674,7 @@
       </details>
     </div>
 
-    <div class="mps-sectionhead">
+    <div class="mps-sectionhead mps-sectionhead--addons">
       <h4>Add-ons</h4>
       <span class="mps-pill-label mps-pill-label--optional">Optional</span>
     </div>
@@ -694,14 +701,7 @@
             <li>Lasts <strong>up to 2 years</strong></li>
           </ul>
           <p>This is a separate product from the paint coating &mdash; the 1, 3 and 7-year options below are for the paintwork only.</p>
-          <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>Add-on price</th></tr></thead>
-            <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;150</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;150</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;200</span></td></tr>
-            </tbody>
-          </table>
+          <p class="mps-ptable-note">The exact price for your vehicle shows in the questionnaire above.</p>
         </div>
       </details>
 
@@ -711,15 +711,7 @@
           <span class="mps-incl-chip">Clay bar prep already included</span>
           <p>A <strong>1-stage machine polish</strong> across all paintwork. Removes swirl marks, light scratches and water marks, bringing back depth and gloss rather than just cleaning the surface.</p>
           <p><strong>Best for:</strong> paint that looks dull or cobwebbed in direct sunlight.</p>
-          <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>Add-on price</th></tr></thead>
-            <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;185</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;220</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;265</span></td></tr>
-            </tbody>
-          </table>
-          <p class="mps-ptable-note">&pound;30 lower than on our other services, because clay bar is already in this package. Deeper scratches may need multi-stage correction at our unit &mdash; we&rsquo;ll tell you honestly on the day.</p>
+          <p class="mps-ptable-note">The exact price for your vehicle shows in the questionnaire above &mdash; &pound;30 lower than on our other services, because clay bar is already in this package. Deeper scratches may need multi-stage correction at our unit &mdash; we&rsquo;ll tell you honestly on the day.</p>
         </div>
       </details>
 
@@ -730,15 +722,7 @@
           <span class="mps-incl-chip">Glaco on the glass included</span>
           <p>Replaces the <strong>6-month sealant included in this package</strong> with a <strong>ceramic coating on all paintwork</strong>, in a choice of <strong>1, 3 or 7 years</strong>. Water sheets off instead of sitting on the panel, dirt struggles to bond, and washing gets much easier.</p>
           <p><strong>With paint enhancement</strong>, the coating locks in a freshly polished finish. <strong>Without it</strong>, the coating protects the paint exactly as it is &mdash; swirl marks included &mdash; so if the paint looks tired in sunlight, polish it first.</p>
-          <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>1 yr</th><th>3 yrs</th><th>7 yrs</th></tr></thead>
-            <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;60</span></td><td><span class="p-now">&pound;140</span></td><td><span class="p-now">&pound;240</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;90</span></td><td><span class="p-now">&pound;170</span></td><td><span class="p-now">&pound;270</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;140</span></td><td><span class="p-now">&pound;220</span></td><td><span class="p-now">&pound;320</span></td></tr>
-            </tbody>
-          </table>
-          <p class="mps-ptable-note">These are upgrade prices: the 6-month sealant is already in the package, so you only pay the step up to the coating &mdash; never twice for protection. Coatings need dry weather to cure, so you send us a request with your preferred date, we check the forecast and confirm it with you. The price you see is the price you pay.</p>
+          <p class="mps-ptable-note">The price for your vehicle and coating length shows in the questionnaire above. It&rsquo;s an upgrade price: the 6-month sealant is already in the package, so you only pay the step up to the coating &mdash; never twice for protection. Coatings need dry weather to cure, so the questionnaire&rsquo;s button becomes <strong>Request This Booking</strong>: you send us your preferred date, we check the forecast and confirm it with you. The price you see is the price you pay.</p>
         </div>
       </details>
     </div>
@@ -765,7 +749,7 @@
     </details>
     <details>
       <summary>How is it different from the In &amp; Out Deep Clean?<span class="plus"></span></summary>
-      <div class="content">Both include the full interior steam, shampoo &amp; extraction. The Protection Detail adds a <strong>clay bar</strong>, swaps the 8-week protection wax for a <strong>6-month ceramic sealant</strong>, and adds <strong>Glaco on the glass</strong>.</div>
+      <div class="content">Both shampoo and extract the mats, carpets and boot. The Protection Detail also does the <strong>seats</strong> (an add-on on the In &amp; Out), adds a <strong>clay bar</strong>, swaps the 8-week protection wax for a <strong>6-month ceramic sealant</strong>, and adds <strong>Glaco on the glass</strong>.</div>
     </details>
     <details>
       <summary>What&rsquo;s the difference between the sealant and a paint ceramic coating?<span class="plus"></span></summary>
@@ -773,7 +757,7 @@
     </details>
     <details>
       <summary>Why are paint coatings by quote?<span class="plus"></span></summary>
-      <div class="content">A coating needs dry conditions to cure properly, and on a driveway that depends on the weather. So instead of booking straight into the calendar, you send us your preferred date, we check the forecast and confirm it with you. The price shown in the questionnaire doesn&rsquo;t change.</div>
+      <div class="content">A coating needs dry conditions to cure properly, and on a driveway that depends on the weather. So instead of booking straight into the calendar, the button becomes <strong>Request This Booking</strong>: you send us your preferred date on WhatsApp or by email, we check the forecast and confirm it with you. The price shown in the questionnaire doesn&rsquo;t change.</div>
     </details>
     <details>
       <summary>Is the leather coating the same as the paint coating?<span class="plus"></span></summary>

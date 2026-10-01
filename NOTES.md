@@ -98,6 +98,99 @@ in line with the questionnaire:
 
 ---
 
+## 2026-10-01 — Protection Detail: on-page calendar + What's Included
+
+### Questionnaire (`Protection Detail Questionnaire.txt`)
+Was the old setup: "View Calendar" sent people to Acuity's own page using
+12 combined appointment types, and the engine bay went in an intake field
+whose ID was never filled in (so it never reached the booking). Now books
+like Exterior Detail / In & Out: calendar on the page → details → 10%
+Stripe deposit → Make creates the booking. Coatings still go to
+"Request This Booking".
+
+| Acuity | ID | Page price |
+|---|---|---|
+| Protection Detail 3-door (base) | 93617563 | £210 |
+| Protection Detail 5-door (base) | 98922355 | £230 |
+| Protection Detail 7-seater (base) | 98922374 | £250 |
+| Engine bay add-on | 7307199 | £30 |
+| CQuartz leather, 3/5-door | 7336744 | £150 |
+| CQuartz leather, 7-seater | 7336746 | £200 |
+| Paint enhancement 3 / 5 / 7 (Protection Detail's own) | 7344401 / 7344405 / 7344403 | £185 / £220 / £265 |
+
+- Deposit follows the discount code, and shows pence (£74.50, not £75).
+- Tested with the webhooks stubbed: 7-seater + all add-ons → type
+  98922374, add-ons [7307199, 7336746, 7334385], deposit 7450p on £745;
+  with AUTUMN20 → £59.60 deposit, £536.40 balance; 3-door + 3-yr coating →
+  £350, request form, no diary call.
+- The 11 old combined types (93617603, 93617618, 93617631, 93617649,
+  93617654, 97061113, 97061160, 97061263, 97061292, 97061395, 97061426)
+  are no longer used — hide them in Acuity, don't delete.
+
+### What's Included (`Protection Detail - Whats included.txt`)
+- Removed the 3 vehicle-size price tables ("from" prices + "exact price
+  in the questionnaire above").
+- Add-ons in blue (prices, heading, accordion), as on In & Out.
+- FAQ fixes: In & Out difference (seats are an add-on there); coatings
+  mention "Request This Booking".
+
+---
+
+## 2026-10-01 — Exterior Detail deposit follows discount codes
+
+File: `Exterior Detail Questionnaire.txt`. The 10% deposit, the balance
+line and the booking note used the full price, ignoring a discount code.
+Now use the discounted total, and the deposit shows pence. Tested:
+£420 with AUTUMN20 → £336, deposit £33.60 (was £42), balance £302.40.
+
+---
+
+## 2026-10-01 — Interior Deep Clean & Maintenance Wash deposits
+
+- **Interior Deep Clean:** `depositAmount()` was defined twice and the
+  second, discount-blind one won, so the deposit was on the full price.
+  Removed it; balance line uses the discounted total; deposit shows pence.
+  Tested: £130 with AUTUMN20 → £104, deposit £10.40 (was £13).
+- **Maintenance Wash:** deposit was already right (`calcTotal()` includes
+  the plan / promo discount). Only the display rounded to whole pounds —
+  now shows pence. Tested: CLEAN30 → £70, deposit £7, code passed on.
+
+All five booking pages (Maintenance Wash, Exterior Detail, Interior Deep
+Clean, In & Out, Protection Detail) now take the 10% deposit on the
+discounted total.
+
+---
+
+## 2026-10-01 — Ceramic Coating questionnaire + What's Included
+
+**Prices checked — all correct**, identical to Exterior Detail with a
+coating: 1 yr from £190 / £230 / £290, 3 yrs £270 / £310 / £370, 7 yrs
+£370 / £410 / £470; enhancement +£185 / £220 / £265 (clay already in the
+coating); engine bay +£30. Request-only page (no Acuity), same as a coating
+on every other page.
+
+Questionnaire (`Ceramic Coating Questionnarie.txt`):
+- Final screen showed "To book, pay a 10% deposit" with card/cash/invoice
+  before the request — hidden now; the weather note and "the 10% deposit
+  is taken once it's booked" show instead (same as the other pages).
+- Button starts as "Request This Booking" (the markup said View Calendar).
+- Request message total ignored a discount code — now "£448 (code
+  AUTUMN20, 20% off £560)", matching the breakdown; refreshes when a code
+  is added or removed.
+- Cleaning Power badge said "Exterior Detail" → "Ceramic Coating".
+- Analytics sent `paint` / `prot` (fields this page doesn't have) → now
+  `coating` / `enhancement`.
+- Request panel scrolls into view when opened.
+
+What's Included (`Ceramic Coating Whats Included.txt`):
+- No vehicle sizes: the price table is now by coating length only (from
+  £190 / £270 / £370) and the enhancement size table is gone; both say the
+  exact price is in the questionnaire above.
+- Add-ons in blue (prices, heading, accordion).
+- "Why request a date" FAQ names the Request This Booking button.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -110,6 +203,10 @@ in line with the questionnaire:
 - **All Services page — to be updated later.** The Interior Deep Clean and
   Exterior Detail cards both say "from £60", but those pages start at £90
   and £70.
+- **Only 4 add-ons are checked for free slots** (`slice(0,4)` in
+  `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
+  and now Protection Detail). Needs the Make availability scenario to
+  accept more first. User has this noted.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.

@@ -2260,6 +2260,8 @@
   function depositAmount(){
     return Math.max(1, Math.round(calcTotal() * DEPOSIT_PCT) / 100);
   }
+  /* deposits can be £74.50 — show the pence rather than rounding to £75 */
+  function fmtMoney(n){ var r = Math.round(n * 100) / 100; return '\u00a3' + (r % 1 ? r.toFixed(2) : r.toFixed(0)); }
 
   function drawMinutes(hh){
     var wrap = root.querySelector('#mpsBkMins');
@@ -2283,11 +2285,11 @@
 
         bkDetails.hidden = false;
         bkPay.disabled = false;
-        bkPay.textContent = 'Pay ' + fmtGBP(depositAmount()) + ' deposit & book';
+        bkPay.textContent = 'Pay ' + fmtMoney(depositAmount()) + ' deposit & book';
         var fine = root.querySelector('#mpsBkFine');
         if(fine){
-          fine.textContent = fmtGBP(depositAmount()) + ' now holds the slot. The remaining ' +
-            fmtGBP(calcTotal() - depositAmount()) + ' is paid on the day, once you\u2019ve seen the work.';
+          fine.textContent = fmtMoney(depositAmount()) + ' now holds the slot. The remaining ' +
+            fmtMoney(calcTotal() - depositAmount()) + ' is paid on the day, once you\u2019ve seen the work.';
         }
       });
       wrap.appendChild(b);
@@ -2425,7 +2427,7 @@
       })
       .catch(function(){
         bkPay.disabled = false;
-        bkPay.textContent = 'Pay ' + fmtGBP(depositAmount()) + ' deposit & book';
+        bkPay.textContent = 'Pay ' + fmtMoney(depositAmount()) + ' deposit & book';
         bkErr.innerHTML = 'Checkout didn\u2019t open. Nothing has been charged and nothing is booked \u2014 ' +
           '<a href="https://wa.me/447592196929" target="_blank" rel="noopener" style="color:var(--ocean);font-weight:900;">message us</a> ' +
           'and we\u2019ll book it by hand.';
