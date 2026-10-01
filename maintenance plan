@@ -1,0 +1,1486 @@
+<!-- MobilePitStop — Maintenance Plan: booking questionnaire -->
+<!-- For https://mobilepitstop.uk/car-valeting-maintenance-plan
+     ==========================================================================
+     HOW THE PLAN WORKS
+       1. Customer books a Full Valet (the reset).
+       2. After it, you agree a frequency together.
+       3. They get a discount code and book Mini Valets with it.
+
+     So this page needs NO new Acuity appointment types. The CTA sends them to
+     the existing Full Valet booking; the discount code does the rest.
+
+     TIERS CAP AT 6 WEEKS — deliberately.
+     Beyond that a car needs an interior deep clean and stains work, so a
+     discounted Mini Valet would be the wrong service. Those customers are
+     routed to the Interior Deep Clean instead: better result, and worth more.
+
+     TUNING
+     Everything commercial lives in PLAN_CONFIG below — sizes, tiers,
+     percentages and add-ons. Change a number there and the whole page follows.
+     ========================================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+  (function(){
+    try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
+  })();
+</script>
+
+<style>
+  :root{
+    --bg:#0b0b0b; --card:#121212; --muted:#1b1b1b; --text:#fff;
+    --accent:#E3FC02; --accent-ink:#0b0b0b; --ocean:#00B8FF;
+    --radius:16px; --border:rgba(255,255,255,.12);
+  }
+  *{ box-sizing:border-box; }
+
+  .pf{
+    max-width:900px; margin:0 auto; padding:24px; color:var(--text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); overflow:hidden;
+  }
+
+  .topbar{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:8px; }
+  .topbar h1{ margin:0; font-size:clamp(20px,3vw,26px); font-weight:950; letter-spacing:.2px; }
+  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; opacity:.9; }
+  .lead{ margin:6px 0 14px; color:#d0d0d0; font-size:14px; }
+
+  .totalbox{
+    min-width:220px; border:1px solid rgba(255,255,255,.14); background:rgba(0,0,0,.22);
+    border-radius:14px; padding:12px; text-align:right; flex-shrink:0;
+  }
+  .totalbox .lbl{ font-size:12px; color:#cfcfcf; }
+  .totalbox .val{ font-size:26px; font-weight:950; color:var(--accent); margin-top:2px; }
+  .totalbox .note{ font-size:12px; color:#bdbdbd; margin-top:4px; line-height:1.35; }
+  .pf.is-done .topbar .totalbox{ display:none; }
+
+  @media(max-width:720px){
+    .topbar{ flex-direction:column; }
+    .totalbox{ width:100%; text-align:left; min-width:0; }
+  }
+
+  /* how it works strip */
+  .howto{
+    margin:0 0 16px; padding:14px; border-radius:14px;
+    border:1px solid rgba(227,252,2,.3); background:rgba(227,252,2,.05);
+  }
+  .howto-title{
+    font-size:11px; text-transform:uppercase; letter-spacing:.14em;
+    font-weight:950; color:var(--accent); margin:0 0 10px;
+  }
+  .howto-steps{ display:grid; gap:10px; grid-template-columns:1fr; }
+  @media(min-width:640px){ .howto-steps{ grid-template-columns:repeat(3,1fr); } }
+  .howto-step{ display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.45; }
+  .howto-num{
+    width:26px; height:26px; border-radius:50%; background:var(--accent);
+    color:var(--accent-ink); font-weight:950; font-size:13px;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .howto-step strong{ display:block; color:#fff; font-weight:900; font-size:13px; }
+  .howto-step span{ color:rgba(255,255,255,.6); font-size:12.5px; }
+
+  /* free perk — the one thing on this page that costs nothing */
+  .perk-bar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:0 0 16px;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid rgba(0,184,255,.42);
+    background:rgba(0,184,255,.08);
+  }
+  .perk-flag{
+    flex:0 0 auto;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:5px 11px;
+    border-radius:999px;
+    background:var(--ocean);
+    color:#00131c;
+    white-space:nowrap;
+  }
+  .perk-text{ font-size:13px; line-height:1.45; color:#d8d8d8; }
+  .perk-text strong{ color:var(--ocean); font-weight:900; }
+  @media(max-width:560px){
+    .perk-bar{ flex-direction:column; align-items:flex-start; gap:8px; }
+  }
+
+  /* chip on each frequency card */
+  .prem-perk{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin:8px 0 0 6px;
+    font-size:12px;
+    font-weight:900;
+    padding:4px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+    color:var(--ocean);
+    border:1px solid rgba(0,184,255,.35);
+    background:rgba(0,184,255,.08);
+  }
+
+  .info-bar{
+    margin:0 0 16px; padding:10px 14px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.18); background:rgba(0,0,0,.28);
+    font-size:13px; line-height:1.45; color:#d0d0d0;
+  }
+  .info-bar strong{ color:#fff; font-weight:900; }
+  .info-bar a{ color:var(--accent); font-weight:900; text-decoration:none; white-space:nowrap; }
+  .info-bar a:hover{ text-decoration:underline; }
+
+
+  /* ── Remove control on each add-on line ───────────────────────
+     With "Start again" gone, this is how someone drops an extra from
+     "your plan, this visit" without stepping back through the questions.
+     ─────────────────────────────────────────────────────────── */
+  .bd-row.bd-removable{ align-items:center; }
+  .bd-amt-wrap{ display:flex; align-items:center; gap:9px; flex:0 0 auto; }
+  .bd-remove{
+    appearance:none; border:1px solid rgba(255,255,255,.2); background:transparent;
+    color:rgba(255,255,255,.5); width:22px; height:22px; border-radius:50%;
+    font-size:14px; line-height:1; font-family:inherit; cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:0; flex:0 0 22px;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .bd-remove:hover, .bd-remove:focus-visible{
+    border-color:#FF6B5A; color:#FF6B5A; background:rgba(255,107,90,.1); outline:none;
+  }
+  @media(max-width:420px){
+    .bd-remove{ width:26px; height:26px; flex-basis:26px; font-size:15px; }
+  }
+
+  /* ── Progress bar ─────────────────────────────────────────── */
+  .prog{ margin:0 0 14px; }
+  .prog-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:7px; }
+  .prog-step{ font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+  .prog-label{ font-size:12px; font-weight:800; color:var(--accent); text-align:right; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:62%; }
+  .prog-track{ display:flex; gap:5px; }
+  .prog-seg{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.12); transition:background .35s ease, box-shadow .35s ease; }
+  .prog-seg.done{ background:rgba(227,252,2,.45); }
+  .prog-seg.now{ background:var(--accent); box-shadow:0 0 10px rgba(227,252,2,.45); }
+
+  /* nav hidden on question one — both buttons are dead there */
+  .pf.is-first .nav{ display:none; }
+
+  /* ── Plan activation, the Done step ───────────────────────────
+     This page gets sent to customers directly, so the last step has to
+     close rather than just inform. Two routes out:
+       • no plan yet  -> Start with a Full Valet
+       • already have a code -> Start My Plan -> enter code -> book
+     The calendar button stays dead until a real plan code is entered,
+     so nobody books a plan rate they aren't entitled to.
+     ─────────────────────────────────────────────────────────── */
+  .plan-cta{ display:grid; gap:10px; margin-top:14px; }
+  @media(min-width:640px){ .plan-cta{ grid-template-columns:1fr 1fr; } }
+
+  .pf .btn-plan{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:100%; padding:13px 16px; border-radius:999px;
+    border:1px solid var(--ocean); background:transparent; color:#fff;
+    font-weight:900; font-size:14.5px; font-family:inherit; cursor:pointer;
+    transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .pf .btn-plan:hover, .pf .btn-plan:focus-visible{
+    background:rgba(0,184,255,.12); box-shadow:0 6px 18px rgba(0,184,255,.16);
+    transform:translateY(-1px); outline:none;
+  }
+  .pf .btn-plan.is-open{ background:rgba(0,184,255,.14); border-color:var(--ocean); }
+
+  .plan-code{
+    margin-top:12px; padding:15px;
+    border-radius:14px; border:1px solid rgba(0,184,255,.4);
+    background:rgba(0,184,255,.06);
+  }
+  .plan-code[hidden]{ display:none; }
+  .plan-code h4{
+    margin:0 0 4px; font-size:14.5px; font-weight:950; color:#fff;
+  }
+  .plan-code p{ margin:0 0 11px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.78); }
+  .plan-code-row{ display:flex; gap:9px; flex-wrap:wrap; }
+  .plan-code-row input{
+    flex:1 1 170px; min-width:0;
+    padding:12px 14px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.22);
+    background:#111; color:#fff;
+    font-family:inherit; font-size:15px; font-weight:800;
+    letter-spacing:.06em; text-transform:uppercase;
+  }
+  .plan-code-row input:focus{
+    outline:none; border-color:var(--ocean);
+    box-shadow:0 0 0 3px rgba(0,184,255,.14);
+  }
+  .plan-code-row button{
+    flex:0 0 auto; padding:12px 20px; border-radius:12px;
+    border:none; background:var(--ocean); color:#00131c;
+    font-family:inherit; font-weight:950; font-size:14.5px; cursor:pointer;
+  }
+  .plan-code-msg{ margin-top:9px; font-size:13px; font-weight:800; min-height:18px; }
+  .plan-code-msg.bad{ color:#FF6B5A; }
+  .plan-code-msg.good{ color:#4ADE80; }
+
+  /* the calendar button: dead until a valid plan code is entered */
+  .pf .btn-cal{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:100%; margin-top:12px; padding:14px 18px; border-radius:999px;
+    border:none; font-family:inherit; font-weight:950; font-size:15px;
+    background:rgba(255,255,255,.09); color:rgba(255,255,255,.38);
+    cursor:not-allowed; text-decoration:none;
+    transition:background .2s ease, color .2s ease, box-shadow .2s ease, transform .15s ease;
+  }
+  .pf .btn-cal.is-live{
+    background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+    color:var(--accent-ink);
+    cursor:pointer;
+    box-shadow:0 8px 22px rgba(227,252,2,.28);
+  }
+  .pf .btn-cal.is-live:hover{ transform:translateY(-1px); box-shadow:0 12px 28px rgba(227,252,2,.38); }
+
+  @media(max-width:420px){
+    .prog-label{ font-size:11.5px; max-width:56%; }
+    .prog-seg{ height:5px; }
+    .plan-code{ padding:13px 12px; }
+    .plan-code-row button{ flex:1 1 100%; }
+  }
+
+  .wizard{ background:var(--card); border:1px solid rgba(255,255,255,.08); border-radius:14px; overflow:hidden; }
+  .viewport{ overflow:hidden; border-radius:14px; width:100%; }
+  .viewport.is-ready{ transition:height .35s ease; }
+  .track{ display:flex; width:100%; align-items:flex-start; transition:transform .45s ease; }
+  .step{ flex:0 0 100%; padding:18px; min-width:100%; }
+  .step h3{ font-size:clamp(18px,2.4vw,22px); line-height:1.25; margin:0 0 12px; font-weight:950; letter-spacing:-.01em; }
+  .step-note{ margin:-4px 0 12px; font-size:12.5px; color:rgba(255,255,255,.55); line-height:1.5; }
+
+  .opts{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    border:1px solid rgba(255,255,255,.15); border-radius:12px; padding:14px;
+    background:var(--muted); cursor:pointer; position:relative; width:100%;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .opt:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .opt[aria-selected="true"]{ border-color:rgba(227,252,2,.9); background:rgba(227,252,2,.08); }
+
+  .opt .row{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; font-weight:950; flex-wrap:wrap; }
+  .opt .row span:first-child{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+
+  .price-pill{
+    display:inline-flex; align-items:center; justify-content:center; font-weight:950;
+    color:var(--accent); border:1px solid rgba(227,252,2,.5); background:rgba(227,252,2,.12);
+    padding:4px 10px; border-radius:999px; white-space:nowrap; flex:0 0 auto;
+  }
+
+  .opt-premium{
+    padding:16px; border-radius:14px; border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+    box-shadow:0 14px 40px rgba(0,0,0,.55);
+  }
+  .opt[aria-selected="true"].opt-premium{
+    border-color:rgba(227,252,2,.28);
+    background:linear-gradient(180deg,rgba(227,252,2,.085),rgba(255,255,255,.02));
+  }
+  .prem-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .prem-head > div:first-child{ flex:1 1 auto; min-width:0; }
+  .prem-kicker{ font-size:12px; color:rgba(255,255,255,.72); margin-bottom:2px; }
+  .prem-name{ font-size:16px; font-weight:950; letter-spacing:-.01em; overflow-wrap:anywhere; }
+  /* Price pill, pinned top-right at every width. */
+  .opt-premium{ position:relative; }
+  .prem-price{
+    position:absolute; top:14px; right:14px; z-index:2;
+    font-size:13px; font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.32); background:rgba(227,252,2,.08);
+    padding:6px 10px; border-radius:999px; white-space:nowrap; line-height:1; margin:0;
+  }
+  .prem-name{ padding-right:86px; }
+  .prem-kicker{ padding-right:86px; }
+  .prem-price .was{ color:rgba(255,255,255,.42); text-decoration:line-through; margin-right:7px; }
+  .prem-desc{ margin-top:10px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.72); overflow-wrap:anywhere; }
+
+  .prem-save{
+    display:inline-flex; align-items:center; margin-top:8px;
+    font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px;
+    white-space:nowrap; color:var(--accent-ink); background:var(--accent);
+  }
+  .prem-note{
+    display:inline-flex; align-items:center; margin-top:8px;
+    font-size:12px; font-weight:900; padding:4px 10px; border-radius:999px;
+    white-space:nowrap; color:var(--ocean);
+    border:1px solid rgba(0,184,255,.3); background:rgba(0,184,255,.07);
+  }
+
+  /* summary */
+  .summary{ margin-top:14px; background:rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:14px; }
+  .pills{ display:flex; flex-wrap:wrap; gap:6px; }
+  .pill{ display:inline-block; border:1px solid rgba(255,255,255,.2); padding:6px 10px; border-radius:999px; color:#ddd; font-size:13px; overflow-wrap:anywhere; }
+  .pill strong{ color:#fff; }
+
+  .bd{ margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12); }
+  .bd-title{
+    display:flex; align-items:center; gap:7px; font-size:11px; text-transform:uppercase;
+    letter-spacing:.12em; font-weight:900; margin-bottom:6px; color:var(--accent);
+  }
+  .bd-row{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    padding:7px 0; border-top:1px solid rgba(255,255,255,.06); font-size:13px; font-weight:900;
+  }
+  .bd-row:first-of-type{ border-top:none; }
+  .bd-nm{ color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+  .bd-amt{ flex:0 0 auto; white-space:nowrap; color:var(--accent); }
+  .bd-row.bd-free .bd-amt{ color:var(--ocean); }
+  .bd-row.bd-off .bd-amt{ color:var(--ocean); }
+  .bd-sub{ font-size:12px; font-weight:400; color:rgba(255,255,255,.55); margin-top:2px; line-height:1.4; }
+  .bd-total{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    margin-top:14px; padding-top:12px; border-top:1px solid rgba(255,255,255,.16);
+  }
+  .bd-total .bd-nm{ font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .bd-total .bd-amt{ font-size:22px; font-weight:950; }
+
+  /* routed-away panel for infrequent visits */
+  .reroute{
+    margin-top:14px; padding:14px; border-radius:14px;
+    border:1px solid rgba(0,184,255,.35); background:rgba(0,184,255,.06);
+    font-size:13px; line-height:1.55; color:#d5d5d5;
+  }
+  .reroute h4{ margin:0 0 6px; font-size:15px; font-weight:950; color:var(--ocean); }
+  .reroute a{ color:var(--ocean); font-weight:900; }
+
+  .nav{
+    display:flex; align-items:center; justify-content:flex-start; gap:10px;
+    padding:12px 14px; border-top:1px solid rgba(255,255,255,.08);
+    background:rgba(0,0,0,.18); border-radius:0 0 14px 14px;
+  }
+  .btn{
+    appearance:none; border:1px solid rgba(255,255,255,.25); background:transparent; color:#fff;
+    border-radius:999px; padding:10px 14px; font-weight:900; cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 8px 18px rgba(227,252,2,.10); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-primary-glow{
+    border:none; background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+    color:var(--accent-ink); box-shadow:0 8px 20px rgba(227,252,2,.25); padding:12px 16px;
+  }
+  .btn-primary-glow:hover{ box-shadow:0 12px 28px rgba(227,252,2,.35),0 0 20px rgba(227,252,2,.2); filter:saturate(1.05); }
+
+  .dots{ display:flex; gap:6px; align-items:center; justify-content:center; flex:1; }
+  .dot{ width:8px; height:8px; border-radius:99px; background:rgba(255,255,255,.25); }
+  .dot.on{ background:var(--accent); }
+
+  /* ===== MOBILE ===== */
+  @media(max-width:640px){
+    .pf{ padding:16px 14px; border-radius:12px; }
+    .step{ padding:14px 12px; }
+    .topbar{ gap:10px; margin-bottom:6px; }
+    .topbar h1{ font-size:20px; line-height:1.2; }
+    .topbar h3{ font-size:14px; margin-top:4px; }
+    .lead{ font-size:13px; margin:4px 0 10px; }
+    /* Total box — grid, not flex, so label and price never wrap. */
+    .totalbox{
+      display:grid; grid-template-columns:auto 1fr; align-items:baseline;
+      column-gap:12px; row-gap:3px; padding:11px 13px; text-align:left;
+    }
+    .totalbox .lbl{ font-size:11.5px; white-space:nowrap; letter-spacing:.02em; }
+    .totalbox .val{ font-size:23px; margin-top:0; text-align:right; white-space:nowrap; line-height:1.1; }
+    .totalbox .was{ grid-column:2; text-align:right; font-size:13px; margin-top:0; }
+    .totalbox .note{ grid-column:1 / -1; margin-top:1px; font-size:11.5px; line-height:1.35; color:#b8b8b8; }
+    .info-bar{ font-size:12px; padding:9px 12px; margin-bottom:12px; }
+    .howto{ padding:12px; }
+    .opt{ padding:13px 12px; }
+    .opt-premium{ padding:13px 12px; box-shadow:0 8px 20px rgba(0,0,0,.4); }
+    .prem-name{ font-size:15px; }
+    .prem-desc{ font-size:12.5px; margin-top:8px; }
+    .prem-head{ gap:8px; }
+    .nav{ padding:10px 12px; gap:8px; }
+    .btn{ padding:12px 14px; font-size:14px; min-height:46px; }
+    .summary{ padding:12px; }
+    .pill{ font-size:12px; padding:5px 9px; }
+    .bd-row{ font-size:12.5px; }
+    .bd-total .bd-amt{ font-size:20px; }
+  }
+  @media(max-width:380px){
+    .topbar h1{ font-size:18px; }
+    .totalbox .val{ font-size:20px; }
+    .btn{ padding:11px 12px; font-size:13.5px; }
+  }
+</style>
+
+<!-- ===== GOOGLE REVIEWS (Elfsight) =====================================
+     Sits above the questionnaire so it's the first thing on the page.
+     min-height only reserves the height of the compact rating badge, so
+     the questionnaire doesn't jump when the widget loads.
+     ==================================================================== -->
+<style>
+  .mps-reviews{
+    max-width:900px;
+    margin:0 auto 18px;
+    min-height:52px;
+  }
+  @media(max-width:640px){
+    .mps-reviews{ margin-bottom:12px; }
+  }
+</style>
+
+<div class="mps-reviews">
+  <script src="https://elfsightcdn.com/platform.js" async></script>
+  <div class="elfsight-app-904292e1-2c65-4bba-9337-e3ab0ed9dcc9" data-elfsight-app-lazy></div>
+</div>
+
+<div class="pf" id="priceFinderMaintenancePlan">
+
+  <div class="topbar">
+    <div>
+      <h1>Detailing Maintenance Plan</h1>
+      <h3>Up to 30% off every visit</h3>
+    </div>
+    <div class="totalbox" aria-live="polite">
+      <div class="lbl">Your plan rate</div>
+      <div class="val" id="mpTotal">&mdash;</div>
+      <div class="note" id="mpNote">Choose your vehicle size</div>
+    </div>
+  </div>
+
+  <div class="howto">
+    <div class="howto-title">How it works</div>
+    <div class="howto-steps">
+      <div class="howto-step">
+        <div class="howto-num">1</div>
+        <div><strong>Start with a deep clean</strong></div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-num">2</div>
+        <div><strong>We agree your frequency</strong></div>
+      </div>
+      <div class="howto-step">
+        <div class="howto-num">3</div>
+        <div><strong>You get your discount code</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="perk-bar">
+    <span class="perk-flag">Free on the plan</span>
+    <span class="perk-text">
+      <strong>Chemical decontamination on every visit.</strong>
+      Iron fallout and road film dissolved off the wheels and paint before we wash &mdash;
+      normally a paid extra, included free for as long as you&rsquo;re on the plan.
+    </span>
+  </div>
+
+  <div class="info-bar">
+    <strong>Already had a deep clean with us?</strong>
+    Call/Message: <a href="tel:07592196929">07592 196929</a>
+    and we&rsquo;ll set your frequency and send your code.
+  </div>
+
+  <div class="prog" id="mpProg" aria-hidden="true">
+    <div class="prog-top">
+      <span class="prog-step" id="mpProgStep">Step 1</span>
+      <span class="prog-label" id="mpProgLabel"></span>
+    </div>
+    <div class="prog-track" id="mpProgTrack"></div>
+  </div>
+
+  <div class="wizard">
+    <div class="viewport">
+      <div class="track" id="mpTrack">
+
+        <!-- STEP 0 -->
+        <section class="step" data-step="0">
+          <h3>1) What size is your vehicle?</h3>
+          <div class="opts" role="listbox" aria-label="Vehicle size">
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="3door" aria-selected="false">
+              <div class="row"><span>Small (3-door)</span><span class="price-pill">&pound;50</span></div>
+            </div>
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="5door" aria-selected="false">
+              <div class="row"><span>Medium (5-door / saloon)</span><span class="price-pill">&pound;55</span></div>
+            </div>
+            <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="7seats" aria-selected="false">
+              <div class="row"><span>Large (SUV / 7 Seater)</span><span class="price-pill">&pound;60</span></div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="vehicle" data-value="quote" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-kicker">Van, pickup, camper or other</div><div class="prem-name">Something bigger</div></div>
+                <div class="prem-price">By quote</div>
+              </div>
+              <div class="prem-desc">Plan rates apply to these too &mdash; we&rsquo;ll confirm the base price first.</div>
+            </div>
+          </div>
+          <p class="step-note">Standard Mini Valet prices. The plan discount comes off these.</p>
+        </section>
+
+        <!-- STEP 1 -->
+        <section class="step" data-step="1">
+          <h3>2) How often would you like us?</h3>
+          <p class="step-note">
+            The more often we come, the less there is to do each time &mdash; so the bigger the discount.
+          </p>
+
+          <div class="opts" role="listbox" aria-label="Visit frequency">
+
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="freq" data-value="weekly" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker">Best value</div>
+                  <div class="prem-name">Every week</div>
+                </div>
+                <div class="prem-price" id="mpPxWeekly">&mdash;</div>
+              </div>
+              <div class="prem-desc">The car never really gets dirty. Ideal if it lives outside, sits under trees, or you just want it right all the time.</div>
+              <span class="prem-save">30% off every visit</span><span class="prem-perk">+ free decontamination</span>
+            </div>
+
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="freq" data-value="fortnightly" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker">Most popular</div>
+                  <div class="prem-name">Every 2&ndash;3 weeks</div>
+                </div>
+                <div class="prem-price" id="mpPxFort">&mdash;</div>
+              </div>
+              <div class="prem-desc">Keeps on top of road film and traffic grime before it bonds to the paint. A good balance for most daily drivers.</div>
+              <span class="prem-save">25% off every visit</span><span class="prem-perk">+ free decontamination</span>
+            </div>
+
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="freq" data-value="monthly" aria-selected="false">
+              <div class="prem-head">
+                <div>
+                  <div class="prem-kicker">Standard upkeep</div>
+                  <div class="prem-name">Every 4&ndash;6 weeks</div>
+                </div>
+                <div class="prem-price" id="mpPxMonthly">&mdash;</div>
+              </div>
+              <div class="prem-desc">About as long as you can leave a car and still keep it right with a Mini Valet.</div>
+              <span class="prem-save">20% off every visit</span><span class="prem-perk">+ free decontamination</span>
+            </div>
+
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="freq" data-value="rare" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">Less often than that</div></div>
+                <div class="prem-price">See options</div>
+              </div>
+              <div class="prem-desc">Honest answer: past six weeks a Mini Valet won&rsquo;t hold a car &mdash; the interior needs more than a tidy-up. We&rsquo;d rather point you at the right service than sell you the wrong one cheap.</div>
+              <span class="prem-note">We&rsquo;ll show you a better option</span>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- STEP 2 -->
+        <section class="step" data-step="2">
+          <h3>3) Does the interior need a deep clean?</h3>
+          <p class="step-note">Add any of these to a visit whenever the car needs it &mdash; your plan discount applies to them too.</p>
+          <div class="opts" role="listbox" aria-label="Interior deep clean">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="deep" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-kicker">Optional extra</div><div class="prem-name">Yes &mdash; add deep clean</div></div>
+                <div class="prem-price" id="mpPxDeep">&mdash;</div>
+              </div>
+              <div class="prem-desc">More thorough vacuuming and air blasting through every crevice &mdash; seats, carpets, mats, boot, seat rails and vents. Ideal for a family car, or one that&rsquo;s used hard every day.</div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="deep" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No &mdash; keep it simple</div></div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">On a regular plan the interior rarely gets far enough to need it.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 3 -->
+        <section class="step" data-step="3">
+          <h3>4) Any staining on the seats?</h3>
+          <div class="opts" role="listbox" aria-label="Seat stain removal">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="stains" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-kicker">Optional extra</div><div class="prem-name">Yes &mdash; add seat stains</div></div>
+                <div class="prem-price" id="mpPxStains">&mdash;</div>
+              </div>
+              <div class="prem-desc">Steam, shampoo and extraction on the seats, followed by high-heat drying. Leather is deep cleaned and moisturised as part of it.</div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="stains" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No &mdash; seats are fine</div></div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">No stain work on this visit.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4 -->
+        <section class="step" data-step="4">
+          <h3>5) Extend it to the full interior?</h3>
+          <div class="opts" role="listbox" aria-label="Full interior extraction">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="full" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-kicker">Upgrade from seats-only</div><div class="prem-name">Yes &mdash; full interior</div></div>
+                <div class="prem-price" id="mpPxFull">&mdash;</div>
+              </div>
+              <div class="prem-desc">Steam, shampoo and extraction across seats, mats, carpets and boot rather than the seats alone.</div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="full" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No &mdash; skip it</div></div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">Keep it to the seats, or to a dry clean.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 5 -->
+        <section class="step" data-step="5">
+          <h3>6) Add a hydrophobic wax?</h3>
+          <div class="opts" role="listbox" aria-label="Hydrophobic wax">
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="wax" data-value="yes" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-kicker">Optional</div><div class="prem-name">Yes &mdash; add wax</div></div>
+                <div class="prem-price" id="mpPxWax">&mdash;</div>
+              </div>
+              <div class="prem-desc">Better water beading and visibility in rain, and dirt struggles to stick between visits. Lasts around 6 weeks, so on a plan it tops itself up.</div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="wax" data-value="no" aria-selected="false">
+              <div class="prem-head">
+                <div><div class="prem-name">No thanks</div></div>
+                <div class="prem-price">&pound;0</div>
+              </div>
+              <div class="prem-desc">Standard glass clean is included either way.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 6 -->
+        <section class="step" data-step="6">
+          <h3>You&rsquo;re all set</h3>
+
+          <div class="totalbox" aria-live="polite" style="margin:10px 0 14px; text-align:left; min-width:0;">
+            <div class="lbl">Your plan rate, this visit</div>
+            <div class="val" id="mpFinalTotal">&mdash;</div>
+            <div class="note" id="mpFinalNote">Free chemical decontamination included every visit.</div>
+          </div>
+
+          <div class="summary">
+            <!-- The pills row was removed — the breakdown below lists the
+                 same selections with prices attached. -->
+
+            <!-- Two routes out, depending on whether they're already on the plan. -->
+            <div class="plan-cta">
+              <a class="btn btn-primary-glow" id="mpDoneBtn" href="https://mobilepitstop.uk/full-valet"
+                 style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Start with a Full Valet</a>
+              <button class="btn-plan" id="mpPlanBtn" type="button"
+                      aria-expanded="false" aria-controls="mpCodeBox">Start My Plan</button>
+            </div>
+
+            <div class="plan-code" id="mpCodeBox" hidden>
+              <h4>Enter your plan code</h4>
+              <p>
+                This is the code we gave you when we agreed how often to come. It unlocks
+                your plan rate on the calendar. Don&rsquo;t have one yet? Start with a Full
+                Valet above and we&rsquo;ll set it up on the day.
+              </p>
+              <div class="plan-code-row">
+                <input type="text" id="mpCodeInput" placeholder="Enter your code"
+                       autocomplete="off" autocapitalize="characters" spellcheck="false"
+                       aria-label="Maintenance plan discount code">
+                <button type="button" id="mpCodeApply">Apply</button>
+              </div>
+              <div class="plan-code-msg" id="mpCodeMsg" aria-live="polite"></div>
+            </div>
+
+            <a class="btn-cal" id="mpCalBtn" href="#" aria-disabled="true"
+               role="button">View Calendar</a>
+
+            <div class="bd" id="mpBreakdown"></div>
+
+            <div id="mpReroute"></div>
+
+            <div style="margin-top:12px; color:#bdbdbd; font-size:13px; line-height:1.5;" id="mpHint"></div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn" id="mpBack" type="button">Back</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('priceFinderMaintenancePlan');
+  if(!root) return;
+
+  /* =====================================================================
+     PLAN CONFIG — the only place commercial numbers live.
+     Change a price or a percentage here and the whole page follows.
+     ===================================================================== */
+  var PLAN_CONFIG = {
+    /* standard Mini Valet prices */
+    vehicle: {
+      '3door':  { label:'Small (3-door)',            price:50 },
+      '5door':  { label:'Medium (5-door / saloon)',  price:55 },
+      '7seats': { label:'Large (SUV / 7 Seater)',    price:60 },
+      'quote':  { label:'Van / pickup / camper',     price:null }
+    },
+
+    /* discount tiers. Capped at 6 weeks on purpose — past that a Mini
+       Valet can't hold a car, so those customers get routed elsewhere. */
+    freq: {
+      weekly:      { label:'Every week',        off:30 },
+      fortnightly: { label:'Every 2-3 weeks',   off:25 },
+      monthly:     { label:'Every 4-6 weeks',   off:20 },
+      rare:        { label:'Less often',        off:null }   /* routed away */
+    },
+
+    /* Per-visit extras. The plan discount applies to these too.
+       These are "add to any visit" rather than every visit — most cars
+       only need the heavier interior work occasionally. */
+    extras: {
+      deep:   { label:'Interior deep clean',              price:30 },
+      stains: { label:'Seat stain removal',               price:30 },
+      full:   { label:'Full interior steam, shampoo & extraction', price:20,
+                note:'Upgrade from seats-only' },
+      wax:    { label:'Hydrophobic wax',                  price:10 }
+    },
+
+    /* included free on every plan visit */
+    perk: 'Chemical decontamination'
+  };
+
+  var track   = root.querySelector('#mpTrack');
+  var btnBack = root.querySelector('#mpBack');
+  var btnNext = root.querySelector('#mpNext');   /* removed from the markup */
+  var dotsEl  = root.querySelector('#mpDots');
+
+  var totalEl    = root.querySelector('#mpTotal');
+  var noteEl     = root.querySelector('#mpNote');
+  var finalTotal = root.querySelector('#mpFinalTotal');
+  var finalNote  = root.querySelector('#mpFinalNote');
+  var pillsEl    = root.querySelector('#mpPills');
+  var bdEl       = root.querySelector('#mpBreakdown');
+
+  /* Delegated from the container, because the breakdown re-renders on
+     every change — handlers bound to the buttons themselves would be
+     thrown away each time. Placed after bdEl is declared, not before:
+     a const/var used ahead of its declaration throws and kills the script. */
+  if(bdEl){
+    bdEl.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.bd-remove') : null;
+      if(!btn) return;
+      var key = btn.getAttribute('data-remove');
+      if(['deep','stains','full','wax'].indexOf(key) === -1) return;
+
+      state[key] = 'no';
+      /* the interior extras build on each other, so clearing one clears
+         everything downstream of it */
+      if(key === 'deep'){ state.stains = 'no'; state.full = 'no'; }
+      if(key === 'stains'){ state.full = 'no'; }
+
+      var sync = function(k){
+        root.querySelectorAll('.opt[data-pick="' + k + '"]').forEach(function(o){
+          o.setAttribute('aria-selected', o.getAttribute('data-value') === 'no' ? 'true' : 'false');
+        });
+      };
+      sync(key);
+      if(key === 'deep'){ sync('stains'); sync('full'); }
+      if(key === 'stains'){ sync('full'); }
+
+      update();
+    });
+  }
+
+  var rerouteEl  = root.querySelector('#mpReroute');
+  var hintEl     = root.querySelector('#mpHint');
+  var doneBtn    = root.querySelector('#mpDoneBtn');
+  var resetBtn   = root.querySelector('#mpResetBtn');
+
+  var pxWeekly  = root.querySelector('#mpPxWeekly');
+  var pxFort    = root.querySelector('#mpPxFort');
+  var pxMonthly = root.querySelector('#mpPxMonthly');
+  var pxWax     = root.querySelector('#mpPxWax');
+
+  var steps      = Array.prototype.slice.call(track.querySelectorAll('.step'));
+  var STEP_COUNT = steps.length;
+
+  var state = { step:0, vehicle:null, freq:null, deep:null, stains:null, full:null, wax:null };
+
+  function fmt(n){ return '\u00a3' + Number(n || 0).toFixed(2).replace(/\.00$/,''); }
+
+  function basePrice(){
+    if(!state.vehicle) return null;
+    return PLAN_CONFIG.vehicle[state.vehicle].price;   /* null for 'quote' */
+  }
+  function offPct(){
+    if(!state.freq) return null;
+    return PLAN_CONFIG.freq[state.freq].off;           /* null for 'rare' */
+  }
+  function isQuote(){ return state.vehicle === 'quote'; }
+  function isRare(){  return state.freq === 'rare'; }
+
+  /* full price before the discount, including any extras chosen */
+  function extrasTotal(){
+    var E = PLAN_CONFIG.extras, t = 0;
+    if(state.deep   === 'yes') t += E.deep.price;
+    if(state.stains === 'yes') t += E.stains.price;
+    if(state.full   === 'yes') t += E.full.price;
+    if(state.wax    === 'yes') t += E.wax.price;
+    return t;
+  }
+
+  function fullPrice(){
+    var b = basePrice();
+    if(b === null) return null;
+    return b + extrasTotal();
+  }
+
+  function planPrice(){
+    var f = fullPrice(), o = offPct();
+    if(f === null || o === null) return null;
+    return f * (1 - o / 100);
+  }
+
+  /* ---- live price pills on the frequency cards ---- */
+  function updateFreqPills(){
+    var b = basePrice();
+    var map = { weekly:pxWeekly, fortnightly:pxFort, monthly:pxMonthly };
+    Object.keys(map).forEach(function(k){
+      var el = map[k];
+      if(!el) return;
+      if(b === null){ el.textContent = 'By quote'; return; }
+      var o = PLAN_CONFIG.freq[k].off;
+      el.innerHTML = '<span class="was">' + fmt(b) + '</span>' + fmt(b * (1 - o/100));
+    });
+    /* extras show their full price struck through, then the plan price */
+    var o2 = offPct();
+    var pills = {
+      deep:   root.querySelector('#mpPxDeep'),
+      stains: root.querySelector('#mpPxStains'),
+      full:   root.querySelector('#mpPxFull'),
+      wax:    root.querySelector('#mpPxWax')
+    };
+    Object.keys(pills).forEach(function(k){
+      var el = pills[k];
+      if(!el) return;
+      var px = PLAN_CONFIG.extras[k].price;
+      if(b === null){ el.textContent = 'By quote'; return; }
+      el.innerHTML = (o2 === null || isRare())
+        ? '+' + fmt(px)
+        : '<span class="was">+' + fmt(px) + '</span>+' + fmt(px * (1 - o2/100));
+    });
+  }
+
+  /* ---- breakdown ---- */
+  function renderBreakdown(){
+    if(!bdEl) return;
+
+    if(isRare()){ bdEl.innerHTML = ''; return; }
+
+    if(!state.vehicle || !state.freq){ bdEl.innerHTML = ''; return; }
+
+    if(isQuote()){
+      bdEl.innerHTML =
+        '<div class="bd-title"><span>&#9733;</span> Your plan</div>' +
+        '<div class="bd-row"><div class="bd-nm">' + PLAN_CONFIG.vehicle.quote.label +
+          '<div class="bd-sub">We\'ll confirm your base price, then apply the plan discount</div></div>' +
+          '<div class="bd-amt">By quote</div></div>' +
+        '<div class="bd-row bd-off"><div class="bd-nm">' + PLAN_CONFIG.freq[state.freq].label + '</div>' +
+          '<div class="bd-amt">&minus;' + offPct() + '%</div></div>' +
+        '<div class="bd-row bd-free"><div class="bd-nm">' + PLAN_CONFIG.perk + '</div>' +
+          '<div class="bd-amt">Free</div></div>';
+      return;
+    }
+
+    var b = basePrice();
+    var o = offPct();
+    var full = fullPrice();
+    var plan = planPrice();
+
+    var html = '<div class="bd-title"><span>&#9733;</span> Your plan, this visit</div>';
+
+    html += '<div class="bd-row"><div class="bd-nm">Mini Valet &mdash; ' +
+            PLAN_CONFIG.vehicle[state.vehicle].label +
+            '</div><div class="bd-amt">' + fmt(b) + '</div></div>';
+
+    var E = PLAN_CONFIG.extras;
+    ['deep','stains','full','wax'].forEach(function(k){
+      if(state[k] !== 'yes') return;
+      html += '<div class="bd-row bd-removable"><div class="bd-nm">' + E[k].label +
+              (E[k].note ? '<div class="bd-sub">' + E[k].note + '</div>' : '') +
+              '</div><div class="bd-amt-wrap">' +
+                '<span class="bd-amt">+' + fmt(E[k].price) + '</span>' +
+                '<button class="bd-remove" type="button" data-remove="' + k +
+                  '" aria-label="Remove ' + E[k].label + '" title="Remove">&times;</button>' +
+              '</div></div>';
+    });
+
+    html += '<div class="bd-row bd-off"><div class="bd-nm">Plan discount' +
+            '<div class="bd-sub">' + PLAN_CONFIG.freq[state.freq].label + '</div></div>' +
+            '<div class="bd-amt">&minus;' + fmt(full - plan) + '</div></div>';
+
+    html += '<div class="bd-row bd-free"><div class="bd-nm">' + PLAN_CONFIG.perk +
+            '<div class="bd-sub">Iron fallout and road film off the wheels and paint &mdash; ' +
+            'a paid extra on a one-off booking, free on the plan</div></div>' +
+            '<div class="bd-amt">Free</div></div>';
+
+    html += '<div class="bd-total"><div class="bd-nm">This visit</div>' +
+            '<div class="bd-amt">' + fmt(plan) + '</div></div>';
+
+    bdEl.innerHTML = html;
+  }
+
+  /* ---- the "less often" route ---- */
+  function renderReroute(){
+    if(!rerouteEl) return;
+    if(!isRare()){ rerouteEl.innerHTML = ''; return; }
+    rerouteEl.innerHTML =
+      '<div class="reroute">' +
+      '<h4>A Mini Valet isn\'t the right service for you</h4>' +
+      '<p>Left longer than six weeks, the inside of a car needs more than a tidy-up &mdash; ' +
+      'carpets and seats pick up staining that a maintenance clean won\'t lift. We could sell you ' +
+      'a discounted Mini Valet, but you\'d be disappointed with it, so we won\'t.</p>' +
+      '<p style="margin-top:8px"><strong>What we\'d suggest instead:</strong> an ' +
+      '<a href="https://mobilepitstop.uk/interior-deep-clean">Interior Deep Clean</a> ' +
+      'or a <a href="https://mobilepitstop.uk/full-valet">Full Valet</a> whenever the car needs it. ' +
+      'Book it as often or as rarely as you like &mdash; no plan required.</p>' +
+      '<p style="margin-top:8px">Not sure which? Call or message us on ' +
+      '<a href="tel:07592196929">07592 196929</a> and we\'ll tell you straight.</p>' +
+      '</div>';
+  }
+
+  function update(){
+    updateFreqPills();
+
+    var plan = planPrice();
+    var shown = isRare() ? '\u2014'
+              : isQuote() && state.freq ? 'By quote'
+              : plan === null ? '\u2014' : fmt(plan);
+
+    totalEl.textContent    = shown;
+    finalTotal.textContent = shown;
+
+    noteEl.textContent = !state.vehicle ? 'Choose your vehicle size'
+                       : !state.freq    ? 'Choose how often'
+                       : isRare()       ? 'See our suggestion below'
+                       : 'Free chemical decontamination included';
+
+    finalNote.textContent = isRare()
+      ? 'We\u2019d rather point you at the right service.'
+      : 'Includes free chemical decontamination, every visit.';
+
+    /* pills */
+    var pills = [];
+    if(state.vehicle) pills.push('<span class="pill"><strong>Vehicle:</strong> ' + PLAN_CONFIG.vehicle[state.vehicle].label + '</span>');
+    if(state.freq && !isRare()){
+      pills.push('<span class="pill"><strong>Frequency:</strong> ' + PLAN_CONFIG.freq[state.freq].label + '</span>');
+      pills.push('<span class="pill"><strong>Discount:</strong> ' + offPct() + '% off every visit</span>');
+      pills.push('<span class="pill" style="border-color:rgba(0,184,255,.5);color:#cfefff">' +
+                 '<strong style="color:#00B8FF">Free:</strong> ' + PLAN_CONFIG.perk + ' every visit</span>');
+    }
+    var EL = PLAN_CONFIG.extras;
+    ['deep','stains','full','wax'].forEach(function(k){
+      if(state[k] === 'yes') pills.push('<span class="pill"><strong>Added:</strong> ' + EL[k].label + '</span>');
+    });
+    if(pillsEl) pillsEl.innerHTML = pills.length ? pills.join('')
+      : '<span class="pill"><strong>Ready:</strong> Choose your options above</span>';
+
+    renderBreakdown();
+    renderReroute();
+
+    /* CTA + closing note */
+    if(isRare()){
+      doneBtn.textContent = 'See Interior Deep Clean';
+      doneBtn.setAttribute('href', 'https://mobilepitstop.uk/interior-deep-clean');
+      hintEl.innerHTML = '';
+    } else {
+      doneBtn.textContent = 'Start with a Full Valet';
+      doneBtn.setAttribute('href', 'https://mobilepitstop.uk/full-valet');
+      hintEl.innerHTML =
+        '<strong style="color:#fff">What happens next:</strong> book your Full Valet above. ' +
+        'Once it\u2019s done and we\u2019ve agreed your frequency, we\u2019ll give you a discount code ' +
+        'to use on every Mini Valet booking from then on. ' +
+        'No contract and no direct debit \u2014 change or stop whenever you like.' +
+        '<br><br><strong style="color:#fff">On extras:</strong> anything above is added to a visit ' +
+        'only when the car needs it, at your plan rate. Most people on a regular plan need them ' +
+        'a couple of times a year rather than every time.';
+    }
+
+    syncViewportHeight();
+  }
+
+  /* ---- layout helpers ---- */
+  var viewportEl = root.querySelector('.viewport');
+
+  function syncViewportHeight(){
+    if(!viewportEl) return;
+    var active = steps[state.step];
+    if(!active) return;
+    var h = active.offsetHeight;
+    if(!h) return;
+    viewportEl.style.height = h + 'px';
+    if(!viewportEl.classList.contains('is-ready')){
+      requestAnimationFrame(function(){ viewportEl.classList.add('is-ready'); });
+    }
+  }
+
+  var MOTION_OK = !(window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  function headerOffset(){
+    var tallest = 0;
+    var nodes = document.querySelectorAll('header, .Header, #header, .sqs-announcement-bar-dropzone');
+    for(var i = 0; i < nodes.length; i++){
+      var el = nodes[i], cs = window.getComputedStyle(el);
+      if(cs.position !== 'fixed' && cs.position !== 'sticky') continue;
+      var r = el.getBoundingClientRect();
+      if(r.top <= 4 && r.height > 0) tallest = Math.max(tallest, r.height);
+    }
+    return tallest ? tallest + 12 : 16;
+  }
+
+  /* =====================================================================
+     Scrolling — almost never happens now.
+
+     There's no car visual on this page, so the whole block fits on a
+     phone screen. Scrolling on every answer just yanked the page and
+     pushed the running total out of view.
+
+     Only fires if the question isn't visible at all: the block has been
+     scrolled off the top, or sits entirely below the fold. In normal use,
+     answering a question moves nothing.
+     ===================================================================== */
+  function scrollToWidgetTop(){
+    var anchor = root.querySelector('.wizard') || root;
+    var off = headerOffset();
+    var r   = anchor.getBoundingClientRect();
+    var vh  = window.innerHeight || document.documentElement.clientHeight;
+
+    var hiddenAbove = r.bottom < off + 40;   /* scrolled past it */
+    var hiddenBelow = r.top    > vh - 80;    /* not reached it yet */
+    if(!hiddenAbove && !hiddenBelow) return; /* visible — leave the page alone */
+
+    var y = Math.max(0, r.top + window.pageYOffset - off - 10);
+    if(Math.abs(window.pageYOffset - y) < 10) return;
+    window.scrollTo({ top:y, behavior: MOTION_OK ? 'smooth' : 'auto' });
+  }
+
+  if(window.ResizeObserver){
+    var ro = new ResizeObserver(function(){ syncViewportHeight(); });
+    steps.forEach(function(s){ ro.observe(s); });
+  } else {
+    window.addEventListener('resize', syncViewportHeight);
+  }
+
+  /* ---- nav ---- */
+  var _dots = null, _hasNavigated = false, _wc = null;
+
+  function buildDots(){
+    if(!dotsEl) return;
+    dotsEl.innerHTML = ''; _dots = [];
+    for(var i = 0; i < STEP_COUNT; i++){
+      var d = document.createElement('span');
+      d.className = 'dot';
+      dotsEl.appendChild(d); _dots.push(d);
+    }
+  }
+
+  /* ---- Progress bar ------------------------------------------------- */
+  var PROG_LABELS = ['Your vehicle','How often','Interior','Seat stains','Full interior','Wax','Done'];
+
+  var progTrack = root.querySelector('#mpProgTrack');
+  var progStep  = root.querySelector('#mpProgStep');
+  var progLabel = root.querySelector('#mpProgLabel');
+
+  function buildProg(){
+    if(!progTrack || progTrack.children.length) return;
+    for(var i = 0; i < STEP_COUNT; i++){
+      var d = document.createElement('span');
+      d.className = 'prog-seg';
+      progTrack.appendChild(d);
+    }
+  }
+
+
+  /* =====================================================================
+     PLAN ACTIVATION — the Done step
+
+     This page gets sent to customers directly, so the last step has to
+     close rather than just inform. Two routes:
+
+       No plan yet   -> "Start with a Full Valet" (the reset comes first)
+       Already on it -> "Start My Plan" -> enter code -> calendar unlocks
+
+     The calendar button is deliberately dead until a valid plan code is
+     entered. Without that, anyone could book a Mini Valet at plan rates
+     without being on the plan.
+
+     ONLY the CLEAN codes work here. AUTUMN20 is a seasonal offer, not a
+     plan tier — it doesn't include the free decontamination and it isn't
+     tied to a booking frequency, so it has no business unlocking this.
+     ===================================================================== */
+  /* Each code IS a frequency tier — they aren't independent. freq ties the
+     code back to the question 2 answer so the page and Acuity can't show
+     different totals. */
+  var PLAN_CODES = {
+    CLEAN30: { off:30, label:'weekly',           freq:'weekly'      },
+    CLEAN25: { off:25, label:'every 2-3 weeks',  freq:'fortnightly' },
+    CLEAN20: { off:20, label:'every 4-6 weeks',  freq:'monthly'     }
+  };
+
+  /* Mini Valet appointment types — the plan books against these, because a
+     plan visit IS a Mini Valet. Keys mirror the Mini Valet questionnaire. */
+  var MINI_ACUITY = {
+    small:  { base:86209466, wax:87528344, deep:87528388, deep_wax:87528373,
+              deep_stains:88343824, deep_stains_wax:88344179,
+              deep_extract:88343876, deep_extract_wax:88343901 },
+    medium: { base:87527804, wax:87528399, deep:87528407, deep_wax:87528416,
+              deep_stains:88344908, deep_stains_wax:88344984,
+              deep_extract:88344947, deep_extract_wax:88345016 },
+    large:  { base:87527815, wax:87528433, deep:87528439, deep_wax:87528452,
+              deep_stains:88345286, deep_stains_wax:88345338,
+              deep_extract:88345300, deep_extract_wax:88345410 }
+  };
+
+  /* this page sizes 3door/5door/7seats; the Mini Valet uses small/medium/large */
+  var SIZE_MAP = { '3door':'small', '5door':'medium', '7seats':'large' };
+
+  var ACUITY_BASE  = 'https://mobilepitstop.as.me/';
+  var ACUITY_QUOTE = 84640446;
+
+  var planBtn   = root.querySelector('#mpPlanBtn');
+  var codeBox   = root.querySelector('#mpCodeBox');
+  var codeInput = root.querySelector('#mpCodeInput');
+  var codeApply = root.querySelector('#mpCodeApply');
+  var codeMsg   = root.querySelector('#mpCodeMsg');
+  var calBtn    = root.querySelector('#mpCalBtn');
+
+  var activeCode = null;
+
+  /* Same normalisation as the other questionnaires: people type O for 0
+     and l for 1, and a rejected valid code is a lost booking. */
+  function normaliseCode(raw){
+    return String(raw || '')
+      .toUpperCase()
+      .replace(/[\s\-_.]/g, '')
+      .replace(/O/g, '0').replace(/[IL]/g, '1').replace(/S/g, '5');
+  }
+  var CODE_LOOKUP = {};
+  Object.keys(PLAN_CODES).forEach(function(c){ CODE_LOOKUP[normaliseCode(c)] = c; });
+
+  /* Which Mini Valet appointment matches what they picked here. Mirrors
+     the Mini Valet's own key logic exactly, so the two can't diverge. */
+  function miniKey(){
+    var hasWax = state.wax === 'yes';
+    if(state.deep !== 'yes')    return hasWax ? 'wax' : 'base';
+    if(state.stains !== 'yes')  return hasWax ? 'deep_wax' : 'deep';
+    if(state.full === 'yes')    return hasWax ? 'deep_extract_wax' : 'deep_extract';
+    return hasWax ? 'deep_stains_wax' : 'deep_stains';
+  }
+
+  function planBookingUrl(){
+    var size = SIZE_MAP[state.vehicle];
+    var id   = (size && MINI_ACUITY[size]) ? MINI_ACUITY[size][miniKey()] : null;
+    var url  = ACUITY_BASE + '?appointmentType=' + encodeURIComponent(id || ACUITY_QUOTE);
+    if(activeCode) url += '&certificate=' + encodeURIComponent(activeCode);
+    var g = (function(){ try{ return sessionStorage.getItem('captured_gclid'); }catch(e){ return null; } })();
+    if(g) url += '&' + encodeURIComponent('field:18506559') + '=' + encodeURIComponent(g);
+    return url;
+  }
+
+  function lockCalendar(){
+    activeCode = null;
+    if(!calBtn) return;
+    calBtn.classList.remove('is-live');
+    calBtn.setAttribute('aria-disabled', 'true');
+    calBtn.setAttribute('href', '#');
+    calBtn.textContent = 'View Calendar';
+  }
+
+  function unlockCalendar(code){
+    activeCode = code;
+    if(!calBtn) return;
+    calBtn.classList.add('is-live');
+    calBtn.setAttribute('aria-disabled', 'false');
+    calBtn.setAttribute('href', planBookingUrl());
+    calBtn.textContent = 'View Calendar \u2014 ' + PLAN_CODES[code].off + '% off applied';
+  }
+
+  if(planBtn && codeBox){
+    planBtn.addEventListener('click', function(){
+      var open = codeBox.hasAttribute('hidden');
+      if(open){ codeBox.removeAttribute('hidden'); } else { codeBox.setAttribute('hidden',''); }
+      planBtn.classList.toggle('is-open', open);
+      planBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if(open && codeInput) codeInput.focus();
+    });
+  }
+
+  function tryCode(){
+    if(!codeInput || !codeMsg) return;
+    var raw = codeInput.value.trim();
+    if(!raw){
+      codeMsg.className = 'plan-code-msg bad';
+      codeMsg.textContent = 'Enter the code we gave you.';
+      lockCalendar();
+      return;
+    }
+    var match = CODE_LOOKUP[normaliseCode(raw)];
+    if(!match){
+      codeMsg.className = 'plan-code-msg bad';
+      /* say plainly that seasonal codes don't work here, since AUTUMN20 is
+         the one people will most likely try */
+      /* Deliberately vague. Naming the prefix, or showing a real code as
+         a placeholder, would let anyone guess their way to plan pricing
+         without being on the plan. */
+      codeMsg.textContent = normaliseCode(raw).indexOf('AUTUMN') === 0
+        ? 'That\u2019s a seasonal offer code, not a plan code.'
+        : 'We don\u2019t recognise that code. Check it, or call us on 07592 196929.';
+      lockCalendar();
+      return;
+    }
+    /* The FREQUENCY chosen in question 2 is the plan they're on, and the
+       code has to match it. Anything else is either the wrong code or the
+       wrong frequency, and we shouldn't guess which.
+
+       An earlier version silently moved question 2 to match the code —
+       which meant someone on the 4-6 week plan could type a 2-3 week code
+       and get 5% more off. Rejecting is the only safe direction. */
+    var needFreq = PLAN_CODES[match].freq;
+
+    if(state.freq !== needFreq){
+      var picked = PLAN_CONFIG.freq[state.freq];
+      codeMsg.className = 'plan-code-msg bad';
+      codeMsg.textContent =
+        'That code is for the ' + PLAN_CODES[match].label + ' plan, but you\u2019ve chosen ' +
+        (picked ? picked.label.toLowerCase() : 'a different frequency') +
+        '. Change the frequency above, or enter the code for the plan you\u2019re on.';
+      lockCalendar();
+      return;
+    }
+
+    codeMsg.className = 'plan-code-msg good';
+    codeMsg.textContent = 'Code applied \u2014 ' + PLAN_CODES[match].off + '% off, ' +
+                          PLAN_CODES[match].label + '. Calendar unlocked below.';
+
+    unlockCalendar(match);
+  }
+
+  if(codeApply) codeApply.addEventListener('click', tryCode);
+  if(codeInput){
+    codeInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); tryCode(); }
+    });
+    /* changing the code invalidates the unlocked calendar */
+    codeInput.addEventListener('input', function(){
+      if(activeCode) lockCalendar();
+    });
+  }
+
+  if(calBtn){
+    calBtn.addEventListener('click', function(e){
+      if(!activeCode){
+        e.preventDefault();
+        if(codeBox && codeBox.hasAttribute('hidden') && planBtn) planBtn.click();
+        if(codeMsg){
+          codeMsg.className = 'plan-code-msg bad';
+          codeMsg.textContent = 'Enter your plan code first to unlock the calendar.';
+        }
+        return;
+      }
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event:'pf_book_click', component:'maintenance_plan',
+        plan_code:activeCode, vehicle_type:state.vehicle,
+        frequency:state.freq, destination_url:calBtn.getAttribute('href')
+      });
+    });
+  }
+
+  /* If they change an answer after unlocking, the link must follow. And if
+     they change the FREQUENCY, the code no longer matches the price on
+     screen — so re-lock and make them re-enter it. */
+  function refreshPlanLink(){
+    if(!activeCode || !calBtn) return;
+
+    if(PLAN_CODES[activeCode].freq !== state.freq){
+      lockCalendar();
+      if(codeMsg){
+        codeMsg.className = 'plan-code-msg bad';
+        codeMsg.textContent = 'You changed how often we come, so that code no longer applies. ' +
+                              'Enter the code for your new frequency.';
+      }
+      return;
+    }
+    calBtn.setAttribute('href', planBookingUrl());
+  }
+
+  function renderProg(){
+    buildProg();
+    if(!progTrack) return;
+    var segs = progTrack.children;
+    for(var i = 0; i < segs.length; i++){
+      segs[i].className = 'prog-seg' +
+        (i < state.step ? ' done' : i === state.step ? ' now' : '');
+    }
+    if(progStep)  progStep.textContent  = 'Step ' + (state.step + 1) + ' of ' + STEP_COUNT;
+    if(progLabel) progLabel.textContent = PROG_LABELS[state.step] || '';
+  }
+
+  function renderDots(){
+    if(!dotsEl) return;
+    if(!_dots) buildDots();
+    _dots.forEach(function(d,i){ d.classList.toggle('on', i === state.step); });
+  }
+
+  function isAnswered(i){
+    if(i === 0) return !!state.vehicle;
+    if(i === 1) return !!state.freq;
+    if(i === 2) return !!state.deep;
+    if(i === 3) return !!state.stains;
+    if(i === 4) return !!state.full;
+    if(i === 5) return !!state.wax;
+    return true;
+  }
+
+  function clearStep(i){
+    var s = steps[i];
+    if(s) s.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
+  }
+
+  function goTo(i){
+    state.step = Math.max(0, Math.min(STEP_COUNT - 1, i));
+    track.style.willChange = 'transform';
+    track.style.transform  = 'translateX(-' + (state.step * 100) + '%)';
+    clearTimeout(_wc);
+    _wc = setTimeout(function(){ track.style.willChange = 'auto'; }, 500);
+
+    root.classList.toggle('is-done', state.step === STEP_COUNT - 1);
+    root.classList.toggle('is-first', state.step === 0);
+    renderDots();
+    renderProg();
+    refreshPlanLink();
+    btnBack.disabled = state.step === 0;
+    if(btnNext) btnNext.disabled = !isAnswered(state.step) || state.step === STEP_COUNT - 1;
+    update();
+    syncViewportHeight();
+    if(state.step > 0) scrollToWidgetTop();
+
+    if(_hasNavigated){
+      var h = steps[state.step].querySelector('h3');
+      if(h){
+        h.setAttribute('tabindex','-1');
+        try{ h.focus({ preventScroll:true }); }catch(e){}
+      }
+    }
+    _hasNavigated = true;
+  }
+
+  root.querySelectorAll('.opt[role="option"]').forEach(function(opt){
+    opt.addEventListener('click', function(){ activate(opt); });
+    opt.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(opt); }
+    });
+  });
+
+  function activate(opt){
+    var pick = opt.getAttribute('data-pick');
+    state[pick] = opt.getAttribute('data-value');
+
+    if(pick === 'vehicle'){
+      state.freq = state.deep = state.stains = state.full = state.wax = null;
+      clearStep(1); clearStep(2); clearStep(3); clearStep(4); clearStep(5);
+    }
+    if(pick === 'freq'){
+      state.deep = state.stains = state.full = state.wax = null;
+      clearStep(2); clearStep(3); clearStep(4); clearStep(5);
+    }
+
+    /* full interior is an upgrade from seats-only, so it implies seats */
+    if(pick === 'full' && opt.getAttribute('data-value') === 'yes' && state.stains !== 'yes'){
+      state.stains = 'yes';
+      var sEl = steps[3] && steps[3].querySelector('.opt[data-pick="stains"][data-value="yes"]');
+      if(sEl){ clearStep(3); sEl.setAttribute('aria-selected','true'); }
+    }
+    /* ...and dropping seats drops the upgrade with it */
+    if(pick === 'stains' && opt.getAttribute('data-value') === 'no' && state.full === 'yes'){
+      state.full = null;
+      clearStep(4);
+    }
+
+    var idx = Number(opt.closest('.step').getAttribute('data-step'));
+    clearStep(idx);
+    opt.setAttribute('aria-selected','true');
+
+    update();
+
+    /* "less often" has nothing left to ask — go straight to the answer */
+    if(pick === 'freq' && state.freq === 'rare'){ goTo(STEP_COUNT - 1); return; }
+
+    if(state.step < STEP_COUNT - 1) goTo(state.step + 1);
+  }
+
+  btnBack.addEventListener('click', function(){ if(state.step > 0) goTo(state.step - 1); });
+  if(btnNext) btnNext.addEventListener('click', function(){
+    if(isAnswered(state.step) && state.step < STEP_COUNT - 1) goTo(state.step + 1);
+  });
+
+  if(resetBtn) resetBtn.addEventListener('click', function(){
+    state = { step:0, vehicle:null, freq:null, deep:null, stains:null, full:null, wax:null };
+    steps.forEach(function(s){ s.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); }); });
+    goTo(0);
+  });
+
+  doneBtn.addEventListener('click', function(){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event:           'pf_plan_click',
+      component:       'maintenance_plan',
+      vehicle_type:    state.vehicle || null,
+      frequency:       state.freq    || null,
+      discount_pct:    offPct(),
+      deep_clean:      state.deep    || null,
+      seat_stains:     state.stains  || null,
+      full_interior:   state.full    || null,
+      wax:             state.wax     || null,
+      plan_price:      planPrice(),
+      routed_away:     isRare(),
+      destination_url: doneBtn.getAttribute('href')
+    });
+  });
+
+  buildDots();
+  goTo(0);
+
+  /* =====================================================================
+     Landing position
+     The reviews badge loads late and the wizard height drops from
+     "tallest step" to "step one", so the page can settle part-way down.
+     After it settles we put it back at the top — but only if the person
+     hasn't touched anything yet, and only if there's no #hash to honour.
+     ===================================================================== */
+  var _touched = false;
+  ['touchstart','wheel','keydown','pointerdown','mousedown'].forEach(function(ev){
+    window.addEventListener(ev, function(){ _touched = true; }, { once:true, passive:true });
+  });
+
+  function settleAtTop(){
+    if(_touched) return;
+    if(window.location.hash) return;
+    if(window.pageYOffset <= 4) return;
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener('load', function(){ syncViewportHeight(); settleAtTop(); });
+  setTimeout(function(){ syncViewportHeight(); settleAtTop(); }, 250);
+  setTimeout(settleAtTop, 700);   /* after the reviews badge has rendered */
+})();
+</script>
