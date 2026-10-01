@@ -201,16 +201,16 @@ Exterior Detail totals for the same choices.
 Questionnaire (`Machine Polishing Questionnarie.txt`):
 - Was booking six old combined types (97045121, 97045202, 97045162,
   97045205, 97045167, 97045224) by sending people to Acuity's page. Now
-  books like Exterior Detail: calendar on the page, Exterior base type
-  (90947300 / 90976220 / 90976759) + enhancement add-on
-  (7264641 / 7334380 / 7334385) + sealant add-on 7334413 → 10% Stripe
-  deposit (after any discount code, shown to the penny).
+  books on the page like Exterior Detail: calendar → 10% Stripe deposit
+  (after any discount code, shown to the penny). Uses its own standalone
+  Paint Enhancement types, 5 hrs each: 3-door 98943820 (£285), 5-door
+  98943855 (£330), 7-seater 98943877 (£385), + sealant add-on 7334413.
 - Correction, any coating, and vans etc. stay "Request This Booking";
   the request message total follows a discount code.
 - Sealant card no longer claims Glaco (Exterior charges Glaco separately);
   Cleaning Power badge "Exterior Detail" → "Machine Polishing";
   analytics sent fields this page doesn't have → now level / protection.
-- Tested: 7-seater + sealant → type 90976759, add-ons [7334385, 7334413],
+- Tested: 7-seater + sealant → type 98943877, add-ons [7334413],
   £415, deposit £41.50; 3-door + 3-yr coating → £455, request; correction
   → from £600, request; 3-door + AUTUMN20 → £228, deposit £22.80.
 
