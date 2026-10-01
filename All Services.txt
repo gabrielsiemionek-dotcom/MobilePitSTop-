@@ -3,8 +3,8 @@
      MobilePitStop — Mobile Detailing Services page
      Paste into ONE Squarespace Code Block on the new page.
 
-     Page slug:  /mobile-detailing-services
-     Old slug:   /book-your-valet-now  ->  set a 301 redirect to the new one.
+     Page slug:  /all-services   (live — the homepage links here)
+     Old slug:   /book-your-valet-now  ->  set a 301 redirect to /all-services.
 
      Everything is namespaced .mps- so it can't collide with Squarespace's
      own styles. No external files, no fonts loaded, nothing to wait on.

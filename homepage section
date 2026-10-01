@@ -14,9 +14,12 @@
      IMAGES: the four below are already on your site. Swap any URL for a
      better shot — keep the ?format=800w on the end.
 
-     SERVICE LIST PRICES mirror the All Services page. Publish both pages
-     and the Acuity changes on the same day, or the prices here will
-     disagree with the booking page.
+     SERVICE LIST PRICES are the "from" price on each service page and the
+     All Services page (https://mobilepitstop.uk/all-services). If a price
+     changes there, change it here too.
+     LINKS: live service pages where they exist; otherwise the matching
+     section of /all-services. Garage links (#correction, #ppf, #wrap,
+     #tint, #dechrome) open the All Services page on its Garage half.
      ========================================================================== -->
 
 <style>
@@ -304,7 +307,7 @@
       <div>
         <span class="mph-n">03</span>
         <h3>Tools</h3>
-        <p>A fully mobile setup &mdash; our own water and a 45m power lead, so all we need is a plug socket. Steam, extraction and compressed air do the interior work; dual-action polishers and inspection lighting do the paint. Multi-stage correction and film work move indoors to our unit in Ellesmere Port.</p>
+        <p>A fully mobile setup &mdash; our own water and a 45m power lead, so all we need is a plug socket. Steam, extraction and compressed air do the interior work; dual-action polishers and inspection lighting do the paint. Multi-stage correction and film work move indoors to our unit in Birkenhead.</p>
         <ul class="mph-chips">
           <li>Steam cleaner</li>
           <li>Hot-water extractor</li>
@@ -346,27 +349,27 @@
     <h3 class="mph-svc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16V7a1 1 0 0 1 1-1h10v10"/><path d="M14 9h3.6a1 1 0 0 1 .82.43L21 13v3"/><circle cx="7.5" cy="16.5" r="1.9"/><circle cx="17" cy="16.5" r="1.9"/><path d="M9.4 16.5h5.7"/></svg><span>Mobile Services</span></h3>
     <p class="mph-svc-note">All prices from &middot; final price depends on vehicle size</p>
     <div class="mph-pills">
-      <a href="/mini-valet">Maintenance Wash <b>&pound;60</b></a>
-      <a href="/interior-deep-clean">Interior Deep Clean <b>&pound;60</b></a>
-      <a href="/car-exterior-deep-clean">Exterior Detail <b>&pound;60</b></a>
+      <a href="/maintenance-wash">Maintenance Wash <b>&pound;60</b></a>
+      <a href="/interior-deep-clean">Interior Deep Clean <b>&pound;90</b></a>
+      <a href="/exterior-detail">Exterior Detail <b>&pound;70</b></a>
       <a href="/full-valet">In &amp; Out Deep Clean <b>&pound;140</b></a>
-      <a href="/full-valet-premium">Protection Detail <b>&pound;250</b></a>
-      <a href="/mobile-detailing-services#machine-polishing">Enhancement Polish <b>&pound;275</b></a>
-      <a href="/mobile-detailing-services#ceramic">Ceramic Coating <b>&pound;385</b></a>
-      <a href="/smoke/milk/bio-odour-removal">Odour Removal <b>&pound;120</b></a>
+      <a href="/full-valet-premium">Protection Detail <b>&pound;210</b></a>
+      <a href="/all-services#machine-polishing">Enhancement Polish <b>&pound;285</b></a>
+      <a href="/ceramic-coating">Ceramic Coating <b>&pound;190</b></a>
+      <a href="/smoke/milk/bio-odour-removal">Odour Removal <b>&pound;250</b></a>
     </div>
 
     <h3 class="mph-svc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M7 20v-7h10v7"/><path d="M7 15.5h10M7 18h10"/></svg><span>At Our Unit, By Quote</span></h3>
     <div class="mph-pills">
-      <a href="/mobile-detailing-services#correction">Multi-Step Paint Correction <span class="mph-q">By quote</span></a>
-      <a href="/mobile-detailing-services#ppf">PPF <span class="mph-q">By quote</span></a>
-      <a href="/mobile-detailing-services#wrap">Vinyl Wraps <span class="mph-q">By quote</span></a>
-      <a href="/mobile-detailing-services#tint">Window Tinting <span class="mph-q">By quote</span></a>
-      <a href="/mobile-detailing-services#dechrome">De-Chrome <span class="mph-q">By quote</span></a>
+      <a href="/all-services#correction">Multi-Step Paint Correction <span class="mph-q">By quote</span></a>
+      <a href="/all-services#ppf">PPF <span class="mph-q">By quote</span></a>
+      <a href="/all-services#wrap">Vinyl Wraps <span class="mph-q">By quote</span></a>
+      <a href="/all-services#tint">Window Tinting <span class="mph-q">By quote</span></a>
+      <a href="/all-services#dechrome">De-Chrome <span class="mph-q">By quote</span></a>
     </div>
   </div>
 
-  <p class="mph-cta"><a class="mph-go" href="/mobile-detailing-services">See All Services</a></p>
+  <p class="mph-cta"><a class="mph-go" href="/all-services">See All Services</a></p>
 
 </section>
 
