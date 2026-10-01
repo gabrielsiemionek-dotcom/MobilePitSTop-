@@ -276,7 +276,7 @@ included, add-ons, cleaning-power dots:
 | Protection Detail | £210–250 (was £250–280) | /full-valet-premium |
 | Enhancement Polish | £285–385 (was £275–425) | /paint-enhancement-machine-polishing — NOT LIVE YET |
 | Ceramic Coating | from £190 (was £385) | /ceramic-coating |
-| Odour Removal | from £120 | /smoke/milk/bio-odour-removal |
+| Odour Removal | £250–300 | /smoke/milk/bio-odour-removal |
 
 Wording fixed: Exterior / In & Out include an 8-week wax, not a 6-month
 sealant; Protection Detail has a 6-month sealant (not a 1-year coating) and
@@ -289,6 +289,41 @@ Garage: Paint Correction from £600 (was £550), at the unit overnight, quote
 
 Pages to create at exactly these addresses:
 /paint-enhancement-machine-polishing, /window-tinting, /de-chrome.
+
+---
+
+## 2026-10-01 — Odour Removal: one 4-stage treatment
+
+Files: `Odour Removal Treatment.txt`, `Odour Removal Whats Included.txt`
+(the duplicate uploads without .txt were identical and are removed).
+
+Replaces the two options (ozone, chlorine dioxide) with one service:
+1 steam clean with enzyme or chlorine (chosen on the day) + full
+extraction · 2 air-con system foam clean · 3 ozone 1 hr 30 min ·
+4 ultrasonic purifying, disinfecting mist. The chlorine dioxide
+standalone service is gone.
+
+| Size | Acuity type | Price |
+|---|---|---|
+| 3-door | 92502297 | £250 |
+| 5-door | 92502302 | £270 |
+| 7-seater | 98946189 | £300 |
+
+- Questionnaire rebuilt on the current setup: review badge, discount box,
+  size → odour (same price, odour goes into the booking notes) → calendar
+  on the page → 10% Stripe deposit. Was a redirect to Acuity's page with
+  12 types.
+- Cabin filter: customer supplies a new one; we take the old one out first
+  and fit the new one at the end. On the info banner, in the breakdown, in
+  the booking notes, and a required "Understood" in the booking details.
+- What's Included: one 4-stage card instead of the Ozone / Chlorine
+  Dioxide switch; FAQs, trust pills and payment wording updated.
+- All Services card: £250–300, the four stages.
+- Tested: 7-seater bio → 98946189, £300, deposit £30, notes carry the odour
+  and the filter; booking blocked until the filter is confirmed; 3-door +
+  AUTUMN20 → £200, deposit £20.
+- Old types to HIDE in Acuity (not delete): 92502309, 92502362, 92502371,
+  92502382, 92502407, 92502425, 92502427, 92502318, 92502323, 92502332.
 
 ---
 

@@ -1,34 +1,851 @@
-<!-- MobilePitStop – Smoke/Milk/Bio Odour Removal Questionnaire -->
-<!-- v2 UPDATES:
-     • Google reviews badge above the questionnaire, same as every other service page.
-     • Accepts ?size=small|medium|large from the homepage router and opens on
-       question 2 with the vehicle already chosen.
-     • Scroll behaviour brought in line with the other questionnaires. This was
-       needed once a badge sits on top: the old scrollIntoView on every step
-       jumped the page straight past the reviews on load.
-     Prices and all 12 Acuity appointment IDs are unchanged.
--->
+<!-- ==========================================================================
+     MobilePitStop — ODOUR REMOVAL TREATMENT questionnaire
+     Page: /smoke/milk/bio-odour-removal
+
+     ONE SERVICE, FOUR STAGES (replaces the old ozone / chlorine dioxide
+     options — the chlorine dioxide standalone service is gone)
+       1  Steam clean with enzyme or chlorine (we choose on the day for the
+          odour), then full extraction — seats, carpets, mats, boot, headliner
+       2  Air-con system foam clean — vents and evaporator
+       3  Ozone treatment, 1 hour 30 minutes
+       4  Ultrasonic nebuliser — purifying, disinfecting mist to finish
+
+     CABIN FILTER  The customer supplies a new one; we take the old filter
+     out before the treatment and fit the new one at the end. Shown on the
+     page and confirmed in the booking details.
+
+     PRICE   3-door £250 · 5-door £270 · 7-seater £300 (whatever the odour)
+
+     BOOKING  Same as Exterior Detail and the other pages: calendar on this
+     page (free slots from Acuity via Make) -> details -> 10% Stripe
+     deposit (after any discount code) -> Make books it. The odour type
+     travels in the booking notes.
+
+     ACUITY  3-door 92502297 · 5-door 92502302 · 7-seater 98946189
+     The old types are no longer used — hide them, don't delete:
+       92502309, 92502362, 92502371, 92502382, 92502407, 92502425,
+       92502427 (ozone), 92502318, 92502323, 92502332 (chlorine dioxide)
+     ========================================================================== -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<style>
+  :root{
+    --bg:#0b0b0b;
+    --card:#121212;
+    --muted:#1b1b1b;
+    --text:#fff;
+    --accent:#E3FC02;
+    --accent-ink:#0b0b0b;
+    --ocean:#00B8FF;
+    --radius:16px;
+    --border:rgba(255,255,255,.12);
+  }
+  *{ box-sizing:border-box; }
+
+  .pf{
+    max-width:900px;
+    margin:0 auto;
+    padding:24px;
+    color:var(--text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+
+  /* Header */
+  .topbar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:8px;
+  }
+  .topbar h1{ margin:0; font-size:clamp(20px,3vw,26px); font-weight:950; letter-spacing:.2px; color:var(--accent); }
+  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
+  .lead{ margin:6px 0 14px; color:#d0d0d0; font-size:14px; }
+
+  .totalbox{
+    min-width:210px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(0,0,0,.22);
+    border-radius:14px;
+    padding:12px;
+    text-align:right;
+    flex-shrink:0;
+  }
+  .totalbox .lbl{ font-size:12px; color:#cfcfcf; }
+  .totalbox .val{ font-size:26px; font-weight:950; color:var(--accent); margin-top:2px; }
+  .totalbox .note{ font-size:12px; color:#bdbdbd; margin-top:4px; line-height:1.35; }
+  .pf.is-done .topbar .totalbox{ display:none; }
+
+  /* Intro sections collapse once the questions start */
+  .pkg-badge,
+  .pkg-includes,
+  .info-bar{
+    transition:max-height .35s ease, opacity .35s ease, margin .35s ease, padding .35s ease;
+    max-height:600px;
+    opacity:1;
+    overflow:hidden;
+  }
+  .pf.is-questioning .pkg-badge,
+  .pf.is-questioning .pkg-includes,
+  .pf.is-questioning .info-bar{
+    max-height:0;
+    opacity:0;
+    margin-top:0;
+    margin-bottom:0;
+    padding-top:0;
+    padding-bottom:0;
+  }
+
+  @media(max-width:720px){
+    .topbar{ flex-direction:column; }
+    .totalbox{ width:100%; text-align:left; min-width:0; }
+  }
+
+  /* Package badge */
+  .pkg-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    padding:8px 14px;
+    border-radius:999px;
+    border:1px solid rgba(227,252,2,.35);
+    background:rgba(227,252,2,.07);
+    font-size:13px;
+    font-weight:900;
+    color:var(--accent);
+  }
+  .pkg-badge .pkg-sub{ color:rgba(255,255,255,.6); font-weight:700; }
+  @media(max-width:640px){
+    /* stack instead of squeezing two columns into a pill */
+    .pkg-badge{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      border-radius:12px;
+      padding:9px 13px;
+    }
+    .pkg-badge .pkg-sub{ font-size:12px; }
+    .pkg-badge .pkg-dash{ display:none; }
+  }
+
+  /* What's in the package */
+  .pkg-includes{
+    margin:0 0 16px;
+    padding:14px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(0,0,0,.28);
+  }
+  .pkg-includes-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:950;
+    color:rgba(255,255,255,.55);
+    margin-bottom:10px;
+  }
+  .pkg-items{ display:grid; gap:8px; grid-template-columns:1fr; }
+  @media(min-width:600px){ .pkg-items{ grid-template-columns:1fr 1fr; } }
+
+  .pkg-item{ display:flex; align-items:flex-start; gap:10px; font-size:13px; line-height:1.4; }
+  .pkg-item-icon{
+    width:28px; height:28px; border-radius:8px;
+    border:1px solid rgba(227,252,2,.25);
+    background:rgba(227,252,2,.07);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; flex-shrink:0;
+  }
+  .pkg-item-text strong{ display:block; font-size:13px; font-weight:900; color:#fff; }
+  .pkg-item-text span{ color:rgba(255,255,255,.55); font-size:12px; }
+
+  /* Info bar */
+  .info-bar{
+    margin:0 0 16px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.28);
+    font-size:13px;
+    line-height:1.45;
+    color:#d0d0d0;
+  }
+  .info-bar strong{ color:#fff; font-weight:900; }
+  .info-bar a{ color:var(--accent); font-weight:900; text-decoration:none; white-space:nowrap; }
+  .info-bar a:hover{ text-decoration:underline; }
+
+  /* Progress bar */
+  .prog{ margin:0 0 14px; }
+  .prog-top{ display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:7px; }
+  .prog-step{ font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.5); }
+  .prog-label{
+    font-size:12px; font-weight:800; color:var(--accent);
+    text-align:right; overflow:hidden; text-overflow:ellipsis;
+    white-space:nowrap; max-width:62%;
+  }
+  .prog-track{ display:flex; gap:5px; }
+  .prog-seg{ flex:1; height:4px; border-radius:99px; background:rgba(255,255,255,.12); transition:background .35s ease, box-shadow .35s ease; }
+  .prog-seg.done{ background:rgba(227,252,2,.45); }
+  .prog-seg.now{ background:var(--accent); box-shadow:0 0 10px rgba(227,252,2,.45); }
+  @media(max-width:420px){
+    .prog-label{ font-size:11.5px; max-width:56%; }
+    .prog-seg{ height:5px; }
+  }
+
+  .pf.is-first .nav{ display:none; }
+
+  .wizard{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .viewport{ overflow:hidden; border-radius:14px; width:100%; }
+  .viewport.is-ready{ transition:height .35s ease; }
+  .track{
+    display:flex;
+    width:100%;
+    align-items:flex-start;
+    transition:transform .45s ease;
+  }
+  .step{ flex:0 0 100%; padding:18px; min-width:100%; overflow:hidden; overflow:clip; }
+  .step h3{
+    font-size:clamp(18px,2.4vw,22px);
+    line-height:1.25;
+    margin:0 0 12px;
+    font-weight:950;
+    letter-spacing:-.01em;
+    color:var(--accent);
+  }
+
+  /* Options */
+  .opts{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:12px;
+    padding:14px;
+    background:var(--muted);
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, background .15s ease;
+    position:relative;
+    width:100%;
+  }
+  .opt:hover{ border-color:var(--accent); transform:translateY(-1px); }
+  .opt[aria-selected="true"]{ border-color:rgba(227,252,2,.9); background:rgba(227,252,2,.08); }
+
+  .opt .row{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:10px; font-weight:950; flex-wrap:wrap;
+  }
+  .opt .row span:first-child{ flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+
+  .price-pill{
+    display:inline-flex; align-items:center; justify-content:center;
+    font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.5);
+    background:rgba(227,252,2,.12);
+    padding:4px 10px; border-radius:999px;
+    white-space:nowrap; flex:0 0 auto;
+  }
+
+  /* Add-on cards */
+  .opt-premium{
+    position:relative;
+    padding:16px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.10);
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+    box-shadow:0 14px 40px rgba(0,0,0,.55);
+  }
+  .opt[aria-selected="true"].opt-premium{
+    border-color:rgba(227,252,2,.28);
+    background:linear-gradient(180deg,rgba(227,252,2,.085),rgba(255,255,255,.02));
+  }
+  .prem-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+  .prem-head > div:first-child{ flex:1 1 auto; min-width:0; }
+  .prem-kicker{ font-size:12px; color:rgba(255,255,255,.72); letter-spacing:.02em; margin-bottom:2px; padding-right:86px; }
+  .prem-name{ font-size:16px; font-weight:950; letter-spacing:-.01em; overflow-wrap:anywhere; padding-right:86px; }
+  .prem-price{
+    position:absolute; top:14px; right:14px; z-index:2;
+    font-size:13px; font-weight:950; color:var(--accent);
+    border:1px solid rgba(227,252,2,.32);
+    background:rgba(227,252,2,.08);
+    padding:6px 10px; border-radius:999px;
+    white-space:nowrap; line-height:1; margin:0;
+  }
+  .prem-desc{ margin-top:10px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.72); overflow-wrap:anywhere; }
+  .prem-incl{
+    display:inline-flex; align-items:center; gap:6px;
+    max-width:100%;
+    margin-top:8px; font-size:12px; font-weight:900; line-height:1.35;
+    padding:4px 10px; border-radius:999px; white-space:normal;
+    color:rgba(227,252,2,.92);
+    border:1px solid rgba(227,252,2,.28);
+    background:rgba(227,252,2,.06);
+  }
+  .prem-incl.is-quote{
+    color:var(--ocean);
+    border-color:rgba(0,184,255,.35);
+    background:rgba(0,184,255,.07);
+  }
+
+  .step-note{
+    margin:-4px 0 12px;
+    font-size:12.5px;
+    color:rgba(255,255,255,.58);
+    line-height:1.5;
+  }
+  .step-note strong{ color:#fff; }
+
+  /* "No leather in my car" — quiet, under the two cards */
+  .pf .skip-link{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    padding:12px 14px;
+    border:1px dashed rgba(255,255,255,.22);
+    border-radius:12px;
+    background:transparent;
+    color:rgba(255,255,255,.72);
+    font-family:inherit;
+    font-size:13.5px;
+    font-weight:800;
+    cursor:pointer;
+    text-align:center;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .pf .skip-link:hover,
+  .pf .skip-link:focus-visible{ border-color:rgba(255,255,255,.5); color:#fff; outline:none; }
+  .pf .skip-link[aria-pressed="true"]{ border-style:solid; border-color:rgba(227,252,2,.6); color:#fff; }
+
+  /* Ceramic coating: three pills inside one card */
+  .coat-pills{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:12px;
+  }
+  .coat-pill{
+    appearance:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    padding:11px 6px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.25);
+    color:#fff;
+    font-family:inherit;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .coat-pill:hover,
+  .coat-pill:focus-visible{ border-color:var(--accent); transform:translateY(-1px); outline:none; }
+  .coat-pill .cp-yr{ font-size:14.5px; font-weight:950; letter-spacing:-.01em; }
+  .coat-pill .cp-pr{ font-size:12.5px; font-weight:900; color:var(--accent); }
+  .coat-pill[aria-checked="true"]{
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .coat-pill[aria-checked="true"] .cp-yr,
+  .coat-pill[aria-checked="true"] .cp-pr{ color:#0b0b0b; }
+  .coat-card{ cursor:default; }
+  .coat-card:hover{ transform:none; }
+
+  /* Breakdown */
+  .bd{ margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,.12); }
+  .bd-sec{ margin-top:16px; }
+  .bd-sec:first-child{ margin-top:0; }
+  .bd-title{
+    display:flex; align-items:center; gap:7px;
+    font-size:11px; text-transform:uppercase; letter-spacing:.12em;
+    font-weight:900; margin-bottom:6px;
+  }
+  .pkg-dot{ display:inline-block; width:9px; height:9px; border-radius:50%; background:var(--accent); margin-right:7px; vertical-align:1px; }
+  .bd-title .bd-star{ font-size:14px; line-height:1; }
+  .bd-inc .bd-title{ color:var(--accent); }
+  .bd-add .bd-title{ color:var(--ocean); }
+
+  .bd-row{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; padding:7px 0;
+    border-top:1px solid rgba(255,255,255,.06);
+    font-size:13px; font-weight:900;
+  }
+  .bd-row:first-of-type{ border-top:none; }
+  .bd-row .bd-nm{ color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+  .bd-row .bd-amt{ flex:0 0 auto; white-space:nowrap; }
+  .bd-inc .bd-amt{ color:var(--accent); }
+  .bd-add .bd-amt{ color:var(--ocean); }
+  .bd-sub{ font-size:12px; font-weight:400; color:rgba(255,255,255,.55); margin-top:2px; line-height:1.4; }
+  .bd-was{ color:rgba(255,255,255,.38); text-decoration:line-through; font-weight:900; margin-right:7px; font-size:.85em; }
+  .bd-row.bd-disc .bd-amt{ color:var(--ocean); }
+  .bd-row.bd-removable{ align-items:center; }
+  .bd-amt-wrap{ display:flex; align-items:center; gap:9px; flex:0 0 auto; }
+  .bd-remove{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.2);
+    background:transparent;
+    color:rgba(255,255,255,.5);
+    width:22px; height:22px; border-radius:50%;
+    font-size:14px; line-height:1; font-family:inherit;
+    cursor:pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:0; flex:0 0 22px;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .bd-remove:hover,
+  .bd-remove:focus-visible{ border-color:#FF6B5A; color:#FF6B5A; background:rgba(255,107,90,.1); outline:none; }
+  @media(max-width:420px){
+    .bd-remove{ width:26px; height:26px; flex-basis:26px; font-size:15px; }
+  }
+  .bd-none{ font-size:13px; color:#bdbdbd; padding:6px 0; }
+  .bd-total{
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:12px; margin-top:14px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.16);
+  }
+  .bd-total .bd-nm{ font-size:12px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .bd-total .bd-amt{ font-size:22px; font-weight:950; color:var(--accent); }
+
+  /* Payment box */
+  .pay-box{
+    margin-top:14px; padding:14px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.03);
+  }
+  .pay-head{ display:flex; align-items:center; gap:9px; font-size:14px; font-weight:950; color:#fff; letter-spacing:-.01em; line-height:1.3; }
+  .pay-head svg{ width:18px; height:18px; flex:0 0 18px; stroke:var(--accent); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .pay-head em{ font-style:normal; color:var(--accent); }
+  .pay-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; flex-wrap:wrap;
+    margin-top:12px; padding-top:12px;
+    border-top:1px solid rgba(255,255,255,.1);
+  }
+  .pay-item{ display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:800; color:var(--ocean); white-space:nowrap; }
+  .pay-item svg{ width:16px; height:16px; flex:0 0 16px; stroke:var(--ocean); fill:none; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round; }
+  @media(max-width:420px){
+    .pay-box{ padding:13px 12px; }
+    .pay-head{ font-size:13.5px; gap:8px; }
+    .pay-row{ gap:8px; }
+    .pay-item{ font-size:11.5px; gap:6px; }
+    .pay-item svg{ width:15px; height:15px; flex-basis:15px; }
+  }
+  @media(max-width:340px){
+    .pay-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  }
+
+  .summary{
+    margin-top:14px;
+    background:rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:14px;
+    padding:14px;
+  }
+
+  /* ── Request panel (coating bookings) ─────────────────────────── */
+  .rq{
+    margin-top:14px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid rgba(0,184,255,.35);
+    background:rgba(0,184,255,.05);
+  }
+  .rq[hidden]{ display:none; }
+  .rq-head{ margin:0 0 4px; font-size:14px; font-weight:950; color:#fff; }
+  .rq-copy{ margin:0 0 12px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.66); }
+  .rq-fields{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+  .rq-field{ display:flex; flex-direction:column; gap:4px; min-width:0; }
+  .rq-field.full{ grid-column:1 / -1; }
+  .rq-field label{ font-size:11px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+  .rq-field input,
+  .rq-field textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(0,0,0,.35);
+    color:#fff;
+    font-family:inherit;
+    font-size:16px;              /* 16px stops iPhones zooming in */
+    line-height:1.4;
+    color-scheme:dark;
+  }
+  .rq-field textarea{ min-height:170px; resize:vertical; font-size:14px; }
+  .rq-field input:focus,
+  .rq-field textarea:focus{ outline:none; border-color:var(--ocean); }
+  .rq-err{ margin:4px 0 0; font-size:12.5px; font-weight:900; color:#FF6B5A; }
+  .rq-err[hidden]{ display:none; }
+  .rq-send{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px; }
+  .pf .btn-quiet-blue{
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+  }
+  .pf .btn-quiet-blue:hover{ background:rgba(0,184,255,.12); border-color:var(--ocean); box-shadow:none; }
+  @media(max-width:480px){
+    .rq-fields{ grid-template-columns:1fr; }
+    .rq-send{ grid-template-columns:1fr; }
+  }
+
+  /* Cleaning power */
+  .power-compact{
+    margin-top:14px; padding:12px; border-radius:12px;
+    border:1px solid rgba(255,255,255,.10);
+    background:rgba(255,255,255,.03);
+  }
+  .power-compact:empty{ display:none; }
+  .pc-top{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px; }
+  .pc-title{ font-size:11px; text-transform:uppercase; letter-spacing:.12em; font-weight:900; color:rgba(255,255,255,.72); }
+  .pc-badge{ font-size:11px; font-weight:900; border:1px solid rgba(227,252,2,.28); background:rgba(227,252,2,.06); color:rgba(227,252,2,.92); padding:4px 10px; border-radius:999px; white-space:nowrap; }
+  .pc-rows{ display:flex; flex-direction:column; gap:8px; }
+  .pc-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:8px; border-top:1px solid rgba(255,255,255,.06); }
+  .pc-row:first-child{ border-top:none; padding-top:0; }
+  .pc-left{ font-weight:900; font-size:13px; color:rgba(255,255,255,.86); flex:1 1 auto; min-width:0; }
+  .pc-stars{ display:inline-flex; align-items:center; gap:3px; font-size:19px; line-height:1; white-space:nowrap; }
+  .pc-stars .on{ color:var(--accent); }
+  .pc-stars .off{ color:rgba(255,255,255,.16); }
+  .pc-stars .blue{ color:var(--ocean); }
+
+  /* Nav */
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:10px; padding:12px 14px;
+    border-top:1px solid rgba(255,255,255,.08);
+    background:rgba(0,0,0,.18);
+    border-radius:0 0 14px 14px;
+  }
+  .btn{
+    appearance:none;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent;
+    color:#fff;
+    border-radius:999px;
+    padding:10px 14px;
+    font-family:inherit;
+    font-weight:900;
+    cursor:pointer;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 8px 18px rgba(227,252,2,.10); }
+  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-primary-glow{
+    border:none;
+    background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+    color:var(--accent-ink);
+    box-shadow:0 8px 20px rgba(227,252,2,.25);
+    padding:12px 16px;
+  }
+  .btn-primary-glow:hover{ box-shadow:0 12px 28px rgba(227,252,2,.35),0 0 20px rgba(227,252,2,.2); filter:saturate(1.05); }
+  .book-note{
+    margin:8px 0 0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:rgba(255,255,255,.62);
+    text-align:center;
+  }
+  .book-note[hidden]{ display:none; }
+
+  .pf .btn-learn{
+    display:block;
+    width:100%;
+    margin-top:12px;
+    padding:13px 16px;
+    border:1px solid var(--ocean);
+    background:transparent;
+    color:#fff;
+    font-weight:900;
+    font-size:14.5px;
+    border-radius:999px;
+    cursor:pointer;
+    transition:background .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .pf .btn-learn:hover,
+  .pf .btn-learn:focus-visible{
+    background:rgba(0,184,255,.12);
+    box-shadow:0 6px 18px rgba(0,184,255,.16);
+    transform:translateY(-1px);
+    outline:none;
+  }
+
+  @media(max-width:420px){
+    .pf{ padding:16px; }
+    .step{ padding:14px; }
+    .pc-stars{ font-size:18px; }
+    .pf .btn-learn{ font-size:14px; padding:12px 14px; min-height:46px; }
+  }
+
+  /* Mobile refinements */
+  @media(max-width:640px){
+    .pf{ padding:16px 14px; border-radius:12px; }
+    .step{ padding:14px 12px; }
+    .topbar{ gap:10px; margin-bottom:6px; }
+    .topbar h1{ font-size:19px; line-height:1.2; }
+    .topbar h3{ font-size:13px; margin-top:3px; }
+    .lead{ font-size:12px; margin:3px 0 10px; }
+
+    .totalbox{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      align-items:baseline;
+      column-gap:12px;
+      row-gap:3px;
+      padding:11px 13px;
+      text-align:left;
+    }
+    .totalbox .lbl{ font-size:11.5px; white-space:nowrap; letter-spacing:.02em; }
+    .totalbox .val{ font-size:23px; margin-top:0; text-align:right; white-space:nowrap; line-height:1.1; }
+    .totalbox .note{ grid-column:1 / -1; margin-top:1px; font-size:11.5px; line-height:1.35; color:#b8b8b8; }
+
+    .info-bar{ font-size:12px; padding:9px 12px; margin-bottom:12px; }
+
+    .opt{ padding:13px 12px; }
+    .opt-premium{ padding:13px 12px; box-shadow:0 8px 20px rgba(0,0,0,.4); }
+    .step h3{ font-size:17px; line-height:1.28; }
+    .step-note{ font-size:12px; }
+    .prem-kicker{ font-size:11px; }
+    .prem-name{ font-size:14px; }
+    .prem-desc{ font-size:12px; line-height:1.45; margin-top:8px; }
+    .prem-incl{ font-size:11px; }
+    .prem-price{ font-size:11.5px; }
+    .opt .row{ font-size:14px; }
+    .pc-title, .pc-badge{ font-size:10.5px; }
+    .prem-head{ gap:8px; }
+    .prem-price{ top:12px; right:12px; font-size:12px; padding:5px 9px; }
+    .prem-name, .prem-kicker{ padding-right:76px; }
+
+    .pc-left{ font-size:12.5px; }
+    .pc-stars{ font-size:17px; gap:2px; }
+    .power-compact{ padding:10px; }
+
+    .nav{ padding:10px 12px; gap:8px; }
+    .btn{ padding:12px 14px; font-size:14px; min-height:46px; }
+    .btn-primary-glow{ padding:13px 16px; }
+
+    .summary{ padding:12px; }
+    .bd-row{ font-size:12.5px; }
+    .bd-total .bd-amt{ font-size:20px; }
+
+    .coat-pill .cp-yr{ font-size:13.5px; }
+    .coat-pill .cp-pr{ font-size:12px; }
+  }
+
+  @media(max-width:380px){
+    .topbar h1{ font-size:18px; }
+    .totalbox{ grid-template-columns:1fr; row-gap:1px; }
+    .totalbox .val{ text-align:left; grid-column:1; font-size:25px; }
+    .totalbox .lbl{ font-size:11px; }
+    .pc-stars{ font-size:16px; }
+    .btn{ padding:11px 12px; font-size:13.5px; }
+    .coat-pills{ gap:6px; }
+  }
+
+  /* ── Rating dots (replaces the stars) ────────────────────────────
+     Same system as the All Services page: yellow = included,
+     blue = added by a choice, grey = the rest of the scale.        */
+  .pc-stars{ display:inline-flex !important; align-items:center; gap:5px !important; font-size:0 !important; line-height:1; }
+  .pc-stars span{
+    display:inline-block; width:10px; height:10px; border-radius:50%;
+    background:rgba(255,255,255,.13);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+  }
+  .pc-stars span.on{ background:var(--accent); box-shadow:0 0 7px rgba(227,252,2,.45); }
+  .pc-stars span.blue{ background:var(--ocean); box-shadow:0 0 7px rgba(0,184,255,.4); }
+  .bd-title .bd-star{
+    display:inline-block; width:9px; height:9px; border-radius:50%;
+    background:currentColor; font-size:0;
+  }
+
+  /* ── booking panel ─────────────────────────────────────────────────
+     Grafted onto the existing questionnaire. Uses the same tokens as
+     everything else so it reads as one page, not a bolted-on form. */
+  .bk{ margin-top:16px; padding-top:16px; border-top:1px solid rgba(255,255,255,.14); }
+  .bk[hidden]{ display:none; }
+  .bk-sec{ margin-bottom:16px; }
+  .bk-h{
+    margin:0 0 9px; font-size:11px; font-weight:950; letter-spacing:.13em;
+    text-transform:uppercase; color:rgba(255,255,255,.5);
+  }
+  .bk-load{ margin:0 0 10px; font-size:13px; color:rgba(255,255,255,.45); }
+  .bk-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .bk-chip{
+    cursor:pointer; font:inherit; font-size:13.5px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:11px; padding:10px 13px; min-height:44px;
+    transition:border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .bk-chip:hover{ border-color:rgba(227,252,2,.55); transform:translateY(-1px); }
+  .bk-chip[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-chip .d{ display:block; font-size:11px; font-weight:700; color:rgba(255,255,255,.45); }
+  .bk-more{
+    margin-top:10px; background:none; border:0; cursor:pointer; padding:6px 0;
+    font:inherit; font-size:13.5px; font-weight:800; color:var(--ocean); text-decoration:underline;
+  }
+  .bk-yn{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 9px; }
+  .bk-yn .q{ flex:1 1 220px; font-size:13px; color:rgba(255,255,255,.66); line-height:1.5; }
+  .bk-yn .pair{ display:flex; gap:6px; }
+  .bk-yn button{
+    cursor:pointer; font:inherit; font-size:13px; font-weight:800; color:#fff;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.18);
+    border-radius:999px; padding:8px 15px; min-height:40px;
+  }
+  .bk-yn button[aria-pressed="true"]{ border-color:var(--accent); background:rgba(227,252,2,.12); }
+  .bk-err{ margin:0 0 10px; font-size:13.5px; font-weight:700; color:#ff7676; }
+  .bk-err[hidden]{ display:none; }
+  .bk-fine{ margin:9px 0 0; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.45); }
+
+  /* ── takeover: while the calendar is up, the questions get out of the way ── */
+  .pf.is-booking .wizard .step:not([data-step="2"]),
+  .pf.is-booking .prog,
+  .pf.is-booking .nav,
+  .pf.is-booking .btn-learn,
+  .pf.is-booking .power-compact,
+  .pf.is-booking #odrBreakdown,
+  .pf.is-booking .pay-box,
+  .pf.is-booking #odrBookNote,
+  .pf.is-booking #odrUpsell,
+  .pf.is-booking .upsell,
+  .pf.is-booking .totalbox .note,
+  .pf.is-booking #odrCodeReopen,
+  .pf.is-booking #odrBookHint{ display:none !important; }
+
+  /* the page has a photo behind it, so the booking panel has to be solid
+     enough to read against anything */
+  .pf.is-booking{
+    background:#0d0d0d;
+    border-color:rgba(255,255,255,.14);
+  }
+  .pf.is-booking .bk-cal,
+  .pf.is-booking .bk-wheel{
+    background:#141414;
+    border-color:rgba(255,255,255,.2);
+  }
+  .pf.is-booking .bk-cell{ background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); }
+  .pf.is-booking .bk-cell:disabled{ background:transparent; border-color:transparent; }
+  .pf.is-booking .rq-field input{ background:#0b0b0b; }
+  .pf.is-booking .bk-yn button{ background:#181818; }
+  .pf.is-booking .bk-yn button[aria-pressed="true"],
+  .bk-yn button[aria-pressed="true"]{
+    background:var(--accent) !important;
+    border-color:var(--accent) !important;
+    color:#0b0b0b !important;
+    font-weight:950;
+    box-shadow:0 0 14px rgba(227,252,2,.3);
+  }
+  .pf.is-booking #odrFinalBox{ background:#141414; border-color:rgba(255,255,255,.18); }
+  .pf.is-booking .wizard{ background:transparent; border:0; }
+  .pf.is-booking .viewport{ height:auto !important; overflow:visible; }
+  /* the steps live in a sliding track. With the other four hidden, the
+     track was still shifted 400% to the left, so the one remaining pane
+     sat off screen — hence the blank page. */
+  .pf.is-booking .track{ transform:none !important; display:block; width:100%; }
+  .pf.is-booking .step[data-step="2"]{ flex:1 1 auto; min-width:0; width:100%; }
+  .pf.is-booking .step{ padding:0; }
+  .pf.is-booking .summary{ background:none; border:0; padding:0; margin-top:0; }
+  .pf.is-booking #odrFinalBox{ margin-bottom:16px; }
+  .bk-back{
+    appearance:none; background:none; border:0; cursor:pointer; padding:6px 0; margin:0 0 10px;
+    font:inherit; font-size:13.5px; font-weight:800; color:rgba(255,255,255,.75);
+  }
+  .bk-back:hover{ color:#fff; }
+  .bk-back[hidden]{ display:none; }
+
+  /* ── month calendar ─────────────────────────────────────────────────── */
+  .bk-cal{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:14px 12px;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-calhead{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px; }
+  .bk-month{ font-size:15.5px; font-weight:950; color:#fff; letter-spacing:-.01em; }
+  .bk-navmonth{
+    appearance:none; cursor:pointer; width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.2); background:rgba(255,255,255,.04);
+    color:#fff; font-size:20px; line-height:1; font-family:inherit;
+  }
+  .bk-navmonth:hover:not(:disabled){ border-color:var(--accent); }
+  .bk-navmonth:disabled{ opacity:.25; cursor:default; }
+  .bk-dow{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:6px;
+    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    color:rgba(255,255,255,.62); text-align:center;
+  }
+  .bk-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .bk-cell{
+    appearance:none; font:inherit; cursor:pointer; padding:0;
+    aspect-ratio:1/1; min-height:40px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03);
+    color:#fff; font-size:14px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .bk-cell:hover:not(:disabled){ border-color:rgba(227,252,2,.6); }
+  .bk-cell:disabled{ color:rgba(255,255,255,.22); background:transparent; border-color:transparent; cursor:default; }
+  .bk-cell.is-empty{ border:0; background:none; cursor:default; }
+  .bk-cell[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:#0b0b0b; }
+
+  /* ── hour / minute wheels ───────────────────────────────────────────── */
+  .bk-wheels{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .bk-wheel{
+    border:1px solid rgba(255,255,255,.14); border-radius:14px; overflow:hidden;
+    background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+  }
+  .bk-wheel-lbl{
+    display:block; padding:9px 12px 7px; font-size:11px; font-weight:900;
+    letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.62);
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .bk-wheel-scroll{
+    max-height:184px; overflow-y:auto; scroll-snap-type:y proximity;
+    -webkit-overflow-scrolling:touch; padding:4px;
+  }
+  .bk-wheel-scroll::-webkit-scrollbar{ width:6px; }
+  .bk-wheel-scroll::-webkit-scrollbar-thumb{ background:rgba(255,255,255,.18); border-radius:99px; }
+  .bk-tick{
+    display:block; width:100%; appearance:none; cursor:pointer; scroll-snap-align:center;
+    padding:11px 8px; border:0; border-radius:9px; background:none;
+    font:inherit; font-size:16px; font-weight:800; color:#fff; text-align:center;
+  }
+  .bk-tick:hover{ background:rgba(255,255,255,.06); }
+  .bk-tick[aria-pressed="true"]{ background:var(--accent); color:#0b0b0b; font-weight:950; }
+  .bk-chosen{
+    margin:12px 0 0; font-size:14px; font-weight:900; color:var(--accent); text-align:center;
+  }
+  .bk-chosen[hidden]{ display:none; }
+
+  /* ── contrast: this panel reads white, not grey ─────────────────────── */
+  .bk-h{ color:rgba(255,255,255,.72); }
+  .bk-load{ color:rgba(255,255,255,.62); }
+  .bk-yn .q{ color:rgba(255,255,255,.88); }
+  .bk .rq-field label{ color:rgba(255,255,255,.72); }
+  .bk .rq-field input{ color:#fff; }
+  .bk-fine{ color:rgba(255,255,255,.66); }
+
+  @media(max-width:480px){
+    .bk-cal{ padding:12px 8px; }
+    .bk-cell{ min-height:38px; font-size:13.5px; border-radius:9px; }
+    .bk-dow{ font-size:10px; }
+    .bk-wheel-scroll{ max-height:168px; }
+  }
+</style>
+
+<!-- Set as early as possible: browsers restore the old scroll position
+     during load, and on mobile doing this later is too late. -->
 <script>
   (function(){
     try{ if('scrollRestoration' in history) history.scrollRestoration = 'manual'; }catch(e){}
   })();
 </script>
 
-<!-- ===== GOOGLE REVIEWS (Elfsight) ===== -->
+<!-- ===== GOOGLE REVIEWS BADGE ======================================== -->
 <style>
-  .mps-reviews{
-    max-width:900px;
-    margin:0 auto 18px;
-    display:flex;
-    justify-content:center;
-  }
-  /* ── Static reviews badge ─────────────────────────────────────
-     Replaces the Elfsight widget, which was 531 KB and loaded before
-     anything else on the page just to render a rating and a count.
-     This is about 3 KB with no external requests.
-     ───────────────────────────────────────────────────────────── */
+  .mps-reviews{ max-width:900px; margin:0 auto 18px; display:flex; justify-content:center; }
   .mps-rv-badge{
     display:inline-flex; align-items:center; gap:11px;
     padding:10px 16px; border-radius:999px;
@@ -37,21 +854,12 @@
     text-decoration:none;
     transition:border-color .15s ease, background .15s ease, transform .15s ease;
   }
-  .mps-rv-badge:hover{
-    border-color:rgba(227,252,2,.4);
-    background:rgba(255,255,255,.06);
-    transform:translateY(-1px);
-  }
+  .mps-rv-badge:hover{ border-color:rgba(227,252,2,.4); background:rgba(255,255,255,.06); transform:translateY(-1px); }
   .mps-rv-g{ width:20px; height:20px; flex:0 0 20px; }
   .mps-rv-score{ font-size:17px; font-weight:950; color:#fff; line-height:1; letter-spacing:-.01em; }
-  .mps-rv-stars{
-    display:inline-flex; gap:1px; font-size:15px; line-height:1;
-    color:#FBBC05;              /* Google's own star colour */
-    letter-spacing:1px;
-  }
+  .mps-rv-stars{ display:inline-flex; gap:1px; font-size:15px; line-height:1; color:#FBBC05; letter-spacing:1px; }
   .mps-rv-count{ font-size:13px; font-weight:700; color:#fff; line-height:1; white-space:nowrap; }
   .mps-rv-tick{ width:15px; height:15px; flex:0 0 15px; color:var(--ocean); }
-
   @media(max-width:480px){
     .mps-rv-badge{ gap:9px; padding:9px 13px; }
     .mps-rv-score{ font-size:16px; }
@@ -62,7 +870,6 @@
     .mps-rv-badge{ gap:8px; padding:8px 11px; }
     .mps-rv-count{ font-size:11.5px; }
   }
-
   @media(max-width:640px){ .mps-reviews{ margin-bottom:12px; } }
 </style>
 
@@ -70,23 +877,19 @@
   <a class="mps-rv-badge" id="mpsRvBadge"
      href="https://maps.google.com/maps?cid=15620201708594115788"
      target="_blank" rel="noopener"
-     aria-label="Rated 5.0 out of 5 from 79 Google reviews. Opens Google in a new tab.">
-
+     aria-label="Rated 5.0 out of 5 from 81 Google reviews. Opens Google in a new tab.">
     <svg class="mps-rv-g" viewBox="0 0 48 48" aria-hidden="true">
       <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2 5-4.4 6.6v5.5h7.1c4.1-3.8 6.6-9.4 6.6-16.1z"/>
       <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.4l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.4 46 24 46z"/>
       <path fill="#FBBC05" d="M11.8 28.2c-.4-1.3-.7-2.7-.7-4.2s.2-2.9.7-4.2v-5.7H4.5C3 17 2 20.4 2 24s1 7 2.5 9.9l7.3-5.7z"/>
       <path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.3 29.9 2 24 2 15.4 2 8.1 6.9 4.5 14.1l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/>
     </svg>
-
     <span class="mps-rv-score" id="mpsRvScore">5.0</span>
     <span class="mps-rv-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-    <span class="mps-rv-count" id="mpsRvCount">79 Google reviews</span>
-
+    <span class="mps-rv-count" id="mpsRvCount">81 Google reviews</span>
     <svg class="mps-rv-tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".16"/>
-      <path d="M8 12.5l2.6 2.5L16 9.5" stroke="currentColor" stroke-width="2.4"
-            stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M8 12.5l2.6 2.5L16 9.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
 </div>
@@ -94,9 +897,7 @@
 <script>
 (function(){
   /* Numbers come from window.MPS_REVIEWS in sitewide header injection, so
-     one edit updates every page. The values in the markup above are
-     fallbacks that render instantly — if the config is missing this does
-     nothing rather than blanking the badge. */
+     one edit updates every page. The markup values above are fallbacks. */
   var cfg = window.MPS_REVIEWS;
   if(!cfg) return;
   var badge = document.getElementById('mpsRvBadge');
@@ -115,446 +916,503 @@
 })();
 </script>
 
+<!-- ===== PROMO CODE BAR =================================================
+     Unchanged from the live page. The code is passed to Acuity as
+     &certificate= (Acuity's own coupon parameter). The price shown here is
+     a preview; Acuity is the gate at checkout. Percentages MUST match the
+     Acuity coupons of the same name. On a coating request the code is
+     written into the WhatsApp / email message instead.
+     ===================================================================== -->
 <style>
-  :root{
-    --bg:#0b0b0b;
-    --card:#121212;
-    --muted:#1b1b1b;
-    --text:#fff;
-    --accent:#E3FC02;
-    --accent-ink:#0b0b0b;
-    --radius:16px;
-    --border:rgba(255,255,255,.12);
-  }
-
-  *{ box-sizing:border-box; }
-
-  .pf{
+  .mps-promo{
     max-width:900px;
-    margin:0 auto;
-    padding:24px;
-    color:var(--text);
-    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:var(--radius);
-    overflow:hidden;
-  }
-
-  .lead{ margin:6px 0 14px; color:#d0d0d0; }
-
-  .topbar{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:14px;
-    margin-bottom:8px;
-  }
-
-  .topbar h1{ margin:0; font-size:26px; font-weight:950; letter-spacing:.2px; }
-  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; opacity:.9; }
-
-  .totalbox{
-    min-width:220px;
-    border:1px solid rgba(255,255,255,.14);
-    background:rgba(0,0,0,.22);
+    margin:0 auto 14px;
+    padding:13px 14px;
     border-radius:14px;
-    padding:12px;
-    text-align:right;
-  }
-  .totalbox .lbl{ font-size:12px; color:#cfcfcf; }
-  .totalbox .val{ font-size:26px; font-weight:950; color:var(--accent); margin-top:2px; }
-  .totalbox .note{ font-size:12px; color:#bdbdbd; margin-top:4px; line-height:1.35; }
-
-  .pf.is-done .topbar .totalbox{ display:none; }
-
-  @media (max-width:720px){
-    .topbar{ flex-direction:column; }
-    .totalbox{ width:100%; text-align:left; min-width:0; }
-  }
-
-  .info-bar{
-    margin:12px 0 16px;
-    padding:10px 14px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,.18);
-    background:rgba(0,0,0,.28);
-    font-size:13px;
-    line-height:1.45;
-    color:#d0d0d0;
-  }
-  .info-bar strong{ color:#fff; font-weight:900; }
-  .info-bar a{
-    color:var(--accent);
-    font-weight:900;
-    text-decoration:none;
-    white-space:nowrap;
-  }
-  .info-bar a:hover{ text-decoration:underline; }
-
-  .wizard{
-    background:var(--card);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:14px;
-    overflow:hidden;
-  }
-
-  .viewport{ overflow:hidden; border-radius:14px; width:100%; }
-
-  .track{
-    display:flex;
-    width:100%;
-    transition:transform .45s ease;
-  }
-
-  .step{
-    flex:0 0 100%;
-    padding:18px;
-    min-width:100%;
-  }
-
-  .step h3{
-    font-size:clamp(20px, 2.4vw, 24px);
-    line-height:1.25;
-    margin:0 0 12px;
-    font-weight:950;
-    letter-spacing:-.01em;
-  }
-
-  .opts{ display:flex; flex-direction:column; gap:10px; }
-
-  .opt{
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:12px;
-    padding:14px;
-    background:var(--muted);
-    cursor:pointer;
-    transition:transform .15s ease, border-color .15s ease, background .15s ease;
-    position:relative;
-    width:100%;
-  }
-  .opt:hover{ border-color:var(--accent); transform:translateY(-1px); }
-  .opt[aria-selected="true"]{ border-color:rgba(227,252,2,.9); background:rgba(227,252,2,.08); }
-
-  .opt .row{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    font-weight:950;
-    flex-wrap:wrap;
-  }
-
-  .opt-premium{
-    padding:16px;
-    border-radius:14px;
-    border:1px solid rgba(255,255,255,.10);
-    background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
-    box-shadow:0 14px 40px rgba(0,0,0,.55);
-    position:relative;
-  }
-  .opt[aria-selected="true"].opt-premium{
-    border-color:rgba(227,252,2,.75);
-    background:linear-gradient(180deg, rgba(227,252,2,.09), rgba(255,255,255,.02));
-  }
-
-  .prem-head{ display:block; padding-right:0; }
-  .prem-kicker{ font-size:12px; color:rgba(255,255,255,.72); letter-spacing:.02em; margin-bottom:5px; }
-  .prem-name{ font-size:17px; font-weight:950; letter-spacing:-.01em; line-height:1.25; padding-right:80px; }
-
-  .prem-price{
-    position:absolute;
-    top:14px; right:14px;
-    font-size:14px;
-    font-weight:950;
-    color:var(--accent);
-    border:1px solid rgba(227,252,2,.45);
-    background:rgba(227,252,2,.09);
-    padding:6px 10px;
-    border-radius:999px;
-    white-space:nowrap;
-    line-height:1;
-    z-index:2;
-  }
-
-  .prem-desc{ margin-top:12px; font-size:13px; line-height:1.5; color:rgba(255,255,255,.78); }
-
-  .compare-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:12px;
-  }
-  .compare-box{
-    border:1px solid rgba(255,255,255,.10);
-    background:rgba(255,255,255,.035);
-    border-radius:12px;
-    padding:12px;
-  }
-  .compare-title{
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    font-weight:950;
-    color:var(--accent);
-    margin-bottom:6px;
-  }
-  .compare-box p{ margin:0; font-size:13px; line-height:1.45; color:#d8d8d8; }
-  .warning-box{ border-color:rgba(255,184,0,.35); background:rgba(255,184,0,.06); }
-  .warning-box .compare-title{ color:#ffcf5a; }
-
-  @media (max-width:720px){ .compare-grid{ grid-template-columns:1fr; } }
-
-  .summary{
-    margin-top:14px;
-    background:rgba(0,0,0,.18);
-    border:1px solid rgba(255,255,255,.12);
-    border-radius:14px;
-    padding:14px;
-  }
-  .pills{ display:flex; flex-wrap:wrap; gap:6px; }
-  .pill{
-    display:inline-block;
-    border:1px solid rgba(255,255,255,.2);
-    padding:6px 10px;
-    border-radius:999px;
-    color:#ddd;
-    font-size:13px;
-    overflow-wrap:anywhere;
-    word-break:break-word;
-  }
-  .pill strong{ color:#fff; }
-
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    padding:12px 14px;
-    border-top:1px solid rgba(255,255,255,.08);
-    background:rgba(0,0,0,.18);
-    border-radius:0 0 14px 14px;
-  }
-  .btn{
-    appearance:none;
-    border:1px solid rgba(255,255,255,.25);
-    background:transparent;
+    border:1px solid rgba(0,184,255,.38);
+    background:rgba(0,184,255,.06);
     color:#fff;
-    border-radius:999px;
-    padding:10px 14px;
-    font-weight:900;
-    cursor:pointer;
-    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease, filter .15s ease;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    transition:border-color .3s ease, background .3s ease;
   }
-  .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 8px 18px rgba(227,252,2,0.10); }
-  .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
-  .btn-primary-glow{
-    border:none;
-    background:linear-gradient(135deg, #E3FC02 0%, #d6ff6b 100%);
-    color:var(--accent-ink);
-    box-shadow:0 8px 20px rgba(227,252,2,0.25);
-    padding:12px 16px;
+  .mps-promo.is-on{ border-color:rgba(227,252,2,.45); background:rgba(227,252,2,.07); }
+  .mps-promo-head{ display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:8px; }
+  .mps-promo-flag{
+    font-size:11px; font-weight:900; letter-spacing:.06em; text-transform:uppercase;
+    padding:4px 10px; border-radius:999px; white-space:nowrap;
+    background:#00B8FF; color:#00131c;
   }
-  .btn-primary-glow:hover{
-    box-shadow:0 12px 28px rgba(227,252,2,0.35), 0 0 20px rgba(227,252,2,0.2);
-    filter:saturate(1.05);
+  .mps-promo.is-on .mps-promo-flag{ background:#E3FC02; color:#0b0b0b; }
+  .mps-promo-title{ font-size:14px; font-weight:950; }
+  .mps-promo-copy[hidden]{ display:none; }
+  .mps-promo-copy{ margin:0 0 10px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.68); }
+  .mps-promo-copy strong{ color:#00B8FF; font-weight:900; }
+  .mps-promo.is-on .mps-promo-copy strong{ color:#E3FC02; }
+  .mps-promo-form{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .mps-promo-input{
+    flex:1 1 190px; min-width:0;
+    padding:11px 13px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.22);
+    background:rgba(0,0,0,.35); color:#fff;
+    font-family:inherit; font-size:14px; font-weight:900;
+    letter-spacing:.06em; text-transform:uppercase;
   }
-
-  .dots{ display:flex; gap:6px; align-items:center; justify-content:center; flex:1; }
-  .dot{ width:8px; height:8px; border-radius:99px; background:rgba(255,255,255,.25); }
-  .dot.on{ background:var(--accent); }
-
-  .q1-actions{
-    display:flex;
-    gap:10px;
-    margin-top:12px;
-    flex-wrap:wrap;
+  .mps-promo-input::placeholder{ color:rgba(255,255,255,.3); letter-spacing:.02em; font-weight:700; text-transform:none; }
+  .mps-promo-input:focus{ outline:none; border-color:#00B8FF; }
+  .mps-promo-btn{
+    flex:0 0 auto; appearance:none; border:none; cursor:pointer;
+    padding:11px 20px; border-radius:999px;
+    font-family:inherit; font-size:14px; font-weight:950;
+    background:#00B8FF; color:#00131c;
+    transition:filter .15s ease, transform .15s ease;
   }
-  .q1-actions .btn{
-    flex:1 1 100%;
-    min-width:0;
+  .mps-promo-btn:hover{ transform:translateY(-1px); filter:brightness(1.08); }
+  .mps-promo-clear{
+    flex:0 0 auto; appearance:none; cursor:pointer;
+    padding:11px 18px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent; color:#fff;
+    font-family:inherit; font-size:13.5px; font-weight:900;
   }
-
-  .pf.is-done #odrPills{ display:none !important; }
-
-  @media (max-width:640px){
-    .pf{ padding:16px 14px; }
-    .step{ padding:14px 12px; }
-    .topbar h1{ font-size:21px; line-height:1.2; }
-    .topbar h3{ font-size:14px; }
-    .lead{ font-size:13px; }
-    .totalbox{ padding:10px 12px; }
-    .totalbox .val{ font-size:22px; }
-    .info-bar{ font-size:12px; padding:9px 12px; }
-    .btn{ padding:12px 14px; font-size:14px; min-height:46px; }
-    .prem-desc{ font-size:12.5px; }
-  }
-
-  @media (max-width:420px){
-    .pf{ padding:16px 11px; }
-    .step{ padding:14px 11px; }
-    .prem-name{ padding-right:70px; font-size:15px; }
-    .prem-price{ top:12px; right:12px; font-size:13px; padding:5px 9px; }
+  .mps-promo-clear:hover{ border-color:#E3FC02; }
+  .mps-promo-msg{ margin:9px 0 0; font-size:12.5px; font-weight:900; line-height:1.45; }
+  .mps-promo-msg.err{ color:#FF6B5A; }
+  .mps-was{ color:rgba(255,255,255,.4); text-decoration:line-through; font-weight:900; margin-right:8px; font-size:.62em; }
+  @media(max-width:640px){
+    .mps-promo{ padding:12px; margin-bottom:12px; }
+    .mps-promo-input{ flex:1 1 100%; }
+    .mps-promo-btn, .mps-promo-clear{ flex:1 1 auto; }
   }
 </style>
 
+<div class="mps-promo" id="odrPromo">
+  <div class="mps-promo-head">
+    <span class="mps-promo-flag" id="odrPromoFlag">Discount code</span>
+    <span class="mps-promo-title" id="odrPromoTitle">Got a code? Enter it here</span>
+  </div>
+  <p class="mps-promo-copy" id="odrPromoCopy" hidden></p>
+  <div class="mps-promo-form" id="odrPromoForm">
+    <label for="odrPromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>
+    <input class="mps-promo-input" id="odrPromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">
+    <button class="mps-promo-btn" id="odrPromoApply" type="button">Apply</button>
+  </div>
+  <p class="mps-promo-msg" id="odrPromoMsg" hidden></p>
+</div>
+
+<script>
+(function(){
+  /* CODES — the percentage MUST match the Acuity coupon of the same name.
+     `expires` is YYYY-MM-DD; the code stops working at the end of that day. */
+  var PROMO_CODES = {
+    'AUTUMN20': { off:20, label:'Autumn offer', expires:null }
+  };
+
+  var PFX = 'odr';
+  var box, flag, title, copy, form, msg;
+
+  function grabEls(){
+    box   = document.getElementById(PFX + 'Promo');
+    flag  = document.getElementById(PFX + 'PromoFlag');
+    title = document.getElementById(PFX + 'PromoTitle');
+    copy  = document.getElementById(PFX + 'PromoCopy');
+    form  = document.getElementById(PFX + 'PromoForm');
+    msg   = document.getElementById(PFX + 'PromoMsg');
+    return !!box;
+  }
+
+  var TOTAL_IDS = ["odrTotal", "odrFinalTotal"];
+  var active = null;
+  var obs    = null;
+  var busy   = false;
+
+  window.MPS_PROMO = window.MPS_PROMO || {};
+  window.MPS_PROMO.off  = function(){ return active ? active.off  : 0; };
+  window.MPS_PROMO.code = function(){ return active ? active.code : null; };
+
+  function announce(){
+    try{ document.dispatchEvent(new CustomEvent('mps:promo')); }catch(e){}
+  }
+
+  window.MPS_PROMO.decorate = function(url){
+    if(!active || !url) return url;
+    if(url.indexOf('certificate=') > -1) return url;
+    return url + (url.indexOf('?') > -1 ? '&' : '?') +
+           'certificate=' + encodeURIComponent(active.code);
+  };
+
+  /* O/0, I/1, S/5 read the same on a phone keyboard, so both sides are
+     normalised before comparing and OUR spelling goes to Acuity. */
+  function normaliseCode(raw){
+    return String(raw || '')
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, '')
+      .replace(/O/g, '0')
+      .replace(/[IL]/g, '1')
+      .replace(/S/g, '5');
+  }
+
+  function lookupCode(raw, table){
+    var want = normaliseCode(raw);
+    if(!want) return null;
+    for(var key in table){
+      if(Object.prototype.hasOwnProperty.call(table, key) && normaliseCode(key) === want){
+        return { code: key, entry: table[key] };
+      }
+    }
+    return null;
+  }
+
+  function notExpired(entry){
+    if(!entry.expires) return true;
+    var end = new Date(entry.expires + 'T23:59:59');
+    return !isNaN(end.getTime()) && new Date() <= end;
+  }
+
+  function money(n){
+    return '\u00a3' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, '');
+  }
+
+  function paintTotals(){
+    if(!active) return;
+    busy = true;
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      var raw = el.getAttribute('data-mps-full');
+      if(raw === null) raw = el.textContent;
+      var m = String(raw).match(/£\s*([\d,]+(?:\.\d+)?)/);
+      if(!m) return;
+      var full = parseFloat(m[1].replace(/,/g, ''));
+      if(!isFinite(full) || full <= 0) return;
+      el.setAttribute('data-mps-full', money(full));
+      var desired = '<span class="mps-was">' + money(full) + '</span>' +
+                    money(full * (1 - active.off / 100));
+      if(el.innerHTML !== desired) el.innerHTML = desired;
+    });
+    if(obs) obs.takeRecords();
+    busy = false;
+  }
+
+  function clearTotals(){
+    busy = true;
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el) return;
+      var raw = el.getAttribute('data-mps-full');
+      if(raw !== null && el.textContent !== raw){ el.textContent = raw; }
+      el.removeAttribute('data-mps-full');
+    });
+    if(obs) obs.takeRecords();
+    busy = false;
+  }
+
+  function attachObserver(){
+    if(!window.MutationObserver) return;
+    obs = new MutationObserver(function(){
+      if(busy || !active) return;
+      TOTAL_IDS.forEach(function(id){
+        var el = document.getElementById(id);
+        if(el && el.querySelector('.mps-was') === null) el.removeAttribute('data-mps-full');
+      });
+      paintTotals();
+    });
+    TOTAL_IDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) obs.observe(el, { childList:true, characterData:true, subtree:true });
+    });
+  }
+
+  function showMsg(text, kind){
+    if(!msg) return;
+    if(!text){ msg.hidden = true; msg.textContent = ''; return; }
+    msg.hidden = false;
+    msg.textContent = text;
+    msg.className = 'mps-promo-msg ' + (kind || '');
+  }
+
+  function renderOn(){
+    box.classList.add('is-on');
+    flag.textContent  = active.off + '% off applied';
+    title.textContent = 'Discount applied';
+    copy.hidden = false;
+    copy.innerHTML = 'Code <strong>' + active.code + '</strong> is applied &mdash; ' +
+      active.off + '% off this booking. It carries through to checkout automatically, ' +
+      'so there&rsquo;s no need to type it again.';
+    form.innerHTML = '<button class="mps-promo-clear" id="' + PFX + 'PromoClear" type="button">Remove code</button>';
+    document.getElementById(PFX + 'PromoClear')
+      .addEventListener('click', function(){ clearCode(); });
+  }
+
+  function renderOff(){
+    box.classList.remove('is-on');
+    flag.textContent  = 'Discount code';
+    title.textContent = 'Got a code? Enter it here';
+    copy.innerHTML = '';
+    copy.hidden = true;
+    form.innerHTML =
+      '<label for="' + PFX + 'PromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>' +
+      '<input class="mps-promo-input" id="' + PFX + 'PromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">' +
+      '<button class="mps-promo-btn" id="' + PFX + 'PromoApply" type="button">Apply</button>';
+    wire();
+  }
+
+  function applyCode(raw){
+    if(!String(raw || '').trim()){ showMsg('Enter your code first.', 'err'); return; }
+    var found = lookupCode(raw, PROMO_CODES);
+    if(!found){
+      showMsg('That code isn\u2019t recognised. Check it and try again, or give us a ring.', 'err');
+      return;
+    }
+    if(!notExpired(found.entry)){
+      showMsg('That code has expired. Get in touch and we\u2019ll see what we can do.', 'err');
+      return;
+    }
+    active = { code: found.code, off: found.entry.off };
+    try{ sessionStorage.setItem('mps_promo_code', found.code); }catch(e){}
+    renderOn();
+    showMsg('');
+    paintTotals();
+    announce();
+  }
+
+  function clearCode(){
+    active = null;
+    try{ sessionStorage.removeItem('mps_promo_code'); }catch(e){}
+    clearTotals();
+    renderOff();
+    showMsg('');
+    announce();
+  }
+
+  function wire(){
+    var input = document.getElementById(PFX + 'PromoInput');
+    var apply = document.getElementById(PFX + 'PromoApply');
+    if(apply) apply.addEventListener('click', function(){ applyCode(input ? input.value : ''); });
+    if(input){
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){ e.preventDefault(); applyCode(input.value); }
+      });
+      input.addEventListener('input', function(){ showMsg(''); });
+    }
+  }
+
+  function start(){
+    if(!grabEls()) return;
+    renderOff();
+    attachObserver();
+    var pre = null;
+    try{ pre = new URLSearchParams(window.location.search).get('code'); }catch(e){}
+    if(!pre){ try{ pre = sessionStorage.getItem('mps_promo_code'); }catch(e){} }
+    if(pre && lookupCode(pre, PROMO_CODES)) applyCode(pre);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+
 <div class="pf" id="priceFinderOdourRemoval">
+
   <div class="topbar">
     <div>
-      <h1>Smoke / Milk / Bio Odour Removal</h1>
-      <h3>Quick Service Selector</h3>
-      <p class="lead">Choose your car size, odour type and recommended treatment.</p>
+      <h1>Odour Removal Treatment</h1>
+      <h3>Smoke, milk and bio odours &mdash; removed at the source, not masked.</h3>
     </div>
-
     <div class="totalbox" aria-live="polite">
-      <div class="lbl">Current total</div>
-      <div class="val" id="odrTotal">£0</div>
-      <div class="note" id="odrNote">Choose your car size first</div>
+      <div class="lbl">Your total</div>
+      <div class="val" id="odrTotal">From &pound;250</div>
+      <div class="note" id="odrNote">Select your vehicle size</div>
+    </div>
+  </div>
+
+  <div class="pkg-badge">
+    <span class="pkg-main"><span class="pkg-dot"></span>Odour Removal Treatment</span>
+    <span class="pkg-sub"><span class="pkg-dash">&mdash; </span>4 stages, one visit</span>
+  </div>
+
+  <div class="pkg-includes">
+    <div class="pkg-includes-title">Every treatment includes</div>
+    <div class="pkg-items">
+      <div class="pkg-item">
+        <div class="pkg-item-icon">1</div>
+        <div class="pkg-item-text"><strong>Steam Clean &amp; Full Extraction</strong><span>Enzyme or chlorine treatment chosen for the odour, then everything extracted &mdash; seats, carpets, mats, boot and headliner</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">2</div>
+        <div class="pkg-item-text"><strong>Air-Con System Foam Clean</strong><span>Foam cleaner through the vents and evaporator, where smells hide and get blown back in</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">3</div>
+        <div class="pkg-item-text"><strong>Ozone Treatment &mdash; 1 hr 30 min</strong><span>Ozone circulated through the cabin to break down what&rsquo;s left in the fabric and foam</span></div>
+      </div>
+      <div class="pkg-item">
+        <div class="pkg-item-icon">4</div>
+        <div class="pkg-item-text"><strong>Ultrasonic Purifying Mist</strong><span>A disinfecting mist to finish, killing off anything that remains in the interior</span></div>
+      </div>
     </div>
   </div>
 
   <div class="info-bar">
-    <strong>Need help choosing?</strong>
-    Call/Message:
-    <a href="tel:07592196929">07592 196929</a>
-    or email:
-    <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a>
+    <strong>Please have a new cabin air filter ready.</strong>
+    We take your old filter out before the treatment and fit the new one at the end, so nothing old is blown back into a freshly treated car.
+  </div>
+
+  <div class="prog" id="odrProg" aria-hidden="true">
+    <div class="prog-top">
+      <span class="prog-step" id="odrProgStep">Step 1</span>
+      <span class="prog-label" id="odrProgLabel"></span>
+    </div>
+    <div class="prog-track" id="odrProgTrack"></div>
   </div>
 
   <div class="wizard">
     <div class="viewport">
       <div class="track" id="odrTrack">
 
+        <!-- STEP 0: Vehicle size -->
         <section class="step" data-step="0">
           <h3>1) What size is your car?</h3>
-          <div class="opts" role="listbox" aria-label="Car size">
+          <div class="opts" role="listbox" aria-label="Vehicle size">
             <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="3door" aria-selected="false">
-              <div class="row"><span>3-Door Car</span></div>
+              <div class="row"><span>3-Door / 4&ndash;5 Seater Car</span><span class="price-pill">&pound;250</span></div>
             </div>
             <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="5door" aria-selected="false">
-              <div class="row"><span>5-Door / 5-Seater Car</span></div>
+              <div class="row"><span>5-Door / 5-Seater Car</span><span class="price-pill">&pound;270</span></div>
             </div>
             <div class="opt" role="option" tabindex="0" data-pick="vehicle" data-value="7seater" aria-selected="false">
-              <div class="row"><span>5-Door / 7-Seater Car</span></div>
+              <div class="row"><span>5-Door / 7-Seater Car</span><span class="price-pill">&pound;300</span></div>
             </div>
-          </div>
-
-          <div class="q1-actions">
-            <button class="btn" type="button" id="odrLearnMoreBtn">See what&rsquo;s included</button>
           </div>
         </section>
 
+        <!-- STEP 1: Odour type -->
         <section class="step" data-step="1">
-          <h3>2) Choose the smell you need to get rid of</h3>
+          <h3>2) What smell are we getting rid of?</h3>
+          <p class="step-note">Same price whatever the odour &mdash; this just tells us what to bring. We choose enzyme or chlorine for stage 1 on the day, to suit it.</p>
           <div class="opts" role="listbox" aria-label="Odour type">
             <div class="opt opt-premium" role="option" tabindex="0" data-pick="smell" data-value="cigarette" aria-selected="false">
-              <div class="prem-head">
-                <div class="prem-kicker">Smoke odour</div>
-                <div class="prem-name">Cigarette smell</div>
-              </div>
-              <div class="prem-desc">Best suited to ozone treatment or chlorine dioxide treatment depending on your budget and time available.</div>
+              <div class="prem-head"><div><div class="prem-kicker">Smoke</div><div class="prem-name">Cigarette / vape smoke</div></div></div>
+              <div class="prem-desc">Smoke residue sits in the headliner, seat foam and the air-con system &mdash; all four stages go after it.</div>
             </div>
             <div class="opt opt-premium" role="option" tabindex="0" data-pick="smell" data-value="milk" aria-selected="false">
-              <div class="prem-head">
-                <div class="prem-kicker">Organic spill</div>
-                <div class="prem-name">Milk smell</div>
-              </div>
-              <div class="prem-desc">Requires full interior steam, shampoo, extraction and ozone treatment to remove the source properly.</div>
+              <div class="prem-head"><div><div class="prem-kicker">Organic spill</div><div class="prem-name">Milk or food spill</div></div></div>
+              <div class="prem-desc">The source has to come out of the fabric first, or the smell comes back on the first warm day.</div>
             </div>
             <div class="opt opt-premium" role="option" tabindex="0" data-pick="smell" data-value="bio" aria-selected="false">
-              <div class="prem-head">
-                <div class="prem-kicker">Bio odour</div>
-                <div class="prem-name">Bio / bodily fluid smell</div>
-              </div>
-              <div class="prem-desc">Includes ozone treatment, plus chlorine dioxide tablets provided after the clean in case the odour returns.</div>
+              <div class="prem-head"><div><div class="prem-kicker">Bio</div><div class="prem-name">Vomit, urine or bodily fluid</div></div></div>
+              <div class="prem-desc">Broken down at the source, extracted, then the cabin and air system disinfected.</div>
+            </div>
+            <div class="opt opt-premium" role="option" tabindex="0" data-pick="smell" data-value="other" aria-selected="false">
+              <div class="prem-head"><div><div class="prem-kicker">Something else</div><div class="prem-name">Damp, pets or not sure</div></div></div>
+              <div class="prem-desc">Tell us more in the booking details and we&rsquo;ll come prepared.</div>
             </div>
           </div>
         </section>
 
+        <!-- STEP 2: Done -->
         <section class="step" data-step="2">
-          <h3>3) Choose your odour removal option</h3>
-          <div class="opts" role="listbox" aria-label="Odour removal option">
+          <h3>You&rsquo;re all set</h3>
 
-            <div class="opt opt-premium" role="option" tabindex="0" data-pick="service" data-value="optionA" aria-selected="false">
-              <div class="prem-head">
-                <div class="prem-kicker" id="optionAKicker">Recommended Treatment</div>
-                <div class="prem-name" id="optionATitle">Full Interior Steam Shampoo + Extraction + Ozone Treatment</div>
-              </div>
-              <div class="prem-price" data-price-option="optionA">£0</div>
-              <div class="prem-desc" id="optionADesc">
-                Full interior steam shampoo and extraction including mats, carpets, seats, boot and headliner,
-                finished with ozone treatment.
-              </div>
-              <div class="compare-grid">
-                <div class="compare-box">
-                  <div class="compare-title">Best for</div>
-                  <p id="optionABest">Deep fabric contamination, milk spills, smoke smell, bio odours and vehicles needing a full interior reset.</p>
-                </div>
-                <div class="compare-box warning-box">
-                  <div class="compare-title">Main drawback</div>
-                  <p>More expensive because it includes intensive cleaning, extraction and ozone treatment.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="opt opt-premium" role="option" tabindex="0" data-pick="service" data-value="optionB" aria-selected="false" data-cigarette-only>
-              <div class="prem-head">
-                <div class="prem-kicker">Alternative Treatment</div>
-                <div class="prem-name">Interior Deep Clean + Chlorine Dioxide Treatment</div>
-              </div>
-              <div class="prem-price" data-price-option="optionB">£0</div>
-              <div class="prem-desc">
-                Interior deep clean followed by chlorine dioxide treatment to neutralise cigarette odours inside the vehicle.
-              </div>
-              <div class="compare-grid">
-                <div class="compare-box">
-                  <div class="compare-title">Best for</div>
-                  <p>Powerful smoke odour neutralisation at a lower price.</p>
-                </div>
-                <div class="compare-box warning-box">
-                  <div class="compare-title">Main drawback</div>
-                  <p>The car must stay locked for 24 hours and may have a treatment scent for 2&ndash;3 days after.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        <section class="step" data-step="3">
-          <h3>Done</h3>
-
-          <div class="totalbox" aria-live="polite" style="margin:10px 0 14px; text-align:left; min-width:0;">
+          <div class="totalbox" id="odrFinalBox" aria-live="polite" style="margin:10px 0 14px; text-align:left; min-width:0;">
             <div class="lbl">Final total</div>
-            <div class="val" id="odrFinalTotal">£0</div>
+            <div class="val" id="odrFinalTotal">&pound;0</div>
             <div class="note" id="odrFinalNote">Ready to book when you are.</div>
           </div>
 
           <div class="summary">
-            <div class="pills" id="odrPills"></div>
+            <button class="btn btn-primary-glow" id="odrDoneBtn" type="button" style="width:100%;">View Calendar</button>
 
-            <div style="
-              margin-top:14px;
-              padding:12px;
-              border-radius:12px;
-              border:1px solid rgba(255,184,0,.35);
-              background:rgba(255,184,0,.06);
-              font-size:13px;
-              line-height:1.5;
-              color:#e6e6e6;
-            ">
-              <strong style="display:block; margin-bottom:6px; color:#ffcf5a;">Please Read Carefully</strong>
-              For the most effective and long-lasting odour removal, we highly recommend replacing your cabin air filter before your appointment.<br><br>
-              Old or contaminated filters can reintroduce odours back into the vehicle, even after treatment.
+            <div class="bk" id="odrBook" hidden>
+
+              <button class="bk-back" type="button" id="odrBkBack" hidden>&#8592; Back to your quote</button>
+
+              <div class="bk-sec" id="odrBkWhen">
+                <div class="bk-cal">
+                  <div class="bk-calhead">
+                    <button class="bk-navmonth" type="button" id="odrBkPrev" aria-label="Previous month">&#8249;</button>
+                    <span class="bk-month" id="odrBkMonthName">&nbsp;</span>
+                    <button class="bk-navmonth" type="button" id="odrBkNextMonth" aria-label="Next month">&#8250;</button>
+                  </div>
+                  <div class="bk-dow"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                  <div class="bk-grid" id="odrBkDays"></div>
+                  <p class="bk-load" id="odrBkDaysLoad" hidden>Checking the diary&hellip;</p>
+                </div>
+
+                <div id="odrBkTimesWrap" hidden>
+                  <p class="bk-h" style="margin-top:18px;">Start time</p>
+                  <p class="bk-load" id="odrBkTimesLoad" hidden>Checking that day&hellip;</p>
+                  <div class="bk-wheels">
+                    <div class="bk-wheel">
+                      <span class="bk-wheel-lbl">Hour</span>
+                      <div class="bk-wheel-scroll" id="odrBkHours" role="listbox" aria-label="Hour"></div>
+                    </div>
+                    <div class="bk-wheel">
+                      <span class="bk-wheel-lbl">Minutes</span>
+                      <div class="bk-wheel-scroll" id="odrBkMins" role="listbox" aria-label="Minutes"></div>
+                    </div>
+                  </div>
+                  <p class="bk-chosen" id="odrBkChosen" hidden></p>
+                </div>
+              </div>
+
+              <div class="bk-sec" id="odrBkDetails" hidden>
+                <p class="bk-h">Your details</p>
+                <div class="rq-fields">
+                  <div class="rq-field"><label for="odrBkFirst">First name</label><input type="text" id="odrBkFirst" autocomplete="given-name"></div>
+                  <div class="rq-field"><label for="odrBkLast">Last name</label><input type="text" id="odrBkLast" autocomplete="family-name"></div>
+                  <div class="rq-field"><label for="odrBkEmail">Email</label><input type="email" id="odrBkEmail" autocomplete="email"></div>
+                  <div class="rq-field"><label for="odrBkPhone">Mobile</label><input type="tel" id="odrBkPhone" autocomplete="tel"></div>
+                  <div class="rq-field full"><label for="odrBkAddr">Full address &amp; postcode</label><input type="text" id="odrBkAddr" autocomplete="street-address"></div>
+                  <div class="rq-field full"><label for="odrBkCar">Vehicle &mdash; make, model &amp; year</label><input type="text" id="odrBkCar" placeholder="e.g. Golf GTI 2019"></div>
+                </div>
+
+                <div class="bk-yn" data-yn="power">
+                  <span class="q">Can we use a plug socket? We bring a 45m cable.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="water">
+                  <span class="q">An outside tap? If not, we bring our own water.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="space">
+                  <span class="q">Room to park the van within 3m of the car?</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+                <div class="bk-yn" data-yn="agree">
+                  <span class="q">Please have a <strong>new cabin air filter</strong> for your car ready on the day. We take the old one out, treat the interior and air system, then fit your new one.</span>
+                  <span class="pair"><button type="button" data-v="yes">Understood</button></span>
+                </div>
+                <div class="bk-yn" data-yn="marketing">
+                  <span class="q">Occasional offers by email? Entirely optional.</span>
+                  <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
+                </div>
+              </div>
+
+              <p class="bk-err" id="odrBkErr" hidden></p>
+
+              <button class="btn btn-primary-glow" type="button" id="odrBkPay" style="width:100%;" disabled>Pay the deposit &amp; book</button>
+              <p class="bk-fine" id="odrBkFine">You pay the deposit now. The balance is paid on the day, once you&rsquo;ve seen the work.</p>
             </div>
 
-            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
-              <button class="btn btn-primary-glow" id="odrDoneBtn" type="button" style="flex:1; min-width:220px;">Book</button>
-              <button class="btn" id="odrResetBtn" type="button" style="min-width:160px;">Start again</button>
+            <div class="pay-box" id="odrPayBox">
+              <div class="pay-head">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7L9.5 17.5 4 12"/></svg>
+                <span>To book, pay a <em>10% deposit</em></span>
+              </div>
+              <div class="pay-row">
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></svg>Card</span>
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/></svg>Cash</span>
+                <span class="pay-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9.5 13h6M9.5 17h4"/></svg>Invoice</span>
+              </div>
             </div>
 
-            <div style="margin-top:10px; color:#bdbdbd; font-size:13px; line-height:1.45;">
-              Tap Book to choose your date and time.
+            <div class="bd" id="odrBreakdown"></div>
+
+            <div style="margin-top:10px; color:#bdbdbd; font-size:13px; line-height:1.45;" id="odrBookHint">
+              Tap View Calendar to choose your date &amp; time.
             </div>
           </div>
         </section>
@@ -564,52 +1422,53 @@
 
     <div class="nav">
       <button class="btn" id="odrBack" type="button">Back</button>
-      <div class="dots" id="odrDots" aria-label="Progress"></div>
-      <button class="btn btn-primary-glow" id="odrNext" type="button" disabled>Next</button>
     </div>
   </div>
+
+  <button class="btn btn-learn" type="button" id="odrLearnMoreBtn">See what&rsquo;s included</button>
 </div>
 
 <script>
 (function(){
-  var ROOT_ID = 'priceFinderOdourRemoval';
-  var pfRoot  = document.getElementById(ROOT_ID);
-  if(!pfRoot) return;
+  var root = document.getElementById('priceFinderOdourRemoval');
+  if(!root) return;
 
-  var track   = pfRoot.querySelector('#odrTrack');
-  var btnBack = pfRoot.querySelector('#odrBack');
-  var btnNext = pfRoot.querySelector('#odrNext');
-  var dotsEl  = pfRoot.querySelector('#odrDots');
-
-  var totalEl      = pfRoot.querySelector('#odrTotal');
-  var noteEl       = pfRoot.querySelector('#odrNote');
-  var finalTotalEl = pfRoot.querySelector('#odrFinalTotal');
-  var finalNoteEl  = pfRoot.querySelector('#odrFinalNote');
-  var pillsEl      = pfRoot.querySelector('#odrPills');
-
-  var resetBtn = pfRoot.querySelector('#odrResetBtn');
-  var doneBtn  = pfRoot.querySelector('#odrDoneBtn');
-
-  var optionAKicker = pfRoot.querySelector('#optionAKicker');
-  var optionATitle  = pfRoot.querySelector('#optionATitle');
-  var optionADesc   = pfRoot.querySelector('#optionADesc');
-  var optionABest   = pfRoot.querySelector('#optionABest');
-  var optionBCard   = pfRoot.querySelector('[data-cigarette-only]');
-
-  var steps      = Array.from(track.querySelectorAll('.step'));
+  var track   = root.querySelector('#odrTrack');
+  var btnBack = root.querySelector('#odrBack');
+  var totalEl      = root.querySelector('#odrTotal');
+  var noteEl       = root.querySelector('#odrNote');
+  var finalTotalEl = root.querySelector('#odrFinalTotal');
+  var finalNoteEl  = root.querySelector('#odrFinalNote');
+  var doneBtn      = root.querySelector('#odrDoneBtn');
+  var breakdownEl  = root.querySelector('#odrBreakdown');
+  var bookNoteEl   = null;
+  var steps      = Array.prototype.slice.call(track.querySelectorAll('.step'));
   var STEP_COUNT = steps.length;
+  var DONE       = STEP_COUNT - 1;
 
-  function escHtml(str){
-    return String(str)
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
+  /* ======================================================================
+     PRICES AND ACUITY — one 4-stage service, one price per size
+     ====================================================================== */
+  var PRICES    = { '3door':250, '5door':270, '7seater':300 };
+  var SIZE_TYPE = { '3door':92502297, '5door':92502302, '7seater':98946189 };
 
-  function setHTML(el, html){
-    if(el && el.innerHTML !== html) el.innerHTML = html;
-  }
+  /* ---- booking. This token is PUBLIC: free-slot lookups and a Stripe
+     checkout, nothing else. The booking scenarios use a different one. ---- */
+  var MPS_TOKEN    = 'mps-b4yz-2026-acuity';
+  var AVAILABILITY = 'https://hook.eu1.make.com/daly9ho8eix9b1xf4bmc4w2vihd8e4r3';
+  var DEPOSIT_HOOK = 'https://hook.eu1.make.com/5ihvcgcu4842swdljuoi5dxg1xjtlwjt';
+  var DEPOSIT_PCT  = 10;
 
-  var FIELD_ID = '18506559';
+  var VEHICLE_LABELS = { '3door':'3-Door / 4-5 Seater', '5door':'5-Door / 5-Seater', '7seater':'5-Door / 7-Seater' };
+  var SMELL_LABELS   = { cigarette:'Cigarette / vape smoke', milk:'Milk or food spill',
+                         bio:'Vomit, urine or bodily fluid', other:'Damp, pets or not sure' };
+  var STAGES = [
+    'Steam clean with enzyme or chlorine, then full extraction',
+    'Air-con system foam clean',
+    'Ozone treatment, 1 hr 30 min',
+    'Ultrasonic purifying, disinfecting mist'
+  ];
+
   (function captureGclid(){
     try{
       var qs = new URLSearchParams(window.location.search);
@@ -632,419 +1491,483 @@
     return v || null;
   }
 
-  var PRICES = {
-    optionA: {
-      cigarette: { '3door':200, '5door':230, '7seater':260 },
-      milk:      { '3door':150, '5door':160, '7seater':170 },
-      bio:       { '3door':200, '5door':210, '7seater':220 }
-    },
-    optionB: {
-      cigarette: { '3door':120, '5door':130, '7seater':140 }
-    }
-  };
-
-  var VEHICLE_LABELS = {
-    '3door':'3-Door Car',
-    '5door':'5-Door / 5-Seater Car',
-    '7seater':'5-Door / 7-Seater Car'
-  };
-
-  var SMELL_LABELS = {
-    cigarette: 'Cigarette smell',
-    milk:      'Milk smell',
-    bio:       'Bio / bodily fluid smell'
-  };
-
-  var SERVICE_LABELS = {
-    optionA: {
-      cigarette: 'Ozone Treatment',
-      milk:      'Ozone Treatment',
-      bio:       'Ozone Treatment + Chlorine Dioxide Tablets'
-    },
-    optionB: {
-      cigarette: 'Chlorine Dioxide Treatment'
-    }
-  };
-
-  var ACUITY = {
-    baseUrl: 'https://mobilepitstop.as.me/',
-    typeMap: {
-      '3door|cigarette|optionA':  92502297,
-      '5door|cigarette|optionA':  92502302,
-      '7seater|cigarette|optionA':92502309,
-      '3door|cigarette|optionB':  92502332,
-      '5door|cigarette|optionB':  92502323,
-      '7seater|cigarette|optionB':92502318,
-      '3door|milk|optionA':       92502362,
-      '5door|milk|optionA':       92502371,
-      '7seater|milk|optionA':     92502382,
-      '3door|bio|optionA':        92502427,
-      '5door|bio|optionA':        92502425,
-      '7seater|bio|optionA':      92502407
-    }
-  };
-
-  var ACUITY_QUOTE_ID = 84640446;
-
-  var state = { step:0, vehicle:null, smell:null, service:null };
-
-  function buildTrackedAcuityUrl(appointmentTypeId){
-    if(!appointmentTypeId) appointmentTypeId = ACUITY_QUOTE_ID;
-    var url = ACUITY.baseUrl + '?appointmentType=' + encodeURIComponent(appointmentTypeId);
-    var gclid = getGclid();
-    if(gclid){
-      url += '&' + encodeURIComponent('field:' + FIELD_ID) + '=' + encodeURIComponent(gclid);
-    }
-    return url;
-  }
-
   function fmtGBP(n){ return '£' + Number(n || 0).toFixed(0); }
+  /* deposits can be £27.50 — show the pence rather than rounding */
+  function fmtMoney(n){ var r = Math.round(n * 100) / 100; return '£' + (r % 1 ? r.toFixed(2) : r.toFixed(0)); }
 
-  function getPrice(){
-    if(!state.vehicle || !state.smell || !state.service) return 0;
-    return (PRICES[state.service] && PRICES[state.service][state.smell] && PRICES[state.service][state.smell][state.vehicle]) || 0;
+  var state = { step:0, vehicle:null, smell:null };
+
+  function calcTotal(){ return state.vehicle ? PRICES[state.vehicle] : 0; }
+  function promoOff(){
+    try{ return (window.MPS_PROMO && window.MPS_PROMO.off) ? (window.MPS_PROMO.off() || 0) : 0; }
+    catch(e){ return 0; }
   }
-
-  function getAcuityKey(){
-    if(!state.vehicle || !state.smell || !state.service) return null;
-    return state.vehicle + '|' + state.smell + '|' + state.service;
+  function promoCode(){
+    try{ return (window.MPS_PROMO && window.MPS_PROMO.code) ? window.MPS_PROMO.code() : null; }
+    catch(e){ return null; }
   }
+  /* the deposit and the balance follow the discount code, if one is on */
+  function netTotal(){ return calcTotal() * (1 - promoOff() / 100); }
+  function depositAmount(){ return Math.max(1, Math.round(netTotal() * DEPOSIT_PCT) / 100); }
+  function bookingTypeId(){ return state.vehicle ? (SIZE_TYPE[state.vehicle] || null) : null; }
+  function addonIds(){ return []; }
 
-  function getAppointmentTypeId(){
-    var key = getAcuityKey();
-    if(!key) return ACUITY_QUOTE_ID;
-    return ACUITY.typeMap[key] || ACUITY_QUOTE_ID;
+  /* ======================================================================
+     BREAKDOWN
+     ====================================================================== */
+  function bdAmt(n){
+    var off = promoOff();
+    if(!off) return fmtGBP(n);
+    return '<span class="bd-was">' + fmtGBP(n) + '</span>' + fmtGBP(n * (1 - off / 100));
   }
-
-  function buildAcuityUrl(){
-    return buildTrackedAcuityUrl(getAppointmentTypeId());
-  }
-
-  var _dotEls = null;
-  function buildDots(){
-    dotsEl.innerHTML = '';
-    _dotEls = [];
-    for(var i = 0; i < STEP_COUNT; i++){
-      var d = document.createElement('span');
-      d.className = 'dot';
-      dotsEl.appendChild(d);
-      _dotEls.push(d);
-    }
-  }
-  function renderDots(){
-    if(!_dotEls) buildDots();
-    _dotEls.forEach(function(d, i){ d.classList.toggle('on', i === state.step); });
-  }
-
-  function updateTreatmentCards(){
-    if(!state.smell) return;
-
-    optionBCard.style.display = state.smell === 'cigarette' ? '' : 'none';
-
-    if(state.smell === 'cigarette'){
-      optionAKicker.textContent = 'Recommended Treatment';
-      optionATitle.textContent  = 'Full Interior Steam Shampoo + Extraction + Ozone Treatment';
-      optionADesc.textContent   = 'Full interior steam shampoo and extraction including mats, carpets, seats, boot and headliner, finished with ozone treatment.';
-      optionABest.textContent   = 'Deep smoke contamination trapped in fabrics, carpets, headliner and the air system.';
-    }
-    if(state.smell === 'milk'){
-      optionAKicker.textContent = 'Recommended Treatment';
-      optionATitle.textContent  = 'Milk Odour Removal + Ozone Treatment';
-      optionADesc.textContent   = 'Full interior steam, shampoo and extraction to remove milk residue from fabrics, followed by ozone treatment to neutralise remaining odour.';
-      optionABest.textContent   = 'Milk spills and sour organic smells that need the physical source removed before odour treatment.';
-    }
-    if(state.smell === 'bio'){
-      optionAKicker.textContent = 'Recommended Treatment';
-      optionATitle.textContent  = 'Bio Odour Removal + Ozone Treatment + Chlorine Tablets';
-      optionADesc.textContent   = 'Full interior odour reset with ozone treatment. Chlorine dioxide tablets will also be provided after the clean in case the odour comes back.';
-      optionABest.textContent   = 'Bio odours, bodily fluid smells and strong organic contamination where a backup after-treatment may be needed.';
-    }
-  }
-
-  function updateOptionPrices(){
-    var optionAPrice = pfRoot.querySelector('[data-price-option="optionA"]');
-    var optionBPrice = pfRoot.querySelector('[data-price-option="optionB"]');
-
-    if(!state.vehicle || !state.smell){
-      if(optionAPrice) optionAPrice.textContent = '£0';
-      if(optionBPrice) optionBPrice.textContent = '£0';
-      return;
-    }
-    if(optionAPrice) optionAPrice.textContent = fmtGBP((PRICES.optionA[state.smell] && PRICES.optionA[state.smell][state.vehicle]) || 0);
-    if(optionBPrice) optionBPrice.textContent = state.smell === 'cigarette'
-      ? fmtGBP(PRICES.optionB.cigarette[state.vehicle])
-      : 'N/A';
-  }
-
-  function syncNav(){
-    btnBack.disabled = state.step === 0;
-    btnNext.disabled = !isAnswered(state.step) || state.step === STEP_COUNT - 1;
-
-    var noteStr = !state.vehicle   ? 'Choose your car size first'
-      : !state.smell   ? 'Now choose the odour type'
-      : !state.service ? 'Now choose the treatment'
-      : 'Ready to book';
-    if(noteEl.textContent !== noteStr) noteEl.textContent = noteStr;
-  }
-
-  function updateTotalsAndPills(){
-    updateTreatmentCards();
-    updateOptionPrices();
-
-    var price = getPrice();
-    var priceStr    = (!state.vehicle || !state.smell || !state.service) ? '£0' : fmtGBP(price);
-    var finalNoteStr = 'Ready to book when you are.';
-
-    if(totalEl.textContent      !== priceStr)    totalEl.textContent      = priceStr;
-    if(finalTotalEl.textContent !== priceStr)     finalTotalEl.textContent  = priceStr;
-    if(finalNoteEl.textContent  !== finalNoteStr) finalNoteEl.textContent   = finalNoteStr;
-
-    var pills = [];
-    if(state.vehicle){
-      pills.push('<span class="pill"><strong>Vehicle:</strong> ' + escHtml(VEHICLE_LABELS[state.vehicle]) + '</span>');
-    }
-    if(state.smell){
-      pills.push('<span class="pill"><strong>Odour:</strong> ' + escHtml(SMELL_LABELS[state.smell]) + '</span>');
-    }
-    if(state.service){
-      var serviceLabel = SERVICE_LABELS[state.service][state.smell] || 'Selected treatment';
-      pills.push('<span class="pill"><strong>Service:</strong> ' + escHtml(serviceLabel) + '</span>');
-      pills.push('<span class="pill"><strong>Total:</strong> ' + fmtGBP(price) + '</span>');
-    }
-
-    setHTML(pillsEl, pills.length
-      ? pills.join('')
-      : '<span class="pill"><strong>Ready:</strong> Choose your options above</span>'
-    );
-  }
-
-  function isAnswered(stepIndex){
-    switch(stepIndex){
-      case 0: return !!state.vehicle;
-      case 1: return !!state.smell;
-      case 2: return !!state.service;
-      case 3: return true;
-      default: return true;
-    }
-  }
-
-  function clearStepSelection(stepIndex){
-    var stepEl = steps[stepIndex];
-    if(!stepEl) return;
-    stepEl.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
-  }
-
-  function clearAllSelections(){
-    steps.forEach(function(stepEl){
-      stepEl.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
+  function renderBreakdown(){
+    if(!breakdownEl) return;
+    if(!state.vehicle){ breakdownEl.innerHTML = '<div class="bd-none">Choose a vehicle to see the breakdown.</div>'; return; }
+    var html = '<div class="bd-sec bd-inc"><div class="bd-title"><span class="bd-star"></span> What’s included</div>' +
+      '<div class="bd-row"><div class="bd-nm">Odour Removal Treatment &mdash; ' + VEHICLE_LABELS[state.vehicle] +
+      (state.smell ? '<div class="bd-sub">' + SMELL_LABELS[state.smell] + '</div>' : '') + '</div>' +
+      '<div class="bd-amt">' + bdAmt(calcTotal()) + '</div></div>';
+    STAGES.forEach(function(t, i){
+      html += '<div class="bd-row"><div class="bd-nm">Stage ' + (i + 1) + ' &mdash; ' + t + '</div><div class="bd-amt">Included</div></div>';
     });
-  }
-
-  /* ---- scrolling, matched to the other questionnaires -------------------
-     The old version called pfRoot.scrollIntoView() on every step, including
-     the first. With a reviews badge above the block that dragged the page
-     straight past it on load. This anchors on the wizard, and never scrolls
-     on question one. */
-  var MOTION_OK = !(window.matchMedia &&
-                    window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-
-  function headerOffset(){
-    var tallest = 0;
-    var nodes = document.querySelectorAll('header, .Header, #header, .sqs-announcement-bar-dropzone');
-    for(var i = 0; i < nodes.length; i++){
-      var el = nodes[i], cs = window.getComputedStyle(el);
-      if(cs.position !== 'fixed' && cs.position !== 'sticky') continue;
-      var r = el.getBoundingClientRect();
-      if(r.top <= 4 && r.height > 0) tallest = Math.max(tallest, r.height);
+    html += '<div class="bd-row"><div class="bd-nm">New cabin air filter fitted<div class="bd-sub">You supply the filter, we fit it at the end</div></div><div class="bd-amt">Included</div></div></div>';
+    var off = promoOff();
+    if(off){
+      html += '<div class="bd-sec bd-add"><div class="bd-row bd-disc"><div class="bd-nm">Discount applied' +
+              '<div class="bd-sub">Code ' + (promoCode() || '') + '</div></div>' +
+              '<div class="bd-amt">&minus;' + fmtGBP(calcTotal() * off / 100) + '</div></div></div>';
     }
-    return tallest ? tallest + 12 : 16;
+    html += '<div class="bd-total"><div class="bd-nm">Total</div><div class="bd-amt">' + fmtGBP(netTotal()) + '</div></div>';
+    breakdownEl.innerHTML = html;
   }
+  document.addEventListener('mps:promo', function(){ renderBreakdown(); });
 
-  /* =====================================================================
-     Scrolling — deliberately almost never happens here.
-
-     No car visual and only three short questions, so the whole block fits
-     on a phone screen. Scrolling on every answer just yanked the page.
-
-     Only scrolls if the question isn't visible at all: the block has been
-     scrolled off the top, or sits entirely below the fold.
-     ===================================================================== */
-  function scrollToWidgetTop(){
-    var anchor = pfRoot.querySelector('.wizard') || pfRoot;
-    var off = headerOffset();
-    var r   = anchor.getBoundingClientRect();
-    var vh  = window.innerHeight || document.documentElement.clientHeight;
-
-    var hiddenAbove = r.bottom < off + 40;
-    var hiddenBelow = r.top    > vh - 80;
-    if(!hiddenAbove && !hiddenBelow) return;
-
-    var y = Math.max(0, r.top + window.pageYOffset - off - 10);
-    if(Math.abs(window.pageYOffset - y) < 10) return;
-    window.scrollTo({ top:y, behavior: MOTION_OK ? 'smooth' : 'auto' });
-  }
-
-  var _willChangeTimer = null;
-  var _hasNavigated    = false;
-
-  function goToStep(i){
-    state.step = Math.max(0, Math.min(STEP_COUNT - 1, i));
-
-    track.style.willChange = 'transform';
-    track.style.transform  = 'translateX(-' + (state.step * 100) + '%)';
-    clearTimeout(_willChangeTimer);
-    _willChangeTimer = setTimeout(function(){ track.style.willChange = 'auto'; }, 500);
-
-    pfRoot.classList.toggle('is-done', state.step === STEP_COUNT - 1);
-    renderDots();
-    syncNav();
-    updateTotalsAndPills();
-
-    /* never on question one — that would jump past the reviews on load */
-    if(state.step > 0) scrollToWidgetTop();
-
-    /* focus the heading for screen readers, but not on the first render */
-    if(_hasNavigated){
-      var newStep = steps[state.step];
-      if(newStep){
-        var heading = newStep.querySelector('h3');
-        if(heading){
-          heading.setAttribute('tabindex','-1');
-          try{ heading.focus({ preventScroll:true }); }catch(e){}
-        }
+  /* ======================================================================
+     UPDATE / PROGRESS / NAVIGATION
+     ====================================================================== */
+  var PROG_LABELS = ['Your vehicle','The odour','Done'];
+  var progTrack = root.querySelector('#odrProgTrack');
+  var progStep  = root.querySelector('#odrProgStep');
+  var progLabel = root.querySelector('#odrProgLabel');
+  function renderProg(){
+    if(!progTrack) return;
+    if(!progTrack.children.length){
+      for(var i = 0; i < STEP_COUNT; i++){
+        var d = document.createElement('span'); d.className = 'prog-seg'; progTrack.appendChild(d);
       }
     }
-    _hasNavigated = true;
-  }
-
-  function setSelected(group, value, optEl){
-    state[group] = value;
-
-    if(group === 'vehicle'){
-      state.smell = null;
-      state.service = null;
-      clearStepSelection(1);
-      clearStepSelection(2);
+    for(var j = 0; j < progTrack.children.length; j++){
+      progTrack.children[j].className = 'prog-seg' + (j < state.step ? ' done' : j === state.step ? ' now' : '');
     }
-    if(group === 'smell'){
-      state.service = null;
-      clearStepSelection(2);
+    if(progStep)  progStep.textContent  = 'Step ' + (state.step + 1) + ' of ' + STEP_COUNT;
+    if(progLabel) progLabel.textContent = PROG_LABELS[state.step] || '';
+  }
+
+  function update(){
+    renderBreakdown();
+    var totalStr = state.vehicle ? fmtGBP(calcTotal()) : 'From £250';
+    var noteStr  = !state.vehicle ? 'Select your vehicle size'
+                 : !state.smell   ? 'Tell us the odour to continue'
+                 : 'Price confirmed';
+    if(totalEl.textContent      !== totalStr) totalEl.textContent      = totalStr;
+    if(noteEl.textContent       !== noteStr)  noteEl.textContent       = noteStr;
+    if(finalTotalEl.textContent !== totalStr) finalTotalEl.textContent = totalStr;
+    if(finalNoteEl) finalNoteEl.textContent = 'All four stages included. Have a new cabin air filter ready on the day.';
+    syncViewportHeight();
+  }
+
+  var viewportEl = root.querySelector('.viewport');
+  function syncViewportHeight(){
+    if(!viewportEl) return;
+    var active = steps[state.step];
+    if(!active) return;
+    var h = active.offsetHeight;
+    if(!h) return;
+    viewportEl.style.height = h + 'px';
+    if(!viewportEl.classList.contains('is-ready')){
+      requestAnimationFrame(function(){ viewportEl.classList.add('is-ready'); });
     }
+  }
+  if(window.ResizeObserver){
+    var ro = new ResizeObserver(function(){ syncViewportHeight(); });
+    steps.forEach(function(s){ ro.observe(s); });
+  } else {
+    window.addEventListener('resize', syncViewportHeight);
+  }
+  var MOTION_OK = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
-    var stepIndex = Number(optEl.closest('.step').getAttribute('data-step'));
-    clearStepSelection(stepIndex);
-    optEl.setAttribute('aria-selected','true');
-
-    updateTotalsAndPills();
-
-    if(state.step < STEP_COUNT - 1) goToStep(state.step + 1);
+  function goTo(i){
+    state.step = Math.max(0, Math.min(DONE, i));
+    track.style.transform = 'translateX(-' + (state.step * 100) + '%)';
+    root.classList.toggle('is-done',        state.step === DONE);
+    root.classList.toggle('is-first',       state.step === 0);
+    root.classList.toggle('is-questioning', state.step > 0);
+    btnBack.disabled = state.step === 0;
+    renderProg();
+    update();
   }
 
-  function onOptionActivate(optEl){
-    var group = optEl.getAttribute('data-pick');
-    var value = optEl.getAttribute('data-value');
-    if(group === 'service' && value === 'optionB' && state.smell !== 'cigarette') return;
-    setSelected(group, value, optEl);
+  function activate(opt){
+    var pick = opt.getAttribute('data-pick'), value = opt.getAttribute('data-value');
+    var stepEl = opt.closest('.step');
+    stepEl.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
+    opt.setAttribute('aria-selected','true');
+    state[pick] = value;
+    goTo(state.step + 1);
   }
-
-  pfRoot.querySelectorAll('.opt[role="option"]').forEach(function(opt){
-    opt.addEventListener('click', function(){ onOptionActivate(opt); });
+  root.querySelectorAll('.opt[role="option"]').forEach(function(opt){
+    opt.addEventListener('click', function(){ activate(opt); });
     opt.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); onOptionActivate(opt); }
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(opt); }
     });
   });
+  btnBack.addEventListener('click', function(){ if(state.step > 0) goTo(state.step - 1); });
 
   var learnMoreBtn = document.getElementById('odrLearnMoreBtn');
   if(learnMoreBtn){
     learnMoreBtn.addEventListener('click', function(){
       var el = document.getElementById('learnMoreOdourRemoval');
-      if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+      if(el) el.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' });
     });
   }
 
-  btnBack.addEventListener('click', function(){
-    if(state.step > 0) goToStep(state.step - 1);
-  });
-
-  btnNext.addEventListener('click', function(){
-    if(isAnswered(state.step) && state.step < STEP_COUNT - 1) goToStep(state.step + 1);
-  });
-
-  resetBtn.addEventListener('click', function(){
-    Object.assign(state, { step:0, vehicle:null, smell:null, service:null });
-    clearAllSelections();
-    optionBCard.style.display = '';
-    goToStep(0);
-  });
-
   doneBtn.addEventListener('click', function(){
-    var price             = getPrice();
-    var url               = buildAcuityUrl();
-    var appointmentTypeId = getAppointmentTypeId();
+    if(!bk.hidden){
+      bk.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' });
+      return;
+    }
+    bk.hidden = false;
+    doneBtn.hidden = true;
+    root.classList.add('is-booking');
+    var back = root.querySelector('#odrBkBack');
+    if(back) back.hidden = false;
+
+    loadDays(monthStr(new Date()));
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event:'pf_calendar_open', component:'price_finder',
+      service:'odour_removal', vehicle_type:state.vehicle, odour:state.smell, price_total:calcTotal() });
+    setTimeout(function(){ bk.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' }); }, 60);
+  });
+
+  /* ======================================================================
+     BOOKING PANEL
+     The old button sent people to Acuity's own booking screen. Now the
+     whole thing happens here: real slots from the diary, the intake
+     questions, then a Stripe deposit. The appointment itself is created
+     by Make once the payment lands, so nothing here can book anything
+     without money having moved.
+     ====================================================================== */
+  var bk        = root.querySelector('#odrBook');
+  var bkDays    = root.querySelector('#odrBkDays');
+  var bkTimes   = root.querySelector('#odrBkTimes');
+  var bkPay     = root.querySelector('#odrBkPay');
+  var bkErr     = root.querySelector('#odrBkErr');
+  var bkDetails = root.querySelector('#odrBkDetails');
+  var booking   = { day:null, time:null, month:null, answers:{}, autoSkipped:false };
+
+  function bkFail(msg, el){
+    bkErr.textContent = msg; bkErr.hidden = false;
+    if(el) el.focus();
+    return false;
+  }
+  function monthStr(d){ return d.getFullYear() + '-' + ('0' + (d.getMonth()+1)).slice(-2); }
+
+  function askAcuity(params){
+    var q = Object.keys(params).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+    }).join('&');
+    return fetch(AVAILABILITY + '?token=' + encodeURIComponent(MPS_TOKEN) + '&' + q)
+      .then(function(r){ return r.json(); });
+  }
+  function addonParams(){
+    var p = {};
+    addonIds().slice(0,4).forEach(function(id,i){ p['a' + (i+1)] = id; });
+    return p;
+  }
+
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+
+  function loadDays(month){
+    var type = bookingTypeId();
+    if(!type) return;
+    booking.month = month;
+
+    var grid = root.querySelector('#odrBkDays');
+    grid.innerHTML = '';
+    root.querySelector('#odrBkTimesWrap').hidden = true;
+    root.querySelector('#odrBkDaysLoad').hidden = false;
+    bkErr.hidden = true;
+
+    var y = +month.slice(0,4), m = +month.slice(5,7);
+    root.querySelector('#odrBkMonthName').textContent = MONTHS[m-1] + ' ' + y;
+    /* can't go back past this month */
+    var now = new Date();
+    root.querySelector('#odrBkPrev').disabled =
+      (y < now.getFullYear()) || (y === now.getFullYear() && m <= now.getMonth() + 1);
+
+    var p = addonParams(); p.type = type; p.month = month;
+    askAcuity(p).then(function(days){
+      root.querySelector('#odrBkDaysLoad').hidden = true;
+      var free = {};
+      (days || []).forEach(function(d){ free[d.date || d] = true; });
+      drawMonth(y, m, free);
+      if(!days || !days.length){
+        /* nothing left this month — step forward rather than showing an
+           empty grid and making them work it out */
+        if(!booking.autoSkipped){
+          booking.autoSkipped = true;
+          shiftMonth(1);
+          return;
+        }
+        bkFail('Nothing free in ' + MONTHS[m-1] + ' \u2014 try the next month.');
+      }
+    }).catch(function(){
+      root.querySelector('#odrBkDaysLoad').hidden = true;
+      bkFail('Couldn\u2019t reach the diary. Try again, or message us on WhatsApp.');
+    });
+  }
+
+  function drawMonth(y, m, free){
+    var grid = root.querySelector('#odrBkDays');
+    grid.innerHTML = '';
+
+    var first = new Date(y, m - 1, 1);
+    var lead  = (first.getDay() + 6) % 7;          /* weeks start Monday */
+    var count = new Date(y, m, 0).getDate();
+
+    for(var i = 0; i < lead; i++){
+      var blank = document.createElement('span');
+      blank.className = 'bk-cell is-empty';
+      grid.appendChild(blank);
+    }
+
+    for(var day = 1; day <= count; day++){
+      var iso = y + '-' + ('0' + m).slice(-2) + '-' + ('0' + day).slice(-2);
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'bk-cell'; b.textContent = day;
+      b.setAttribute('aria-pressed','false');
+      if(!free[iso]){
+        b.disabled = true;
+        b.setAttribute('aria-label', day + ' \u2014 fully booked');
+      } else {
+        b.setAttribute('data-iso', iso);
+        (function(isoDay, btn){
+          btn.addEventListener('click', function(){
+            Array.prototype.forEach.call(grid.children, function(o){
+              if(o.setAttribute) o.setAttribute('aria-pressed','false');
+            });
+            btn.setAttribute('aria-pressed','true');
+            booking.day = isoDay; booking.time = null;
+            bkPay.disabled = true; bkPay.textContent = 'Pay the deposit & book';
+            root.querySelector('#odrBkChosen').hidden = true;
+            loadTimes(isoDay);
+          });
+        })(iso, b);
+      }
+      grid.appendChild(b);
+    }
+  }
+
+  /* ---- hour and minute wheels, built from what's actually free ---- */
+  var slotsByHour = {};
+
+  function loadTimes(iso){
+    var type = bookingTypeId();
+    root.querySelector('#odrBkTimesWrap').hidden = false;
+    root.querySelector('#odrBkTimesLoad').hidden = false;
+    root.querySelector('#odrBkHours').innerHTML = '';
+    root.querySelector('#odrBkMins').innerHTML  = '';
+
+    var p = addonParams(); p.type = type; p.when = iso;
+    askAcuity(p).then(function(times){
+      root.querySelector('#odrBkTimesLoad').hidden = true;
+      slotsByHour = {};
+      (times || []).forEach(function(t){
+        var raw = t.time || t;
+        var hm  = String(raw).match(/T(\d{2}):(\d{2})/);
+        if(!hm) return;
+        (slotsByHour[hm[1]] = slotsByHour[hm[1]] || []).push({ mm:hm[2], raw:raw });
+      });
+
+      var hours = Object.keys(slotsByHour).sort();
+      if(!hours.length){
+        root.querySelector('#odrBkHours').innerHTML = '<p class="bk-load" style="padding:10px;">That day filled up.</p>';
+        return;
+      }
+      hours.forEach(function(hh){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'bk-tick'; b.textContent = hh;
+        b.setAttribute('aria-pressed','false');
+        b.addEventListener('click', function(){
+          Array.prototype.forEach.call(root.querySelector('#odrBkHours').children, function(o){
+            if(o.setAttribute) o.setAttribute('aria-pressed','false');
+          });
+          b.setAttribute('aria-pressed','true');
+          drawMinutes(hh);
+        });
+        root.querySelector('#odrBkHours').appendChild(b);
+      });
+      drawMinutes(hours[0]);
+      root.querySelector('#odrBkHours').firstChild.setAttribute('aria-pressed','true');
+    }).catch(function(){
+      root.querySelector('#odrBkTimesLoad').hidden = true;
+      bkFail('Couldn\u2019t load that day. Try another.');
+    });
+  }
+
+  function drawMinutes(hh){
+    var wrap = root.querySelector('#odrBkMins');
+    wrap.innerHTML = '';
+    (slotsByHour[hh] || []).forEach(function(slot){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'bk-tick'; b.textContent = slot.mm;
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(wrap.children, function(o){
+          if(o.setAttribute) o.setAttribute('aria-pressed','false');
+        });
+        b.setAttribute('aria-pressed','true');
+        booking.time = slot.raw;
+
+        var chosen = root.querySelector('#odrBkChosen');
+        chosen.textContent = new Date(String(slot.raw).slice(0,10) + 'T12:00:00')
+          .toLocaleDateString('en-GB', { weekday:'long', day:'numeric', month:'long' }) +
+          ' at ' + hh + ':' + slot.mm;
+        chosen.hidden = false;
+
+        bkDetails.hidden = false;
+        bkPay.disabled = false;
+        bkPay.textContent = 'Pay ' + fmtMoney(depositAmount()) + ' deposit & book';
+        var fine = root.querySelector('#odrBkFine');
+        if(fine){
+          fine.textContent = fmtMoney(depositAmount()) + ' now holds the slot. The remaining ' +
+            fmtMoney(netTotal() - depositAmount()) + ' is paid on the day, once you\u2019ve seen the work.';
+        }
+      });
+      wrap.appendChild(b);
+    });
+  }
+
+  function shiftMonth(by){
+    var d = new Date((booking.month || monthStr(new Date())) + '-01T12:00:00');
+    d.setMonth(d.getMonth() + by);
+    loadDays(monthStr(d));
+  }
+  root.querySelector('#odrBkNextMonth').addEventListener('click', function(){ shiftMonth(1); });
+  root.querySelector('#odrBkPrev').addEventListener('click', function(){ shiftMonth(-1); });
+
+  Array.prototype.forEach.call(root.querySelectorAll('.bk-yn'), function(row){
+    var key = row.getAttribute('data-yn');
+    Array.prototype.forEach.call(row.querySelectorAll('button'), function(b){
+      b.addEventListener('click', function(){
+        Array.prototype.forEach.call(row.querySelectorAll('button'), function(o){ o.setAttribute('aria-pressed','false'); });
+        b.setAttribute('aria-pressed','true');
+        booking.answers[key] = b.getAttribute('data-v');
+      });
+    });
+  });
+
+  bkPay.addEventListener('click', function(){
+    bkErr.hidden = true;
+    if(!booking.time) return bkFail('Pick a day and a start time first.');
+
+    var first = root.querySelector('#odrBkFirst').value.trim();
+    var last  = root.querySelector('#odrBkLast').value.trim();
+    var email = root.querySelector('#odrBkEmail').value.trim();
+    var phone = root.querySelector('#odrBkPhone').value.trim();
+    var addr  = root.querySelector('#odrBkAddr').value.trim();
+    var car   = root.querySelector('#odrBkCar').value.trim();
+
+    if(!first) return bkFail('We need a first name for the booking.', root.querySelector('#odrBkFirst'));
+    if(!last)  return bkFail('And a surname.', root.querySelector('#odrBkLast'));
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return bkFail('That email doesn\u2019t look right \u2014 your confirmation goes there.', root.querySelector('#odrBkEmail'));
+    if(phone.replace(/\D/g,'').length < 10) return bkFail('A mobile number, so we can say when we\u2019re on the way.', root.querySelector('#odrBkPhone'));
+    if(addr.length < 8) return bkFail('The full address and postcode \u2014 we\u2019re driving to it.', root.querySelector('#odrBkAddr'));
+    if(!car) return bkFail('Make, model and year, so we bring the right kit.', root.querySelector('#odrBkCar'));
+    if(booking.answers.agree !== 'yes') return bkFail('Please confirm you\u2019ll have a new cabin air filter ready for us to fit.');
+    if(!booking.answers.power || !booking.answers.water || !booking.answers.space)
+      return bkFail('Answer the three yes/no questions and we\u2019ll know what to bring.');
+
+    bkPay.disabled = true;
+    bkPay.textContent = 'Taking you to checkout\u2026';
+
+    var label = '10% deposit \u2014 Odour Removal, ' + (VEHICLE_LABELS[state.vehicle] || state.vehicle) +
+                (state.smell ? ' \u2014 ' + SMELL_LABELS[state.smell] : '');
+
+    var p = {
+      token: MPS_TOKEN,
+      deposit: Math.round(depositAmount() * 100),
+      label: label,
+      type: bookingTypeId(),
+      datetime: booking.time,
+      addons: '[' + addonIds().join(',') + ']',
+      firstName: first, lastName: last, email: email, phone: phone, address: addr,
+      vehicle: car,
+      power: booking.answers.power,
+      water: booking.answers.water,
+      space: booking.answers.space,
+      agree: booking.answers.agree,
+      marketing: booking.answers.marketing || 'no',
+      certificate: (window.MPS_PROMO && window.MPS_PROMO.code) ? (window.MPS_PROMO.code() || '') : '',
+      notes: 'Total ' + fmtGBP(netTotal()) + ' \u2014 ' + car + (state.smell ? ' \u2014 Odour: ' + SMELL_LABELS[state.smell] : '') + ' \u2014 customer to supply new cabin filter',
+      source: getGclid() || ''
+    };
 
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event:           'pf_book_click',
-      component:       'price_finder',
-      service:         'smoke_milk_bio_odour_removal',
-      vehicle_type:    state.vehicle || null,
-      odour_type:      state.smell   || null,
-      odour_option:    state.service || null,
-      price_total:     price || null,
-      acuity_type_id:  appointmentTypeId,
-      acuity_key:      getAcuityKey(),
-      gclid:           getGclid(),
-      destination_url: url
-    });
+    window.dataLayer.push({ event:'pf_book_click', component:'price_finder',
+      service:'odour_removal', vehicle_type:state.vehicle, odour:state.smell,
+      price_total:calcTotal(), deposit:depositAmount(), gclid:getGclid() });
 
-    window.location.href = url;
+    var q = Object.keys(p).map(function(k){
+      return encodeURIComponent(k) + '=' + encodeURIComponent(p[k]);
+    }).join('&');
+
+    fetch(DEPOSIT_HOOK + '?' + q)
+      .then(function(r){ return r.json(); })
+      .then(function(session){
+        if(session && session.url){ window.location.href = session.url; return; }
+        throw new Error('no url');
+      })
+      .catch(function(){
+        bkPay.disabled = false;
+        bkPay.textContent = 'Pay ' + fmtMoney(depositAmount()) + ' deposit & book';
+        bkErr.innerHTML = 'Checkout didn\u2019t open. Nothing has been charged and nothing is booked \u2014 ' +
+          '<a href="https://wa.me/447592196929" target="_blank" rel="noopener" style="color:var(--ocean);font-weight:900;">message us</a> ' +
+          'and we\u2019ll book it by hand.';
+        bkErr.hidden = false;
+      });
   });
 
-  buildDots();
-  goToStep(0);
+  var bkBack = root.querySelector('#odrBkBack');
+  if(bkBack){
+    bkBack.addEventListener('click', function(){
+      root.classList.remove('is-booking');
+      bk.hidden = true;
+      bkBack.hidden = true;
+      doneBtn.hidden = false;
+      syncViewportHeight();
+      root.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'start' });
+    });
+  }
 
-  /* =====================================================================
-     SIZE HANDED OVER FROM THE HOMEPAGE ROUTER
-     The router sends ?size=small|medium|large. We map it to this
-     questionnaire's own vehicle values, select it, and let the normal flow
-     open question 2 — so nobody answers the same thing twice.
-     ===================================================================== */
+  /* ======================================================================
+     INIT
+     ====================================================================== */
+  goTo(0);
+
+  /* size handed over from the homepage router: ?size=small|medium|large */
   (function prefillFromRouter(){
     var MAP = { small:'3door', medium:'5door', large:'7seater' };
     var want;
     try{ want = new URLSearchParams(window.location.search).get('size'); }catch(e){ return; }
     if(!want) return;
-
     var value = MAP[String(want).trim().toLowerCase()];
     if(!value) return;
-
-    var el = document.querySelector(
-      '#priceFinderOdourRemoval .opt[data-pick="vehicle"][data-value="' + value + '"]'
-    );
-    if(!el) return;
-
-    setTimeout(function(){ el.click(); }, 0);
+    var el = root.querySelector('.opt[data-pick="vehicle"][data-value="' + value + '"]');
+    if(el) setTimeout(function(){ el.click(); }, 0);
   })();
-
-  /* =====================================================================
-     Landing position — the reviews badge loads late, so the page can settle
-     part-way down. Put it back at the top, but only if the person hasn't
-     touched anything and there's no #hash to honour.
-     ===================================================================== */
-  var _touched = false;
-  ['touchstart','wheel','keydown','pointerdown','mousedown'].forEach(function(ev){
-    window.addEventListener(ev, function(){ _touched = true; }, { once:true, passive:true });
-  });
-
-  function settleAtTop(){
-    if(_touched) return;
-    if(window.location.hash) return;
-    if(window.pageYOffset <= 4) return;
-    window.scrollTo(0, 0);
-  }
-
-  window.addEventListener('load', settleAtTop);
-  setTimeout(settleAtTop, 250);
-  setTimeout(settleAtTop, 700);
+  window.addEventListener('load', syncViewportHeight);
+  setTimeout(syncViewportHeight, 250);
 })();
 </script>
