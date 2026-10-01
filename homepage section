@@ -1,0 +1,404 @@
+<!-- ==========================================================================
+     MobilePitStop — Homepage: "Our Approach to Car Detailing"
+     Replaces the old tabbed service widget. Paste into ONE Code Block.
+
+     Namespaced .mph- so it can't clash with the All Services page (.mps-)
+     or with Squarespace's own styles. No fonts or scripts loaded from
+     outside.
+
+     NO LAYOUT DEPENDS ON JAVASCRIPT. The only script adds a gentle
+     slide-up as each block scrolls into view; if it fails, everything is
+     simply visible. Every image has a fixed shape (aspect-ratio), so
+     Squarespace measures the right height on the first paint.
+
+     IMAGES: the four below are already on your site. Swap any URL for a
+     better shot — keep the ?format=800w on the end.
+
+     SERVICE LIST PRICES mirror the All Services page. Publish both pages
+     and the Acuity changes on the same day, or the prices here will
+     disagree with the booking page.
+     ========================================================================== -->
+
+<style>
+.mph{
+  --mph-ink:#ffffff;
+  --mph-dim:rgba(255,255,255,.66);
+  --mph-faint:rgba(255,255,255,.38);
+  --mph-line:rgba(255,255,255,.13);
+  --mph-yellow:#E3FC02;
+  --mph-blue:#00B8FF;
+
+  color:var(--mph-ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  max-width:980px;
+  margin:0 auto;
+  padding:0 2px;
+  text-align:left;
+}
+.mph *{box-sizing:border-box;}
+
+/* ---------- heading ---------- */
+.mph h2.mph-h2{
+  font-size:clamp(27px,6.6vw,42px);
+  font-weight:900;
+  letter-spacing:-.025em;
+  line-height:1.08;
+  text-align:center;
+  margin:0 0 10px;
+  color:var(--mph-ink);
+}
+.mph-motto{
+  text-align:center;
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:.01em;
+  color:var(--mph-yellow);
+  margin:0 0 34px;
+}
+
+/* ---------- the four blocks ---------- */
+.mph-blocks{display:grid;gap:34px;margin:0 0 44px;}
+
+.mph-block{
+  display:grid;
+  gap:16px;
+  align-items:center;
+}
+.mph-img{
+  margin:0;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--mph-line);
+  background:#111;
+  aspect-ratio:16/10;
+}
+.mph-img img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.mph-n{
+  display:inline-block;
+  font-size:12px;
+  font-weight:900;
+  color:var(--mph-yellow);
+  margin:0 0 6px;
+  font-variant-numeric:tabular-nums;
+}
+.mph-block h3{
+  font-size:clamp(21px,5vw,26px);
+  font-weight:900;
+  letter-spacing:-.02em;
+  line-height:1.15;
+  margin:0 0 10px;
+  color:var(--mph-ink);
+}
+.mph-block p{
+  font-size:15px;
+  line-height:1.65;
+  color:var(--mph-dim);
+  margin:0 0 14px;
+  max-width:56ch;
+}
+.mph-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.mph-chips li{
+  padding:6px 11px;
+  border:1px solid var(--mph-line);
+  border-radius:999px;
+  background:rgba(255,255,255,.03);
+  font-size:12.5px;
+  font-weight:700;
+  line-height:1.2;
+  color:rgba(255,255,255,.82);
+}
+
+/* ---------- compact service list ----------
+   Plain links in a div rather than a <ul>: Squarespace's own list styles
+   were forcing one pill per row. The !important flags hold the layout
+   against those site-wide styles. */
+.mph-svc{
+  border-top:1px solid var(--mph-line);
+  padding-top:24px;
+  margin:0 0 24px;
+}
+.mph .mph-svc-h{
+  display:flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-size:13px !important;
+  font-weight:900 !important;
+  letter-spacing:.12em !important;
+  text-transform:uppercase;
+  line-height:1.2 !important;
+  color:#ffffff !important;
+  text-align:center;
+  margin:0 0 12px !important;
+}
+.mph-svc-h svg{
+  width:19px;
+  height:19px;
+  flex:0 0 19px;
+  stroke:var(--mph-yellow);
+  fill:none;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.mph .mph-svc-note{
+  text-align:center;
+  font-size:12.5px !important;
+  line-height:1.4 !important;
+  color:rgba(255,255,255,.5) !important;
+  margin:-6px 0 12px !important;
+}
+.mph-pills{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  justify-content:center;
+  gap:7px;
+  margin:0 0 22px;
+  padding:0;
+}
+.mph-pills:last-child{margin-bottom:0;}
+.mph .mph-pills a{
+  display:inline-flex !important;
+  align-items:baseline;
+  gap:7px;
+  width:auto !important;
+  padding:8px 13px;
+  border:1px solid var(--mph-line);
+  border-radius:999px;
+  background:rgba(255,255,255,.03);
+  font-size:13.5px;
+  font-weight:700;
+  line-height:1.2;
+  color:#ffffff !important;
+  text-decoration:none !important;
+  white-space:nowrap;
+  transition:border-color .15s ease,background .15s ease;
+}
+.mph-pills a b{color:var(--mph-yellow);font-weight:900;font-size:12.5px;}
+.mph-pills a .mph-q{
+  color:var(--mph-yellow);
+  font-size:10.5px;
+  font-weight:900;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+.mph .mph-pills a:hover,.mph .mph-pills a:focus-visible{
+  border-color:rgba(227,252,2,.5);
+  background:rgba(227,252,2,.07);
+}
+
+/* ---------- CTA ---------- */
+.mph-cta{text-align:center;margin:0;}
+.mph-go{
+  display:inline-block;
+  padding:15px 34px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+  color:#0b0b0b;
+  font-size:16px;
+  font-weight:900;
+  letter-spacing:.005em;
+  text-decoration:none;
+  box-shadow:0 8px 22px rgba(227,252,2,.24);
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.mph-go:hover,.mph-go:focus-visible{
+  transform:translateY(-1px);
+  box-shadow:0 12px 28px rgba(227,252,2,.34);
+  color:#0b0b0b;
+}
+
+/* ---------- desktop: image and text side by side, alternating ---------- */
+@media (min-width:760px){
+  .mph-blocks{gap:46px;}
+  .mph-block{grid-template-columns:1fr 1fr;gap:38px;}
+  .mph-block:nth-child(even) .mph-img{order:2;}
+}
+
+/* ---------- slide-up as blocks enter (only when the script runs) ---------- */
+.mph.mph-anim .mph-block{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity .55s ease,transform .55s ease;
+}
+.mph.mph-anim .mph-block.mph-in{opacity:1;transform:none;}
+
+@media (max-width:640px){
+  .mph-go{display:block;}
+}
+@media (prefers-reduced-motion:reduce){
+  .mph.mph-anim .mph-block{opacity:1;transform:none;transition:none;}
+  .mph *{transition:none !important;}
+}
+</style>
+
+
+<section class="mph" aria-labelledby="mph-title">
+
+  <h2 class="mph-h2" id="mph-title">Our Approach to Car Detailing</h2>
+  <p class="mph-motto">Clean. Enhance. Protect.</p>
+
+  <div class="mph-blocks">
+
+    <!-- 1. APPROACH -->
+    <article class="mph-block">
+      <figure class="mph-img">
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5f594497-4c18-4be2-a765-18ec951ad8c6/Full+valet+.webp?format=800w"
+             alt="Car finished after a full mobile detail, clean paint and glass"
+             width="800" height="500" loading="lazy" decoding="async">
+      </figure>
+      <div>
+        <span class="mph-n">01</span>
+        <h3>Our Approach</h3>
+        <p>Every job starts with an inspection, not a price list. We look at the paint, the interior and what you actually want from the car, then use the least aggressive method that gets the result &mdash; and tell you straight when a cheaper service will do.</p>
+        <ul class="mph-chips">
+          <li>Inspection first</li>
+          <li>Least aggressive method</li>
+          <li>Honest advice</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 2. TECHNIQUES -->
+    <article class="mph-block">
+      <figure class="mph-img">
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4bc24f7e-4db0-4f26-9939-172303f1bd7a/exterior+deep+clean+%282%29.webp?format=800w"
+             alt="Snow foam pre-wash lifting dirt before a safe hand wash"
+             width="800" height="500" loading="lazy" decoding="async">
+      </figure>
+      <div>
+        <span class="mph-n">02</span>
+        <h3>Techniques</h3>
+        <p>Most swirl marks are put in during the wash. So dirt is lifted chemically before anything touches the paint, and every stage after that &mdash; decontamination, clay, machine polishing &mdash; removes contamination without adding marks of its own.</p>
+        <ul class="mph-chips">
+          <li>Snow foam pre-wash</li>
+          <li>Two-bucket safe wash</li>
+          <li>Chemical decontamination</li>
+          <li>Clay bar</li>
+          <li>Machine polishing</li>
+          <li>Steam &amp; extraction</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 3. TOOLS -->
+    <article class="mph-block">
+      <figure class="mph-img">
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=800w"
+             alt="Steam cleaning a car interior during a deep clean"
+             width="800" height="500" loading="lazy" decoding="async">
+      </figure>
+      <div>
+        <span class="mph-n">03</span>
+        <h3>Tools</h3>
+        <p>A fully mobile setup &mdash; our own water and a 45m power lead, so all we need is a plug socket. Steam, extraction and compressed air do the interior work; dual-action polishers and inspection lighting do the paint. Multi-stage correction and film work move indoors to our unit in Ellesmere Port.</p>
+        <ul class="mph-chips">
+          <li>Steam cleaner</li>
+          <li>Hot-water extractor</li>
+          <li>Compressed air</li>
+          <li>Machine polishers</li>
+          <li>Ozone treatment</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 4. PRODUCTS -->
+    <article class="mph-block">
+      <figure class="mph-img">
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/55d656f3-f705-47f9-86c6-e79bd1bfdbe0/Full+Valet+-+5.webp?format=800w"
+             alt="Detailing products used for a safe wash and paint protection"
+             width="800" height="500" loading="lazy" decoding="async">
+      </figure>
+      <div>
+        <span class="mph-n">04</span>
+        <h3>Products</h3>
+        <p>pH-neutral shampoos that won't strip existing protection, dedicated tar and iron removers, interior dressings that leave a natural satin finish rather than a greasy shine, and ceramic sealants and coatings chosen for how long they last on a car that's driven every day.</p>
+        <ul class="mph-chips">
+          <li>pH-neutral shampoo</li>
+          <li>Tar &amp; iron removers</li>
+          <li>Ceramic sealant</li>
+          <li>Ceramic coating</li>
+          <li>Glaco glass coating</li>
+        </ul>
+      </div>
+    </article>
+
+  </div>
+
+
+  <!-- ===== Compact service list: keeps every service name and a direct
+       link on the homepage for search, in a fraction of the old space.
+       Delete this whole <div> if you'd rather go straight to the button. -->
+  <div class="mph-svc">
+    <h3 class="mph-svc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 16V7a1 1 0 0 1 1-1h10v10"/><path d="M14 9h3.6a1 1 0 0 1 .82.43L21 13v3"/><circle cx="7.5" cy="16.5" r="1.9"/><circle cx="17" cy="16.5" r="1.9"/><path d="M9.4 16.5h5.7"/></svg><span>Mobile Services</span></h3>
+    <p class="mph-svc-note">All prices from &middot; final price depends on vehicle size</p>
+    <div class="mph-pills">
+      <a href="/mini-valet">Maintenance Wash <b>&pound;60</b></a>
+      <a href="/interior-deep-clean">Interior Deep Clean <b>&pound;60</b></a>
+      <a href="/car-exterior-deep-clean">Exterior Detail <b>&pound;60</b></a>
+      <a href="/full-valet">In &amp; Out Deep Clean <b>&pound;140</b></a>
+      <a href="/full-valet-premium">Protection Detail <b>&pound;250</b></a>
+      <a href="/mobile-detailing-services#machine-polishing">Enhancement Polish <b>&pound;275</b></a>
+      <a href="/mobile-detailing-services#ceramic">Ceramic Coating <b>&pound;385</b></a>
+      <a href="/smoke/milk/bio-odour-removal">Odour Removal <b>&pound;120</b></a>
+    </div>
+
+    <h3 class="mph-svc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M7 20v-7h10v7"/><path d="M7 15.5h10M7 18h10"/></svg><span>At Our Unit, By Quote</span></h3>
+    <div class="mph-pills">
+      <a href="/mobile-detailing-services#correction">Multi-Step Paint Correction <span class="mph-q">By quote</span></a>
+      <a href="/mobile-detailing-services#ppf">PPF <span class="mph-q">By quote</span></a>
+      <a href="/mobile-detailing-services#wrap">Vinyl Wraps <span class="mph-q">By quote</span></a>
+      <a href="/mobile-detailing-services#tint">Window Tinting <span class="mph-q">By quote</span></a>
+      <a href="/mobile-detailing-services#dechrome">De-Chrome <span class="mph-q">By quote</span></a>
+    </div>
+  </div>
+
+  <p class="mph-cta"><a class="mph-go" href="/mobile-detailing-services">See All Services</a></p>
+
+</section>
+
+
+<script>
+(function(){
+  var root = document.querySelector('.mph');
+  if(!root || !('IntersectionObserver' in window)) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var blocks = root.querySelectorAll('.mph-block');
+  root.classList.add('mph-anim');
+
+  var heard = false;
+  var io = new IntersectionObserver(function(entries){
+    heard = true;
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('mph-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+
+  for(var i = 0; i < blocks.length; i++) io.observe(blocks[i]);
+
+  /* safety net: the observer always reports once straight away. If it
+     never does (some editor previews), show everything rather than
+     leave the blocks invisible. */
+  setTimeout(function(){
+    if(heard) return;
+    for(var j = 0; j < blocks.length; j++) blocks[j].classList.add('mph-in');
+  }, 1500);
+})();
+</script>
