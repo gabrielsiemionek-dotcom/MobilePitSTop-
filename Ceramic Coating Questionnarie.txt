@@ -16,10 +16,15 @@
      machine polish, £375 and £555. Same totals as picking a coating on
      the Exterior Detail page.
 
-     ACUITY: none. Every coating is weather dependent, so this page always
-     ends in a WhatsApp / email request with the price already worked out
-     and the customer's preferred date attached. Nothing to create, and no
-     way for someone to book a driveway coating into a wet Tuesday.
+     FLOW   vehicle -> coating length -> paint enhancement -> engine bay
+            -> "Request This Booking" -> WhatsApp / email request with the
+            price (after any discount code) and the preferred date. Same
+            request route a coating takes on Exterior Detail, In & Out and
+            Protection Detail. Vans, pick-ups and campers -> request a quote.
+
+     ACUITY: none. Every coating is weather dependent, so this page never
+     books a calendar slot. The 10% deposit is taken once the date is
+     agreed — so the deposit box isn't shown here.
      ========================================================================== -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -1256,14 +1261,14 @@
           <div class="power-compact" id="ccFinalPower" aria-label="Final Cleaning Power">
             <div class="pc-top">
               <div class="pc-title">Cleaning Power</div>
-              <div class="pc-badge">Exterior Detail</div>
+              <div class="pc-badge">Ceramic Coating</div>
             </div>
             <div class="pc-rows" id="ccPowerRows"></div>
           </div>
 
           <div class="summary">
-            <button class="btn btn-primary-glow" id="ccDoneBtn" type="button" style="width:100%;">View Calendar</button>
-            <p class="book-note" id="ccBookNote" hidden>Coatings depend on dry weather, so we&rsquo;ll confirm your date with you first.</p>
+            <button class="btn btn-primary-glow" id="ccDoneBtn" type="button" style="width:100%;">Request This Booking</button>
+            <p class="book-note" id="ccBookNote">Coatings depend on dry weather, so we&rsquo;ll confirm your date with you first.</p>
 
             <div class="rq" id="ccRequest" hidden>
               <p class="rq-head">Send us your request</p>
@@ -1293,7 +1298,7 @@
               </div>
             </div>
 
-            <div class="pay-box" id="ccPayBox">
+            <div class="pay-box" id="ccPayBox" hidden>
               <div class="pay-head">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7L9.5 17.5 4 12"/></svg>
                 <span>To book, pay a <em>10% deposit</em></span>
@@ -1308,7 +1313,7 @@
             <div class="bd" id="ccBreakdown"></div>
 
             <div style="margin-top:10px; color:#bdbdbd; font-size:13px; line-height:1.45;" id="ccBookHint">
-              Tap View Calendar to choose your date &amp; time.
+              Send your request and we&rsquo;ll confirm the date. The 10% deposit is taken once it&rsquo;s booked.
             </div>
           </div>
         </section>
@@ -1563,7 +1568,7 @@
       update();
     });
   }
-  document.addEventListener('mps:promo', function(){ renderBreakdown(); });
+  document.addEventListener('mps:promo', function(){ renderBreakdown(); refreshMessage(); });
 
   var rqName  = root.querySelector('#ccRqName');
   var rqPc    = root.querySelector('#ccRqPostcode');
@@ -1601,7 +1606,9 @@
       if(hasEnhance())              L.push('Paint enhancement, 1-stage machine polish: +' + fmtGBP(enhancePrice()));
       if(state.engineBay === 'yes') L.push('Engine bay detail: +' + fmtGBP(ENGINE_PRICE));
       L.push('');
-      L.push('Total: ' + fmtGBP(calcTotal()));
+      var off = promoOff(), code = promoCode();
+      L.push('Total: ' + fmtGBP(calcTotal() * (1 - off / 100)) +
+             (off && code ? ' (code ' + code + ', ' + off + '% off ' + fmtGBP(calcTotal()) + ')' : ''));
     } else {
       L.push('Total: by quote');
     }
@@ -1623,7 +1630,7 @@
     window.dataLayer.push({
       event:'pf_request_click', component:'price_finder', service:'ceramic_coating',
       channel:channel, vehicle_type:state.vehicle, engine_bay:state.engineBay,
-      paint_tier:state.paint, protection:state.prot, price_total:calcTotal(),
+      coating:state.coat, enhancement:state.enhance, price_total:calcTotal(),
       promo_code:promoCode(), gclid:getGclid()
     });
   }
@@ -1677,8 +1684,9 @@
     if(doneBtn)     doneBtn.textContent = 'Request This Booking';
     if(bookHintEl)  bookHintEl.textContent = byQuote
       ? 'We\u2019ll come back to you within 6 hrs with a price and a date.'
-      : 'We\u2019ll check the forecast and confirm your date \u2014 usually the same day.';
-    if(bookNoteEl)  bookNoteEl.textContent = '';
+      : 'Send your request and we\u2019ll confirm the date. The 10% deposit is taken once it\u2019s booked.';
+    if(bookNoteEl)  bookNoteEl.hidden = byQuote;
+    if(payBox)      payBox.hidden = true;
 
     renderPower();
     renderCardPreviews();
@@ -1820,6 +1828,7 @@
     refreshMessage();
     syncViewportHeight();
     if(rqName) try{ rqName.focus({ preventScroll:true }); }catch(e){}
+    try{ if(requestPanel) requestPanel.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'nearest' }); }catch(e){}
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event:'pf_request_open', service:'ceramic_coating',
                             price_total: state.more ? null : calcTotal() });

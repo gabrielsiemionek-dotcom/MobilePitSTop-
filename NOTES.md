@@ -161,6 +161,36 @@ discounted total.
 
 ---
 
+## 2026-10-01 — Ceramic Coating questionnaire + What's Included
+
+**Prices checked — all correct**, identical to Exterior Detail with a
+coating: 1 yr from £190 / £230 / £290, 3 yrs £270 / £310 / £370, 7 yrs
+£370 / £410 / £470; enhancement +£185 / £220 / £265 (clay already in the
+coating); engine bay +£30. Request-only page (no Acuity), same as a coating
+on every other page.
+
+Questionnaire (`Ceramic Coating Questionnarie.txt`):
+- Final screen showed "To book, pay a 10% deposit" with card/cash/invoice
+  before the request — hidden now; the weather note and "the 10% deposit
+  is taken once it's booked" show instead (same as the other pages).
+- Button starts as "Request This Booking" (the markup said View Calendar).
+- Request message total ignored a discount code — now "£448 (code
+  AUTUMN20, 20% off £560)", matching the breakdown; refreshes when a code
+  is added or removed.
+- Cleaning Power badge said "Exterior Detail" → "Ceramic Coating".
+- Analytics sent `paint` / `prot` (fields this page doesn't have) → now
+  `coating` / `enhancement`.
+- Request panel scrolls into view when opened.
+
+What's Included (`Ceramic Coating Whats Included.txt`):
+- No vehicle sizes: the price table is now by coating length only (from
+  £190 / £270 / £370) and the enhancement size table is gone; both say the
+  exact price is in the questionnaire above.
+- Add-ons in blue (prices, heading, accordion).
+- "Why request a date" FAQ names the Request This Booking button.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

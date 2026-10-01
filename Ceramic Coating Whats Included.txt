@@ -10,7 +10,10 @@
          coating itself, Glaco on the glass, and the curing rules.
        • Add-ons: paint enhancement (from £185) and engine bay (£30) —
          the same two the questionnaire offers, at the same prices.
-       • A full price table: 1 / 3 / 7 years by vehicle size, all-in.
+       • "From" prices only (1 yr from £190, 3 yrs from £270, 7 yrs from
+         £370). No vehicle sizes here — the size and exact price live in
+         the questionnaire above.
+       • Add-ons are blue (prices, heading, accordion), as on every page.
        • FAQs answer the two things people actually ask: does it stop
          scratches (no), and why they request a date instead of booking.
 
@@ -174,7 +177,11 @@
   .mps-acc .content ul{ padding-left:16px; margin:6px 0 0; }
   .mps-acc .content li{ margin-bottom:3px; }
 
-  .mps-acc--addons{ border-color:rgba(0,184,255,.3); }
+  .mps-acc--addons{ border-color:rgba(0,184,255,.3); background:rgba(0,184,255,.04); }
+  .mps-acc--addons .content strong{ color:#fff; }
+  .mps-vcard--addon .mps-vprice{ color:var(--mps-ocean); }
+  .mps-sectionhead--addons h4{ color:var(--mps-ocean); }
+  .mps-ptable-note{ margin:8px 0 0; font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); }
   .mps-acc--addons details{ border-top-color:rgba(0,184,255,.15); }
   .mps-acc--addons .plus::before,
   .mps-acc--addons .plus::after{ background:rgba(0,184,255,.7); }
@@ -530,14 +537,14 @@
     <p class="mps-sectionnote">Each price is the whole job &mdash; the exterior prep, the clay bar, Glaco on the glass and the coating itself. Nothing else to add unless you want the paint polished first.</p>
 
     <table class="mps-ptable">
-      <thead><tr><th>Vehicle</th><th>1 yr</th><th>3 yrs</th><th>7 yrs</th></tr></thead>
+      <thead><tr><th>Coating</th><th>Whole job, from</th></tr></thead>
       <tbody>
-        <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;190</span></td><td><span class="p-now">&pound;270</span></td><td><span class="p-now">&pound;370</span></td></tr>
-        <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;230</span></td><td><span class="p-now">&pound;310</span></td><td><span class="p-now">&pound;410</span></td></tr>
-        <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;290</span></td><td><span class="p-now">&pound;370</span></td><td><span class="p-now">&pound;470</span></td></tr>
+        <tr><td>1 Year</td><td><span class="p-now">&pound;190</span></td></tr>
+        <tr><td>3 Years</td><td><span class="p-now">&pound;270</span></td></tr>
+        <tr><td>7 Years</td><td><span class="p-now">&pound;370</span></td></tr>
       </tbody>
     </table>
-    <p class="mps-ptable-note">Vans, pick-ups and campervans are by quote. Coatings need dry conditions to cure, so you send us your preferred date and we confirm it against the forecast &mdash; the price doesn&rsquo;t change.</p>
+    <p class="mps-ptable-note">The exact price for your vehicle shows in the questionnaire above. Vans, pick-ups and campervans are by quote. Coatings need dry conditions to cure, so the questionnaire ends with <strong>Request This Booking</strong>: you send us your preferred date and we confirm it against the forecast &mdash; the price doesn&rsquo;t change.</p>
   </article>
 
   <!-- ===== Included list ===== -->
@@ -596,7 +603,7 @@
       </details>
     </div>
 
-    <div class="mps-sectionhead">
+    <div class="mps-sectionhead mps-sectionhead--addons">
       <h4>Add-ons</h4>
       <span class="mps-sectionpill mps-sectionpill--optional">Optional</span>
     </div>
@@ -608,15 +615,7 @@
           <span class="mps-incl-chip">No clay charge &mdash; the coating already includes it</span>
           <p>A <strong>1-stage machine polish</strong> across all paintwork before the coating goes on. Removes swirl marks, light scratches and water marks, so the coating locks in a corrected finish rather than sealing in the damage.</p>
           <p><strong>Worth knowing:</strong> this is the difference between paint that looks protected and paint that looks new. On a dark car in sunlight it&rsquo;s the single biggest change we can make.</p>
-          <table class="mps-ptable">
-            <thead><tr><th>Vehicle</th><th>Add-on price</th></tr></thead>
-            <tbody>
-              <tr><td>3-Door / 4&ndash;5 Seater</td><td><span class="p-now">&pound;185</span></td></tr>
-              <tr><td>5-Door / 5 Seater</td><td><span class="p-now">&pound;220</span></td></tr>
-              <tr><td>5-Door / 7 Seater</td><td><span class="p-now">&pound;265</span></td></tr>
-            </tbody>
-          </table>
-          <p class="mps-ptable-note">Deeper scratches &mdash; the ones you can catch a fingernail in &mdash; need multi-stage correction at our unit. We&rsquo;ll assess the paint and tell you honestly before we coat it.</p>
+          <p class="mps-ptable-note">The exact price for your vehicle shows in the questionnaire above. Deeper scratches &mdash; the ones you can catch a fingernail in &mdash; need multi-stage correction at our unit. We&rsquo;ll assess the paint and tell you honestly before we coat it.</p>
         </div>
       </details>
 
@@ -661,7 +660,7 @@
     </details>
     <details>
       <summary>Why do I have to request a date instead of booking?<span class="plus"></span></summary>
-      <div class="content">Coatings need dry conditions to cure, and on a driveway that depends on the weather. You send your preferred date, we check the forecast and confirm &mdash; usually the same day. <strong>The price you see doesn&rsquo;t change.</strong></div>
+      <div class="content">Coatings need dry conditions to cure, and on a driveway that depends on the weather. So the questionnaire ends with <strong>Request This Booking</strong> instead of a calendar: you send your preferred date on WhatsApp or by email, we check the forecast and confirm &mdash; usually the same day. <strong>The price you see doesn&rsquo;t change.</strong></div>
     </details>
     <details>
       <summary>What do I do afterwards?<span class="plus"></span></summary>
