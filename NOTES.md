@@ -136,6 +136,15 @@ Stripe deposit → Make creates the booking. Coatings still go to
 
 ---
 
+## 2026-10-01 — Exterior Detail deposit follows discount codes
+
+File: `Exterior Detail Questionnaire.txt`. The 10% deposit, the balance
+line and the booking note used the full price, ignoring a discount code.
+Now use the discounted total, and the deposit shows pence. Tested:
+£420 with AUTUMN20 → £336, deposit £33.60 (was £42), balance £302.40.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -148,18 +157,19 @@ Stripe deposit → Make creates the booking. Coatings still go to
 - **All Services page — to be updated later.** The Interior Deep Clean and
   Exterior Detail cards both say "from £60", but those pages start at £90
   and £70.
-- **Paint enhancement price in Acuity (Protection Detail).** The page charges
-  £185 / £220 / £265 (clay already included) but uses the shared
-  enhancement add-ons, which In & Out prices at £215 / £250 / £295. The
-  deposit is right (worked out on the page) but Acuity's appointment will
-  show £30 more unless Protection Detail gets its own enhancement add-ons.
+- **Protection Detail enhancement add-ons — user is creating them.** The
+  page charges £185 / £220 / £265 but currently uses the shared
+  enhancement add-ons (£215 / £250 / £295 in Acuity). Once the separate
+  Protection Detail add-ons exist, swap their IDs into `ADDON_ENHANCE` in
+  `Protection Detail Questionnaire.txt`.
 - **Only 4 add-ons are checked for free slots** (`slice(0,4)` in
   `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
   and now Protection Detail). Needs the Make availability scenario to
   accept more first. User has this noted.
-- **Exterior Detail deposit ignores discount codes** and rounds the
-  deposit to whole pounds — fixed on In & Out / Protection Detail, not yet
-  on Exterior Detail (and probably Interior / Maintenance Wash).
+- **Interior Deep Clean and Maintenance Wash deposits ignore discount
+  codes** and round to whole pounds (same bug as fixed on Exterior Detail,
+  In & Out and Protection Detail). Interior defines `depositAmount()`
+  twice — the second, discount-blind one wins.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
