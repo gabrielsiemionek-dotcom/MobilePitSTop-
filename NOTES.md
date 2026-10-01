@@ -358,6 +358,16 @@ Once this is live, the old v6 widget can be removed from the homepage.
 
 ---
 
+## 2026-10-01 — Homepage hero buttons
+
+File: `Homepage hero`. "Book Online" → /all-services (was the old
+/book-your-valet-now). The phone-number button is now "Maintenance Plan"
+→ /car-detailing-maintenance-plan, solid blue #00B8FF with dark text like
+the add-on labels. Icons removed from both; on phones the padding and gap
+are tightened so the two sit side by side (checked at 360px and 375px).
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

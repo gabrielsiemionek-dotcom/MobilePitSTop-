@@ -1,5 +1,9 @@
 <!-- ==========================================================================
      MobilePitStop — Homepage hero
+     v4: the two buttons — "Book Online" goes to /all-services, and the
+     phone-number button is now "Maintenance Plan" (blue, like the add-ons)
+     linking to /car-detailing-maintenance-plan. No icons in either.
+
      v3: the "From £50 — Starting Price" stat now promotes the Maintenance
      Plan — "From £35 / On The Plan", linking to the plan page. The mobile
      spacing is tightened so all three stats sit on one line on a phone
@@ -95,19 +99,8 @@
   </div>
 
   <div class="mps-cta">
-    <a href="/book-your-valet-now" class="mps-btn mps-btn-primary">
-      <svg class="mps-ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-        <path d="M3 9h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      Book Online
-    </a>
-    <a href="tel:07592196929" class="mps-btn mps-btn-secondary">
-      <svg class="mps-ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M6.5 3.5c.5 0 .9.3 1.1.8l1.2 3c.2.5.1 1-.3 1.4L8 9.2c1 2 2.7 3.7 4.8 4.8l.5-1.5c.4-.4.9-.5 1.4-.3l3 1.2c.5.2.8.6.8 1.1V19c0 1-.8 1.8-1.8 1.7C9.6 20.2 3.8 14.4 3.3 6.3 3.2 5.3 4 4.5 5 4.5h1.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-      </svg>
-      07592 196929
-    </a>
+    <a href="/all-services" class="mps-btn mps-btn-primary">Book Online</a>
+    <a href="/car-detailing-maintenance-plan" class="mps-btn mps-btn-plan">Maintenance Plan</a>
   </div>
 
 </div>
@@ -291,6 +284,17 @@
   border-color: #c2eb00 !important;
   transform: translateY(-2px);
 }
+/* Maintenance Plan — blue, the same as the add-on labels on the service pages */
+.mps-hero .mps-cta .mps-btn-plan {
+  background: #00B8FF !important;
+  color: #00131c !important;
+  border: 2px solid #00B8FF !important;
+}
+.mps-hero .mps-cta .mps-btn-plan:hover {
+  background: #33c6ff !important;
+  border-color: #33c6ff !important;
+  transform: translateY(-2px);
+}
 .mps-hero .mps-cta .mps-btn-secondary {
   background: transparent !important;
   color: #fff !important;
@@ -310,7 +314,9 @@
   .mps-hero .mps-label { font-size: 0.72rem; letter-spacing: 0.03em; }
   .mps-hero .mps-num { font-size: 1.1rem; }
   .mps-hero .mps-divider { height: 28px; }
-  .mps-hero .mps-cta .mps-btn { padding: 11px 24px !important; font-size: 0.92rem !important; }
+  /* no icons now, so both buttons fit side by side on a phone */
+  .mps-hero .mps-cta { gap: 10px; }
+  .mps-hero .mps-cta .mps-btn { padding: 11px 17px !important; font-size: 0.92rem !important; }
   .mps-hero .mps-cta .mps-ic { width: 16px !important; height: 16px !important; }
   .mps-hero .mps-location { gap: 5px; }
   .mps-hero .mps-pin { width: 15px; height: 15px; margin-top: 4px; }
