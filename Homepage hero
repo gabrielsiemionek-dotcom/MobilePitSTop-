@@ -1,0 +1,357 @@
+<!-- ==========================================================================
+     MobilePitStop — Homepage hero
+     v3: the "From £50 — Starting Price" stat now promotes the Maintenance
+     Plan — "From £35 / On The Plan", linking to the plan page. The mobile
+     spacing is tightened so all three stats sit on one line on a phone
+     (360px and up) with "Google Rated" kept in full.
+
+     v2: the Elfsight reviews widget has been replaced by a static badge.
+
+     WHY
+     Elfsight was 531 KB — 21% of the page weight, and it sat at the very
+     top of the hero, so it loaded before anything else on the site. All it
+     rendered was a rating, five stars and a count. This does the same in
+     about 3 KB with no external requests.
+
+     ----------------------------------------------------------------------
+     THE NUMBERS COME FROM ONE PLACE
+     Settings > Advanced > Code Injection > HEADER holds window.MPS_REVIEWS.
+     Change the count there once and it updates here AND on every service
+     page badge.
+
+     The values written into the markup are FALLBACKS — they render
+     instantly, so the badge is correct before any JavaScript runs and
+     still works if the config is missing. The config then overrides them.
+     ----------------------------------------------------------------------
+     ========================================================================== -->
+
+<div class="mps-hero">
+
+  <div class="mps-reviews">
+    <a class="mps-rv-badge" id="mpsRvBadge"
+       href="https://maps.google.com/maps?cid=15620201708594115788"
+       target="_blank" rel="noopener"
+       aria-label="Rated 5.0 out of 5 from 79 Google reviews. Opens Google in a new tab.">
+
+      <svg class="mps-rv-g" viewBox="0 0 48 48" aria-hidden="true">
+        <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2 5-4.4 6.6v5.5h7.1c4.1-3.8 6.6-9.4 6.6-16.1z"/>
+        <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.4l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.4 46 24 46z"/>
+        <path fill="#FBBC05" d="M11.8 28.2c-.4-1.3-.7-2.7-.7-4.2s.2-2.9.7-4.2v-5.7H4.5C3 17 2 20.4 2 24s1 7 2.5 9.9l7.3-5.7z"/>
+        <path fill="#EA4335" d="M24 10.8c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.3 29.9 2 24 2 15.4 2 8.1 6.9 4.5 14.1l7.3 5.7c1.7-5.2 6.5-9 12.2-9z"/>
+      </svg>
+
+      <span class="mps-rv-score" id="mpsRvScore">5.0</span>
+      <span class="mps-rv-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="mps-rv-count" id="mpsRvCount">79 Google reviews</span>
+
+      <svg class="mps-rv-tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".16"/>
+        <path d="M8 12.5l2.6 2.5L16 9.5" stroke="currentColor" stroke-width="2.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+  <h1 class="mps-headline">
+    Mobile Valeting &amp; Detailing Service
+    <span class="mps-headline-accent">In Cheshire, Merseyside &amp; Flintshire</span>
+  </h1>
+
+  <p class="mps-sub">
+    Expert valeting and detailing brought directly to your home or workplace.
+    Fully insured, premium products, proven results.
+  </p>
+
+  <p class="mps-mission">Our Mission Is Simple: Clean. Enhance. Protect</p>
+
+  <p class="mps-location">
+    <svg class="mps-pin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <span>Serving Ellesmere Port, Chester, Liverpool, Crewe, Bromborough &amp; Surrounding Areas</span>
+  </p>
+
+  <div class="mps-stats">
+    <!-- Links straight to the plan page, so the stat does a job as well as
+         reads as one. £35 is the lowest plan rate (small car, weekly) and
+         matches the "From £35" on the Google Business Profile. -->
+    <a class="mps-stat mps-stat-link" href="/car-detailing-maintenance-plan"
+       aria-label="On the Maintenance Plan, from £35 a visit. See the plan.">
+      <span class="mps-num">From £35</span>
+      <span class="mps-label">On The Plan</span>
+    </a>
+    <div class="mps-divider"></div>
+    <div class="mps-stat">
+      <span class="mps-num">Fully</span>
+      <span class="mps-label">Insured</span>
+    </div>
+    <div class="mps-divider"></div>
+    <div class="mps-stat">
+      <!-- driven by the same config as the badge, so the two can't drift -->
+      <span class="mps-num" id="mpsStatScore">5.0 &#9733;</span>
+      <span class="mps-label">Google Rated</span>
+    </div>
+  </div>
+
+  <div class="mps-cta">
+    <a href="/book-your-valet-now" class="mps-btn mps-btn-primary">
+      <svg class="mps-ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+        <path d="M3 9h18M8 2.5v4M16 2.5v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Book Online
+    </a>
+    <a href="tel:07592196929" class="mps-btn mps-btn-secondary">
+      <svg class="mps-ic" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6.5 3.5c.5 0 .9.3 1.1.8l1.2 3c.2.5.1 1-.3 1.4L8 9.2c1 2 2.7 3.7 4.8 4.8l.5-1.5c.4-.4.9-.5 1.4-.3l3 1.2c.5.2.8.6.8 1.1V19c0 1-.8 1.8-1.8 1.7C9.6 20.2 3.8 14.4 3.3 6.3 3.2 5.3 4 4.5 5 4.5h1.5z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+      07592 196929
+    </a>
+  </div>
+
+</div>
+
+<style>
+.mps-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #fff;
+  font-family: inherit;
+}
+.mps-hero .mps-reviews { width: 100%; display: flex; justify-content: center; }
+
+/* ── Static reviews badge ─────────────────────────────────────
+   Replaces the Elfsight widget. No JavaScript needed to render —
+   the small script at the bottom only syncs the numbers with the
+   sitewide config.
+   ───────────────────────────────────────────────────────────── */
+.mps-hero .mps-rv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+  text-decoration: none !important;
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.mps-hero .mps-rv-badge:hover {
+  border-color: rgba(212,255,0,0.5);
+  background: rgba(0,0,0,0.45);
+  transform: translateY(-1px);
+}
+.mps-hero .mps-rv-g { width: 20px; height: 20px; flex: 0 0 20px; }
+.mps-hero .mps-rv-score {
+  font-size: 17px; font-weight: 800; color: #fff;
+  line-height: 1; letter-spacing: -0.01em;
+}
+.mps-hero .mps-rv-stars {
+  display: inline-flex; gap: 1px;
+  font-size: 15px; line-height: 1;
+  color: #FBBC05;              /* Google's own star colour */
+  letter-spacing: 1px;
+}
+.mps-hero .mps-rv-count {
+  font-size: 13px; font-weight: 600;
+  color: #fff;
+  line-height: 1; white-space: nowrap;
+}
+.mps-hero .mps-rv-tick { width: 15px; height: 15px; flex: 0 0 15px; color: #d4ff00; }
+
+.mps-hero .mps-headline {
+  margin: 0;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  background: rgba(0,0,0,0.35);
+  padding: 14px 24px;
+  border-radius: 10px;
+}
+/* The location line stays INSIDE the h1 — that keeps "Cheshire,
+   Merseyside & Flintshire" in your main heading, which is where those
+   keywords do the most work. It's only styled smaller, so visually it
+   reads as a second line rather than competing with the service name.
+
+   Sized in em, so it scales with the h1 rather than needing its own
+   clamp to maintain. */
+.mps-hero .mps-headline-accent {
+  display: block;
+  color: #d4ff00;
+  font-size: 0.55em;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-top: 8px;
+  letter-spacing: 0.01em;
+}
+@media (max-width: 480px) {
+  /* a touch larger proportionally on a phone, where 0.55em gets small */
+  .mps-hero .mps-headline-accent { font-size: 0.62em; margin-top: 6px; }
+}
+.mps-hero .mps-sub {
+  margin: 0;
+  max-width: 620px;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  line-height: 1.5;
+  color: #fff;
+  background: rgba(0,0,0,0.3);
+  padding: 10px 18px;
+  border-radius: 8px;
+}
+.mps-hero .mps-mission {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  color: #d4ff00;
+  letter-spacing: 0.01em;
+}
+.mps-hero .mps-location {
+  margin: 0;
+  display: block;
+  font-size: clamp(0.85rem, 1.3vw, 1rem);
+  color: #fff;
+  line-height: 1.4;
+  max-width: 460px;
+  text-align: center;
+}
+.mps-hero .mps-pin {
+  width: 15px;
+  height: 15px;
+  color: #d4ff00;
+  vertical-align: -2px;
+  margin-right: 4px;
+}
+.mps-hero .mps-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.mps-hero .mps-stat { display: flex; flex-direction: column; }
+/* The plan stat is a link: same look as the other stats, with a hover
+   state and a tap target big enough for a thumb (49px tall on a phone). */
+.mps-hero .mps-stat-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  padding: 6px 12px;
+  margin: -6px -12px;
+  border-radius: 12px;
+  transition: background .15s ease, transform .15s ease;
+}
+.mps-hero .mps-stat-link:hover,
+.mps-hero .mps-stat-link:focus-visible {
+  background: rgba(212,255,0,0.10);
+  transform: translateY(-1px);
+  outline: none;
+}
+.mps-hero .mps-stat-link .mps-label { text-decoration: underline; text-underline-offset: 3px; }
+.mps-hero .mps-num { font-size: 1.4rem; font-weight: 700; color: #d4ff00; line-height: 1.2; }
+.mps-hero .mps-label { font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; }
+.mps-hero .mps-divider { width: 1px; height: 34px; background: rgba(255,255,255,0.25); }
+.mps-hero .mps-cta {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.mps-hero .mps-cta .mps-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 9px !important;
+  padding: 13px 30px !important;
+  border-radius: 48px !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  line-height: 1.2 !important;
+  text-decoration: none !important;
+  letter-spacing: 0.02em !important;
+  width: auto !important;
+  max-width: none !important;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.mps-hero .mps-cta .mps-ic { width: 18px !important; height: 18px !important; flex-shrink: 0; }
+.mps-hero .mps-cta .mps-btn-primary {
+  background: #d4ff00 !important;
+  color: #111 !important;
+  border: 2px solid #d4ff00 !important;
+}
+.mps-hero .mps-cta .mps-btn-primary:hover {
+  background: #c2eb00 !important;
+  border-color: #c2eb00 !important;
+  transform: translateY(-2px);
+}
+.mps-hero .mps-cta .mps-btn-secondary {
+  background: transparent !important;
+  color: #fff !important;
+  border: 2px solid rgba(255,255,255,0.6) !important;
+}
+.mps-hero .mps-cta .mps-btn-secondary:hover {
+  border-color: #fff !important;
+  background: rgba(255,255,255,0.08) !important;
+  transform: translateY(-2px);
+}
+@media (max-width: 480px) {
+  .mps-hero { gap: 16px; }
+  /* tightened so all three stats hold one line on a phone (360px and up);
+     they still wrap on very narrow phones, around 320px */
+  .mps-hero .mps-stats { gap: 10px; }
+  .mps-hero .mps-stat-link { padding: 6px 8px; margin: -6px -8px; }
+  .mps-hero .mps-label { font-size: 0.72rem; letter-spacing: 0.03em; }
+  .mps-hero .mps-num { font-size: 1.1rem; }
+  .mps-hero .mps-divider { height: 28px; }
+  .mps-hero .mps-cta .mps-btn { padding: 11px 24px !important; font-size: 0.92rem !important; }
+  .mps-hero .mps-cta .mps-ic { width: 16px !important; height: 16px !important; }
+  .mps-hero .mps-location { gap: 5px; }
+  .mps-hero .mps-pin { width: 15px; height: 15px; margin-top: 4px; }
+
+  /* badge: slightly tighter so it holds one line on a phone */
+  .mps-hero .mps-rv-badge { gap: 9px; padding: 9px 13px; }
+  .mps-hero .mps-rv-score { font-size: 16px; }
+  .mps-hero .mps-rv-stars { font-size: 14px; }
+  .mps-hero .mps-rv-count { font-size: 12px; }
+}
+@media (max-width: 360px) {
+  .mps-hero .mps-rv-badge { gap: 8px; padding: 8px 11px; }
+  .mps-hero .mps-rv-count { font-size: 11.5px; }
+}
+</style>
+
+<script>
+(function(){
+  /* Syncs the badge AND the "Google Rated" stat with the sitewide config in
+     header injection, so the two can never show different numbers. If the
+     config is missing this does nothing and the markup values stand. */
+  var cfg = window.MPS_REVIEWS;
+  if(!cfg) return;
+
+  var badge = document.getElementById('mpsRvBadge');
+  var score = document.getElementById('mpsRvScore');
+  var count = document.getElementById('mpsRvCount');
+  var stat  = document.getElementById('mpsStatScore');
+
+  var s = cfg.score != null ? String(cfg.score) : null;
+  var n = cfg.count != null ? Number(cfg.count) : null;
+
+  if(score && s) score.textContent = s;
+  if(stat  && s) stat.innerHTML    = s + ' ★';
+  if(count && n) count.textContent = n + ' Google reviews';
+  if(badge && cfg.url) badge.setAttribute('href', cfg.url);
+
+  if(badge && s && n){
+    badge.setAttribute('aria-label',
+      'Rated ' + s + ' out of 5 from ' + n +
+      ' Google reviews. Opens Google in a new tab.');
+  }
+})();
+</script>
