@@ -970,6 +970,8 @@
       <li><span>Engine bay detail</span><b>+&pound;30</b></li>
       <li><span>Clay bar decontamination</span><b>+&pound;30</b></li>
       <li><span>6-month ceramic sealant</span><b>+&pound;60</b></li>
+      <li><span>Paint enhancement &mdash; 1-stage machine polish</span><b>from +&pound;185</b></li>
+      <li><span>Ceramic coating &mdash; 1, 3 or 7 years (by request)</span><b>from +&pound;60</b></li>
     </ul>
     <p class="mps-aside">Which add-ons you can pick depends on the service &mdash; each page&rsquo;s questionnaire shows the ones that apply and the exact price for your car.</p>
   </section>
