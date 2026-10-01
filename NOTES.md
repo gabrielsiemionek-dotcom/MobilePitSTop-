@@ -346,6 +346,18 @@ File: `homepage section` ("Our Approach to Car Detailing" + service pills).
 
 ---
 
+## 2026-10-01 — Homepage: reviews + service-area map added
+
+File: `homepage section`. Appended the "REVIEWS + COVERAGE" block from the
+old v6 services widget, unchanged except "Every service above" → "Every
+mobile service above" (the homepage now also lists the at-the-unit
+services). Elfsight Google reviews (loaded only when scrolled near), the
+20-miles-of-Ellesmere-Port area with 21 town links (all checked live, 200)
+and the Google map. Namespaced .mps-hsrv / #mpsHs*, so no clash with .mph.
+Once this is live, the old v6 widget can be removed from the homepage.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
