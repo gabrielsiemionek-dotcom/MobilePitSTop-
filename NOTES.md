@@ -65,6 +65,38 @@ correct as it stands.
 
 ---
 
+## 2026-10-01 — In & Out What's Included rewritten to match the questionnaire
+
+File: `In & Out Deep Clean Whats Included.txt`
+
+The block was still the old **Full Valet** page (ozone, shampoo as an
+add-on, a 1-year-only coating at £325+, "49 reviews"). Same layout, images
+and wheel slider; the content now follows the questionnaire:
+
+- **Title / wording:** In & Out Deep Clean throughout; base price table
+  £140 / £160 / £180 (+ vans etc. by quote).
+- **Included cards:** exterior detail, 8-week wax, and steam + mats,
+  carpets & boot shampooed and extracted (included, not an add-on).
+- **Add-on cards:** seat treatment, clay, paint enhancement, ceramic
+  coating 1/3/7 years (from +£120).
+- **Accordions:** Exterior (included), Interior (included), Seats
+  (treatment +£30/£40 by fabric; protection £100/£150 cloth, £150/£200
+  leather/alcantara), Paintwork & Protection (clay, enhancement, 6-month
+  sealant, ceramic coating 1/3/7 table), Extras (anti-fog, front windows,
+  engine bay, ultrasonic odour, sand, pet hair).
+- **FAQs** rewritten for In & Out, including why coatings are a request.
+- Review count 81, and it follows the sitewide `MPS_REVIEWS` like the
+  questionnaire badge.
+- **"See what's included" now works.** The questionnaire button pointed at
+  `#WhatIncludedInteriorDeepClean`, which isn't on this page. The section
+  id is now `#WhatIncludedInAndOut` and the button points there. The
+  "Book" button goes to `#priceFinderInAndOut` (was the old Full Valet id).
+
+If a price changes in the questionnaire, change it here too — the list of
+prices is in the comment at the top of the file.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -74,12 +106,9 @@ correct as it stands.
   describes a different plan (£100 / £120 / £140, 48 Acuity types, an
   `ACUITY_TYPE_MAP` that doesn't exist) and should be rewritten to match
   the code. Nothing on the page is affected.
-- **All Services "from" prices.** The Interior Deep Clean and Exterior
-  Detail cards both say "from £60", but those pages start at £90 and £70.
-- **In & Out What's Included: 1-year coating table.** It lists
-  £325 / £390 / £475 "including clay + paint enhancement". In the
-  questionnaire, enhancement + 1-year coating comes to £305 / £370 / £465.
-  Needs confirming which is right.
+- **All Services page — to be updated later.** The Interior Deep Clean and
+  Exterior Detail cards both say "from £60", but those pages start at £90
+  and £70.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
