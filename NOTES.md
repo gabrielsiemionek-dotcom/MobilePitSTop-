@@ -450,6 +450,23 @@ the address, subject and full message.
 
 ---
 
+## 2026-10-02 — Homepage: "Our Services" by category
+
+File: `homepage section`. "Our Approach to Car Detailing" (Approach /
+Techniques / Tools / Products) replaced by "Our Services" in three blocks:
+
+| Block | Label | Chips (linked where the service has a page) |
+|---|---|---|
+| Valeting | Mobile · from £60 | Maintenance Wash, Interior Deep Clean, Exterior Detail, In & Out Deep Clean, Odour Removal, Engine Bay Detail, Pet Hair & Stain Removal |
+| Detailing | Mobile · from £190 | Paint Enhancement, Ceramic Coating, Protection Detail, Ceramic Sealant, Clay Bar, Multi-Stage Correction |
+| Appearance & Ultimate Protection | At our unit · by quote | Vinyl Wraps, Paint Protection Film, Window Tinting, De-Chrome |
+
+Images are stand-ins from the site, each marked "IMAGE:" for the edited
+photos. Service pills, See All Services button, reviews and map unchanged.
+All links checked live.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

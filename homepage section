@@ -1,6 +1,9 @@
 <!-- ==========================================================================
-     MobilePitStop — Homepage: "Our Approach to Car Detailing"
-     Replaces the old tabbed service widget. Paste into ONE Code Block.
+     MobilePitStop — Homepage: "Our Services"
+     Three service categories — Valeting, Detailing, Appearance & Ultimate
+     Protection — each with its services as chips (linked where the service
+     has a page). Replaces the old tabbed service widget. Paste into ONE
+     Code Block.
 
      Namespaced .mph- so it can't clash with the All Services page (.mps-)
      or with Squarespace's own styles. No fonts or scripts loaded from
@@ -11,8 +14,9 @@
      simply visible. Every image has a fixed shape (aspect-ratio), so
      Squarespace measures the right height on the first paint.
 
-     IMAGES: the four below are already on your site. Swap any URL for a
-     better shot — keep the ?format=800w on the end.
+     IMAGES: the three below are already on your site, as stand-ins. Each
+     is marked with an "IMAGE:" note — swap the src for your edited photo and
+     keep the ?format=800w on the end.
 
      SERVICE LIST PRICES are the "from" price on each service page and the
      All Services page (https://mobilepitstop.uk/all-services). If a price
@@ -126,6 +130,17 @@
   line-height:1.2;
   color:rgba(255,255,255,.82);
 }
+/* chips that link to a service page: the whole pill is the link */
+.mph .mph-chips li:has(> a){ padding:0; }
+.mph .mph-chips a{
+  display:block;
+  padding:6px 11px;
+  border-radius:999px;
+  color:#ffffff !important;
+  text-decoration:none !important;
+}
+.mph .mph-chips li:has(> a){ border-color:rgba(227,252,2,.35); }
+.mph .mph-chips li:has(> a):hover{ border-color:rgba(227,252,2,.7); background:rgba(227,252,2,.08); }
 
 /* ---------- compact service list ----------
    Plain links in a div rather than a <ul>: Squarespace's own list styles
@@ -254,90 +269,75 @@
 
 <section class="mph" aria-labelledby="mph-title">
 
-  <h2 class="mph-h2" id="mph-title">Our Approach to Car Detailing</h2>
+  <h2 class="mph-h2" id="mph-title">Our Services</h2>
   <p class="mph-motto">Clean. Enhance. Protect.</p>
 
   <div class="mph-blocks">
 
-    <!-- 1. APPROACH -->
+    <!-- 1. VALETING -->
     <article class="mph-block">
       <figure class="mph-img">
-        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5f594497-4c18-4be2-a765-18ec951ad8c6/Full+valet+.webp?format=800w"
-             alt="Car finished after a full mobile detail, clean paint and glass"
-             width="800" height="500" loading="lazy" decoding="async">
-      </figure>
-      <div>
-        <span class="mph-n">01</span>
-        <h3>Our Approach</h3>
-        <p>Every job starts with an inspection, not a price list. We look at the paint, the interior and what you actually want from the car, then use the least aggressive method that gets the result &mdash; and tell you straight when a cheaper service will do.</p>
-        <ul class="mph-chips">
-          <li>Inspection first</li>
-          <li>Least aggressive method</li>
-          <li>Honest advice</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- 2. TECHNIQUES -->
-    <article class="mph-block">
-      <figure class="mph-img">
-        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4bc24f7e-4db0-4f26-9939-172303f1bd7a/exterior+deep+clean+%282%29.webp?format=800w"
-             alt="Snow foam pre-wash lifting dirt before a safe hand wash"
-             width="800" height="500" loading="lazy" decoding="async">
-      </figure>
-      <div>
-        <span class="mph-n">02</span>
-        <h3>Techniques</h3>
-        <p>Most swirl marks are put in during the wash. So dirt is lifted chemically before anything touches the paint, and every stage after that &mdash; decontamination, clay, machine polishing &mdash; removes contamination without adding marks of its own.</p>
-        <ul class="mph-chips">
-          <li>Snow foam pre-wash</li>
-          <li>Two-bucket safe wash</li>
-          <li>Chemical decontamination</li>
-          <li>Clay bar</li>
-          <li>Machine polishing</li>
-          <li>Steam &amp; extraction</li>
-        </ul>
-      </div>
-    </article>
-
-    <!-- 3. TOOLS -->
-    <article class="mph-block">
-      <figure class="mph-img">
+        <!-- IMAGE: Valeting — swap the src for your edited photo (keep ?format=800w) -->
         <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=800w"
-             alt="Steam cleaning a car interior during a deep clean"
+             alt="Steam cleaning a car interior during a mobile valet"
              width="800" height="500" loading="lazy" decoding="async">
       </figure>
       <div>
-        <span class="mph-n">03</span>
-        <h3>Tools</h3>
-        <p>A fully mobile setup &mdash; our own water and a 45m power lead, so all we need is a plug socket. Steam, extraction and compressed air do the interior work; dual-action polishers and inspection lighting do the paint. Multi-stage correction and film work move indoors to our unit in Birkenhead.</p>
+        <span class="mph-n">01 &middot; Mobile &middot; from &pound;60</span>
+        <h3>Valeting</h3>
+        <p>Deep cleaning, inside and out, at your home or workplace. Steam, extraction and compressed air reset the interior; snow foam, a safe hand wash and decontamination take care of the outside &mdash; and smells are removed at the source, not covered up.</p>
         <ul class="mph-chips">
-          <li>Steam cleaner</li>
-          <li>Hot-water extractor</li>
-          <li>Compressed air</li>
-          <li>Machine polishers</li>
-          <li>Ozone treatment</li>
+          <li><a href="/maintenance-wash">Maintenance Wash</a></li>
+          <li><a href="/interior-deep-clean">Interior Deep Clean</a></li>
+          <li><a href="/exterior-detail">Exterior Detail</a></li>
+          <li><a href="/in-out-deep-clean">In &amp; Out Deep Clean</a></li>
+          <li><a href="/cigarette/milk/bio-odour-removal">Odour Removal</a></li>
+          <li>Engine Bay Detail</li>
+          <li>Pet Hair &amp; Stain Removal</li>
         </ul>
       </div>
     </article>
 
-    <!-- 4. PRODUCTS -->
+    <!-- 2. DETAILING -->
     <article class="mph-block">
       <figure class="mph-img">
-        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/55d656f3-f705-47f9-86c6-e79bd1bfdbe0/Full+Valet+-+5.webp?format=800w"
-             alt="Detailing products used for a safe wash and paint protection"
+        <!-- IMAGE: Detailing — swap the src for your edited photo (keep ?format=800w) -->
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5a2af57b-7aca-4f87-bcf0-7896ac490166/paint+enhancement.png?format=800w"
+             alt="Machine polishing paintwork to remove swirl marks"
              width="800" height="500" loading="lazy" decoding="async">
       </figure>
       <div>
-        <span class="mph-n">04</span>
-        <h3>Products</h3>
-        <p>pH-neutral shampoos that won't strip existing protection, dedicated tar and iron removers, interior dressings that leave a natural satin finish rather than a greasy shine, and ceramic sealants and coatings chosen for how long they last on a car that's driven every day.</p>
+        <span class="mph-n">02 &middot; Mobile &middot; from &pound;190</span>
+        <h3>Detailing</h3>
+        <p>Paint brought back and protected. A clay bar lifts the bonded grit, machine polishing takes out the swirl marks rather than hiding them, then a ceramic sealant or coating locks the finish in &mdash; for six months or up to seven years.</p>
         <ul class="mph-chips">
-          <li>pH-neutral shampoo</li>
-          <li>Tar &amp; iron removers</li>
-          <li>Ceramic sealant</li>
-          <li>Ceramic coating</li>
-          <li>Glaco glass coating</li>
+          <li><a href="/machine-polishing">Paint Enhancement</a></li>
+          <li><a href="/ceramic-coating">Ceramic Coating</a></li>
+          <li><a href="/protection-detail">Protection Detail</a></li>
+          <li>Ceramic Sealant</li>
+          <li>Clay Bar</li>
+          <li><a href="/all-services#correction">Multi-Stage Correction</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- 3. APPEARANCE & ULTIMATE PROTECTION -->
+    <article class="mph-block">
+      <figure class="mph-img">
+        <!-- IMAGE: Appearance & Ultimate Protection — swap the src for your edited photo (keep ?format=800w) -->
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/077aba80-ea37-4306-ab3d-ecfcd93c02b0/ceramic+coating.png?format=800w"
+             alt="Protected paintwork with water beading on the surface"
+             width="800" height="500" loading="lazy" decoding="async">
+      </figure>
+      <div>
+        <span class="mph-n">03 &middot; At our unit &middot; by quote</span>
+        <h3>Appearance &amp; Ultimate Protection</h3>
+        <p>Change how the car looks and protect it for years. Done indoors at our unit in Birkenhead, where the light and temperature are controlled &mdash; a new colour, clear film that stops stone chips, tinted glass or blacked-out trim.</p>
+        <ul class="mph-chips">
+          <li><a href="/all-services#wrap">Vinyl Wraps</a></li>
+          <li><a href="/all-services#ppf">Paint Protection Film</a></li>
+          <li><a href="/window-tinting">Window Tinting</a></li>
+          <li><a href="/all-services#dechrome">De-Chrome</a></li>
         </ul>
       </div>
     </article>
