@@ -417,6 +417,9 @@ Tinting pills now go to their own pages), maintenance plan, and the header
 notes of Protection Detail and Odour Removal. If a page is renamed again,
 set a 301 redirect from the old address in Squarespace (Settings >
 Advanced > URL Mappings) so old links and Google keep working.
+
+---
+
 ## 2026-10-02 — Window Tinting request panel
 
 File: `Window Tinting Request.txt`.
