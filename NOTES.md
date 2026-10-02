@@ -274,7 +274,7 @@ included, add-ons, cleaning-power dots:
 | Exterior Detail | £70–90 (was "from £60") | /exterior-detail (was /car-exterior-deep-clean — 404) |
 | In & Out Deep Clean | £140–180 | /full-valet |
 | Protection Detail | £210–250 (was £250–280) | /full-valet-premium |
-| Enhancement Polish | £285–385 (was £275–425) | /paint-enhancement-machine-polishing — NOT LIVE YET |
+| Enhancement Polish | £285–385 (was £275–425) | /machine-polishing |
 | Ceramic Coating | from £190 (was £385) | /ceramic-coating |
 | Odour Removal | £250–300 | /smoke/milk/bio-odour-removal |
 
@@ -390,6 +390,33 @@ File: `maintenance plan` (/car-detailing-maintenance-plan).
 - Homepage hero "From £35 on the plan" → "From £42" (£60 less 30%).
 - Tested: medium, every 2-3 weeks, full interior + wax → £97.50 on both
   pages, £9.75 deposit; wrong-tier and seasonal codes rejected.
+
+---
+
+## 2026-10-02 — Page addresses updated (pages renamed on the site)
+
+Checked every link in every file against the live site. Current addresses:
+
+| Service | Address |
+|---|---|
+| Maintenance Wash | /maintenance-wash |
+| Interior Deep Clean | /interior-deep-clean |
+| Exterior Detail | /exterior-detail |
+| In & Out Deep Clean | /in-out-deep-clean (was /full-valet) |
+| Protection Detail | /protection-detail (was /full-valet-premium) |
+| Machine Polishing | /machine-polishing (also the Paint Correction quote) |
+| Ceramic Coating | /ceramic-coating |
+| Odour Removal | /cigarette/milk/bio-odour-removal (was /smoke/milk/bio-odour-removal) |
+| Window Tinting | /window-tinting |
+| Maintenance Plan | /car-detailing-maintenance-plan |
+| All Services | /all-services |
+| De-Chrome | /de-chrome — NOT LIVE YET |
+
+Updated in All Services, homepage section (Enhancement Polish and Window
+Tinting pills now go to their own pages), maintenance plan, and the header
+notes of Protection Detail and Odour Removal. If a page is renamed again,
+set a 301 redirect from the old address in Squarespace (Settings >
+Advanced > URL Mappings) so old links and Google keep working.
 
 ---
 

@@ -32,13 +32,13 @@
      the category pills swap to match. With JavaScript off, no switching
      happens and both halves simply show one after the other.
 
-     LINKS (checked against the live sitemap, 1 Oct 2026)
+     LINKS (checked against the live sitemap, 2 Oct 2026)
        live      /maintenance-wash  /interior-deep-clean  /exterior-detail
-                 /full-valet (In & Out)  /full-valet-premium (Protection
-                 Detail)  /ceramic-coating  /smoke/milk/bio-odour-removal
-       NOT LIVE YET — create these pages at exactly these addresses:
-                 /paint-enhancement-machine-polishing  (Machine Polishing,
-                 also the Paint Correction quote)  /window-tinting  /de-chrome
+                 /in-out-deep-clean (In & Out)  /protection-detail (Protection
+                 Detail)  /ceramic-coating  /cigarette/milk/bio-odour-removal
+                 /machine-polishing (also the Paint Correction quote)
+                 /window-tinting
+       NOT LIVE YET — create at exactly this address: /de-chrome
        Vinyl Wrap and PPF have no page yet, so their "Get a quote" goes
        to /contact-we-respond-24/7.
 
@@ -823,7 +823,7 @@
         </ul>
       </details>
       <p class="mps-extra"><b>Add:</b> seat treatment <b>+&pound;30&ndash;&pound;40</b> &middot; seat protection <b>from +&pound;100</b> &middot; clay bar <b>+&pound;30</b> &middot; paint enhancement <b>from +&pound;215</b> &middot; 6-month ceramic sealant <b>+&pound;60</b> &middot; ceramic coating <b>from +&pound;120</b> &middot; engine bay <b>+&pound;30</b> &middot; pet hair or sand <b>+&pound;50</b> &middot; odour treatment <b>+&pound;40</b></p>
-      <a class="mps-go" href="/full-valet">See prices &amp; book</a>
+      <a class="mps-go" href="/in-out-deep-clean">See prices &amp; book</a>
     </article>
     <article class="mps-card">
       <div class="mps-head">
@@ -851,7 +851,7 @@
         </ul>
       </details>
       <p class="mps-extra"><b>Add:</b> engine bay <b>+&pound;30</b> &middot; CQuartz leather coating <b>from +&pound;150</b> &middot; paint enhancement <b>from +&pound;185</b> &middot; upgrade to a ceramic coating, 1, 3 or 7 years, <b>from +&pound;60</b></p>
-      <a class="mps-go" href="/full-valet-premium">See prices &amp; book</a>
+      <a class="mps-go" href="/protection-detail">See prices &amp; book</a>
     </article>
   </section>
   <!-- ===================== MACHINE POLISHING ===================== -->
@@ -886,7 +886,7 @@
       </details>
       <p class="mps-extra"><b>Protect it:</b> 6-month ceramic sealant <b>+&pound;30</b> &middot; ceramic coating, 1, 3 or 7 years, <b>from +&pound;90</b> &mdash; both cheaper here because the clay is already paid for</p>
       <p class="mps-aside">Deeper scratches need multi-stage correction &mdash; from &pound;600 at our unit, by quote. See Paint Correction under Garage Based.</p>
-      <a class="mps-go" href="/paint-enhancement-machine-polishing">See prices &amp; book</a>
+      <a class="mps-go" href="/machine-polishing">See prices &amp; book</a>
     </article>
   </section>
   <!-- ===================== CERAMIC COATING ===================== -->
@@ -951,7 +951,7 @@
         </ul>
       </details>
       <p class="mps-aside">One price per car size, whatever the smell. Please have a new cabin air filter ready on the day.</p>
-      <a class="mps-go" href="/smoke/milk/bio-odour-removal">See prices &amp; book</a>
+      <a class="mps-go" href="/cigarette/milk/bio-odour-removal">See prices &amp; book</a>
     </article>
   </section>
   <!-- ===================== ADD-ONS ===================== -->
@@ -1015,7 +1015,7 @@
       </details>
       <p class="mps-extra"><b>Finish it with:</b> a ceramic coating, so the corrected paint stays that way</p>
       <p class="mps-aside">From &pound;600, depending on size and how far gone the paint is. Send a few photos in daylight and we'll tell you honestly whether it needs multi-stage or whether a single-stage Enhancement Polish will do.</p>
-      <a class="mps-go mps-quiet" href="/paint-enhancement-machine-polishing">Get a quote</a>
+      <a class="mps-go mps-quiet" href="/machine-polishing">Get a quote</a>
     </article>
   </section>
 
