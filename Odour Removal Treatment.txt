@@ -1,6 +1,6 @@
 <!-- ==========================================================================
      MobilePitStop — ODOUR REMOVAL TREATMENT questionnaire
-     Page: /smoke/milk/bio-odour-removal
+     Page: /cigarette/milk/bio-odour-removal
 
      ONE SERVICE, FOUR STAGES (replaces the old ozone / chlorine dioxide
      options — the chlorine dioxide standalone service is gone)
