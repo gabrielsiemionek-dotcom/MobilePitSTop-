@@ -465,6 +465,13 @@
     color-scheme:dark;
   }
   .rq-field textarea{ min-height:170px; resize:vertical; font-size:14px; }
+  /* iPhones give date inputs a built-in minimum width, which pushed the
+     Preferred week box past the edge of the panel on a phone */
+  .rq-field input[type="date"]{
+    -webkit-appearance:none; appearance:none;
+    display:block; min-width:0; max-width:100%; min-height:46px;
+  }
+  .rq-field input[type="date"]::-webkit-date-and-time-value{ text-align:left; }
   .rq-field input:focus,
   .rq-field textarea:focus{ outline:none; border-color:var(--ocean); }
   .rq-err{ margin:4px 0 0; font-size:12.5px; font-weight:900; color:#FF6B5A; }
@@ -883,10 +890,6 @@
           <input type="text" id="wtRqYear" inputmode="numeric" placeholder="e.g. 2019">
         </div>
         <div class="rq-field">
-          <label for="wtRqPostcode">Postcode</label>
-          <input type="text" id="wtRqPostcode" autocomplete="postal-code" placeholder="Optional">
-        </div>
-        <div class="rq-field">
           <label for="wtRqDate">Preferred week</label>
           <input type="date" id="wtRqDate">
         </div>
@@ -904,8 +907,8 @@
       </div>
 
       <div class="rq-also" id="wtRqAlso" hidden>
-        <p>Tinting is fitted by our specialist. Send them the same request so you both have it &mdash; it opens a WhatsApp chat with the message already written.</p>
-        <button class="btn btn-quiet-blue" type="button" id="wtRqAlsoBtn">Send a copy on WhatsApp</button>
+        <p>Tinting is fitted by our specialist. Send MobilePitStop a copy too, so we both have it &mdash; it opens a WhatsApp chat with the message already written.</p>
+        <button class="btn btn-quiet-blue" type="button" id="wtRqAlsoBtn">Send a copy to MobilePitStop</button>
       </div>
     </div>
   </div>
@@ -927,7 +930,7 @@
   var APPROVED = true;
 
   var SERVICE   = "window tinting";
-  var WHATSAPP_NUMBER = '447592196929';
+  var WHATSAPP_NUMBER = '447426487900';   /* the tint fitter — tint requests go straight to them */
   var EMAIL_TO        = 'mobilepitstopvalet@gmail.com';
 
   /* Second pair of eyes on this service.
@@ -937,12 +940,11 @@
      it, so a copy to a second number is the closest thing that works
      every time. (See the note at the top of this file.) */
   var PARTNER_EMAIL    = "";
-  var PARTNER_WHATSAPP = "447426487900";
+  var PARTNER_WHATSAPP = "447592196929";   /* MobilePitStop gets the copy */
 
   var rqName = root.querySelector('#wtRqName');
   var rqCar  = root.querySelector('#wtRqCar');
   var rqYear = root.querySelector('#wtRqYear');
-  var rqPc   = root.querySelector('#wtRqPostcode');
   var rqDate = root.querySelector('#wtRqDate');
   var rqMsg  = root.querySelector('#wtRqMsg');
   var rqErr  = root.querySelector('#wtRqErr');
@@ -991,7 +993,6 @@
       if(vals.length) L.push(g.label + ': ' + vals.join(', '));
     });
     if(rqName && rqName.value.trim()) L.push('Name: ' + rqName.value.trim());
-    if(rqPc && rqPc.value.trim())     L.push('Postcode: ' + rqPc.value.trim());
     if(rqDate && rqDate.value)        L.push('Preferred week: ' + niceDate(rqDate.value));
     return L.join('\n');
   }
@@ -1010,7 +1011,7 @@
                             service:"window_tinting", via:via });
   }
 
-  [rqName, rqCar, rqYear, rqPc, rqDate].forEach(function(el){
+  [rqName, rqCar, rqYear, rqDate].forEach(function(el){
     if(!el) return;
     el.addEventListener('input',  function(){ showErr(''); refreshMessage(); });
     el.addEventListener('change', refreshMessage);
