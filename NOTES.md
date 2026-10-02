@@ -467,6 +467,25 @@ All links checked live.
 
 ---
 
+## 2026-10-02 — All Services tidy-up
+
+File: `All Services.txt`.
+- Category bar: arrows removed (they covered the pills on phones). Phones
+  swipe; desktop already wraps every pill onto two lines.
+- Descriptions, included lists, labels and add-on names now white.
+- Add-ons moved from the blue "Add:" box into an "Optional add-ons"
+  accordion (blue, one per line, prices in blue), straight above the
+  button.
+- Removed the extra notes between add-ons and button (Maintenance "not a
+  first clean", Machine Polishing correction note, Ceramic 1/3/7 prices,
+  Odour cabin-filter note, Paint Correction "from £600", Tinting UK law)
+  and the garage "Finish it with" / "Often paired with" lines.
+- Category headings removed where a section has one service; kept for
+  In & Out (two services) and Add-ons.
+- Yellow line between every service, including the two In & Out cards.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
