@@ -30,6 +30,105 @@
      The old combined types (97045121, 97045202, 97045162, 97045205,
      97045167, 97045224) are no longer used — hide them, don't delete.
      ========================================================================== -->
+
+<!-- ===== EMAIL FALLBACK ==================================================
+     "Send by email" opens the visitor's email APP (a mailto: link). On a
+     PC with no email app set up — anyone who uses Gmail or Outlook in a
+     browser — that does nothing at all. So after trying the app, this
+     shows a small panel under the buttons: Open in Gmail, Open in Outlook,
+     or Copy message (with our address), all filled in the same way.
+     Shared by every request form; defined once even if a page has two.
+     ===================================================================== -->
+<style>
+  .mps-mailfb{
+    margin-top:10px; padding:12px 13px; border-radius:12px;
+    border:1px solid rgba(0,184,255,.35); background:rgba(0,184,255,.06);
+    font-family:inherit; color:#fff;
+  }
+  .mps-mailfb p{ margin:0 0 9px; font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.75); }
+  .mps-mailfb p strong{ color:#fff; }
+  .mps-mailfb-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .mps-mailfb-row a,
+  .mps-mailfb-row button{
+    flex:1 1 120px; display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 12px; border-radius:999px; min-height:42px;
+    border:1px solid #00B8FF; background:transparent; color:#fff;
+    font-family:inherit; font-size:13px; font-weight:900; text-decoration:none; cursor:pointer;
+  }
+  .mps-mailfb-row a:hover,
+  .mps-mailfb-row button:hover{ background:rgba(0,184,255,.14); }
+  .mps-mailfb-addr{ margin:9px 0 0 !important; font-size:12px !important; }
+  .mps-mailfb-addr a{ color:#00B8FF; font-weight:900; text-decoration:none; }
+</style>
+<script>
+(function(){
+  if(window.mpsEmail) return;
+
+  function enc(v){ return encodeURIComponent(v || ''); }
+
+  function copyText(text, done){
+    function legacy(){
+      try{
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        done(ok);
+      }catch(e){ done(false); }
+    }
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, legacy);
+    } else {
+      legacy();
+    }
+  }
+
+  /* to, subject, body, cc (optional), the button that was pressed */
+  window.mpsEmail = function(to, subject, body, cc, button){
+    /* 1. try the email app, exactly as before */
+    var mailto = 'mailto:' + to + '?subject=' + enc(subject) +
+                 (cc ? '&cc=' + enc(cc) : '') + '&body=' + enc(body);
+    window.location.href = mailto;
+
+    /* 2. and offer the browser routes underneath, in case nothing opened */
+    var gmail = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + enc(to) +
+                '&su=' + enc(subject) + '&body=' + enc(body) + (cc ? '&cc=' + enc(cc) : '');
+    var outlook = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + enc(to) +
+                  '&subject=' + enc(subject) + '&body=' + enc(body) + (cc ? '&cc=' + enc(cc) : '');
+
+    var anchor = (button && button.parentNode) || null;
+    if(!anchor || !anchor.parentNode) return;
+    var box = anchor.parentNode.querySelector('.mps-mailfb');
+    if(!box){
+      box = document.createElement('div');
+      box.className = 'mps-mailfb';
+      box.setAttribute('role', 'status');
+      anchor.parentNode.insertBefore(box, anchor.nextSibling);
+    }
+    box.innerHTML =
+      '<p><strong>No email app opened?</strong> Send it another way &mdash; your message is already filled in.</p>' +
+      '<div class="mps-mailfb-row">' +
+        '<a href="' + gmail + '" target="_blank" rel="noopener">Open in Gmail</a>' +
+        '<a href="' + outlook + '" target="_blank" rel="noopener">Open in Outlook</a>' +
+        '<button type="button" data-mps-copy>Copy message</button>' +
+      '</div>' +
+      '<p class="mps-mailfb-addr">Or paste it into an email to <a href="mailto:' + to + '">' + to + '</a></p>';
+
+    var copyBtn = box.querySelector('[data-mps-copy]');
+    copyBtn.addEventListener('click', function(){
+      copyText('Subject: ' + subject + '\n\n' + body, function(ok){
+        copyBtn.textContent = ok ? 'Copied ✓' : 'Copy failed — select the message above';
+        setTimeout(function(){ copyBtn.textContent = 'Copy message'; }, 2500);
+      });
+    });
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event:'pf_email_fallback_shown' });
+  };
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -1965,8 +2064,7 @@
     var text = rqMsg && rqMsg.value.trim() ? rqMsg.value : requestMessage();
     trackRequest('email');
     var subject = 'Machine polishing request \u2014 ' + (state.vehicle ? VEHICLE_LABELS[state.vehicle] : '');
-    window.location.href = 'mailto:' + EMAIL_TO + '?subject=' + encodeURIComponent(subject) +
-                           '&body=' + encodeURIComponent(text);
+    window.mpsEmail(EMAIL_TO, subject, text, '', rqEmail);
   });
 
 

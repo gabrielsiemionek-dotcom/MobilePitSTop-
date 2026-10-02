@@ -433,6 +433,23 @@ File: `Window Tinting Request.txt`.
 
 ---
 
+## 2026-10-02 — "Send by email" works on PCs without an email app
+
+"Send by email" uses a mailto: link, which does nothing on a PC with no
+email app set up (anyone using Gmail / Outlook in a browser). Every request
+form now uses a shared `window.mpsEmail(to, subject, body, cc, button)`
+helper (the EMAIL FALLBACK block at the top of each file). It still tries
+the email app first, then shows a panel under the buttons: Open in Gmail,
+Open in Outlook (both pre-filled), Copy message, and our address.
+
+Files: Window Tinting, De-Chrome, Ceramic Coating, Exterior Detail,
+In & Out, Protection Detail, Machine Polishing (all the forms with a
+"Send by email" button). Tested on Window Tinting and Ceramic Coating:
+validation still runs first, panel appears once, Gmail/Outlook links carry
+the address, subject and full message.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
