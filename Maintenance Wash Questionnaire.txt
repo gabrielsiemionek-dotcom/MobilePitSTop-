@@ -1612,7 +1612,8 @@
     return url;
   }
 
-  function fmtGBP(n){ return '\u00a3' + Number(n || 0).toFixed(0); }
+  /* plan discounts can leave pence (25% off 130 pounds is 97.50) - show them, like the plan page */
+  function fmtGBP(n){ var r = Math.round(Number(n || 0) * 100) / 100; return '\u00a3' + (r % 1 ? r.toFixed(2) : r.toFixed(0)); }
 
   var state = { step:0, size:null, more:null, wax:null, glaco:null, interior:null };
 
