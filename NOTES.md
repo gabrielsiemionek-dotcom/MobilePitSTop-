@@ -393,6 +393,19 @@ File: `maintenance plan` (/car-detailing-maintenance-plan).
 
 ---
 
+## 2026-10-02 — Window Tinting request panel
+
+File: `Window Tinting Request.txt`.
+- "Send on WhatsApp" now goes to the tint fitter, +44 7426 487900. The
+  "send a copy" button after it goes to MobilePitStop (07592 196929), so
+  every tint request still reaches the main number. Email unchanged.
+- Postcode field removed (tinting is done at the unit) — also out of the
+  message.
+- Preferred week date box no longer overflows the panel on phones (iOS
+  gives date inputs a minimum width; overridden). Checked at 375px.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
