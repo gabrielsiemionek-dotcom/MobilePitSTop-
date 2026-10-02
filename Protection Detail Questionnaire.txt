@@ -1,7 +1,7 @@
 
 <!-- ==========================================================================
      MobilePitStop — PROTECTION DETAIL questionnaire
-     (replaces "Full Valet Premium" — page URL /full-valet-premium unchanged)
+     (replaces "Full Valet Premium" — page URL /protection-detail, was /full-valet-premium)
 
      BASE PRICE   3-door £210 · 5-door £230 · 7-seater £250
      INCLUDED     In & Out deep clean, chemical decontamination, clay bar,

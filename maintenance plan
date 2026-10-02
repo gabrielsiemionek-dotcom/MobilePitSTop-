@@ -654,7 +654,7 @@
 
             <!-- Two routes out, depending on whether they're already on the plan. -->
             <div class="plan-cta">
-              <a class="btn btn-primary-glow" id="mpDoneBtn" href="https://mobilepitstop.uk/full-valet"
+              <a class="btn btn-primary-glow" id="mpDoneBtn" href="https://mobilepitstop.uk/in-out-deep-clean"
                  style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Start with an In &amp; Out Deep Clean</a>
               <button class="btn-plan" id="mpPlanBtn" type="button"
                       aria-expanded="false" aria-controls="mpCodeBox">Start My Plan</button>
@@ -888,7 +888,7 @@
       'a discounted Maintenance Wash, but you\'d be disappointed with it, so we won\'t.</p>' +
       '<p style="margin-top:8px"><strong>What we\'d suggest instead:</strong> an ' +
       '<a href="https://mobilepitstop.uk/interior-deep-clean">Interior Deep Clean</a> ' +
-      'or an <a href="https://mobilepitstop.uk/full-valet">In &amp; Out Deep Clean</a> whenever the car needs it. ' +
+      'or an <a href="https://mobilepitstop.uk/in-out-deep-clean">In &amp; Out Deep Clean</a> whenever the car needs it. ' +
       'Book it as often or as rarely as you like &mdash; no plan required.</p>' +
       '<p style="margin-top:8px">Not sure which? Call or message us on ' +
       '<a href="tel:07592196929">07592 196929</a> and we\'ll tell you straight.</p>' +
@@ -921,7 +921,7 @@
       hintEl.innerHTML = '';
     } else {
       doneBtn.textContent = 'Start with an In & Out Deep Clean';
-      doneBtn.setAttribute('href', 'https://mobilepitstop.uk/full-valet');
+      doneBtn.setAttribute('href', 'https://mobilepitstop.uk/in-out-deep-clean');
       hintEl.innerHTML =
         '<strong style="color:#fff">What happens next:</strong> book your In &amp; Out Deep Clean above. ' +
         'Once it’s done and we’ve agreed your frequency, we’ll give you a plan code ' +

@@ -355,11 +355,11 @@
       <a href="/maintenance-wash">Maintenance Wash <b>&pound;60</b></a>
       <a href="/interior-deep-clean">Interior Deep Clean <b>&pound;90</b></a>
       <a href="/exterior-detail">Exterior Detail <b>&pound;70</b></a>
-      <a href="/full-valet">In &amp; Out Deep Clean <b>&pound;140</b></a>
-      <a href="/full-valet-premium">Protection Detail <b>&pound;210</b></a>
-      <a href="/all-services#machine-polishing">Enhancement Polish <b>&pound;285</b></a>
+      <a href="/in-out-deep-clean">In &amp; Out Deep Clean <b>&pound;140</b></a>
+      <a href="/protection-detail">Protection Detail <b>&pound;210</b></a>
+      <a href="/machine-polishing">Enhancement Polish <b>&pound;285</b></a>
       <a href="/ceramic-coating">Ceramic Coating <b>&pound;190</b></a>
-      <a href="/smoke/milk/bio-odour-removal">Odour Removal <b>&pound;250</b></a>
+      <a href="/cigarette/milk/bio-odour-removal">Odour Removal <b>&pound;250</b></a>
     </div>
 
     <h3 class="mph-svc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5V20H3z"/><path d="M7 20v-7h10v7"/><path d="M7 15.5h10M7 18h10"/></svg><span>At Our Unit, By Quote</span></h3>
@@ -367,7 +367,7 @@
       <a href="/all-services#correction">Multi-Step Paint Correction <span class="mph-q">By quote</span></a>
       <a href="/all-services#ppf">PPF <span class="mph-q">By quote</span></a>
       <a href="/all-services#wrap">Vinyl Wraps <span class="mph-q">By quote</span></a>
-      <a href="/all-services#tint">Window Tinting <span class="mph-q">By quote</span></a>
+      <a href="/window-tinting">Window Tinting <span class="mph-q">By quote</span></a>
       <a href="/all-services#dechrome">De-Chrome <span class="mph-q">By quote</span></a>
     </div>
   </div>
