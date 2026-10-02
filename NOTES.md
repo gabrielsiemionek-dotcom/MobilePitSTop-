@@ -423,7 +423,8 @@ Advanced > URL Mappings) so old links and Google keep working.
 ## 2026-10-02 — Window Tinting request panel
 
 File: `Window Tinting Request.txt`.
-- "Send on WhatsApp" now goes to the tint fitter, +44 7426 487900. The
+- "Send on WhatsApp" now goes to the tint fitter, 07563 718029 (+44 7563 718029;
+  changed from 07426 487900 on 2 Oct). The
   "send a copy" button after it goes to MobilePitStop (07592 196929), so
   every tint request still reaches the main number. Email unchanged.
 - Postcode field removed (tinting is done at the unit) — also out of the

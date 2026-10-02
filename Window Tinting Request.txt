@@ -1029,7 +1029,7 @@
   var APPROVED = true;
 
   var SERVICE   = "window tinting";
-  var WHATSAPP_NUMBER = '447426487900';   /* the tint fitter — tint requests go straight to them */
+  var WHATSAPP_NUMBER = '447563718029';   /* the tint fitter — tint requests go straight to them */
   var EMAIL_TO        = 'mobilepitstopvalet@gmail.com';
 
   /* Second pair of eyes on this service.
