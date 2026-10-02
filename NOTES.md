@@ -487,6 +487,16 @@ File: `All Services.txt`.
 
 ---
 
+## 2026-10-02 — Preferred date box fits on phones, every form
+
+iPhones give date inputs a built-in minimum width, so the Preferred date /
+week box ran past the edge of the request panel. The fix already on Window
+Tinting (appearance:none, min-width:0, max-width:100%) is now on every
+request form with a date box: Ceramic Coating, Exterior Detail, In & Out,
+Protection Detail, Machine Polishing and De-Chrome. Checked at 375px.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
