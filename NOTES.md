@@ -368,6 +368,31 @@ are tightened so the two sit side by side (checked at 360px and 375px).
 
 ---
 
+## 2026-10-02 — Maintenance Plan shows Maintenance Wash prices
+
+File: `maintenance plan` (/car-detailing-maintenance-plan).
+
+- Prices were the old Mini Valet ones (£50/£55/£60). Now the Maintenance
+  Wash prices — Small £60, Medium £70, Large £80 — with the plan discount
+  shown on each frequency: weekly 30%, every 2-3 weeks 25%, every 4-6
+  weeks 20%.
+- Extras now match the Maintenance Wash page: seat stain removal +£30 OR
+  full steam, shampoo & extraction +£50, 8-week wax +£10, Glaco front
+  windows +£30 (plan discount applies). The old "interior deep clean" and
+  stacked seat/full-interior steps are gone.
+- Booking: a valid plan code (CLEAN30/25/20, must match the frequency
+  picked) unlocks "Book My Visit" → /maintenance-wash?code=…&size=…, which
+  applies the code, shows the calendar and takes the 10% deposit. The old
+  Mini Valet Acuity types (86209466 etc.) are no longer used by this page.
+- No plan yet → "Start with an In & Out Deep Clean" (/full-valet).
+- Maintenance Wash page now shows pence (£97.50 rather than £98) so the
+  two pages agree.
+- Homepage hero "From £35 on the plan" → "From £42" (£60 less 30%).
+- Tested: medium, every 2-3 weeks, full interior + wax → £97.50 on both
+  pages, £9.75 deposit; wrong-tier and seasonal codes rejected.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

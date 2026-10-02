@@ -78,11 +78,12 @@
 
   <div class="mps-stats">
     <!-- Links straight to the plan page, so the stat does a job as well as
-         reads as one. £35 is the lowest plan rate (small car, weekly) and
-         matches the "From £35" on the Google Business Profile. -->
+         reads as one. £42 is the lowest plan rate: a small car weekly,
+         £60 Maintenance Wash less 30%. Keep the Google Business Profile's
+         "From" price the same. -->
     <a class="mps-stat mps-stat-link" href="/car-detailing-maintenance-plan"
-       aria-label="On the Maintenance Plan, from £35 a visit. See the plan.">
-      <span class="mps-num">From £35</span>
+       aria-label="On the Maintenance Plan, from £42 a visit. See the plan.">
+      <span class="mps-num">From £42</span>
       <span class="mps-label">On The Plan</span>
     </a>
     <div class="mps-divider"></div>
