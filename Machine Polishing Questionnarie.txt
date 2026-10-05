@@ -2332,7 +2332,7 @@
   }
   function addonParams(){
     var p = {};
-    addonIds().slice(0,4).forEach(function(id,i){ p['a' + (i+1)] = id; });
+    addonIds().slice(0,8).forEach(function(id,i){ p['a' + (i+1)] = id; });   /* a1-a8 — the Make availability scenario reads up to eight */
     return p;
   }
 

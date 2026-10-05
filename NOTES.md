@@ -497,6 +497,17 @@ Protection Detail, Machine Polishing and De-Chrome. Checked at 375px.
 
 ---
 
+## 2026-10-03 — Free-slot check sends up to 8 add-ons
+
+The Make availability scenario now reads a1–a8, so every booking page sends
+up to eight add-ons when checking free slots (`addonIds().slice(0,8)` in
+`addonParams()`): Maintenance Wash, Interior Deep Clean, Exterior Detail,
+In & Out, Protection Detail, Machine Polishing, Odour Removal. Before, only
+the first four counted, so a booking with more add-ons could be offered a
+slot too short for the job. Checkout already sent every add-on.
+
+---
+
 ## 2026-10-05 — Reviews + map as a standalone block
 
 New file `Reviews and Map.txt`: the Google reviews (Elfsight) and the
@@ -528,10 +539,6 @@ both review slots filled, one platform.js request.
   describes a different plan (£100 / £120 / £140, 48 Acuity types, an
   `ACUITY_TYPE_MAP` that doesn't exist) and should be rewritten to match
   the code. Nothing on the page is affected.
-- **Only 4 add-ons are checked for free slots** (`slice(0,4)` in
-  `addonParams()` on Exterior Detail, Interior, In & Out, Maintenance Wash
-  and now Protection Detail). Needs the Make availability scenario to
-  accept more first. User has this noted.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
