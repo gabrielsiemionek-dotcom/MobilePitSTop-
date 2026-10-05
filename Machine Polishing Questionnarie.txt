@@ -2550,6 +2550,7 @@
     var p = {
       token: MPS_TOKEN,
       deposit: Math.round(depositAmount() * 100),
+      total: Math.round(netTotal() * 100),   /* whole job after any discount, in pence like deposit */
       label: label,
       type: bookingTypeId(),
       datetime: booking.time,

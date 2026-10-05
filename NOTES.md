@@ -508,6 +508,21 @@ slot too short for the job. Checkout already sent every add-on.
 
 ---
 
+## 2026-10-05 — Deposit request sends the real job total
+
+Every booking page now sends `total` to the deposit hook alongside
+`deposit`, so Make can record the job value instead of working it out as
+deposit x 10. Both are in pence. `total` is the price after any discount
+code or plan code (`netTotal()`; on Maintenance Wash `calcTotal()`, which
+already has the discount in it). Example: In & Out 3-door £140 with
+AUTUMN20 sends total=11200, deposit=1120.
+
+Pages: Maintenance Wash, Interior Deep Clean, Exterior Detail, In & Out,
+Protection Detail, Machine Polishing, Odour Removal. The Make deposit
+scenario has to map `total` for it to be used.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
