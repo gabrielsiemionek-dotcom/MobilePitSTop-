@@ -1,0 +1,208 @@
+<!-- ==========================================================================
+     MobilePitStop — Reviews + Service Area (standalone block)
+     The Google reviews (Elfsight) and the 20-mile service area with town
+     links and map, lifted out of the "homepage section" file so it can go
+     on any page: service pages, location pages, All Services. Paste into
+     ONE Code Block, usually as the last block on the page.
+
+     Namespaced .mps-rvm- so it won't clash with the homepage copy
+     (.mps-hsrv-) or any other block. No ids — it is safe to paste on a
+     page that already has the homepage section, and platform.js is only
+     ever loaded once per page.
+
+     PERFORMANCE: Elfsight is 531 KB and its own lazy attribute only defers
+     RENDERING — the script still downloads on page load. This holds it
+     back until the reviews scroll near the screen.
+
+     The homepage section keeps its own copy. If the towns, the wording or
+     the map change, change both.
+     ========================================================================== -->
+
+<style>
+  .mps-rvm{
+    max-width:1100px;
+    margin:0 auto;
+    padding:32px 24px 24px;
+    color:#fff;
+    font-family:inherit;
+    line-height:1.7;
+  }
+  .mps-rvm h2{
+    font-size:clamp(21px,3.2vw,28px);
+    font-weight:900;
+    letter-spacing:-.02em;
+    margin:0 0 12px;
+    color:#fff;
+  }
+  .mps-rvm h2 em{ font-style:normal; color:var(--accent,#E3FC02); }
+  .mps-rvm p{ margin:0 0 14px; color:rgba(255,255,255,.84); font-size:15px; }
+  .mps-rvm a{ color:var(--accent,#E3FC02); font-weight:700; text-decoration:none; }
+  .mps-rvm a:hover{ text-decoration:underline; }
+  .mps-rvm strong{ color:#fff; }
+
+  .mps-rvm-reviews{ margin-bottom:40px; }
+  .mps-rvm-slot{ min-height:140px; }
+  .mps-rvm-wait{
+    padding:30px 16px; text-align:center;
+    font-size:13.5px; color:rgba(255,255,255,.45);
+  }
+
+  .mps-rvm-areas{
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:24px;
+    background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+  }
+  .mps-rvm-grid{ display:grid; gap:22px; grid-template-columns:1fr; }
+  @media(min-width:880px){ .mps-rvm-grid{ grid-template-columns:1fr 1fr; align-items:start; } }
+
+  .mps-rvm-county{ margin-top:15px; }
+  .mps-rvm-county:first-of-type{ margin-top:12px; }
+  .mps-rvm-county h4{
+    margin:0 0 5px;
+    font-size:11.5px; font-weight:900;
+    letter-spacing:.12em; text-transform:uppercase;
+    color:var(--accent,#E3FC02);
+  }
+  .mps-rvm-county p{ margin:0; font-size:14px; line-height:1.85; color:rgba(255,255,255,.84); }
+  .mps-rvm-county a{ font-weight:600; border-bottom:1px solid rgba(227,252,2,.28); }
+
+  /* the raw embed is 600x450 fixed, which overflows a phone — wrapped */
+  .mps-rvm-map{
+    position:relative; width:100%; padding-top:74%;
+    border-radius:16px; overflow:hidden;
+    border:1px solid rgba(255,255,255,.12); background:#111;
+  }
+  .mps-rvm-map iframe{
+    position:absolute; top:0; left:0;
+    width:100%; height:100%; border:0;
+  }
+  @media(max-width:879px){ .mps-rvm-map{ padding-top:60%; margin-top:18px; } }
+
+  @media(max-width:640px){
+    .mps-rvm{ padding:24px 16px 18px; }
+    .mps-rvm-areas{ padding:18px 15px; }
+    .mps-rvm-reviews{ margin-bottom:30px; }
+    .mps-rvm p, .mps-rvm-county p{ font-size:14px; }
+  }
+</style>
+
+<section class="mps-rvm">
+
+  <div class="mps-rvm-reviews">
+    <h2>What customers <em>actually say</em></h2>
+    <div class="mps-rvm-slot" data-mps-rvm-slot>
+      <div class="mps-rvm-wait" data-mps-rvm-wait>Loading reviews&hellip;</div>
+    </div>
+  </div>
+
+  <div class="mps-rvm-areas">
+    <h2>Free travel within <em>20 miles of Ellesmere Port</em></h2>
+    <p>
+      Every mobile service is <strong>fully mobile</strong>. We bring our own water,
+      professional equipment and a 45m lead to your home or workplace &mdash; all we
+      need is a plug socket and room to work around the car.
+    </p>
+
+    <div class="mps-rvm-grid">
+      <div>
+        <div class="mps-rvm-county">
+          <h4>Cheshire</h4>
+          <p>
+            <a href="/mobile-valeting-service-chester">Chester</a>,
+            <a href="/mobile-valeting-service-ellesmere-port">Ellesmere Port</a>,
+            <a href="/mobile-valeting-service-runcorn">Runcorn</a>,
+            <a href="/mobile-valeting-service-northwich">Northwich</a>,
+            <a href="/mobile-valeting-service-crewe">Crewe</a>,
+            <a href="/mobile-valeting-service-knutsford">Knutsford</a>,
+            <a href="/mobile-valeting-service-wilmslow">Wilmslow</a>
+          </p>
+        </div>
+        <div class="mps-rvm-county">
+          <h4>Merseyside</h4>
+          <p>
+            <a href="/mobile-valeting-service-liverpool">Liverpool</a>,
+            <a href="/mobile-valeting-service-birkenhead">Birkenhead</a>,
+            <a href="/mobile-valeting-service-wallasey">Wallasey</a>,
+            <a href="/mobile-valeting-service-st-helens">St Helens</a>,
+            <a href="/mobile-valeting-service-prescot">Prescot</a>,
+            <a href="/mobile-valeting-service-formby">Formby</a>,
+            <a href="/mobile-valeting-service-southport">Southport</a>
+          </p>
+        </div>
+        <div class="mps-rvm-county">
+          <h4>Flintshire</h4>
+          <p>
+            <a href="/mobile-valeting-service-mold">Mold</a>,
+            <a href="/mobile-valeting-service-flint">Flint</a>,
+            <a href="/mobile-valeting-service-connahs-quay">Connah&rsquo;s Quay</a>,
+            <a href="/mobile-valeting-service-buckley">Buckley</a>,
+            <a href="/mobile-valeting-service-holywell">Holywell</a>,
+            <a href="/mobile-valeting-service-hawarden">Hawarden</a>,
+            <a href="/mobile-valeting-service-queensferry">Queensferry</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="mps-rvm-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d788017.5267014946!2d-2.78839975!3d53.28017869999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4c27d7a4dee048e9%3A0xd8c61ab1d0b3b4cc!2sMobilePitStop!5e1!3m2!1sen!2suk!4v1774650846639!5m2!1sen!2suk"
+          title="MobilePitStop service area — 20 miles around Ellesmere Port"
+          allowfullscreen loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function(){
+  var ELFSIGHT_APP = 'elfsight-app-b97c8bc8-5963-4b15-a78b-2da5362c47dc';
+  var ELFSIGHT_JS  = 'https://elfsightcdn.com/platform.js';
+
+  /* load platform.js once per page, even if another block already asked for it */
+  function loadPlatform(){
+    if(document.querySelector('script[src="' + ELFSIGHT_JS + '"]')) return;
+    var sc = document.createElement('script');
+    sc.src = ELFSIGHT_JS;
+    sc.async = true;
+    document.body.appendChild(sc);
+  }
+
+  function setup(slot){
+    if(slot.getAttribute('data-mps-rvm-ready')) return;
+    slot.setAttribute('data-mps-rvm-ready', '1');
+    var wait = slot.querySelector('[data-mps-rvm-wait]');
+
+    var loaded = false;
+    function loadReviews(){
+      if(loaded) return;
+      loaded = true;
+
+      var app = document.createElement('div');
+      app.className = ELFSIGHT_APP;
+      app.setAttribute('data-elfsight-app-lazy', '');
+      slot.appendChild(app);
+      loadPlatform();
+
+      setTimeout(function(){ if(wait) wait.style.display = 'none'; }, 1500);
+    }
+
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ loadReviews(); io.disconnect(); }
+        });
+      }, { rootMargin: '400px 0px' });
+      io.observe(slot);
+    } else {
+      window.addEventListener('scroll', loadReviews, { once:true, passive:true });
+      setTimeout(loadReviews, 4000);
+    }
+  }
+
+  var slots = document.querySelectorAll('[data-mps-rvm-slot]');
+  for(var i = 0; i < slots.length; i++) setup(slots[i]);
+})();
+</script>

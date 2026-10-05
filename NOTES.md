@@ -508,6 +508,28 @@ slot too short for the job. Checkout already sent every add-on.
 
 ---
 
+## 2026-10-05 — Reviews + map as a standalone block
+
+New file `Reviews and Map.txt`: the Google reviews (Elfsight) and the
+"Free travel within 20 miles of Ellesmere Port" area with the 21 town links
+and the map, copied from the bottom of `homepage section` so it can be
+pasted on any page as its own Code Block.
+
+- Same look, wording and links as the homepage. "Every mobile service
+  above" now reads "Every mobile service", because the block can stand on
+  its own. The divider line above it is gone.
+- Classes renamed `.mps-rvm-` and the ids removed, so it doesn't clash with
+  the homepage copy and works even if it appears twice on one page. The
+  Elfsight script is only loaded once per page.
+- Reviews still load only when scrolled near (Elfsight is 531 KB).
+- The homepage section keeps its own copy, unchanged. If towns, wording or
+  the map change, update both files.
+
+Checked at 375px with the block twice on one page: no sideways scroll,
+both review slots filled, one platform.js request.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
