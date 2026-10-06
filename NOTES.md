@@ -587,6 +587,30 @@ with AUTUMN20 = 56; Maintenance Wash 5-door with CLEAN30 = 49, deposit 4.9).
 
 ---
 
+## 2026-10-06 — Live site-wide code added to the repo
+
+Copies of the current live code, so the repo matches the site:
+
+- `mobilepitstop-code-injection-HEADER.html`: Settings > Developer tools >
+  Code injection > HEADER. Consent Mode v2 defaults (ads off until
+  accepted, statistics on unless switched off), then GTM-MMHW32R2, then
+  `window.MPS_REVIEWS` (the only place to change the review count).
+- `mobilepitstop-code-injection-FOOTER.html`: Code injection > FOOTER. GTM
+  noscript, ad click ID capture (only with ad consent), the Elfsight
+  reviews app, and the cookie banner (`mps_consent_update` event).
+- `mobilepitstop-booking-confirmed.html`: the /booking-confirmed page.
+  Pushes `purchase` (GA4 ecommerce) and `mps_booking_confirmed` once per
+  Stripe session. `value` comes from `?amt=` in pence; until that is in
+  the return URL it falls back to deposit x 10. The questionnaires now
+  send `total` (pence) to the deposit hook, so the Make Stripe scenario
+  only needs to add `amt={{total}}` to the success URL.
+
+In & Out: the odd-vehicle "Get a quote" WhatsApp message said "a quote for
+an interior deep clean". It now reads "a quote for an In & Out Deep Clean
+on a larger vehicle (van, pick-up, minibus or camper)".
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -599,3 +623,6 @@ with AUTUMN20 = 56; Maintenance Wash 5-door with CLEAN30 = 49, deposit 4.9).
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
+- **Booking confirmed value.** Make's Stripe scenario should add
+  `amt={{total}}` (and ideally drop `name=`) on the success URL, so the
+  purchase value is the real job total instead of deposit x 10.
