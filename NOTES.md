@@ -545,6 +545,48 @@ scenario has to map `total` for it to be used.
 
 ---
 
+## 2026-10-06 — Funnel tracking (dataLayer → GTM → GA4)
+
+Every questionnaire pushes funnel events to `window.dataLayer`. GTM
+(GTM-MMHW32R2) picks them up; there is no gtag/GA code on the pages. Each
+file has a "FUNNEL TRACKING" block just above `update()`.
+
+| Event | When | Fields |
+|---|---|---|
+| `quote_start` | first choice made, once per page load | service |
+| `quote_complete` | first full price shown, once per page load | service, value, currency |
+| `slot_select` | a time picked in the calendar | service, value, currency, slot_date |
+| `begin_checkout` | Pay deposit pressed, after the form checks, before the Stripe redirect (preceded by `{ ecommerce:null }`) | service, deposit, ecommerce{currency, value, items[{item_name, item_category:'Detailing', price, quantity:1}]} |
+| `generate_lead` | WhatsApp or email request sent | service, method ('whatsapp' / 'email') |
+
+- `value` is in pounds, as a number, after any promo or plan code:
+  `netTotal()` on every booking page except Maintenance Wash, where
+  `calcTotal()` already includes the discount. Exterior Detail uses
+  `netTotal()` too, because its `calcTotal()` is before the promo.
+  Ceramic Coating has no `netTotal()`, so it uses `calcTotal()` less the
+  promo. `deposit` is `depositAmount()`, also in pounds.
+- `service` slugs: maintenance_wash, interior_deep_clean, exterior_detail,
+  in_and_out, protection_detail, machine_polishing, odour_removal,
+  ceramic_coating, window_tinting, de_chrome.
+- "Full price" means every required question is answered. A
+  van/camper quote or a Machine Polishing correction ("from" price) never
+  sends `quote_complete`.
+- Ceramic Coating has no calendar, so no `slot_select` or
+  `begin_checkout`. Window Tinting and De-Chrome have no price, so only
+  `quote_start` (first chip tapped) and `generate_lead`. Their "send a copy
+  to MobilePitStop" button doesn't count as a second lead.
+- `generate_lead` also fires on the "Get a quote" WhatsApp button for odd
+  vehicles on Interior and In & Out. The existing `pf_*` events are all
+  kept unchanged.
+- No personal data: no name, email, phone, address, postcode or reg.
+- Only additions. No booking, pricing or payment code changed.
+
+Tested every page in the browser with the Make webhooks faked: each event
+fired once at the right moment with the right value (e.g. Exterior 3-door
+with AUTUMN20 = 56; Maintenance Wash 5-door with CLEAN30 = 49, deposit 4.9).
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

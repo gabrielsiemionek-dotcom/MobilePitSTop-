@@ -1563,7 +1563,61 @@
     if(progLabel) progLabel.textContent = PROG_LABELS[state.step] || '';
   }
 
+  /* ======================================================================
+     FUNNEL TRACKING
+     dataLayer pushes only. GTM (GTM-MMHW32R2) picks them up and sends
+     them to GA4, so there is no gtag/GA code here. Values are numbers in
+     pounds, after any promo. Never put a name, email, phone, address,
+     postcode or reg into these.
+       quote_start     first choice made           (once per page load)
+       quote_complete  first full price shown      (once per page load)
+       slot_select     a date and time picked
+       begin_checkout  Pay deposit pressed, before the Stripe redirect
+       generate_lead   a WhatsApp or email request sent
+     ====================================================================== */
+  var FUNNEL_SERVICE = 'odour_removal';
+  var FUNNEL_LABEL   = 'Odour Removal Treatment';
+  var funnelSent;
+  function funnelPush(o){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(o);
+  }
+  function funnelOnce(key, o){
+    funnelSent = funnelSent || {};
+    if(funnelSent[key]) return;
+    funnelSent[key] = true;
+    funnelPush(o);
+  }
+  function funnelValue(){ return Math.round((netTotal()) * 100) / 100; }
+  function trackQuoteStart(){
+    funnelOnce('start', { event:'quote_start', service:FUNNEL_SERVICE });
+  }
+  /* every required choice made, so the price on screen is the full one */
+  function funnelQuoteReady(){
+    return !!(state.vehicle && state.smell);
+  }
+  function trackQuoteComplete(){
+    if(!funnelQuoteReady()) return;
+    funnelOnce('complete', { event:'quote_complete', service:FUNNEL_SERVICE,
+                             value:funnelValue(), currency:'GBP' });
+  }
+  function trackSlot(raw){
+    funnelPush({ event:'slot_select', service:FUNNEL_SERVICE, value:funnelValue(),
+                 currency:'GBP', slot_date:String(raw).slice(0,10) });
+  }
+  function trackCheckout(){
+    var v = funnelValue();
+    funnelPush({ ecommerce:null });
+    funnelPush({ event:'begin_checkout', service:FUNNEL_SERVICE, deposit:depositAmount(),
+      ecommerce:{ currency:'GBP', value:v,
+        items:[{ item_name:FUNNEL_LABEL, item_category:'Detailing', price:v, quantity:1 }] } });
+  }
+  function trackLead(method){
+    funnelPush({ event:'generate_lead', service:FUNNEL_SERVICE, method:method });
+  }
+
   function update(){
+    trackQuoteComplete();
     renderBreakdown();
     var totalStr = state.vehicle ? fmtGBP(calcTotal()) : 'From £250';
     var noteStr  = !state.vehicle ? 'Select your vehicle size'
@@ -1608,6 +1662,7 @@
   }
 
   function activate(opt){
+    trackQuoteStart();
     var pick = opt.getAttribute('data-pick'), value = opt.getAttribute('data-value');
     var stepEl = opt.closest('.step');
     stepEl.querySelectorAll('.opt[role="option"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
@@ -1829,6 +1884,7 @@
         });
         b.setAttribute('aria-pressed','true');
         booking.time = slot.raw;
+        trackSlot(slot.raw);
 
         var chosen = root.querySelector('#odrBkChosen');
         chosen.textContent = new Date(String(slot.raw).slice(0,10) + 'T12:00:00')
@@ -1924,6 +1980,7 @@
       return encodeURIComponent(k) + '=' + encodeURIComponent(p[k]);
     }).join('&');
 
+    trackCheckout();
     fetch(DEPOSIT_HOOK + '?' + q)
       .then(function(r){ return r.json(); })
       .then(function(session){
