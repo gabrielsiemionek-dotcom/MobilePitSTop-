@@ -600,14 +600,23 @@ Copies of the current live code, so the repo matches the site:
   reviews app, and the cookie banner (`mps_consent_update` event).
 - `mobilepitstop-booking-confirmed.html`: the /booking-confirmed page.
   Pushes `purchase` (GA4 ecommerce) and `mps_booking_confirmed` once per
-  Stripe session. `value` comes from `?amt=` in pence; until that is in
-  the return URL it falls back to deposit x 10. The questionnaires now
-  send `total` (pence) to the deposit hook, so the Make Stripe scenario
-  only needs to add `amt={{total}}` to the success URL.
+  Stripe session. `value` comes from `?amt=` in pence (the job total the
+  questionnaires send as `total`); `deposit_paid` from `?dep=`. If `amt`
+  is ever missing it falls back to deposit x 10.
 
 In & Out: the odd-vehicle "Get a quote" WhatsApp message said "a quote for
 an interior deep clean". It now reads "a quote for an In & Out Deep Clean
 on a larger vehicle (van, pick-up, minibus or camper)".
+
+---
+
+## 2026-10-05 — Stripe success URL sends the real total (done in Make)
+
+Make scenario "MPS · Stripe deposit link" (7611308), updated 5 Oct 2026:
+the Stripe success URL now sends `amt={{1.total}}` and `dep={{1.deposit}}`
+(both pence), and `name=` has been removed. So the booking-confirmed
+`purchase` event reports the real job total (`value_source: 'amt'`), not
+deposit x 10, and no customer name reaches the address bar.
 
 ---
 
@@ -623,6 +632,3 @@ on a larger vehicle (van, pick-up, minibus or camper)".
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
-- **Booking confirmed value.** Make's Stripe scenario should add
-  `amt={{total}}` (and ideally drop `name=`) on the success URL, so the
-  purchase value is the real job total instead of deposit x 10.
