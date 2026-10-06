@@ -545,6 +545,72 @@ scenario has to map `total` for it to be used.
 
 ---
 
+## 2026-10-06 — Funnel tracking (dataLayer → GTM → GA4)
+
+Every questionnaire pushes funnel events to `window.dataLayer`. GTM
+(GTM-MMHW32R2) picks them up; there is no gtag/GA code on the pages. Each
+file has a "FUNNEL TRACKING" block just above `update()`.
+
+| Event | When | Fields |
+|---|---|---|
+| `quote_start` | first choice made, once per page load | service |
+| `quote_complete` | first full price shown, once per page load | service, value, currency |
+| `slot_select` | a time picked in the calendar | service, value, currency, slot_date |
+| `begin_checkout` | Pay deposit pressed, after the form checks, before the Stripe redirect (preceded by `{ ecommerce:null }`) | service, deposit, ecommerce{currency, value, items[{item_name, item_category:'Detailing', price, quantity:1}]} |
+| `generate_lead` | WhatsApp or email request sent | service, method ('whatsapp' / 'email') |
+
+- `value` is in pounds, as a number, after any promo or plan code:
+  `netTotal()` on every booking page except Maintenance Wash, where
+  `calcTotal()` already includes the discount. Exterior Detail uses
+  `netTotal()` too, because its `calcTotal()` is before the promo.
+  Ceramic Coating has no `netTotal()`, so it uses `calcTotal()` less the
+  promo. `deposit` is `depositAmount()`, also in pounds.
+- `service` slugs: maintenance_wash, interior_deep_clean, exterior_detail,
+  in_and_out, protection_detail, machine_polishing, odour_removal,
+  ceramic_coating, window_tinting, de_chrome.
+- "Full price" means every required question is answered. A
+  van/camper quote or a Machine Polishing correction ("from" price) never
+  sends `quote_complete`.
+- Ceramic Coating has no calendar, so no `slot_select` or
+  `begin_checkout`. Window Tinting and De-Chrome have no price, so only
+  `quote_start` (first chip tapped) and `generate_lead`. Their "send a copy
+  to MobilePitStop" button doesn't count as a second lead.
+- `generate_lead` also fires on the "Get a quote" WhatsApp button for odd
+  vehicles on Interior and In & Out. The existing `pf_*` events are all
+  kept unchanged.
+- No personal data: no name, email, phone, address, postcode or reg.
+- Only additions. No booking, pricing or payment code changed.
+
+Tested every page in the browser with the Make webhooks faked: each event
+fired once at the right moment with the right value (e.g. Exterior 3-door
+with AUTUMN20 = 56; Maintenance Wash 5-door with CLEAN30 = 49, deposit 4.9).
+
+---
+
+## 2026-10-06 — Live site-wide code added to the repo
+
+Copies of the current live code, so the repo matches the site:
+
+- `mobilepitstop-code-injection-HEADER.html`: Settings > Developer tools >
+  Code injection > HEADER. Consent Mode v2 defaults (ads off until
+  accepted, statistics on unless switched off), then GTM-MMHW32R2, then
+  `window.MPS_REVIEWS` (the only place to change the review count).
+- `mobilepitstop-code-injection-FOOTER.html`: Code injection > FOOTER. GTM
+  noscript, ad click ID capture (only with ad consent), the Elfsight
+  reviews app, and the cookie banner (`mps_consent_update` event).
+- `mobilepitstop-booking-confirmed.html`: the /booking-confirmed page.
+  Pushes `purchase` (GA4 ecommerce) and `mps_booking_confirmed` once per
+  Stripe session. `value` comes from `?amt=` in pence; until that is in
+  the return URL it falls back to deposit x 10. The questionnaires now
+  send `total` (pence) to the deposit hook, so the Make Stripe scenario
+  only needs to add `amt={{total}}` to the success URL.
+
+In & Out: the odd-vehicle "Get a quote" WhatsApp message said "a quote for
+an interior deep clean". It now reads "a quote for an In & Out Deep Clean
+on a larger vehicle (van, pick-up, minibus or camper)".
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
@@ -557,3 +623,6 @@ scenario has to map `total` for it to be used.
 - **Odd vehicle types on In & Out.** "Van, pick-up, minibus or camper" goes
   straight to a WhatsApp quote message, not the Acuity quote slot that
   Exterior Detail uses.
+- **Booking confirmed value.** Make's Stripe scenario should add
+  `amt={{total}}` (and ideally drop `name=`) on the success URL, so the
+  purchase value is the real job total instead of deposit x 10.

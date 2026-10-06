@@ -1905,7 +1905,61 @@
   /* ======================================================================
      UPDATE
      ====================================================================== */
+  /* ======================================================================
+     FUNNEL TRACKING
+     dataLayer pushes only. GTM (GTM-MMHW32R2) picks them up and sends
+     them to GA4, so there is no gtag/GA code here. Values are numbers in
+     pounds, after any promo. Never put a name, email, phone, address,
+     postcode or reg into these.
+       quote_start     first choice made           (once per page load)
+       quote_complete  first full price shown      (once per page load)
+       slot_select     a date and time picked
+       begin_checkout  Pay deposit pressed, before the Stripe redirect
+       generate_lead   a WhatsApp or email request sent
+     ====================================================================== */
+  var FUNNEL_SERVICE = 'maintenance_wash';
+  var FUNNEL_LABEL   = 'Maintenance Wash';
+  var funnelSent;
+  function funnelPush(o){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(o);
+  }
+  function funnelOnce(key, o){
+    funnelSent = funnelSent || {};
+    if(funnelSent[key]) return;
+    funnelSent[key] = true;
+    funnelPush(o);
+  }
+  function funnelValue(){ return Math.round((calcTotal()) * 100) / 100; }
+  function trackQuoteStart(){
+    funnelOnce('start', { event:'quote_start', service:FUNNEL_SERVICE });
+  }
+  /* every required choice made, so the price on screen is the full one */
+  function funnelQuoteReady(){
+    return !!(!state.more && state.size && state.interior !== null && state.wax !== null && state.glaco !== null);
+  }
+  function trackQuoteComplete(){
+    if(!funnelQuoteReady()) return;
+    funnelOnce('complete', { event:'quote_complete', service:FUNNEL_SERVICE,
+                             value:funnelValue(), currency:'GBP' });
+  }
+  function trackSlot(raw){
+    funnelPush({ event:'slot_select', service:FUNNEL_SERVICE, value:funnelValue(),
+                 currency:'GBP', slot_date:String(raw).slice(0,10) });
+  }
+  function trackCheckout(){
+    var v = funnelValue();
+    funnelPush({ ecommerce:null });
+    funnelPush({ event:'begin_checkout', service:FUNNEL_SERVICE, deposit:depositAmount(),
+      ecommerce:{ currency:'GBP', value:v,
+        items:[{ item_name:FUNNEL_LABEL, item_category:'Detailing', price:v, quantity:1 }] } });
+  }
+  function trackLead(method){
+    funnelPush({ event:'generate_lead', service:FUNNEL_SERVICE, method:method });
+  }
+
   function update(){
+    trackQuoteComplete();
     renderBreakdown();
     var byQuote  = !!state.more;
     var full     = calcFullTotal();
@@ -2030,6 +2084,7 @@
     morePanel.querySelectorAll('.opt[data-pick="more"]').forEach(function(o){ o.setAttribute('aria-selected','false'); });
   }
   function activate(opt){
+    trackQuoteStart();
     var pick = opt.getAttribute('data-pick'), value = opt.getAttribute('data-value');
     if(pick === 'more'){
       state.more = value; state.size = null;
@@ -2277,6 +2332,7 @@
         });
         b.setAttribute('aria-pressed','true');
         booking.time = slot.raw;
+        trackSlot(slot.raw);
 
         var chosen = root.querySelector('#mpsBkChosen');
         chosen.textContent = new Date(String(slot.raw).slice(0,10) + 'T12:00:00')
@@ -2421,6 +2477,7 @@
       return encodeURIComponent(k) + '=' + encodeURIComponent(p[k]);
     }).join('&');
 
+    trackCheckout();
     fetch(DEPOSIT_HOOK + '?' + q)
       .then(function(r){ return r.json(); })
       .then(function(session){

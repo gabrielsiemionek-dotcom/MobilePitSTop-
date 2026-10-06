@@ -1,0 +1,80 @@
+<!-- ======================================================================
+     MobilePitStop – consent defaults (Google Consent Mode v2)
+
+     WHERE: Settings > Developer tools > Code injection > HEADER
+     ORDER: this block must stay ABOVE the Google Tag Manager snippet.
+
+     - Advertising (Google Ads etc.): OFF until the visitor accepts.
+     - Statistics (Google Analytics): ON unless the visitor switches it off.
+     A returning visitor's saved choice is applied straight away.
+     ====================================================================== -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  (function(){
+    var c = null;
+    try{
+      c = JSON.parse(localStorage.getItem('mps_consent') || 'null');
+      /* choices older than 12 months are asked again */
+      if(c && (!c.t || Date.now() - c.t > 365 * 864e5)) c = null;
+    }catch(e){ c = null; }
+
+    var ads   = (c && c.ads)             ? 'granted' : 'denied';
+    var stats = (c && c.stats === false) ? 'denied'  : 'granted';
+
+    gtag('consent', 'default', {
+      ad_storage:            ads,
+      ad_user_data:          ads,
+      ad_personalization:    ads,
+      analytics_storage:     stats,
+      functionality_storage: 'granted',
+      security_storage:      'granted',
+      wait_for_update:       500
+    });
+    /* Confirm the same state straight away. Google's tags on this site
+       hold every hit until they receive a consent UPDATE, so without this
+       nothing is recorded for visitors who ignore the banner (tested
+       6 Oct 2026). Same values as the default, so nothing extra is allowed. */
+    gtag('consent', 'update', {
+      ad_storage:         ads,
+      ad_user_data:       ads,
+      ad_personalization: ads,
+      analytics_storage:  stats
+    });
+    /* without ad consent: strip ad click IDs from Google requests, but
+       carry them between pages in the URL so bookings can still be
+       matched to an advert without storing anything */
+    gtag('set', 'ads_data_redaction', true);
+    gtag('set', 'url_passthrough', true);
+
+    window.MPS_CONSENT_STATE = { ads: ads === 'granted', stats: stats === 'granted', decided: !!c };
+  })();
+</script>
+
+<!-- Google Tag Manager -->
+<script>
+(function(w,d,s,l,i){
+  w[l]=w[l]||[];
+  w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+  var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),
+      dl=l!='dataLayer'?'&l='+l:'';
+  j.async=true;
+  j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+  f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MMHW32R2');
+</script>
+<!-- End Google Tag Manager -->
+
+<!-- ======================================================================
+     MobilePitStop – review count, single source of truth
+     >>> THIS IS THE ONLY PLACE YOU EDIT THE REVIEW COUNT <<<
+     Still update ratingCount in the LocalBusiness schema separately.
+     ====================================================================== -->
+<script>
+  window.MPS_REVIEWS = {
+    score: '5.0',        /* the rating shown, e.g. '5.0' or '4.9' */
+    count: 83,           /* how many Google reviews               */
+    url:   'https://maps.google.com/maps?cid=15620201708594115788'
+  };
+</script>

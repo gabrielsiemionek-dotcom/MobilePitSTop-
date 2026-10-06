@@ -1061,6 +1061,34 @@
     }catch(e){ return iso; }
   }
 
+  /* ======================================================================
+     FUNNEL TRACKING
+     dataLayer pushes only. GTM (GTM-MMHW32R2) picks them up and sends
+     them to GA4, so there is no gtag/GA code here. Values are numbers in
+     pounds, after any promo. Never put a name, email, phone, address,
+     postcode or reg into these.
+       quote_start     first choice made           (once per page load)
+       generate_lead   a WhatsApp or email request sent
+     ====================================================================== */
+  var FUNNEL_SERVICE = 'de_chrome';
+  var funnelSent;
+  function funnelPush(o){
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(o);
+  }
+  function funnelOnce(key, o){
+    funnelSent = funnelSent || {};
+    if(funnelSent[key]) return;
+    funnelSent[key] = true;
+    funnelPush(o);
+  }
+  function trackQuoteStart(){
+    funnelOnce('start', { event:'quote_start', service:FUNNEL_SERVICE });
+  }
+  function trackLead(method){
+    funnelPush({ event:'generate_lead', service:FUNNEL_SERVICE, method:method });
+  }
+
   /* chips: multi-select, and every choice ends up in the message */
   var chips = Array.prototype.slice.call(root.querySelectorAll('.qopt'));
   function picked(groupId){
@@ -1070,6 +1098,7 @@
   }
   chips.forEach(function(c){
     c.addEventListener('click', function(){
+      trackQuoteStart();
       c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
       refreshMessage();
     });
@@ -1104,6 +1133,7 @@
     return true;
   }
   function track(via){
+    if(via === 'whatsapp' || via === 'email') trackLead(via);
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event:'pf_request_click', component:'quote_request',
                             service:"de_chrome", via:via });

@@ -1,0 +1,224 @@
+<!-- ==========================================================================
+     MobilePitStop — BOOKING CONFIRMED  (compact build, tracking v2)
+     https://mobilepitstop.uk/booking-confirmed
+
+     WHY THIS IS SHORT
+     Your Fluid Engine grid is about 394px tall with overflow CLIPPED.
+     The "Areas We Cover" block was 297px and behaved perfectly; the tall
+     confirmation block overflowed and got drawn over the header and
+     footer. So this one is built to fit: roughly 260-300px, no
+     accordions, nothing that grows.
+
+     Everything that used to be in here — what happens next, the prep
+     list, the plan pitch, the socials — belongs in the confirmation
+     EMAIL, which is the thing customers actually read. The copy for that
+     is in mobilepitstop-confirmation-email-copy.md.
+
+     STILL DO THIS: remove the page password, or customers hit a login
+     screen the second after paying.
+
+     It reads name / when / svc / session_id / amt / dep off the URL,
+     which the Stripe scenario appends. Missing values just drop out.
+     The customer's name is removed from the address bar straight after
+     it's read, so later tracking hits don't carry it. Best fix is still
+     to stop the Make scenario putting name= in the URL at all.
+     ========================================================================== -->
+
+<style>
+  .mpsok{
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    max-width:560px; margin:0 auto; color:#fff; text-align:center; line-height:1.5;
+  }
+  .mpsok *{ box-sizing:border-box; }
+  .mpsok-tick{
+    width:44px; height:44px; margin:0 auto 10px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid #E3FC02; background:rgba(227,252,2,.1);
+    font-size:22px; line-height:1; color:#E3FC02;
+  }
+  .mpsok h2{
+    margin:0 0 6px; font-size:clamp(20px,4.4vw,27px); font-weight:900;
+    letter-spacing:-.02em; line-height:1.15; color:#E3FC02;
+  }
+  .mpsok-sub{ margin:0 0 14px; font-size:14px; color:rgba(255,255,255,.75); }
+  .mpsok-when{
+    margin:0 0 16px; padding:11px 14px; border-radius:12px;
+    border:1px solid rgba(227,252,2,.3); background:rgba(227,252,2,.06);
+  }
+  .mpsok-when b{ display:block; font-size:15px; font-weight:900; }
+  .mpsok-when span{ font-size:14px; font-weight:800; color:#E3FC02; }
+  .mpsok-btns{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:0 0 12px; }
+  .mpsok .mpsok-btn{
+    display:inline-block; padding:12px 20px; border-radius:999px;
+    font-size:14px; font-weight:900; text-decoration:none !important;
+    background:#E3FC02 !important; color:#0b0b0b !important; border:1px solid #E3FC02;
+  }
+  .mpsok .mpsok-btn--quiet{
+    background:transparent !important; color:#fff !important;
+    border-color:rgba(255,255,255,.22);
+  }
+  .mpsok-social{
+    display:flex; justify-content:center; gap:14px; margin:0 0 12px;
+  }
+  .mpsok .mpsok-social a{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(255,255,255,.22); color:#fff !important;
+    text-decoration:none !important; background:none !important;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .mpsok .mpsok-social a:hover{ border-color:#E3FC02; transform:translateY(-1px); }
+  .mpsok-social svg{ width:17px; height:17px; fill:currentColor; }
+  .mpsok-foot{ margin:0; font-size:13px; color:rgba(255,255,255,.7); }
+  .mpsok .mpsok-foot a{ color:#00B8FF !important; font-weight:800; text-decoration:none !important; }
+  @media(max-width:420px){
+    .mpsok .mpsok-btn{ flex:1 1 100%; text-align:center; }
+  }
+</style>
+
+<div class="mpsok" id="mpsokRoot">
+  <div class="mpsok-tick" aria-hidden="true">&#10003;</div>
+  <h2 id="mpsokHead">Thank you &mdash; your slot is booked</h2>
+  <p class="mpsok-sub">Deposit received. Your confirmation email is on its way, with the full details and a link to reschedule.</p>
+
+  <div class="mpsok-when" id="mpsokWhen" hidden>
+    <b id="mpsokSvc"></b>
+    <span id="mpsokTime"></span>
+  </div>
+
+  <div class="mpsok-btns">
+    <a class="mpsok-btn" href="/car-detailing-maintenance-plan">Pay less every wash &rarr;</a>
+    <a class="mpsok-btn mpsok-btn--quiet" href="https://wa.me/447592196929" target="_blank" rel="noopener">Message us</a>
+  </div>
+
+  <div class="mpsok-social" aria-label="Follow the work">
+    <a href="https://www.instagram.com/mobilepitstopvalet/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.16c3.2 0 3.58.01 4.850.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.230.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.24a6.6 6.6 0 100 13.2 6.6 6.6 0 000-13.2zm0 10.89a4.29 4.29 0 110-8.58 4.29 4.29 0 010 8.58zm8.4-11.15a1.54 1.54 0 11-3.08 0 1.54 1.54 0 013.08 0z"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/@mobilepitstopvalet" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.82A4.28 4.28 0 0115.54 3h-3.09v12.4a2.59 2.59 0 01-2.59 2.5 2.59 2.59 0 110-5.18c.27 0 .53.04.78.12v-3.2a5.86 5.86 0 00-.78-.05 5.79 5.79 0 105.79 5.79V9.01a7.35 7.35 0 004.29 1.37V7.29a4.29 4.29 0 01-3.34-1.47z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=61579010405794" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 10-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.240 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0022 12z"/></svg>
+    </a>
+    <a href="https://www.youtube.com/@MobilePitStopValet" target="_blank" rel="noopener" aria-label="YouTube">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+    </a>
+  </div>
+
+  <p class="mpsok-foot">Need to change it? <a href="tel:+447592196929">07592 196929</a> &mdash; we&rsquo;d rather move it than lose it.</p>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('mpsokRoot');
+  if(!root) return;
+  function q(k){
+    try{ var v = new URLSearchParams(window.location.search).get(k); return v ? v.trim() : ''; }
+    catch(e){ return ''; }
+  }
+
+  var name = q('name');
+  if(name){
+    document.getElementById('mpsokHead').textContent =
+      'Thank you, ' + name.replace(/[<>]/g,'').slice(0,30) + ' — you’re booked in';
+    /* take the name back out of the address bar so the purchase hit
+       (and anything after it) doesn't send it to Google / Meta / Reddit */
+    try{
+      var p = new URLSearchParams(window.location.search);
+      p.delete('name');
+      var qs = p.toString();
+      history.replaceState(history.state, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
+    }catch(e){}
+  }
+
+  var svc = q('svc'), when = q('when');
+  if(svc || when){
+    if(svc) document.getElementById('mpsokSvc').textContent = svc.replace(/[<>]/g,'');
+    if(when){
+      var pretty = when;
+      try{
+        var d = new Date(when);
+        if(!isNaN(d)){
+          pretty = d.toLocaleDateString('en-GB',{ weekday:'long', day:'numeric', month:'long' }) +
+                   ' at ' + when.slice(11,16);
+        }
+      }catch(e){}
+      document.getElementById('mpsokTime').textContent = pretty;
+    }
+    document.getElementById('mpsokWhen').hidden = false;
+  }
+
+  /* ====================================================================
+     CONVERSION TRACKING
+
+     Fires once per booking, on the page people land on after paying.
+     Everything goes into the dataLayer; GTM (GTM-MMHW32R2) decides what
+     to do with it. In GTM, trigger the GA4 purchase tag on 'purchase'
+     ONLY — not also on mps_booking_confirmed, or bookings count twice.
+
+     ONLY A REAL STRIPE RETURN COUNTS: no cs_live_/cs_test_ session id
+     means someone just opened the page (you, a preview, a crawler),
+     so nothing is recorded.
+
+     DEDUPLICATED by the Stripe session id in localStorage: a refresh,
+     a new tab, a bookmark or the back button won't count a second time.
+     A genuine second booking has a different id, so it still counts.
+
+     VALUES
+       value         the whole job, in pounds   (?amt, sent in pence)
+       deposit_paid  what Stripe actually took  (?dep, sent in pence)
+     Until every questionnaire sends amt, value falls back to
+     deposit x 10 (the deposit is 10%); value_source says which was used.
+     ==================================================================== */
+  var sid = q('session_id');
+  window.dataLayer = window.dataLayer || [];
+  if(!/^cs_(live|test)_/.test(sid)) return;
+
+  var amtPence = parseInt(q('amt'), 10);
+  var depPence = parseInt(q('dep'), 10);
+  var deposit  = isFinite(depPence) ? depPence / 100 : null;
+  var value = isFinite(amtPence) ? amtPence / 100
+            : (deposit !== null ? Math.round(deposit * 1000) / 100 : null);
+
+  var key = 'mps_conv_' + sid, already = false;
+  try{ already = localStorage.getItem(key) === '1'; }catch(e){}
+  if(!already){ try{ already = sessionStorage.getItem(key) === '1'; }catch(e){} }
+  if(already){
+    window.dataLayer.push({ event:'mps_booking_confirmed_repeat', transaction_id: sid });
+    return;
+  }
+  try{ localStorage.setItem(key, '1'); }catch(e){}
+  try{ sessionStorage.setItem(key, '1'); }catch(e){}
+
+  /* GA4 ecommerce shape, so the standard purchase tag works unchanged */
+  window.dataLayer.push({ ecommerce: null });
+  window.dataLayer.push({
+    event: 'purchase',
+    ecommerce: {
+      transaction_id: sid,
+      value: value,
+      currency: 'GBP',
+      items: [{
+        item_name: svc || 'MobilePitStop booking',
+        item_category: 'Detailing',
+        price: value,
+        quantity: 1
+      }]
+    },
+    deposit_paid: deposit,
+    value_source: isFinite(amtPence) ? 'amt' : 'deposit_x10',
+    booking_when: when || null
+  });
+
+  /* a plainer event too, for Ads / Meta / Reddit tags if you add them */
+  window.dataLayer.push({
+    event: 'mps_booking_confirmed',
+    transaction_id: sid,
+    value: value,
+    deposit_paid: deposit,
+    service: svc || null
+  });
+})();
+</script>
