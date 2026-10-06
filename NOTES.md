@@ -633,6 +633,15 @@ unchanged. If a service is renamed, add the new name to the table.
 
 ---
 
+## 2026-10-06 — Cookie banner policy link fixed
+
+The "Cookie policy" link in the cookie banner (FOOTER code injection)
+went to `/privacy-policy#pp-cookies`, which is a 404. It now goes to
+`/privacy-policy-cookie-policy#pp-cookies`, the live policy page, which has
+the `pp-cookies` section.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
