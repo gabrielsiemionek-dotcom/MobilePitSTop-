@@ -620,6 +620,19 @@ deposit x 10, and no customer name reaches the address bar.
 
 ---
 
+## 2026-10-06 — Booking confirmed: purchase carries the service slug
+
+The `purchase` push on /booking-confirmed now has a top-level `service`,
+using the same slugs as each questionnaire's `FUNNEL_SERVICE`, so purchases
+line up with quote_start → begin_checkout in GA4. It comes from the `svc`
+label in the URL through the `SERVICE_SLUGS` table, matched anywhere in
+the label (case and punctuation ignored), so both "Protection Detail" and
+"10% deposit — Protection Detail, 5-door + engine bay" give
+`protection_detail`. No match gives `null`. Everything else in the push is
+unchanged. If a service is renamed, add the new name to the table.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

@@ -172,6 +172,32 @@
      Until every questionnaire sends amt, value falls back to
      deposit x 10 (the deposit is 10%); value_source says which was used.
      ==================================================================== */
+  /* svc label -> the same slug each questionnaire uses as FUNNEL_SERVICE,
+     so purchase lines up with quote_start ... begin_checkout in GA4.
+     Matched anywhere in the label, ignoring case and punctuation, so both
+     "Protection Detail" and the Stripe line "10% deposit - Protection
+     Detail, 5-door + engine bay" work. No match: service is null. */
+  var SERVICE_SLUGS = [
+    ['maintenance wash',        'maintenance_wash'],
+    ['interior deep clean',     'interior_deep_clean'],
+    ['exterior detail',         'exterior_detail'],
+    ['in and out deep clean',   'in_and_out'],
+    ['protection detail',       'protection_detail'],
+    ['machine polishing',       'machine_polishing'],
+    ['odour removal',           'odour_removal'],
+    ['ceramic coating',         'ceramic_coating'],
+    ['window tinting',          'window_tinting'],
+    ['de chrome',               'de_chrome']
+  ];
+  function serviceSlug(label){
+    var t = ' ' + String(label || '').toLowerCase().replace(/&/g, ' and ')
+                  .replace(/[^a-z0-9]+/g, ' ') + ' ';
+    for(var i = 0; i < SERVICE_SLUGS.length; i++){
+      if(t.indexOf(' ' + SERVICE_SLUGS[i][0] + ' ') > -1) return SERVICE_SLUGS[i][1];
+    }
+    return null;
+  }
+
   var sid = q('session_id');
   window.dataLayer = window.dataLayer || [];
   if(!/^cs_(live|test)_/.test(sid)) return;
@@ -207,6 +233,7 @@
         quantity: 1
       }]
     },
+    service: serviceSlug(svc),
     deposit_paid: deposit,
     value_source: isFinite(amtPence) ? 'amt' : 'deposit_x10',
     booking_when: when || null
