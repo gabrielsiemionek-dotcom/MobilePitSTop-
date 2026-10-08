@@ -2266,6 +2266,9 @@
     return '<span class="bd-was">' + p + fmtGBP(n) + '</span>' + p + fmtGBP(n * (1 - off / 100));
   }
   function removeBtn(key, label){
+    /* plain text only: a row name with HTML in it (the "Clay bar included" line)
+       would otherwise close the aria-label early and print the rest as text */
+    label = String(label).replace(/<[^>]*>/g, ' ').replace(/"/g, '&quot;').replace(/\s+/g, ' ').trim();
     return '<button class="bd-remove" type="button" data-remove="' + key +
            '" aria-label="Remove ' + label + '" title="Remove">&times;</button>';
   }
@@ -2305,7 +2308,7 @@
     }
     if(state.prot === 'sealant'){
       any = true;
-      add += addedRow('prot', '6-month ceramic sealant' + (clayPaid() ? '' : ' <div class="bd-sub">Clay bar included</div>'), sealPrice());
+      add += addedRow('prot', '6-month ceramic sealant' + (clayPaid() ? '' : ' <div class="bd-sub">Clay bar included</div>'), sealPrice(), 'ceramic sealant');
     }
     if(hasCoat()){
       any = true;
