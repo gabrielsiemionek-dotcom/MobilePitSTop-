@@ -821,6 +821,21 @@
   }
   .bk-yn{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 9px; }
   .bk-yn .q{ flex:1 1 220px; font-size:13px; color:rgba(255,255,255,.66); line-height:1.5; }
+
+  /* Terms & Conditions tick box, required before paying. Same text as the
+     yes/no questions; the whole label is tappable and at least 44px tall. */
+  .bk-terms{
+    display:flex; align-items:flex-start; gap:12px;
+    min-height:44px; margin:6px 0 12px; padding:8px 0;
+    font-size:13px; color:rgba(255,255,255,.66); line-height:1.5; cursor:pointer;
+  }
+  .bk-terms input{
+    flex:0 0 auto; width:22px; height:22px; margin:0; cursor:pointer;
+    accent-color:var(--accent,#E3FC02);
+  }
+  .bk-terms input:focus{ outline:3px solid var(--ocean,#00B8FF); outline-offset:3px; }
+  .bk-terms a{ color:var(--accent,#E3FC02); font-weight:800; text-decoration:underline; text-underline-offset:2px; }
+  .bk-terms a:focus-visible{ outline:2px solid var(--ocean,#00B8FF); outline-offset:2px; border-radius:2px; }
   .bk-yn .pair{ display:flex; gap:6px; }
   .bk-yn button{
     cursor:pointer; font:inherit; font-size:13px; font-weight:800; color:#fff;
@@ -1625,6 +1640,12 @@
                   <span class="q">Occasional offers by email? Entirely optional.</span>
                   <span class="pair"><button type="button" data-v="yes">Yes</button><button type="button" data-v="no">No</button></span>
                 </div>
+                <label class="bk-terms" for="mpolBkTerms">
+                  <input type="checkbox" id="mpolBkTerms">
+                  <span>I agree to the <a href="/terms-conditions" target="_blank" rel="noopener">Terms &amp; Conditions</a>.
+                  I&rsquo;d like the work done within my 14-day cancellation period, and I understand that if I cancel
+                  after you&rsquo;ve started I&rsquo;ll pay for the work done so far, and once the job is finished it can&rsquo;t be cancelled.</span>
+                </label>
               </div>
 
               <p class="bk-err" id="mpolBkErr" hidden></p>
@@ -2597,6 +2618,8 @@
     if(booking.answers.agree !== 'yes') return bkFail('Please confirm you\u2019re happy for us to quote before any extra work.');
     if(!booking.answers.power || !booking.answers.water || !booking.answers.space)
       return bkFail('Answer the three yes/no questions and we\u2019ll know what to bring.');
+    if(!root.querySelector('#mpolBkTerms').checked)
+      return bkFail('Please tick to confirm you agree to our Terms & Conditions.', root.querySelector('#mpolBkTerms'));
 
     bkPay.disabled = true;
     bkPay.textContent = 'Taking you to checkout\u2026';
@@ -2618,6 +2641,8 @@
       water: booking.answers.water,
       space: booking.answers.space,
       agree: booking.answers.agree,
+      terms: 'yes',
+      terms_version: '2026-09-17',
       marketing: booking.answers.marketing || 'no',
       certificate: (window.MPS_PROMO && window.MPS_PROMO.code) ? (window.MPS_PROMO.code() || '') : '',
       notes: 'Total ' + fmtGBP(netTotal()) + ' \u2014 ' + car,

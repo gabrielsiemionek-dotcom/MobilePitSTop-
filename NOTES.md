@@ -642,6 +642,36 @@ the `pp-cookies` section.
 
 ---
 
+## 2026-10-08 — Terms & Conditions tick box on the 7 deposit pages
+
+Interior Deep Clean (`idc`), Maintenance Wash (`mps`), Exterior Detail
+(`edc`), In & Out (`iod`), Protection Detail (`fvp`), Machine Polishing
+(`mpol`) and Odour Removal (`odr`).
+
+- A native checkbox `#<prefix>BkTerms`, unticked by default, sits after the
+  "Occasional offers by email?" row and before the error line. Text: agree
+  to the Terms & Conditions (linked, opens in a new tab), want the work done
+  within the 14-day cancellation period, pay for work done if cancelled
+  after starting, and can't cancel a finished job.
+- Styled like the yes/no questions (13px, white at 66%), link underlined in
+  brand yellow, whole label tappable (about 114px tall on a phone), blue
+  focus ring on the box.
+- Paying without ticking shows "Please tick to confirm you agree to our
+  Terms & Conditions." and moves focus to the box; nothing is sent to Make.
+  The check runs after the power/water/space check.
+- The deposit request now also sends `terms: 'yes'` and
+  `terms_version: '2026-09-17'` (the "Last updated" date on
+  /terms-conditions). Make puts both into the Stripe metadata. **If the
+  terms change, update `terms_version` on all 7 pages.**
+- In & Out: `pf_book_click` said `service:'interior_deep_clean'`; it now
+  says `'in_and_out'`, matching `FUNNEL_SERVICE`.
+
+Tested on every page with the Make webhooks faked: unticked = error +
+focus + no request; ticked = request includes both fields and the page
+redirects to the checkout link it gets back.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
