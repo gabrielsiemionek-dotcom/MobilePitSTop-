@@ -684,6 +684,26 @@ pages' rows all pass plain names and weren't affected.
 
 ---
 
+## 2026-10-08 — Diary errors: Acuity add-ons and the Interior 7-seater ID
+
+"Couldn't reach the diary" appeared on Maintenance Wash and Machine
+Polishing. The Make availability scenario failed with Acuity 400 Bad Request
+whenever an add-on wasn't enabled for the appointment type:
+
+- 6425104 (Maintenance Wash full interior) and 7344721 (6-month sealant
+  without clay) weren't enabled for any type. Gab switched them on; both
+  now work on Maintenance Wash, Machine Polishing, In & Out and Exterior.
+- Interior Deep Clean 7-seater: the old type 84626189 is rejected even with
+  no add-ons, so 7-seaters couldn't see any dates. The page now uses
+  **98913503**.
+
+Swept every add-on ID on all 7 booking pages against the matching size
+types; everything else returns free days. How to re-check: call the
+availability hook with `type=<id>&month=YYYY-MM&a1=<addon>`; a 500
+"Scenario failed to complete" means Acuity rejected the pairing.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
