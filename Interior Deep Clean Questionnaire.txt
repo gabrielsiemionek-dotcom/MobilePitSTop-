@@ -1906,7 +1906,7 @@
      ====================================================================== */
   var BASE_PRICES = { '3door':90, '5door':100, '7seats':120 };
 
-  var SIZE_TYPE = { '3door':81826958, '5door':84626097, '7seats':84626189 };
+  var SIZE_TYPE = { '3door':81826958, '5door':84626097, '7seats':98913503 };   /* 7-seater was 84626189 until 8 Oct 2026; Acuity rejects it */
   var ACUITY_QUOTE = 84640446;
 
   /* seats, one add-on per fabric */
