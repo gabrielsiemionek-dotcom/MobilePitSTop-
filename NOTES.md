@@ -672,6 +672,18 @@ redirects to the checkout link it gets back.
 
 ---
 
+## 2026-10-08 — In & Out: sealant line in the price breakdown fixed
+
+Adding the 6-month ceramic sealant printed `" title="Remove">×` as text in
+the breakdown. The sealant row was the only one that didn't give its remove
+button a plain-text name, so the button used the row title, whose
+"Clay bar included" sub-line has quote marks that closed the button's
+`aria-label` early. The row now passes 'ceramic sealant', and `removeBtn()`
+strips any HTML from its label so a future row can't do the same. The other
+pages' rows all pass plain names and weren't affected.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
