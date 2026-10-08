@@ -704,6 +704,52 @@ availability hook with `type=<id>&month=YYYY-MM&a1=<addon>`; a 500
 
 ---
 
+## 2026-10-09 — FAQs, homepage FAQ & plan block, and all page schemas updated
+
+New files in the repo (they only existed on Squarespace before). The first
+commit on this branch is the live code as it was, so the PR diff shows the
+changes:
+
+- `FAQs page.txt` — the main code block on /faqs
+- `Homepage FAQ.txt` — the "Frequently Asked Questions" code block
+- `Homepage Maintenance Plan.txt` — the "Set Up Your Maintenance Plan" code
+  block (visual + calculator)
+- `Schema/` — the JSON-LD in each page's Page Header Code Injection
+
+What changed:
+- Current names and prices everywhere (All Services is the source):
+  Maintenance Wash £60–80, Exterior Detail £70–90, Interior Deep Clean
+  £90–120, In & Out Deep Clean £140–180, Protection Detail £210–250,
+  Enhancement Polish £285–385, Ceramic Coating from £190 (1, 3 or 7 years,
+  up to £470), Odour Removal Treatment £250–300 (four stages), unit
+  services by quote. Add-on list copied from All Services.
+- "What's included" answers rewritten from each service page; durations
+  from the service pages' FAQs. **TODO for Gab: no Odour Removal duration
+  exists anywhere — see the TODO comment in `FAQs page.txt`.**
+- Payment, deposit and cancellation wording follows /terms-conditions.
+- Maintenance plan: "start with a deep clean", Maintenance Wash prices
+  (£60/70/80) in the homepage calculator; CTA goes to /in-out-deep-clean.
+- /faqs now has one H1 (the Squarespace text block; the code block's H1
+  was removed). Links: /exterior-detail, /all-services instead of
+  /book-your-valet-now, tel:+447592196929 and WhatsApp wa.me/447592196929.
+- Both FAQPage schemas are generated from the visible Q&A, word for word.
+- Business schema: AutomotiveBusiness (was AutoWash), Car_wash type removed,
+  offer catalog rebuilt with live URLs, Instagram → mobilepitstopvalet.
+  Service schemas renamed to the current services, new URLs and @ids, and
+  `provider` now points at `#business` (it pointed at the homepage URL).
+- New schemas: Machine Polishing, Ceramic Coating, All Services (catalog).
+
+Found but not changed (need Gab):
+- /window-tinting carries the Odour Removal schema in its page header —
+  delete it there.
+- /car-detailing-maintenance-plan has a second Service schema inside its
+  "Car Detailing Maintenance Plan — Cheshire, Merseyside & Flintshire" text
+  block — delete that `<script>` so the page has one.
+- Interior Deep Clean What's Included says heavy sand +£40; the
+  questionnaire and All Services charge +£50.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

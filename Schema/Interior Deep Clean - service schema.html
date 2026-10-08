@@ -1,3 +1,8 @@
+<!-- ==========================================================================
+     Interior Deep Clean
+     WHERE: Page settings for /interior-deep-clean > Advanced > Page Header Code Injection (replace the old block)
+     Updated 2026-10-08 to the current names, prices and URLs.
+     ========================================================================== -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -5,18 +10,37 @@
   "@id": "https://mobilepitstop.uk/interior-deep-clean#service",
   "name": "Interior Deep Clean - Mobile Car Interior Cleaning",
   "serviceType": "Car interior cleaning",
-  "description": "Compressed air and deep vacuum through every crevice covering seats, carpets, mats and boot, steam sanitising of contact areas, crevices and vents detailed, plastics scrubbed and interior glass cleaned. Shampoo and extraction available as an add-on for staining.",
+  "description": "Compressed air and deep vacuum, mats, carpets and boot shampooed and extracted as standard, steam cleaning of contact surfaces, crevices and vents detailed, plastics scrubbed to a satin finish and interior glass streak-free. Seat treatment is an add-on.",
   "url": "https://mobilepitstop.uk/interior-deep-clean",
-  "provider": { "@id": "https://mobilepitstop.uk/" },
+  "provider": {
+    "@type": "AutomotiveBusiness",
+    "@id": "https://mobilepitstop.uk/#business",
+    "name": "MobilePitStop - Valeting & Detailing"
+  },
   "areaServed": [
-    { "@type": "AdministrativeArea", "name": "Cheshire" },
-    { "@type": "AdministrativeArea", "name": "Merseyside" },
-    { "@type": "AdministrativeArea", "name": "Flintshire" }
+    {
+      "@type": "AdministrativeArea",
+      "name": "Cheshire"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Merseyside"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Flintshire"
+    }
   ],
   "offers": {
     "@type": "Offer",
     "priceCurrency": "GBP",
-    "price": "60",
+    "price": 90,
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "minPrice": 90,
+      "maxPrice": 120,
+      "priceCurrency": "GBP"
+    },
     "availability": "https://schema.org/InStock",
     "url": "https://mobilepitstop.uk/interior-deep-clean"
   }

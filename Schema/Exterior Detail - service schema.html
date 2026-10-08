@@ -1,54 +1,48 @@
 <!-- ==========================================================================
-     4. EXTERIOR DEEP CLEAN  →  /car-exterior-deep-clean
-     This page also sells paint enhancement and ceramic coating, so it gets
-     an OfferCatalog rather than a single price.
+     Exterior Detail
+     WHERE: Page settings for /exterior-detail > Advanced > Page Header Code Injection (replace the old block)
+     Updated 2026-10-08 to the current names, prices and URLs.
      ========================================================================== -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Service",
-  "@id": "https://mobilepitstop.uk/car-exterior-deep-clean#service",
-  "name": "Exterior Deep Clean, Paint Enhancement and Ceramic Coating",
+  "@id": "https://mobilepitstop.uk/exterior-detail#service",
+  "name": "Exterior Detail - Mobile Exterior Car Detailing",
   "serviceType": "Car detailing",
-  "description": "Snow foam pre-wash, safe hand wash, chemical decontamination of tar, iron fallout and road film, compound polished glass, full drying and hydrophobic sealant protection. Clay bar, 1-stage machine polish and 1-year ceramic coating available as upgrades, each including the preparation below it.",
-  "url": "https://mobilepitstop.uk/car-exterior-deep-clean",
-  "provider": { "@id": "https://mobilepitstop.uk/" },
+  "description": "Snow foam pre-wash and two-bucket safe hand wash, wheels, tyres and arches deep cleaned, chemical decontamination of tar, iron fallout and road film, compound polished glass, hand drying and an 8-week protection wax. Exterior only.",
+  "url": "https://mobilepitstop.uk/exterior-detail",
+  "provider": {
+    "@type": "AutomotiveBusiness",
+    "@id": "https://mobilepitstop.uk/#business",
+    "name": "MobilePitStop - Valeting & Detailing"
+  },
   "areaServed": [
-    { "@type": "AdministrativeArea", "name": "Cheshire" },
-    { "@type": "AdministrativeArea", "name": "Merseyside" },
-    { "@type": "AdministrativeArea", "name": "Flintshire" }
+    {
+      "@type": "AdministrativeArea",
+      "name": "Cheshire"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Merseyside"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "Flintshire"
+    }
   ],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Exterior and paintwork services",
-    "itemListElement": [
-      {
-        "@type": "Offer",
-        "priceCurrency": "GBP",
-        "price": "60",
-        "itemOffered": { "@type": "Service", "name": "Exterior Deep Clean" }
-      },
-      {
-        "@type": "Offer",
-        "priceCurrency": "GBP",
-        "price": "275",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Paint Enhancement",
-          "description": "1-stage machine polish across all paint and glass. Exterior deep clean and clay bar preparation included."
-        }
-      },
-      {
-        "@type": "Offer",
-        "priceCurrency": "GBP",
-        "price": "385",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "Ceramic Coating - 1 Year",
-          "description": "1-year ceramic on all paint plus Glaco on the glass, applied over corrected paintwork. Deep clean, clay bar and machine polish included."
-        }
-      }
-    ]
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "GBP",
+    "price": 70,
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "minPrice": 70,
+      "maxPrice": 90,
+      "priceCurrency": "GBP"
+    },
+    "availability": "https://schema.org/InStock",
+    "url": "https://mobilepitstop.uk/exterior-detail"
   }
 }
 </script>

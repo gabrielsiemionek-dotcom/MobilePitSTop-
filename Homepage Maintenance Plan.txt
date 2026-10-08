@@ -1,7 +1,10 @@
-<!-- MobilePitStop — Maintenance Plan visual + calculator
-     v3: copy cut to the point. Same structure, prices and calculator as v2;
-     only the wording is shorter. Commercial numbers live in PLAN_CONFIG at
-     the bottom and must match the booking questionnaires. -->
+<!-- MobilePitStop — Maintenance Plan visual + calculator (homepage)
+     Paste into the "Set Up Your Maintenance Plan" Code Block on the homepage.
+     v4 (2026-10-08): the old package names replaced with "a deep clean" and
+     "Maintenance Wash", links pointed at the current pages, and PLAN_CONFIG
+     prices set to the Maintenance Wash (£60 / £70 / £80) to match the plan
+     page and the booking questionnaire. Design unchanged. Commercial numbers
+     live in PLAN_CONFIG at the bottom and must match the questionnaires. -->
 <style>
   :root{
     --bg:#0b0b0b;
@@ -384,7 +387,7 @@
 <section class="mps-mp-wrap" aria-label="Maintenance Plan">
   <div class="mps-mp-top">
     <h2>Set Up Your Maintenance Plan</h2>
-    <p>Full Valet first, then regular visits at up to <strong>30% off</strong>.</p>
+    <p>A deep clean first, then regular visits at up to <strong>30% off</strong>.</p>
   </div>
 
   <div class="mps-perkbar">
@@ -395,7 +398,7 @@
   </div>
 
   <div class="mps-mp-infobar">
-    <strong>Full Valet</strong> &rarr; we agree how often &rarr; you get a <strong>discount code</strong> for every visit after.
+    <strong>Deep clean</strong> &rarr; we agree how often &rarr; you get a <strong>discount code</strong> for every visit after.
     No contract, no direct debit.
     <br>
     Already deep cleaned with us? Call/text <a href="tel:+447592196929">07592 196929</a>
@@ -412,7 +415,7 @@
 
       <div class="mps-step-bd">
         <div class="mps-choice-grid">
-          <div class="mps-choice" role="group" aria-label="Full Valet option">
+          <div class="mps-choice" role="group" aria-label="Deep clean option">
             <div class="mps-ic" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <path class="stroke" d="M3 13.5V11.2c0-.7.4-1.4 1.1-1.7l1.3-.6 1.7-3.7C7.4 4.5 8.1 4 8.9 4h6.2c.8 0 1.5.5 1.8 1.2l1.7 3.7 1.3.6c.7.3 1.1 1 1.1 1.7v2.3" stroke-width="2" stroke-linecap="round"/>
@@ -420,7 +423,7 @@
               </svg>
             </div>
             <div>
-              <h3>Full Valet</h3>
+              <h3>A deep clean</h3>
               <p>The reset. A maintenance visit keeps a clean car clean &mdash; it can&rsquo;t undo months of build-up.</p>
               <div class="mps-pill">Required first step</div>
               <div class="mps-note">Then we&rsquo;ll advise how often yours needs doing.</div>
@@ -489,7 +492,7 @@
             </div>
             <div>
               <h3>Every 4&ndash;6 weeks</h3>
-              <p>The longest a Mini Valet can hold a car.</p>
+              <p>The longest a Maintenance Wash can hold a car.</p>
               <div class="mps-pill">20% off every visit</div>
             </div>
           </div>
@@ -553,7 +556,7 @@
 
         <div class="mps-result-meta" id="mps-meta">
           <div class="mps-meta-row">
-            <span>Standard Mini Valet</span><strong id="mps-base">&mdash;</strong>
+            <span>Standard Maintenance Wash</span><strong id="mps-base">&mdash;</strong>
           </div>
           <div class="mps-meta-row off">
             <span>Plan discount</span><strong id="mps-discount">&mdash;</strong>
@@ -569,14 +572,14 @@
         <div class="mps-outmsg" id="mps-outmsg" hidden></div>
 
         <div class="mps-small-note" id="mps-smallnote">
-          Plan rates start after your first Full Valet. Add-ons get the same discount.
+          Plan rates start after your first deep clean. Add-ons get the same discount.
         </div>
       </div>
     </div>
   </div>
 
   <div class="mps-mp-cta">
-    <a class="btn-primary-glow" href="https://mobilepitstop.uk/full-valet">Start with a Full Valet</a>
+    <a class="btn-primary-glow" href="https://mobilepitstop.uk/in-out-deep-clean">Start with a deep clean</a>
     <a class="btn-ghost" href="https://mobilepitstop.uk/car-detailing-maintenance-plan">See the full plan</a>
   </div>
 </section>
@@ -589,9 +592,9 @@
      ===================================================================== */
   var PLAN_CONFIG = {
     vehicle: {
-      small:  { label:'Small (3-door)',           price:50 },
-      medium: { label:'Medium (5-door / saloon)', price:55 },
-      large:  { label:'Large (SUV / 7 Seater)',   price:60 }
+      small:  { label:'Small (3-door)',           price:60 },
+      medium: { label:'Medium (5-door / saloon)', price:70 },
+      large:  { label:'Large (SUV / 7 Seater)',   price:80 }
     },
     freq: {
       weekly:      { label:'Every week',      off:30, perMonth:4.3 },
@@ -634,10 +637,10 @@
       noteEl.hidden = true;
       outEl.hidden = false;
       outEl.innerHTML =
-        'Left longer than six weeks, a Mini Valet won’t lift what the carpets and seats pick up.' +
+        'Left longer than six weeks, a Maintenance Wash won’t lift what the carpets and seats pick up.' +
         '<br><br><strong style="color:#fff">Better:</strong> an ' +
-        '<a href="https://mobilepitstop.uk/interior-deep-clean">Interior Deep Clean</a> or a ' +
-        '<a href="https://mobilepitstop.uk/full-valet">Full Valet</a> whenever the car needs it. No plan required.';
+        '<a href="https://mobilepitstop.uk/interior-deep-clean">Interior Deep Clean</a> or an ' +
+        '<a href="https://mobilepitstop.uk/in-out-deep-clean">In &amp; Out Deep Clean</a> whenever the car needs it. No plan required.';
       return;
     }
 
