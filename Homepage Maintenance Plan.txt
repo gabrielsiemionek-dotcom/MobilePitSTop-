@@ -1,0 +1,664 @@
+<!-- MobilePitStop — Maintenance Plan visual + calculator
+     v3: copy cut to the point. Same structure, prices and calculator as v2;
+     only the wording is shorter. Commercial numbers live in PLAN_CONFIG at
+     the bottom and must match the booking questionnaires. -->
+<style>
+  :root{
+    --bg:#0b0b0b;
+    --card:#121212;
+    --muted:#1b1b1b;
+    --text:#ffffff;
+    --sub:#d0d0d0;
+    --accent:#E3FC02;
+    --accent-ink:#0b0b0b;
+    --ocean:#00B8FF;
+    --border:rgba(255,255,255,.12);
+    --radius:16px;
+    --shadow:0 18px 52px rgba(0,0,0,.62);
+  }
+  *{ box-sizing:border-box; }
+
+  .mps-mp-wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:24px;
+    color:var(--text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    overflow:hidden;
+  }
+
+  .mps-mp-top h2{
+    margin:0;
+    font-size:clamp(22px, 2.8vw, 30px);
+    font-weight:950;
+    letter-spacing:.2px;
+    color:var(--accent);
+  }
+  .mps-mp-top p{
+    margin:8px 0 0;
+    color:var(--sub);
+    line-height:1.45;
+    max-width:72ch;
+  }
+
+  /* free perk strip */
+  .mps-perkbar{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:14px 0 0;
+    padding:12px 14px;
+    border-radius:12px;
+    border:1px solid rgba(0,184,255,.42);
+    background:rgba(0,184,255,.07);
+  }
+  .mps-perkflag{
+    flex:0 0 auto;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:5px 11px;
+    border-radius:999px;
+    background:var(--ocean);
+    color:#00131c;
+    white-space:nowrap;
+  }
+  .mps-perktext{ font-size:13px; line-height:1.45; color:#d8d8d8; }
+  .mps-perktext strong{ color:var(--ocean); font-weight:900; }
+  @media(max-width:560px){
+    .mps-perkbar{ flex-direction:column; align-items:flex-start; gap:8px; }
+  }
+
+  .mps-mp-infobar{
+    margin:14px 0 18px;
+    padding:10px 14px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.28);
+    font-size:13px;
+    line-height:1.55;
+    color:#d0d0d0;
+  }
+  .mps-mp-infobar strong{ color:#fff; font-weight:900; }
+  .mps-mp-infobar a{
+    color:var(--accent);
+    font-weight:900;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .mps-mp-infobar a:hover{ text-decoration:underline; }
+
+  .mps-mp-steps{ display:grid; gap:14px; }
+  @media(min-width:980px){
+    .mps-mp-steps{ grid-template-columns: 1fr 56px 1.2fr; align-items:stretch; }
+  }
+
+  .mps-step,
+  .mps-calc{
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.10);
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+
+  .mps-step-hd,
+  .mps-calc-hd{
+    padding:14px 16px 12px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .mps-step-kicker,
+  .mps-calc-kicker{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:950;
+    color:rgba(255,255,255,.72);
+  }
+  .mps-step-badge,
+  .mps-calc-badge{
+    font-size:11px;
+    font-weight:950;
+    border:1px solid rgba(227,252,2,.28);
+    background:rgba(227,252,2,.06);
+    color:rgba(227,252,2,.92);
+    padding:4px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  .mps-step-bd,
+  .mps-calc-bd{ padding:16px; display:flex; flex-direction:column; gap:12px; }
+
+  .mps-choice-grid{ display:grid; gap:10px; grid-template-columns:1fr; }
+
+  .mps-choice{
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(0,0,0,.18);
+    padding:12px;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    min-width:0;
+  }
+  .mps-choice--out{
+    border-color:rgba(0,184,255,.3);
+    background:rgba(0,184,255,.05);
+  }
+  .mps-ic{
+    width:38px; height:38px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(0,0,0,.20);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex:0 0 38px;
+  }
+  .mps-ic svg{ width:20px; height:20px; }
+  .mps-ic .stroke{ stroke:rgba(227,252,2,.95); }
+  .mps-choice--out .mps-ic .stroke{ stroke:rgba(0,184,255,.95); }
+
+  .mps-choice h3{
+    margin:0;
+    font-size:15px;
+    font-weight:950;
+    letter-spacing:-.01em;
+    color:#fff;
+  }
+  .mps-choice p{ margin:6px 0 0; color:#d0d0d0; font-size:13px; line-height:1.45; }
+  .mps-choice p a{ color:var(--ocean); font-weight:900; }
+
+  .mps-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:8px;
+    font-weight:950;
+    font-size:12px;
+    color:var(--accent);
+    border:1px solid rgba(227,252,2,.32);
+    background:rgba(227,252,2,.08);
+    padding:4px 10px;
+    border-radius:999px;
+    width:max-content;
+  }
+  .mps-pill--blue{
+    color:var(--ocean);
+    border-color:rgba(0,184,255,.32);
+    background:rgba(0,184,255,.08);
+  }
+
+  .mps-note{ margin-top:2px; font-size:12px; color:rgba(255,255,255,.72); line-height:1.45; }
+
+  .mps-connector{ display:none; }
+  @media(min-width:980px){
+    .mps-connector{ display:flex; align-items:center; justify-content:center; }
+  }
+  .mps-arrow{
+    width:44px; height:44px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+  }
+  .mps-arrow svg{ width:18px; height:18px; }
+  .mps-arrow path{ stroke:rgba(227,252,2,.95); }
+
+  .mps-connector-mobile{ display:flex; align-items:center; justify-content:center; padding:6px 0; }
+  @media(min-width:980px){ .mps-connector-mobile{ display:none; } }
+  .mps-connector-mobile .mps-arrow{ transform:rotate(90deg); }
+
+  .mps-mp-cta{ margin-top:14px; display:grid; gap:10px; }
+  @media(min-width:640px){ .mps-mp-cta{ grid-template-columns:1fr 1fr; } }
+
+  .btn-primary-glow, .btn-ghost{
+    appearance:none;
+    border-radius:999px;
+    padding:13px 16px;
+    font-weight:950;
+    font-size:15px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    transition:transform .15s ease, box-shadow .15s ease, filter .15s ease, border-color .15s ease;
+    width:100%;
+    min-height:48px;
+  }
+  .btn-primary-glow{
+    border:none;
+    background:linear-gradient(135deg, #E3FC02 0%, #d6ff6b 100%);
+    color:var(--accent-ink);
+    box-shadow:0 8px 20px rgba(227,252,2,0.25);
+  }
+  .btn-primary-glow:hover{
+    transform:translateY(-1px);
+    box-shadow:0 12px 28px rgba(227,252,2,0.35), 0 0 20px rgba(227,252,2,0.2);
+    filter:saturate(1.05);
+  }
+  .btn-ghost{
+    border:1px solid rgba(255,255,255,.25);
+    background:transparent;
+    color:#fff;
+  }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+  .mps-calc{ margin-top:18px; }
+  .mps-calc-grid{ display:grid; gap:12px; }
+  @media(min-width:820px){ .mps-calc-grid{ grid-template-columns:1fr 1fr; } }
+
+  .mps-field label{
+    display:block;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,.72);
+    margin-bottom:8px;
+  }
+
+  .mps-select{
+    width:100%;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.14);
+    background:#111;
+    color:#fff;
+    padding:14px 14px;
+    font-size:15px;
+    font-weight:700;
+    outline:none;
+    min-height:48px;
+  }
+  .mps-select:focus{
+    border-color:rgba(227,252,2,.45);
+    box-shadow:0 0 0 3px rgba(227,252,2,.08);
+  }
+
+  .mps-result{
+    margin-top:14px;
+    border-radius:16px;
+    border:1px solid rgba(227,252,2,.18);
+    background:linear-gradient(180deg, rgba(227,252,2,.08), rgba(227,252,2,.03));
+    padding:16px;
+  }
+  .mps-result.is-out{
+    border-color:rgba(0,184,255,.3);
+    background:linear-gradient(180deg, rgba(0,184,255,.09), rgba(0,184,255,.03));
+  }
+
+  .mps-result-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .mps-result h3{ margin:0; font-size:18px; font-weight:950; color:#fff; }
+  .mps-price{
+    font-size:28px;
+    font-weight:950;
+    line-height:1;
+    color:var(--accent);
+    letter-spacing:-.02em;
+  }
+  .mps-price .was{
+    display:block;
+    font-size:14px;
+    font-weight:900;
+    color:rgba(255,255,255,.4);
+    text-decoration:line-through;
+    margin-bottom:2px;
+  }
+  .mps-result.is-out .mps-price{ font-size:19px; color:var(--ocean); }
+
+  .mps-result-meta{ margin-top:12px; display:grid; gap:8px; }
+  .mps-meta-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding-top:8px;
+    border-top:1px solid rgba(255,255,255,.08);
+    font-size:13px;
+    color:#d0d0d0;
+  }
+  .mps-meta-row strong{ color:#fff; white-space:nowrap; }
+  .mps-meta-row.free strong{ color:var(--ocean); }
+  .mps-meta-row.off strong{ color:var(--ocean); }
+
+  .mps-outmsg{
+    margin-top:10px;
+    font-size:13.5px;
+    line-height:1.55;
+    color:#d5d5d5;
+  }
+  .mps-outmsg a{ color:var(--ocean); font-weight:900; }
+
+  .mps-small-note{
+    margin-top:12px;
+    font-size:12px;
+    color:rgba(255,255,255,.7);
+    line-height:1.5;
+  }
+
+  @media(hover:hover){
+    .mps-choice{ transition:transform .16s ease, border-color .16s ease, background .16s ease; }
+    .mps-choice:hover{
+      transform:translateY(-1px);
+      border-color:rgba(227,252,2,.18);
+      background:rgba(227,252,2,.03);
+    }
+    .mps-choice--out:hover{ border-color:rgba(0,184,255,.4); background:rgba(0,184,255,.07); }
+  }
+
+  @media(max-width:560px){
+    .mps-mp-wrap{ padding:18px 14px; }
+    .mps-price{ font-size:25px; }
+    .mps-step-bd, .mps-calc-bd{ padding:14px; }
+  }
+  @media(max-width:390px){
+    .mps-mp-wrap{ padding:16px 11px; }
+    .mps-mp-top h2{ font-size:20px; }
+    .mps-price{ font-size:23px; }
+    .mps-choice{ padding:11px 10px; }
+    .mps-choice h3{ font-size:14.5px; }
+  }
+</style>
+
+<section class="mps-mp-wrap" aria-label="Maintenance Plan">
+  <div class="mps-mp-top">
+    <h2>Set Up Your Maintenance Plan</h2>
+    <p>Full Valet first, then regular visits at up to <strong>30% off</strong>.</p>
+  </div>
+
+  <div class="mps-perkbar">
+    <span class="mps-perkflag">Free on the plan</span>
+    <span class="mps-perktext">
+      <strong>Chemical decontamination every visit.</strong> Normally a paid extra.
+    </span>
+  </div>
+
+  <div class="mps-mp-infobar">
+    <strong>Full Valet</strong> &rarr; we agree how often &rarr; you get a <strong>discount code</strong> for every visit after.
+    No contract, no direct debit.
+    <br>
+    Already deep cleaned with us? Call/text <a href="tel:+447592196929">07592 196929</a>
+  </div>
+
+  <div class="mps-mp-steps">
+
+    <!-- STEP 1 -->
+    <div class="mps-step" aria-label="Step 1">
+      <div class="mps-step-hd">
+        <div class="mps-step-kicker">Step 1</div>
+        <div class="mps-step-badge">Start here</div>
+      </div>
+
+      <div class="mps-step-bd">
+        <div class="mps-choice-grid">
+          <div class="mps-choice" role="group" aria-label="Full Valet option">
+            <div class="mps-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path class="stroke" d="M3 13.5V11.2c0-.7.4-1.4 1.1-1.7l1.3-.6 1.7-3.7C7.4 4.5 8.1 4 8.9 4h6.2c.8 0 1.5.5 1.8 1.2l1.7 3.7 1.3.6c.7.3 1.1 1 1.1 1.7v2.3" stroke-width="2" stroke-linecap="round"/>
+                <path class="stroke" d="M5 13.5h14M7 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Full Valet</h3>
+              <p>The reset. A maintenance visit keeps a clean car clean &mdash; it can&rsquo;t undo months of build-up.</p>
+              <div class="mps-pill">Required first step</div>
+              <div class="mps-note">Then we&rsquo;ll advise how often yours needs doing.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mps-connector" aria-hidden="true">
+      <div class="mps-arrow">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <div class="mps-connector-mobile" aria-hidden="true">
+      <div class="mps-arrow">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="mps-step" aria-label="Step 2">
+      <div class="mps-step-hd">
+        <div class="mps-step-kicker">Step 2</div>
+        <div class="mps-step-badge">Choose your frequency</div>
+      </div>
+
+      <div class="mps-step-bd">
+        <div class="mps-choice-grid">
+
+          <div class="mps-choice" role="group" aria-label="Weekly">
+            <div class="mps-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path class="stroke" d="M20 7l-8 8-4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect class="stroke" x="3" y="4" width="18" height="16" rx="3" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Every week</h3>
+              <p>For cars kept outside, or under trees.</p>
+              <div class="mps-pill">30% off every visit</div>
+            </div>
+          </div>
+
+          <div class="mps-choice" role="group" aria-label="Every 2 to 3 weeks">
+            <div class="mps-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path class="stroke" d="M12 3v18M3 12h18" stroke-width="2" stroke-linecap="round"/>
+                <circle class="stroke" cx="12" cy="12" r="9" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Every 2&ndash;3 weeks</h3>
+              <p>The best fit for most daily drivers.</p>
+              <div class="mps-pill">25% off every visit</div>
+            </div>
+          </div>
+
+          <div class="mps-choice" role="group" aria-label="Every 4 to 6 weeks">
+            <div class="mps-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path class="stroke" d="M8 2v3M16 2v3M4 9h16" stroke-width="2" stroke-linecap="round"/>
+                <rect class="stroke" x="3" y="5" width="18" height="16" rx="3" stroke-width="2"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Every 4&ndash;6 weeks</h3>
+              <p>The longest a Mini Valet can hold a car.</p>
+              <div class="mps-pill">20% off every visit</div>
+            </div>
+          </div>
+
+          <div class="mps-choice mps-choice--out" role="group" aria-label="Less often">
+            <div class="mps-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle class="stroke" cx="12" cy="12" r="9" stroke-width="2"/>
+                <path class="stroke" d="M12 8v5M12 16h.01" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <h3>Less often?</h3>
+              <p>Past six weeks you need an <a href="https://mobilepitstop.uk/interior-deep-clean">Interior Deep Clean</a>, not a top-up.</p>
+              <div class="mps-pill mps-pill--blue">No plan needed</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mps-note">Your discount covers add-ons too.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CALCULATOR -->
+  <div class="mps-calc" aria-label="Maintenance price calculator">
+    <div class="mps-calc-hd">
+      <div class="mps-calc-kicker">Calculator</div>
+      <div class="mps-calc-badge">Quick estimate</div>
+    </div>
+
+    <div class="mps-calc-bd">
+      <div class="mps-calc-grid">
+        <div class="mps-field">
+          <label for="mps-car-size">Vehicle size</label>
+          <select id="mps-car-size" class="mps-select">
+            <option value="small">Small (3-door)</option>
+            <option value="medium" selected>Medium (5-door / saloon)</option>
+            <option value="large">Large (SUV / 7 Seater)</option>
+          </select>
+        </div>
+
+        <div class="mps-field">
+          <label for="mps-frequency">How often</label>
+          <select id="mps-frequency" class="mps-select">
+            <option value="weekly">Every week</option>
+            <option value="fortnightly" selected>Every 2&ndash;3 weeks</option>
+            <option value="monthly">Every 4&ndash;6 weeks</option>
+            <option value="rare">Less often than that</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mps-result" id="mps-result">
+        <div class="mps-result-top">
+          <div><h3 id="mps-result-title">&mdash;</h3></div>
+          <div class="mps-price" id="mps-price">&mdash;</div>
+        </div>
+
+        <div class="mps-result-meta" id="mps-meta">
+          <div class="mps-meta-row">
+            <span>Standard Mini Valet</span><strong id="mps-base">&mdash;</strong>
+          </div>
+          <div class="mps-meta-row off">
+            <span>Plan discount</span><strong id="mps-discount">&mdash;</strong>
+          </div>
+          <div class="mps-meta-row free">
+            <span>Chemical decontamination</span><strong>Free</strong>
+          </div>
+          <div class="mps-meta-row">
+            <span id="mps-total-label">Roughly per month</span><strong id="mps-month-total">&mdash;</strong>
+          </div>
+        </div>
+
+        <div class="mps-outmsg" id="mps-outmsg" hidden></div>
+
+        <div class="mps-small-note" id="mps-smallnote">
+          Plan rates start after your first Full Valet. Add-ons get the same discount.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mps-mp-cta">
+    <a class="btn-primary-glow" href="https://mobilepitstop.uk/full-valet">Start with a Full Valet</a>
+    <a class="btn-ghost" href="https://mobilepitstop.uk/car-detailing-maintenance-plan">See the full plan</a>
+  </div>
+</section>
+
+<script>
+(function(){
+  /* =====================================================================
+     PLAN CONFIG — the only place commercial numbers live.
+     These must match the booking questionnaires.
+     ===================================================================== */
+  var PLAN_CONFIG = {
+    vehicle: {
+      small:  { label:'Small (3-door)',           price:50 },
+      medium: { label:'Medium (5-door / saloon)', price:55 },
+      large:  { label:'Large (SUV / 7 Seater)',   price:60 }
+    },
+    freq: {
+      weekly:      { label:'Every week',      off:30, perMonth:4.3 },
+      fortnightly: { label:'Every 2-3 weeks', off:25, perMonth:2   },
+      monthly:     { label:'Every 4-6 weeks', off:20, perMonth:1   },
+      rare:        { label:'Less often',      off:null, perMonth:null }
+    }
+  };
+
+  var sizeEl = document.getElementById('mps-car-size');
+  var freqEl = document.getElementById('mps-frequency');
+  if(!sizeEl || !freqEl) return;
+
+  var resultEl = document.getElementById('mps-result');
+  var titleEl  = document.getElementById('mps-result-title');
+  var priceEl  = document.getElementById('mps-price');
+  var metaEl   = document.getElementById('mps-meta');
+  var baseEl   = document.getElementById('mps-base');
+  var offEl    = document.getElementById('mps-discount');
+  var totalEl  = document.getElementById('mps-month-total');
+  var labelEl  = document.getElementById('mps-total-label');
+  var outEl    = document.getElementById('mps-outmsg');
+  var noteEl   = document.getElementById('mps-smallnote');
+
+  function money(n){
+    return '£' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, '');
+  }
+
+  function update(){
+    var v = PLAN_CONFIG.vehicle[sizeEl.value];
+    var f = PLAN_CONFIG.freq[freqEl.value];
+    if(!v || !f) return;
+
+    /* the "less often" route — no discount, a better suggestion instead */
+    if(f.off === null){
+      resultEl.classList.add('is-out');
+      titleEl.textContent = v.label;
+      priceEl.textContent = 'Not a plan fit';
+      metaEl.hidden = true;
+      noteEl.hidden = true;
+      outEl.hidden = false;
+      outEl.innerHTML =
+        'Left longer than six weeks, a Mini Valet won’t lift what the carpets and seats pick up.' +
+        '<br><br><strong style="color:#fff">Better:</strong> an ' +
+        '<a href="https://mobilepitstop.uk/interior-deep-clean">Interior Deep Clean</a> or a ' +
+        '<a href="https://mobilepitstop.uk/full-valet">Full Valet</a> whenever the car needs it. No plan required.';
+      return;
+    }
+
+    resultEl.classList.remove('is-out');
+    metaEl.hidden = false;
+    noteEl.hidden = false;
+    outEl.hidden = true;
+
+    var per = v.price * (1 - f.off / 100);
+
+    titleEl.textContent = v.label + ' • ' + f.label;
+    priceEl.innerHTML   = '<span class="was">' + money(v.price) + '</span>' + money(per);
+    baseEl.textContent  = money(v.price);
+    offEl.textContent   = '−' + f.off + '%  (' + money(v.price - per) + ' a visit)';
+    labelEl.textContent = 'Roughly per month (' +
+      (f.perMonth === 4.3 ? '4-5' : f.perMonth) + ' visit' + (f.perMonth === 1 ? '' : 's') + ')';
+    totalEl.textContent = money(per * f.perMonth);
+  }
+
+  sizeEl.addEventListener('change', update);
+  freqEl.addEventListener('change', update);
+  update();
+})();
+</script>
