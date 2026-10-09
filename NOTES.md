@@ -771,19 +771,10 @@ changes. Last updated now 9 October 2026.
 
 ---
 
-## 2026-10-09 — Sticky mobile bar, discount link, dynamic question numbers
+## 2026-10-09 — Discount link, dynamic question numbers (sticky bar removed)
 
-**#13 Sticky mobile action bar** — `Sticky mobile bar - FOOTER snippet.html`,
-appended to the end of the FOOTER code injection (also added to
-`mobilepitstop-code-injection-FOOTER.html` so the repo matches the site).
-- Phones only (≤767px): Call (tel:), WhatsApp (wa.me with a pre-filled
-  "I'd like a quote"), Book. 52px + safe-area; body gets the same bottom
-  padding so the footer is never covered.
-- Book → /all-services; on the 7 booking pages it smooth-scrolls to the
-  page's `.pf[id^="priceFinder"]` questionnaire instead. Pushes
-  `{event:'sticky_book_click', page_path}`. Call/WhatsApp stay plain links
-  so GTM's generate_lead tags still fire.
-- Hidden on /booking-confirmed and while the cookie banner (#mpsc) is open.
+**#13 Sticky mobile action bar** — built, then removed on 2026-10-09 at Gab's request
+(not wanted). Nothing for it remains in the footer code.
 
 **#14 Questionnaires (7 booking pages)**
 - The discount code panel moved from the top of the booking card to the
@@ -799,7 +790,7 @@ appended to the end of the FOOTER code injection (also added to
 - Interior and In & Out got the ResizeObserver the other pages already had,
   so the final step's height follows the opened panel.
 
-Tested at 375px on all 7 pages with the real footer + cookie banner.
+Tested at 375px on all 7 pages.
 
 ---
 
