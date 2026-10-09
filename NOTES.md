@@ -750,6 +750,27 @@ Found but not changed (need Gab):
 
 ---
 
+## 2026-10-09 — Privacy & Cookie Policy updated
+
+New file `Privacy and Cookie Policy.txt` (the Code Block on
+/privacy-policy-cookie-policy; it only lived on Squarespace before). The
+first commit on the branch is the live version, so the PR diff shows the
+changes. Last updated now 9 October 2026.
+
+- Booking happens on our own site; Acuity is only reached through the
+  reschedule/cancel links in confirmation emails (intro + section 9).
+- Section 2: records the customer's agreement to the Terms and when.
+- Advertising measurement: Google only. Meta and Reddit removed from the
+  uses, sharing list, transfers and the advertising cookie table.
+- Processors: Stripe (replaces Square), Make added, Squarespace now also
+  sends marketing emails (Email Campaigns); separate "email marketing
+  provider" line removed.
+- Essential cookies: `mps_conv_…` added (booking-confirmed de-duplication),
+  plus a note that Stripe Checkout sets its own essential cookies.
+- Links: /terms-conditions and /privacy-policy-cookie-policy.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
