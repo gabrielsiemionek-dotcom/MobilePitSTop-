@@ -1122,6 +1122,19 @@
   .mps-promo-clear:hover{ border-color:#E3FC02; }
   .mps-promo-msg{ margin:9px 0 0; font-size:12.5px; font-weight:900; line-height:1.45; }
   .mps-promo-msg.err{ color:#FF6B5A; }
+
+  /* The code panel lives in the final step now, behind a small link, rather
+     than at the top of the booking card. It opens by itself when a code is
+     already applied (announcement bar, ?code= or an earlier page). */
+  .mps-promo[hidden], .mps-promo-link[hidden]{ display:none; }
+  .mps-promo-link{
+    display:block; margin:-4px 0 12px; padding:6px 0; min-height:32px;
+    background:none; border:0; cursor:pointer; text-align:left;
+    font:inherit; font-size:13.5px; font-weight:800; color:#00B8FF;
+    text-decoration:underline; text-underline-offset:3px;
+  }
+  .mps-promo-link:focus-visible{ outline:3px solid #00B8FF; outline-offset:3px; border-radius:4px; }
+  .step .mps-promo{ margin:0 0 14px; }
   .mps-was{ color:rgba(255,255,255,.4); text-decoration:line-through; font-weight:900; margin-right:8px; font-size:.62em; }
   @media(max-width:640px){
     .mps-promo{ padding:12px; margin-bottom:12px; }
@@ -1130,19 +1143,6 @@
   }
 </style>
 
-<div class="mps-promo" id="fvpPromo">
-  <div class="mps-promo-head">
-    <span class="mps-promo-flag" id="fvpPromoFlag">Discount code</span>
-    <span class="mps-promo-title" id="fvpPromoTitle">Got a code? Enter it here</span>
-  </div>
-  <p class="mps-promo-copy" id="fvpPromoCopy" hidden></p>
-  <div class="mps-promo-form" id="fvpPromoForm">
-    <label for="fvpPromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>
-    <input class="mps-promo-input" id="fvpPromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">
-    <button class="mps-promo-btn" id="fvpPromoApply" type="button">Apply</button>
-  </div>
-  <p class="mps-promo-msg" id="fvpPromoMsg" hidden></p>
-</div>
 
 <script>
 (function(){
@@ -1153,7 +1153,7 @@
   };
 
   var PFX = 'fvp';
-  var box, flag, title, copy, form, msg;
+  var box, flag, title, copy, form, msg, link;
 
   function grabEls(){
     box   = document.getElementById(PFX + 'Promo');
@@ -1162,6 +1162,7 @@
     copy  = document.getElementById(PFX + 'PromoCopy');
     form  = document.getElementById(PFX + 'PromoForm');
     msg   = document.getElementById(PFX + 'PromoMsg');
+    link  = document.getElementById(PFX + 'PromoLink');
     return !!box;
   }
 
@@ -1275,7 +1276,18 @@
     msg.className = 'mps-promo-msg ' + (kind || '');
   }
 
+  /* show the panel and retire the "Have a discount code?" link */
+  function openPanel(focus){
+    box.hidden = false;
+    if(link){ link.hidden = true; link.setAttribute('aria-expanded', 'true'); }
+    if(focus){
+      var input = document.getElementById(PFX + 'PromoInput');
+      if(input){ try{ input.focus({ preventScroll:true }); }catch(e){ input.focus(); } }
+    }
+  }
+
   function renderOn(){
+    openPanel(false);
     box.classList.add('is-on');
     flag.textContent  = active.off + '% off applied';
     title.textContent = 'Discount applied';
@@ -1343,6 +1355,7 @@
 
   function start(){
     if(!grabEls()) return;
+    if(link) link.addEventListener('click', function(){ openPanel(true); });
     renderOff();
     attachObserver();
     var pre = null;
@@ -1598,6 +1611,21 @@
             <div class="lbl">Final total</div>
             <div class="val" id="fvpFinalTotal">£0</div>
             <div class="note" id="fvpFinalNote">Ready to book when you are.</div>
+          </div>
+
+          <button class="mps-promo-link" type="button" id="fvpPromoLink" aria-expanded="false" aria-controls="fvpPromo">Have a discount code?</button>
+          <div class="mps-promo" id="fvpPromo" hidden>
+            <div class="mps-promo-head">
+              <span class="mps-promo-flag" id="fvpPromoFlag">Discount code</span>
+              <span class="mps-promo-title" id="fvpPromoTitle">Got a code? Enter it here</span>
+            </div>
+            <p class="mps-promo-copy" id="fvpPromoCopy" hidden></p>
+            <div class="mps-promo-form" id="fvpPromoForm">
+              <label for="fvpPromoInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Discount code</label>
+              <input class="mps-promo-input" id="fvpPromoInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter discount code">
+              <button class="mps-promo-btn" id="fvpPromoApply" type="button">Apply</button>
+            </div>
+            <p class="mps-promo-msg" id="fvpPromoMsg" hidden></p>
           </div>
 
           <div class="power-compact" aria-label="Final Cleaning Power">
@@ -2813,5 +2841,39 @@
   window.addEventListener('load', function(){ syncViewportHeight(); settleAtTop(); });
   setTimeout(function(){ syncViewportHeight(); settleAtTop(); }, 250);
   setTimeout(settleAtTop, 700);
+})();
+</script>
+
+<script>
+/* ======================================================================
+   QUESTION NUMBERS
+   Only the questions actually shown are numbered, in order, and they're
+   renumbered whenever one is shown or hidden (e.g. the seat questions
+   that depend on the fabric), so the numbers never skip.
+   ====================================================================== */
+(function(){
+  var root = document.getElementById('priceFinderFullValetPremium');
+  if(!root) return;
+  var heads = [];
+  Array.prototype.forEach.call(root.querySelectorAll('.step'), function(step){
+    var h = step.querySelector('h3');
+    if(!h) return;
+    var m = h.innerHTML.match(/^\s*\d+\)\s*/);
+    if(!m) return;                      /* "You're all set" has no number */
+    heads.push({ step:step, h:h, text:h.innerHTML.slice(m[0].length) });
+  });
+  function renumber(){
+    var n = 0;
+    heads.forEach(function(x){
+      if(x.step.hidden) return;
+      n++;
+      var html = n + ') ' + x.text;
+      if(x.h.innerHTML !== html) x.h.innerHTML = html;
+    });
+  }
+  renumber();
+  if(window.MutationObserver){
+    new MutationObserver(renumber).observe(root, { attributes:true, attributeFilter:['hidden'], subtree:true });
+  }
 })();
 </script>
