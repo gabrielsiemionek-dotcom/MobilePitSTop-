@@ -1,0 +1,291 @@
+<!-- ==========================================================================
+     MobilePitStop — Homepage FAQ block
+     Paste into the "Frequently Asked Questions" Code Block on the homepage.
+
+     Updated 2026-10-08: current service names and prices (All Services),
+     durations from each service page, ceramic coating 1, 3 or 7 years, the
+     four-stage odour treatment, "start with a deep clean" for the plan, and
+     payment wording from /terms-conditions. Design unchanged.
+
+     The FAQPage schema below is generated from the visible questions and
+     answers, word for word. Edit both together.
+     ========================================================================== -->
+
+<style> tags were opened and only one closed. The first block
+         was a partial duplicate of the second, so it's gone.
+       • "What areas do you cover" said Ellesmere Port, Chester and Wirral.
+         Your footer lists 30 towns across three counties and you have a
+         landing page for each — the answer was under-claiming your own
+         coverage on the page Google reads most carefully.
+       • "Do you offer maintenance plans" said "monthly or bi-weekly".
+         Those aren't your tiers any more, and it didn't mention 30% off,
+         free decontamination, or link anywhere.
+       • Added questions people actually search: price, ceramic coating,
+         whether you need to be home, driveway access, pet hair.
+
+     WHERE TO PUT IT
+     One place. If it's on the homepage, take it off the booking page and
+     the maintenance plan page — see the note at the bottom of this file.
+     ========================================================================== -->
+
+<style>
+  .mps-faq{
+    max-width:1000px;
+    margin:60px auto;
+    padding:0 16px;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  }
+  .mps-faq h2{
+    font-size:clamp(24px,4vw,32px);
+    margin-bottom:10px;
+    color:#fff;
+    letter-spacing:-.02em;
+  }
+  .mps-faq .mps-faq-sub{
+    margin:0 0 26px;
+    color:rgba(255,255,255,.7);
+    font-size:15px;
+    line-height:1.6;
+  }
+  .mps-faq details{
+    background:#111;
+    border:1px solid rgba(255,255,255,.1);
+    margin-bottom:14px;
+    border-radius:14px;
+    padding:0;
+    transition:.3s ease;
+    overflow:hidden;
+  }
+  .mps-faq details[open]{
+    border-color:#E3FC02;
+    background:#151515;
+  }
+  .mps-faq summary{
+    list-style:none;
+    cursor:pointer;
+    padding:20px 52px 20px 20px;
+    font-weight:600;
+    font-size:16px;
+    color:#fff;
+    position:relative;
+    min-height:60px;
+    display:flex;
+    align-items:center;
+  }
+  .mps-faq summary::-webkit-details-marker{ display:none; }
+  .mps-faq summary::after{
+    content:"+";
+    position:absolute;
+    right:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:22px;
+    font-weight:300;
+    transition:transform .3s ease;
+    color:#E3FC02;
+  }
+  .mps-faq details[open] summary::after{ content:"\2212"; }
+
+  .mps-faq p{
+    padding:0 20px 20px;
+    margin:0;
+    color:#ccc;
+    line-height:1.6;
+    font-size:15px;
+  }
+  .mps-faq p + p{ padding-top:0; margin-top:-8px; }
+  .mps-faq a{ color:#E3FC02; font-weight:700; text-decoration:none; }
+  .mps-faq a:hover{ text-decoration:underline; }
+  .mps-faq strong{ color:#fff; }
+
+  @media(max-width:640px){
+    .mps-faq{ margin:40px auto; padding:0 14px; }
+    .mps-faq summary{ font-size:15px; padding:17px 46px 17px 16px; }
+    .mps-faq p{ padding:0 16px 17px; font-size:14.5px; }
+  }
+</style>
+
+<section class="mps-faq">
+  <h2>Frequently Asked Questions</h2>
+  <p class="mps-faq-sub">Anything we haven&rsquo;t covered, call or text <a href="tel:+447592196929">07592&nbsp;196929</a> or <a href="https://wa.me/447592196929" target="_blank" rel="noopener">WhatsApp us</a> &mdash; we answer quickly. More answers on our <a href="https://mobilepitstop.uk/faqs">FAQs page</a>.</p>
+
+  <details>
+    <summary>What areas do you cover?</summary>
+    <p>We cover <strong>Cheshire, Merseyside and Flintshire</strong> &mdash; roughly a 20 mile radius of Ellesmere Port, and travel is free within it. That includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Mold, Flint, Connah&rsquo;s Quay and the surrounding towns.</p>
+    <p>Slightly outside? Message us and we&rsquo;ll tell you straight whether it works.</p>
+  </details>
+
+  <details>
+    <summary>How much does a valet cost?</summary>
+    <p>Maintenance Wash <strong>&pound;60&ndash;&pound;80</strong>, Exterior Detail <strong>&pound;70&ndash;&pound;90</strong>, Interior Deep Clean <strong>&pound;90&ndash;&pound;120</strong>, In &amp; Out Deep Clean <strong>&pound;140&ndash;&pound;180</strong> and Protection Detail <strong>&pound;210&ndash;&pound;250</strong>. Enhancement Polish is <strong>&pound;285&ndash;&pound;385</strong>, Ceramic Coating starts at <strong>&pound;190</strong>, and the Odour Removal Treatment is <strong>&pound;250&ndash;&pound;300</strong>. Paint correction, PPF, wraps, window tinting and de-chrome are by quote.</p>
+    <p>Every price depends on vehicle size. Use the questionnaire on any service page and you&rsquo;ll see your exact total, including any add-ons, before you book. <a href="https://mobilepitstop.uk/all-services">See all services</a>.</p>
+  </details>
+
+  <details>
+    <summary>Do you offer a maintenance plan?</summary>
+    <p>Yes, and it&rsquo;s worth having if you want the car kept right rather than rescued twice a year. Start with a deep clean to reset the vehicle, we agree how often suits it, then you get a discount code worth <strong>up to 30% off every visit</strong> &mdash; 30% weekly, 25% every 2&ndash;3 weeks, 20% every 4&ndash;6 weeks.</p>
+    <p>Every plan visit also includes <strong>free chemical decontamination</strong>. No contract and no direct debit &mdash; change or stop whenever you like. <a href="https://mobilepitstop.uk/car-detailing-maintenance-plan">See how the plan works</a>.</p>
+  </details>
+
+  <details>
+    <summary>Do I need to be home while you work?</summary>
+    <p>No. Plenty of customers leave the keys and get on with their day, or book us while they&rsquo;re at work. We just need access to the vehicle, somewhere to park alongside it, and a plug socket.</p>
+  </details>
+
+  <details>
+    <summary>Do I need to provide water or electricity?</summary>
+    <p>A standard 13A socket &mdash; we bring a 45m extension lead. We carry our own water, so an outside tap is handy but not essential. We also need room to park the van within about 3m of the car.</p>
+  </details>
+
+  <details>
+    <summary>How long does a valet take?</summary>
+    <p>It depends on the service and vehicle size. A Maintenance Wash takes around <strong>75 minutes</strong>, an Exterior Detail about <strong>1&frac12; hours</strong>, an Interior Deep Clean or In &amp; Out Deep Clean <strong>3&ndash;5 hours</strong>, and a Protection Detail <strong>4&ndash;6 hours</strong>. An Enhancement Polish is done in <strong>a day</strong>, and a Ceramic Coating takes <strong>most of the day</strong>.</p>
+  </details>
+
+  <details>
+    <summary>What&rsquo;s the difference between valeting and detailing?</summary>
+    <p>A valet cleans the car. Detailing corrects the paintwork itself &mdash; decontamination, clay bar and machine polishing to remove swirl marks and light scratches &mdash; and then protects it.</p>
+    <p>If the paint looks dull or cobwebbed in direct sunlight, that&rsquo;s detailing. If it just looks dirty, you want a valet.</p>
+  </details>
+
+  <details>
+    <summary>Can you remove tough stains, pet hair and odours?</summary>
+    <p>Yes. Every Interior Deep Clean shampoos and extracts the mats, carpets and boot, and seat treatment is an add-on, followed by high-heat drying so the car comes back touch dry rather than damp. Heavy pet hair woven into the fabric is a separate add-on (+&pound;50).</p>
+    <p>For smells that survive a clean &mdash; cigarette, spilt milk, pets, bio &mdash; our Odour Removal Treatment works in four stages: steam and extraction, an air-con foam clean, ozone, then a purifying mist. <a href="https://mobilepitstop.uk/cigarette/milk/bio-odour-removal">See odour removal</a>.</p>
+  </details>
+
+  <details>
+    <summary>How long does a ceramic coating last?</summary>
+    <p>You choose <strong>1, 3 or 7 years</strong>, from &pound;190. Keep it going by hand washing rather than using automatic car washes. A coating locks in whatever is underneath it, so if the paint is swirled, add paint enhancement first.</p>
+    <p>It won&rsquo;t stop stone chips, and we&rsquo;d be wary of anyone who tells you otherwise. What it does is hold gloss, help the paint resist light chemical etching and make the car far easier to clean.</p>
+  </details>
+
+  <details>
+    <summary>Do you work in bad weather?</summary>
+    <p>Light rain is usually fine for interior work. Heavy rain, strong winds, freezing temperatures or extreme heat can make some work unsafe, and then we&rsquo;ll contact you to rebook at no cost to you. Machine polishing and ceramic coating need dry conditions, so those are the most weather-dependent.</p>
+  </details>
+
+  <details>
+    <summary>Are your products safe on my paint and interior?</summary>
+    <p>Yes. We use professional-grade, pH-appropriate products that are paint-safe and interior-safe, and a safe wash method &mdash; snow foam first, then a two-bucket hand wash with grit guards and clean mitts. That last part matters more than the products: grit dragged across the paint is what puts swirl marks in.</p>
+  </details>
+
+  <details>
+    <summary>How do I book, and how do I pay?</summary>
+    <p>Book online through any service page, or call/text <a href="tel:+447592196929">07592&nbsp;196929</a>. You&rsquo;ll pick your options, see the exact price, and choose a slot on our live calendar.</p>
+    <p>A <strong>10% deposit</strong> is paid by card when you book, and the balance is paid when the job is finished &mdash; cash, card (including Apple Pay and Google Pay) or bank transfer, with business invoices on request.</p>
+  </details>
+
+</section>
+
+<!-- FAQPage markup.
+     Being straight with you: Google limited FAQ rich results to government
+     and health sites back in 2023, so this almost certainly won't produce
+     the dropdown answers in search results any more. It still helps Google
+     understand the page, and it costs nothing to include — but don't expect
+     a visible change from it. The LocalBusiness markup is the one that
+     does real work for local search. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What areas do you cover?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We cover Cheshire, Merseyside and Flintshire — roughly a 20 mile radius of Ellesmere Port, and travel is free within it. That includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Mold, Flint, Connah’s Quay and the surrounding towns.\nSlightly outside? Message us and we’ll tell you straight whether it works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a valet cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Maintenance Wash £60–£80, Exterior Detail £70–£90, Interior Deep Clean £90–£120, In & Out Deep Clean £140–£180 and Protection Detail £210–£250. Enhancement Polish is £285–£385, Ceramic Coating starts at £190, and the Odour Removal Treatment is £250–£300. Paint correction, PPF, wraps, window tinting and de-chrome are by quote.\nEvery price depends on vehicle size. Use the questionnaire on any service page and you’ll see your exact total, including any add-ons, before you book. See all services."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer a maintenance plan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and it’s worth having if you want the car kept right rather than rescued twice a year. Start with a deep clean to reset the vehicle, we agree how often suits it, then you get a discount code worth up to 30% off every visit — 30% weekly, 25% every 2–3 weeks, 20% every 4–6 weeks.\nEvery plan visit also includes free chemical decontamination. No contract and no direct debit — change or stop whenever you like. See how the plan works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to be home while you work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Plenty of customers leave the keys and get on with their day, or book us while they’re at work. We just need access to the vehicle, somewhere to park alongside it, and a plug socket."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to provide water or electricity?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A standard 13A socket — we bring a 45m extension lead. We carry our own water, so an outside tap is handy but not essential. We also need room to park the van within about 3m of the car."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a valet take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on the service and vehicle size. A Maintenance Wash takes around 75 minutes, an Exterior Detail about 1½ hours, an Interior Deep Clean or In & Out Deep Clean 3–5 hours, and a Protection Detail 4–6 hours. An Enhancement Polish is done in a day, and a Ceramic Coating takes most of the day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What’s the difference between valeting and detailing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A valet cleans the car. Detailing corrects the paintwork itself — decontamination, clay bar and machine polishing to remove swirl marks and light scratches — and then protects it.\nIf the paint looks dull or cobwebbed in direct sunlight, that’s detailing. If it just looks dirty, you want a valet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you remove tough stains, pet hair and odours?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Every Interior Deep Clean shampoos and extracts the mats, carpets and boot, and seat treatment is an add-on, followed by high-heat drying so the car comes back touch dry rather than damp. Heavy pet hair woven into the fabric is a separate add-on (+£50).\nFor smells that survive a clean — cigarette, spilt milk, pets, bio — our Odour Removal Treatment works in four stages: steam and extraction, an air-con foam clean, ozone, then a purifying mist. See odour removal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a ceramic coating last?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You choose 1, 3 or 7 years, from £190. Keep it going by hand washing rather than using automatic car washes. A coating locks in whatever is underneath it, so if the paint is swirled, add paint enhancement first.\nIt won’t stop stone chips, and we’d be wary of anyone who tells you otherwise. What it does is hold gloss, help the paint resist light chemical etching and make the car far easier to clean."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you work in bad weather?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Light rain is usually fine for interior work. Heavy rain, strong winds, freezing temperatures or extreme heat can make some work unsafe, and then we’ll contact you to rebook at no cost to you. Machine polishing and ceramic coating need dry conditions, so those are the most weather-dependent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are your products safe on my paint and interior?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We use professional-grade, pH-appropriate products that are paint-safe and interior-safe, and a safe wash method — snow foam first, then a two-bucket hand wash with grit guards and clean mitts. That last part matters more than the products: grit dragged across the paint is what puts swirl marks in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I book, and how do I pay?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book online through any service page, or call/text 07592 196929. You’ll pick your options, see the exact price, and choose a slot on our live calendar.\nA 10% deposit is paid by card when you book, and the balance is paid when the job is finished — cash, card (including Apple Pay and Google Pay) or bank transfer, with business invoices on request."
+      }
+    }
+  ]
+}
+</script>

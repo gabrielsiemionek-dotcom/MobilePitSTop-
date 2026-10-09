@@ -1,0 +1,814 @@
+<!-- ==========================================================================
+     MobilePitStop — FAQs page
+     Paste into the main Code Block on https://mobilepitstop.uk/faqs
+
+     Updated 2026-10-08 to match the current site. Sources of truth: the All
+     Services page and each service's questionnaire / What's Included block.
+       - Current names: Maintenance Wash, Interior Deep Clean, Exterior
+         Detail, In & Out Deep Clean, Protection Detail, Enhancement Polish,
+         Ceramic Coating, Odour Removal Treatment; unit services by quote.
+       - Prices, add-ons and "what's included" taken from those pages.
+       - Payment, deposit and cancellation wording follows /terms-conditions.
+       - The page's H1 is the Squarespace text block above this one; this
+         block has no H1, so the page has exactly one.
+       - The FAQPage schema at the bottom is generated from the questions
+         and answers on the page, word for word. If you edit an answer,
+         edit it in the schema too (or ask Claude to regenerate it).
+
+     TODO for Gab: the Odour Removal Treatment has no job duration written
+     anywhere on the site. Search this file for "TODO" to add one.
+     ========================================================================== -->
+
+<style>
+  .mps-faqpage{
+    max-width:900px;
+    margin:0 auto;
+    padding:20px 16px 50px;
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.6;
+  }
+  .mps-faqpage *{ box-sizing:border-box; }
+
+  .mps-faqpage h1{
+    font-size:clamp(28px,5vw,40px);
+    font-weight:900;
+    letter-spacing:-.02em;
+    margin:0 0 8px;
+  }
+  .mps-faqpage .intro{
+    margin:0 0 12px;
+    color:rgba(255,255,255,.8);
+    font-size:16px;
+  }
+  .mps-faqpage .intro a{ color:#E3FC02; font-weight:700; text-decoration:none; }
+  .mps-faqpage .intro a:hover{ text-decoration:underline; }
+
+  .mps-faqpage h2{
+    font-size:19px;
+    font-weight:900;
+    color:#E3FC02;
+    letter-spacing:.02em;
+    margin:38px 0 14px;
+    padding-bottom:9px;
+    border-bottom:1px solid rgba(227,252,2,.25);
+  }
+
+  .mps-faqpage details{
+    background:#111;
+    border:1px solid rgba(255,255,255,.1);
+    margin-bottom:12px;
+    border-radius:14px;
+    overflow:hidden;
+    transition:.3s ease;
+  }
+  .mps-faqpage details[open]{ border-color:#E3FC02; background:#151515; }
+
+  .mps-faqpage summary{
+    list-style:none;
+    cursor:pointer;
+    padding:18px 52px 18px 20px;
+    font-weight:600;
+    font-size:16px;
+    color:#fff;
+    position:relative;
+    min-height:58px;
+    display:flex;
+    align-items:center;
+  }
+  .mps-faqpage summary::-webkit-details-marker{ display:none; }
+  .mps-faqpage summary::after{
+    content:"+";
+    position:absolute;
+    right:20px; top:50%;
+    transform:translateY(-50%);
+    font-size:22px;
+    font-weight:300;
+    color:#E3FC02;
+  }
+  .mps-faqpage details[open] summary::after{ content:"\2212"; }
+
+  .mps-faqpage .a{ padding:0 20px 18px; }
+  .mps-faqpage .a p{ margin:0 0 10px; color:#ccc; font-size:15px; }
+  .mps-faqpage .a p:last-child{ margin-bottom:0; }
+  .mps-faqpage .a ul{ margin:8px 0 10px; padding-left:20px; }
+  .mps-faqpage .a li{ color:#ccc; margin:5px 0; font-size:15px; }
+  .mps-faqpage .a strong{ color:#fff; }
+  .mps-faqpage .a a{ color:#E3FC02; font-weight:700; text-decoration:none; }
+  .mps-faqpage .a a:hover{ text-decoration:underline; }
+
+  .mps-faqpage .tbl{ width:100%; border-collapse:collapse; margin:6px 0 4px; font-size:14.5px; }
+  .mps-faqpage .tbl td{ padding:7px 6px; border-top:1px solid rgba(255,255,255,.1); color:#ccc; }
+  .mps-faqpage .tbl tr:first-child td{ border-top:none; }
+  .mps-faqpage .tbl td:last-child{ text-align:right; white-space:nowrap; color:#E3FC02; font-weight:800; }
+
+  .mps-faqpage .cta{
+    display:flex; gap:10px; flex-wrap:wrap; margin-top:34px;
+  }
+  .mps-faqpage .cta a{
+    flex:1 1 200px;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:14px 18px; border-radius:999px;
+    background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%);
+    color:#0b0b0b; font-weight:900; font-size:15px;
+    text-decoration:none; min-height:48px;
+  }
+  .mps-faqpage .cta a.ghost{
+    background:transparent; color:#fff;
+    border:1px solid rgba(255,255,255,.25);
+  }
+
+  @media(max-width:640px){
+    .mps-faqpage{ padding:16px 14px 40px; }
+    .mps-faqpage summary{ font-size:15px; padding:16px 46px 16px 16px; }
+    .mps-faqpage .a{ padding:0 16px 16px; }
+    .mps-faqpage .a p, .mps-faqpage .a li{ font-size:14.5px; }
+    .mps-faqpage h2{ font-size:17px; margin-top:30px; }
+    .mps-faqpage .cta a{ flex:1 1 100%; }
+  }
+</style>
+
+<section class="mps-faqpage">
+
+  <!-- The page title (H1) comes from the Squarespace text block above this
+       code block, so this block has no H1 of its own. -->
+  <p class="intro">
+    Everything people usually ask, in one place. If your question isn&rsquo;t here,
+    call or text <a href="tel:+447592196929">07592&nbsp;196929</a>, or
+    <a href="https://wa.me/447592196929" target="_blank" rel="noopener">message us on WhatsApp</a> &mdash; we answer quickly.
+  </p>
+
+  <!-- ============================= GENERAL ============================= -->
+  <h2>General</h2>
+
+  <details>
+    <summary>What do you actually do?</summary>
+    <div class="a">
+      <p>We&rsquo;re a mobile valeting and detailing service, with a unit in Birkenhead for the jobs that need to be done indoors.</p>
+      <p><strong>Valeting</strong> &mdash; cleaning the car: Maintenance Wash, Interior Deep Clean, Exterior Detail and In &amp; Out Deep Clean.</p>
+      <p><strong>Detailing</strong> &mdash; looking after the paintwork itself: Protection Detail, Enhancement Polish and Ceramic Coating.</p>
+      <p>We also do an <a href="https://mobilepitstop.uk/cigarette/milk/bio-odour-removal">Odour Removal Treatment</a> for smoke, spilt milk, pets and biological spills. Multi-stage paint correction, paint protection film, vinyl wraps, window tinting and de-chrome are done at our unit, by quote. <a href="https://mobilepitstop.uk/all-services">See all services</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What&rsquo;s the difference between valeting and detailing?</summary>
+    <div class="a">
+      <p>A valet cleans the car. Detailing corrects the paint &mdash; decontamination, clay bar and machine polishing to remove swirl marks and light scratches &mdash; then protects it.</p>
+      <p><strong>A simple test:</strong> look at the bonnet in direct sunlight. Fine circular scratches that look like cobwebs mean you want detailing. If it just looks dirty, you want a valet.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Where do you operate?</summary>
+    <div class="a">
+      <p>We cover <strong>Cheshire, Merseyside and Flintshire</strong> &mdash; roughly a 20 mile radius of Ellesmere Port, and travel is free within it.</p>
+      <p>That includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Prescot, Mold, Flint, Connah&rsquo;s Quay, Buckley and the surrounding towns.</p>
+      <p>Slightly outside? Message us and we&rsquo;ll tell you honestly whether it works.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Do you work in bad weather?</summary>
+    <div class="a">
+      <p>We work outdoors, so heavy rain, strong winds, freezing temperatures or extreme heat can make some work unsafe or affect the finish. If that happens we&rsquo;ll contact you to rebook, at no cost to you. Light rain is usually fine for interior work.</p>
+      <p>Machine polishing and ceramic coating need dry conditions, so those are the most weather-dependent &mdash; we&rsquo;d rather move the date than compromise the finish. That&rsquo;s why you request a date for a coating and we confirm it against the forecast.</p>
+    </div>
+  </details>
+
+  <!-- ============================ SERVICES ============================ -->
+  <h2>The services</h2>
+
+  <details>
+    <summary>Maintenance Wash &mdash; what&rsquo;s included?</summary>
+    <div class="a">
+      <p>The regular wash that keeps a clean car clean, inside and out.</p>
+      <ul>
+        <li>Snow foam pre-wash, so dirt is lifted before anything touches the paint</li>
+        <li>Two-bucket safe hand wash with grit guards</li>
+        <li>Wheels, tyres and arches cleaned, tyres dressed</li>
+        <li>Hand dried with plush microfibre, no water spots</li>
+        <li>Interior blow out and vacuum, dash and touch points wiped</li>
+        <li>Glass streak-free, inside and out</li>
+      </ul>
+      <p><strong>Best for:</strong> keeping an already-clean car clean. If it&rsquo;s been a while, start with an In &amp; Out Deep Clean or an Interior Deep Clean. <a href="https://mobilepitstop.uk/maintenance-wash">&pound;60&ndash;&pound;80</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Interior Deep Clean &mdash; what&rsquo;s included?</summary>
+    <div class="a">
+      <p>A full interior reset.</p>
+      <ul>
+        <li>Compressed air through seat rails, joins and vents</li>
+        <li>Deep vacuum &mdash; seats, carpets, mats, boot and edges</li>
+        <li><strong>Mats, carpets and boot shampooed and extracted</strong> &mdash; included, not an add-on</li>
+        <li>Steam cleaning, so contact surfaces are sanitised, not just wiped</li>
+        <li>Crevices, seams and vents detailed by hand</li>
+        <li>Plastics scrubbed to a natural satin finish, never greasy</li>
+        <li>Door shuts and sills cleaned, interior glass streak-free</li>
+      </ul>
+      <p><strong>Worth knowing:</strong> the seats are the add-on &mdash; cloth seats steamed, shampooed and extracted for +&pound;30, leather or alcantara brushed through for +&pound;40. Light pet hair is included. <a href="https://mobilepitstop.uk/interior-deep-clean">&pound;90&ndash;&pound;120</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Exterior Detail &mdash; what&rsquo;s included?</summary>
+    <div class="a">
+      <p>A wash removes what&rsquo;s sitting on the paint. This removes what&rsquo;s bonded into it.</p>
+      <ul>
+        <li>Snow foam pre-wash, then a two-bucket safe hand wash</li>
+        <li>Wheels, tyres and arches deep cleaned</li>
+        <li><strong>Chemical decontamination</strong> &mdash; tar, iron fallout and road film</li>
+        <li>Glass compound polished</li>
+        <li>Hand dried, water traps cleared</li>
+        <li>8-week protection wax &mdash; gloss, beading and easier washing</li>
+        <li>Tyres dressed</li>
+      </ul>
+      <p>Exterior only &mdash; for inside and out, book the In &amp; Out Deep Clean. Clay bar, paint enhancement, a 6-month ceramic sealant and a ceramic coating are all available on top. <a href="https://mobilepitstop.uk/exterior-detail">&pound;70&ndash;&pound;90</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>In &amp; Out Deep Clean &mdash; what&rsquo;s included?</summary>
+    <div class="a">
+      <p>The full reset in one visit: everything in the Exterior Detail and the Interior Deep Clean.</p>
+      <ul>
+        <li>Complete Exterior Detail &mdash; decontamination and 8-week protection wax</li>
+        <li>Complete Interior Deep Clean &mdash; air, vacuum and steam</li>
+        <li><strong>Mats, carpets and boot shampooed and extracted</strong> as standard</li>
+        <li>Glass cleaned inside and out</li>
+        <li>Plastics and trim scrubbed to a natural satin finish</li>
+      </ul>
+      <p>The seats are vacuumed, blown out and wiped down; seat treatment is the add-on (+&pound;30&ndash;&pound;40). <a href="https://mobilepitstop.uk/in-out-deep-clean">&pound;140&ndash;&pound;180</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Protection Detail &mdash; what&rsquo;s different?</summary>
+    <div class="a">
+      <p>The In &amp; Out Deep Clean with the seats done too, then the paint protected:</p>
+      <ul>
+        <li>Everything in the In &amp; Out Deep Clean</li>
+        <li><strong>Full steam, shampoo and extraction</strong> &mdash; seats, mats, carpets and boot</li>
+        <li><strong>Clay bar decontamination</strong> &mdash; paint left glass-smooth</li>
+        <li><strong>6-month ceramic sealant</strong> on all paint, in place of the wax</li>
+        <li><strong>Glaco</strong> hydrophobic coating on the glass</li>
+      </ul>
+      <p>It protects the paint you&rsquo;ve got rather than correcting it &mdash; add paint enhancement (from +&pound;185, &pound;30 less here because the clay bar is already included) if you want the swirls gone. <a href="https://mobilepitstop.uk/protection-detail">&pound;210&ndash;&pound;250</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Enhancement Polish &mdash; what does it remove?</summary>
+    <div class="a">
+      <p>A single machine polishing stage for paint that looks dull, hazy or swirled in direct light. It removes most of the light damage &mdash; swirl marks, light scratches and water marks &mdash; and brings back depth, gloss and clarity, on your driveway in a day.</p>
+      <ul>
+        <li>Snow foam pre-wash and two-bucket safe hand wash</li>
+        <li>Chemical decontamination and clay bar &mdash; included, not extra</li>
+        <li>Paint depth measured and a test section polished first</li>
+        <li>Trims and badges masked, then a single-stage machine polish across all paint panels</li>
+        <li>Finish inspected under a dedicated inspection light</li>
+        <li>8-week protection wax to finish</li>
+      </ul>
+      <p>It won&rsquo;t remove a scratch you can catch a fingernail in &mdash; that needs multi-stage paint correction at our unit, by quote. A 6-month ceramic sealant (+&pound;30) or a ceramic coating (from +&pound;90) makes the result last. <a href="https://mobilepitstop.uk/machine-polishing">&pound;285&ndash;&pound;385</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Ceramic Coating &mdash; how long does it last, and what&rsquo;s included?</summary>
+    <div class="a">
+      <p>You choose <strong>1, 3 or 7 years</strong>. Each price is the whole job &mdash; the prep, the clay bar, Glaco on the glass and the coating itself:</p>
+      <table class="tbl">
+        <tr><td>Ceramic Coating, 1 year</td><td>from &pound;190</td></tr>
+        <tr><td>Ceramic Coating, 3 years</td><td>from &pound;270</td></tr>
+        <tr><td>Ceramic Coating, 7 years</td><td>from &pound;370</td></tr>
+      </table>
+      <p>Included: snow foam and safe hand wash, wheels and arches, chemical decontamination and clay bar, a panel wipe, the coating on all paint, Glaco on the glass, and aftercare guidance. A coating locks in whatever is underneath it, so if the paint is swirled, add paint enhancement first (from +&pound;185).</p>
+      <p>Coatings need dry weather to cure, so you request a date and we confirm it against the forecast. It won&rsquo;t stop stone chips &mdash; for that you want paint protection film. <a href="https://mobilepitstop.uk/ceramic-coating">See Ceramic Coating</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Odour Removal Treatment &mdash; how does it work?</summary>
+    <div class="a">
+      <p>Air fresheners mask a smell; this removes it, in four stages in one visit:</p>
+      <ul>
+        <li><strong>Stage 1</strong> &mdash; steam clean with enzyme or chlorine (chosen for the odour), then full extraction of the seats, carpets, mats, boot and headliner</li>
+        <li><strong>Stage 2</strong> &mdash; air-con system foam clean</li>
+        <li><strong>Stage 3</strong> &mdash; ozone treatment, 1 hr 30 min</li>
+        <li><strong>Stage 4</strong> &mdash; ultrasonic purifying, disinfecting mist</li>
+      </ul>
+      <p>It&rsquo;s one treatment for cigarette smoke, spilt milk, pets and biological spills, and the price depends only on the size of the car. <a href="https://mobilepitstop.uk/cigarette/milk/bio-odour-removal">&pound;250&ndash;&pound;300</a>.</p>
+      <p><strong>Before your appointment:</strong> please have a new cabin air filter for your car ready. We take the old one out before the treatment and fit your new one at the end, so nothing old is blown back into a freshly treated car.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What do you do at your unit?</summary>
+    <div class="a">
+      <p>Multi-stage paint correction, paint protection film (PPF), vinyl wraps, window tinting and de-chrome are done indoors at our unit in Birkenhead. Each one is <strong>by quote</strong> &mdash; send us a few photos in daylight and we&rsquo;ll price it. <a href="https://mobilepitstop.uk/all-services">See all services</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Do you offer a maintenance plan?</summary>
+    <div class="a">
+      <p>Yes. Start with a deep clean to reset the car, we agree how often suits it, then you get a discount code worth <strong>up to 30% off every visit</strong>:</p>
+      <table class="tbl">
+        <tr><td>Every week</td><td>30% off</td></tr>
+        <tr><td>Every 2&ndash;3 weeks</td><td>25% off</td></tr>
+        <tr><td>Every 4&ndash;6 weeks</td><td>20% off</td></tr>
+      </table>
+      <p>Every plan visit also includes <strong>free chemical decontamination</strong>, and the discount applies to add-ons too. No contract and no direct debit &mdash; change or stop whenever you like.</p>
+      <p>Past six weeks a Maintenance Wash won&rsquo;t hold a car, so we cap the plan there and point you at the right service instead of selling you the wrong one cheap. <a href="https://mobilepitstop.uk/car-detailing-maintenance-plan">See how the plan works</a>.</p>
+    </div>
+  </details>
+
+  <!-- ======================= PRICING AND TIMING ======================= -->
+  <h2>Pricing, extras &amp; timing</h2>
+
+  <details>
+    <summary>How long does each service take?</summary>
+    <div class="a">
+      <table class="tbl">
+        <tr><td>Maintenance Wash</td><td>around 75 min</td></tr>
+        <tr><td>Exterior Detail</td><td>about 1&frac12; hrs</td></tr>
+        <tr><td>Interior Deep Clean</td><td>3&ndash;5 hrs</td></tr>
+        <tr><td>In &amp; Out Deep Clean</td><td>3&ndash;5 hrs</td></tr>
+        <tr><td>Protection Detail</td><td>4&ndash;6 hrs</td></tr>
+        <tr><td>Enhancement Polish</td><td>a day</td></tr>
+        <tr><td>Ceramic Coating</td><td>most of the day</td></tr>
+        <!-- TODO for Gab: no duration for the Odour Removal Treatment is written
+             anywhere on the site. Add a row when you've decided what to say, e.g.
+             <tr><td>Odour Removal Treatment</td><td>X&ndash;Y hrs</td></tr>
+             and add the same wording to the FAQPage schema at the bottom. -->
+        <tr><td>Multi-stage paint correction</td><td>overnight at our unit</td></tr>
+      </table>
+      <p>Times vary with vehicle size and condition, plus time to set up and pack down. Add-ons extend a job, and the booking calendar already allows for whatever you pick, so the times you&rsquo;re offered are ones the whole job fits into.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Are your prices fixed?</summary>
+    <div class="a">
+      <p>Prices vary by vehicle size. Use the questionnaire on any service page and you&rsquo;ll see your exact total, including add-ons and any discount code, before you book anything.</p>
+      <p>Vans, pick-ups and campervans are by quote, and so are the unit services. Anything extra is always quoted up front, never added afterwards.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What add-ons do you offer, and what do they cost?</summary>
+    <div class="a">
+      <table class="tbl">
+        <tr><td>Seat treatment &mdash; cloth</td><td>+&pound;30</td></tr>
+        <tr><td>Seat treatment &mdash; leather or alcantara</td><td>+&pound;40</td></tr>
+        <tr><td>Seat protection (Gtechniq / CQuartz)</td><td>from +&pound;100</td></tr>
+        <tr><td>Heavy pet hair removal</td><td>+&pound;50</td></tr>
+        <tr><td>Heavy sand removal</td><td>+&pound;50</td></tr>
+        <tr><td>Roof lining clean</td><td>+&pound;25</td></tr>
+        <tr><td>Ultrasonic odour treatment (add-on to a clean)</td><td>+&pound;40</td></tr>
+        <tr><td>Anti-fog glass coating</td><td>+&pound;15</td></tr>
+        <tr><td>Glaco front windows, 1 year</td><td>+&pound;30</td></tr>
+        <tr><td>Engine bay detail</td><td>+&pound;30</td></tr>
+        <tr><td>Clay bar decontamination</td><td>+&pound;30</td></tr>
+        <tr><td>6-month ceramic sealant</td><td>+&pound;60</td></tr>
+        <tr><td>Paint enhancement &mdash; 1-stage machine polish</td><td>from +&pound;185</td></tr>
+        <tr><td>Ceramic coating &mdash; 1, 3 or 7 years (by request)</td><td>from +&pound;60</td></tr>
+      </table>
+      <p>Which add-ons you can pick depends on the service &mdash; each page&rsquo;s questionnaire shows the ones that apply and the exact price for your car.</p>
+      <p><strong>On odour:</strong> the +&pound;40 above is a 30-minute ultrasonic mist added to a clean you&rsquo;re already booking. The <a href="https://mobilepitstop.uk/cigarette/milk/bio-odour-removal">Odour Removal Treatment</a> is the full four-stage job, &pound;250&ndash;&pound;300.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Is there a pet hair surcharge?</summary>
+    <div class="a">
+      <p>Light pet hair is <strong>included</strong> in an Interior Deep Clean. The +&pound;50 add-on is for hair that&rsquo;s worked its way into the weave of the carpet and upholstery, where a vacuum alone won&rsquo;t shift it &mdash; we lift it out with specialist rubber tools and focused air agitation first, then vacuum through.</p>
+    </div>
+  </details>
+
+  <!-- ===================== BOOKING AND PAYMENT ===================== -->
+  <h2>Booking, payment &amp; cancellations</h2>
+
+  <details>
+    <summary>How do I book?</summary>
+    <div class="a">
+      <p>Two ways:</p>
+      <ul>
+        <li><strong>Online</strong> &mdash; pick your service, answer a few quick questions, and choose a slot on our live calendar. Ceramic coatings and unit services are requested instead, and we confirm the date with you.</li>
+        <li><strong>Call, text or WhatsApp</strong> &mdash; <a href="tel:+447592196929">07592&nbsp;196929</a></li>
+      </ul>
+      <p><a href="https://mobilepitstop.uk/all-services">Choose a service and book online</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Do you take a deposit?</summary>
+    <div class="a">
+      <p>Yes &mdash; a <strong>10% deposit</strong> is paid by card when you book, which is what holds the slot. It&rsquo;s taken off your final bill, and the balance is paid when the job is finished.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What&rsquo;s your cancellation policy?</summary>
+    <div class="a">
+      <p><strong>More than 24 hours&rsquo; notice:</strong> no charge. We&rsquo;ll move your booking or refund your deposit &mdash; just call, text or email us.</p>
+      <p><strong>Less than 24 hours&rsquo; notice, or we can&rsquo;t access the vehicle on the day:</strong> we&rsquo;ll always try to rebook you first. If that isn&rsquo;t possible and your 14-day cancellation period has already ended, we may keep your deposit to cover the lost slot.</p>
+      <p>As a consumer you also have a legal right to cancel within 14 days of booking. The full details are in our <a href="https://mobilepitstop.uk/terms-conditions">Terms &amp; Conditions</a>.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>How can I pay?</summary>
+    <div class="a">
+      <p>The <strong>10% deposit</strong> is paid by card when you book. The balance is paid when the job is finished, by cash, card (including Apple Pay and Google Pay) or bank transfer. Business invoices are available on request.</p>
+    </div>
+  </details>
+
+  <!-- ================== PREPARATION AND AFTERCARE ================== -->
+  <h2>Preparation &amp; aftercare</h2>
+
+  <details>
+    <summary>What do I need to provide?</summary>
+    <div class="a">
+      <p><strong>A standard 13A socket</strong> &mdash; we bring a 45m extension lead, so it doesn&rsquo;t need to be close by.</p>
+      <p>We carry our own water, so an outside tap is handy but not essential. We do need room to park the van within about 3m of the car, and enough space to work around it &mdash; which is why the booking form asks.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What should I do before my appointment?</summary>
+    <div class="a">
+      <p>Remove valuables, empty the pockets and boot, and unclip child seats if you want underneath them cleaned. That&rsquo;s it &mdash; we bring everything else.</p>
+      <p>Booking the Odour Removal Treatment? Have a new cabin air filter for your car ready, and we&rsquo;ll fit it at the end.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Do I need to be there while you work?</summary>
+    <div class="a">
+      <p>No. Plenty of customers leave the keys and get on with their day, or book us while they&rsquo;re at work. We just need access to the vehicle, somewhere to park alongside it, and a socket.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>How long until the seats are dry after shampooing?</summary>
+    <div class="a">
+      <p><strong>Touch dry when we leave.</strong> Extraction pulls the water back out, and we always finish with high-heat drying, so the car comes back dry rather than damp.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Will my leather be shiny afterwards?</summary>
+    <div class="a">
+      <p>No. Clean leather has a natural matt finish, and that&rsquo;s what we aim for. A greasy shine usually means product sitting on the surface rather than the leather being properly cleaned.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>How do I look after a ceramic coating?</summary>
+    <div class="a">
+      <p>Leave it unwashed for 7 days while it hardens, and out of the rain for the first 12 hours if you can. After that, <strong>no automatic car washes and no harsh detergents</strong> &mdash; a safe hand wash every few weeks keeps it performing for its full term.</p>
+      <p>If you&rsquo;d rather we kept on top of it, that&rsquo;s exactly what the <a href="https://mobilepitstop.uk/car-detailing-maintenance-plan">Maintenance Plan</a> is for.</p>
+    </div>
+  </details>
+
+  <!-- ==================== SAFETY AND LIABILITY ==================== -->
+  <h2>Safety, insurance &amp; products</h2>
+
+  <details>
+    <summary>Are you insured?</summary>
+    <div class="a">
+      <p>Yes &mdash; public liability and goods-in-custody insurance are both in place. Happy to provide details on request.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Are your products safe on my paint and interior?</summary>
+    <div class="a">
+      <p>Yes. Professional-grade, pH-appropriate, paint-safe and interior-safe throughout.</p>
+      <p>The wash <em>method</em> matters as much as the products: snow foam first to lift grit before anything touches the paint, then a two-bucket hand wash with grit guards and clean mitts. Grit dragged across the paint is what puts swirl marks in.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>What about delicate or fragile trims?</summary>
+    <div class="a">
+      <p>We&rsquo;ll flag any risk before starting and use the gentlest method that will do the job. Roof linings are a good example &mdash; they&rsquo;re fabric glued to board, so we clean them low-moisture rather than wet-extracting, because soaking one makes it sag.</p>
+    </div>
+  </details>
+
+  <!-- ================= FLEETS, GIFTS, SPECIAL ================= -->
+  <h2>Fleets, gifts &amp; special requests</h2>
+
+  <details>
+    <summary>Do you handle fleets or company cars?</summary>
+    <div class="a">
+      <p>Yes. Ask about fleet rates and scheduled maintenance &mdash; regular visits work out considerably cheaper per vehicle, and we can work around your site.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Do you sell gift vouchers?</summary>
+    <div class="a">
+      <p>Yes, digital or printed, available on request. Get in touch and we&rsquo;ll sort it.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>I want something not listed here</summary>
+    <div class="a">
+      <p>Tell us what you&rsquo;re after. Bespoke packages are welcome, and if what you need isn&rsquo;t something we do well, we&rsquo;ll say so rather than take the booking.</p>
+    </div>
+  </details>
+
+  <div class="cta">
+    <a href="https://mobilepitstop.uk/all-services">Book Online</a>
+    <a class="ghost" href="tel:+447592196929">Call 07592 196929</a>
+    <a class="ghost" href="https://wa.me/447592196929" target="_blank" rel="noopener">WhatsApp us</a>
+  </div>
+
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "@id": "https://mobilepitstop.uk/faqs#faq",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What do you actually do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We’re a mobile valeting and detailing service, with a unit in Birkenhead for the jobs that need to be done indoors.\nValeting — cleaning the car: Maintenance Wash, Interior Deep Clean, Exterior Detail and In & Out Deep Clean.\nDetailing — looking after the paintwork itself: Protection Detail, Enhancement Polish and Ceramic Coating.\nWe also do an Odour Removal Treatment for smoke, spilt milk, pets and biological spills. Multi-stage paint correction, paint protection film, vinyl wraps, window tinting and de-chrome are done at our unit, by quote. See all services."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What’s the difference between valeting and detailing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A valet cleans the car. Detailing corrects the paint — decontamination, clay bar and machine polishing to remove swirl marks and light scratches — then protects it.\nA simple test: look at the bonnet in direct sunlight. Fine circular scratches that look like cobwebs mean you want detailing. If it just looks dirty, you want a valet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do you operate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We cover Cheshire, Merseyside and Flintshire — roughly a 20 mile radius of Ellesmere Port, and travel is free within it.\nThat includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Prescot, Mold, Flint, Connah’s Quay, Buckley and the surrounding towns.\nSlightly outside? Message us and we’ll tell you honestly whether it works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you work in bad weather?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We work outdoors, so heavy rain, strong winds, freezing temperatures or extreme heat can make some work unsafe or affect the finish. If that happens we’ll contact you to rebook, at no cost to you. Light rain is usually fine for interior work.\nMachine polishing and ceramic coating need dry conditions, so those are the most weather-dependent — we’d rather move the date than compromise the finish. That’s why you request a date for a coating and we confirm it against the forecast."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Maintenance Wash — what’s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The regular wash that keeps a clean car clean, inside and out.\n- Snow foam pre-wash, so dirt is lifted before anything touches the paint\n- Two-bucket safe hand wash with grit guards\n- Wheels, tyres and arches cleaned, tyres dressed\n- Hand dried with plush microfibre, no water spots\n- Interior blow out and vacuum, dash and touch points wiped\n- Glass streak-free, inside and out\nBest for: keeping an already-clean car clean. If it’s been a while, start with an In & Out Deep Clean or an Interior Deep Clean. £60–£80."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Interior Deep Clean — what’s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A full interior reset.\n- Compressed air through seat rails, joins and vents\n- Deep vacuum — seats, carpets, mats, boot and edges\n- Mats, carpets and boot shampooed and extracted — included, not an add-on\n- Steam cleaning, so contact surfaces are sanitised, not just wiped\n- Crevices, seams and vents detailed by hand\n- Plastics scrubbed to a natural satin finish, never greasy\n- Door shuts and sills cleaned, interior glass streak-free\nWorth knowing: the seats are the add-on — cloth seats steamed, shampooed and extracted for +£30, leather or alcantara brushed through for +£40. Light pet hair is included. £90–£120."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Exterior Detail — what’s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A wash removes what’s sitting on the paint. This removes what’s bonded into it.\n- Snow foam pre-wash, then a two-bucket safe hand wash\n- Wheels, tyres and arches deep cleaned\n- Chemical decontamination — tar, iron fallout and road film\n- Glass compound polished\n- Hand dried, water traps cleared\n- 8-week protection wax — gloss, beading and easier washing\n- Tyres dressed\nExterior only — for inside and out, book the In & Out Deep Clean. Clay bar, paint enhancement, a 6-month ceramic sealant and a ceramic coating are all available on top. £70–£90."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "In & Out Deep Clean — what’s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The full reset in one visit: everything in the Exterior Detail and the Interior Deep Clean.\n- Complete Exterior Detail — decontamination and 8-week protection wax\n- Complete Interior Deep Clean — air, vacuum and steam\n- Mats, carpets and boot shampooed and extracted as standard\n- Glass cleaned inside and out\n- Plastics and trim scrubbed to a natural satin finish\nThe seats are vacuumed, blown out and wiped down; seat treatment is the add-on (+£30–£40). £140–£180."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Protection Detail — what’s different?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The In & Out Deep Clean with the seats done too, then the paint protected:\n- Everything in the In & Out Deep Clean\n- Full steam, shampoo and extraction — seats, mats, carpets and boot\n- Clay bar decontamination — paint left glass-smooth\n- 6-month ceramic sealant on all paint, in place of the wax\n- Glaco hydrophobic coating on the glass\nIt protects the paint you’ve got rather than correcting it — add paint enhancement (from +£185, £30 less here because the clay bar is already included) if you want the swirls gone. £210–£250."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Enhancement Polish — what does it remove?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A single machine polishing stage for paint that looks dull, hazy or swirled in direct light. It removes most of the light damage — swirl marks, light scratches and water marks — and brings back depth, gloss and clarity, on your driveway in a day.\n- Snow foam pre-wash and two-bucket safe hand wash\n- Chemical decontamination and clay bar — included, not extra\n- Paint depth measured and a test section polished first\n- Trims and badges masked, then a single-stage machine polish across all paint panels\n- Finish inspected under a dedicated inspection light\n- 8-week protection wax to finish\nIt won’t remove a scratch you can catch a fingernail in — that needs multi-stage paint correction at our unit, by quote. A 6-month ceramic sealant (+£30) or a ceramic coating (from +£90) makes the result last. £285–£385."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ceramic Coating — how long does it last, and what’s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You choose 1, 3 or 7 years. Each price is the whole job — the prep, the clay bar, Glaco on the glass and the coating itself:\nCeramic Coating, 1 year — from £190\nCeramic Coating, 3 years — from £270\nCeramic Coating, 7 years — from £370\nIncluded: snow foam and safe hand wash, wheels and arches, chemical decontamination and clay bar, a panel wipe, the coating on all paint, Glaco on the glass, and aftercare guidance. A coating locks in whatever is underneath it, so if the paint is swirled, add paint enhancement first (from +£185).\nCoatings need dry weather to cure, so you request a date and we confirm it against the forecast. It won’t stop stone chips — for that you want paint protection film. See Ceramic Coating."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Odour Removal Treatment — how does it work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Air fresheners mask a smell; this removes it, in four stages in one visit:\n- Stage 1 — steam clean with enzyme or chlorine (chosen for the odour), then full extraction of the seats, carpets, mats, boot and headliner\n- Stage 2 — air-con system foam clean\n- Stage 3 — ozone treatment, 1 hr 30 min\n- Stage 4 — ultrasonic purifying, disinfecting mist\nIt’s one treatment for cigarette smoke, spilt milk, pets and biological spills, and the price depends only on the size of the car. £250–£300.\nBefore your appointment: please have a new cabin air filter for your car ready. We take the old one out before the treatment and fit your new one at the end, so nothing old is blown back into a freshly treated car."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do you do at your unit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multi-stage paint correction, paint protection film (PPF), vinyl wraps, window tinting and de-chrome are done indoors at our unit in Birkenhead. Each one is by quote — send us a few photos in daylight and we’ll price it. See all services."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer a maintenance plan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Start with a deep clean to reset the car, we agree how often suits it, then you get a discount code worth up to 30% off every visit:\nEvery week — 30% off\nEvery 2–3 weeks — 25% off\nEvery 4–6 weeks — 20% off\nEvery plan visit also includes free chemical decontamination, and the discount applies to add-ons too. No contract and no direct debit — change or stop whenever you like.\nPast six weeks a Maintenance Wash won’t hold a car, so we cap the plan there and point you at the right service instead of selling you the wrong one cheap. See how the plan works."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does each service take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Maintenance Wash — around 75 min\nExterior Detail — about 1½ hrs\nInterior Deep Clean — 3–5 hrs\nIn & Out Deep Clean — 3–5 hrs\nProtection Detail — 4–6 hrs\nEnhancement Polish — a day\nCeramic Coating — most of the day\nMulti-stage paint correction — overnight at our unit\nTimes vary with vehicle size and condition, plus time to set up and pack down. Add-ons extend a job, and the booking calendar already allows for whatever you pick, so the times you’re offered are ones the whole job fits into."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are your prices fixed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Prices vary by vehicle size. Use the questionnaire on any service page and you’ll see your exact total, including add-ons and any discount code, before you book anything.\nVans, pick-ups and campervans are by quote, and so are the unit services. Anything extra is always quoted up front, never added afterwards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What add-ons do you offer, and what do they cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seat treatment — cloth — +£30\nSeat treatment — leather or alcantara — +£40\nSeat protection (Gtechniq / CQuartz) — from +£100\nHeavy pet hair removal — +£50\nHeavy sand removal — +£50\nRoof lining clean — +£25\nUltrasonic odour treatment (add-on to a clean) — +£40\nAnti-fog glass coating — +£15\nGlaco front windows, 1 year — +£30\nEngine bay detail — +£30\nClay bar decontamination — +£30\n6-month ceramic sealant — +£60\nPaint enhancement — 1-stage machine polish — from +£185\nCeramic coating — 1, 3 or 7 years (by request) — from +£60\nWhich add-ons you can pick depends on the service — each page’s questionnaire shows the ones that apply and the exact price for your car.\nOn odour: the +£40 above is a 30-minute ultrasonic mist added to a clean you’re already booking. The Odour Removal Treatment is the full four-stage job, £250–£300."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a pet hair surcharge?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Light pet hair is included in an Interior Deep Clean. The +£50 add-on is for hair that’s worked its way into the weave of the carpet and upholstery, where a vacuum alone won’t shift it — we lift it out with specialist rubber tools and focused air agitation first, then vacuum through."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two ways:\n- Online — pick your service, answer a few quick questions, and choose a slot on our live calendar. Ceramic coatings and unit services are requested instead, and we confirm the date with you.\n- Call, text or WhatsApp — 07592 196929\nChoose a service and book online."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you take a deposit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — a 10% deposit is paid by card when you book, which is what holds the slot. It’s taken off your final bill, and the balance is paid when the job is finished."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What’s your cancellation policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "More than 24 hours’ notice: no charge. We’ll move your booking or refund your deposit — just call, text or email us.\nLess than 24 hours’ notice, or we can’t access the vehicle on the day: we’ll always try to rebook you first. If that isn’t possible and your 14-day cancellation period has already ended, we may keep your deposit to cover the lost slot.\nAs a consumer you also have a legal right to cancel within 14 days of booking. The full details are in our Terms & Conditions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I pay?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The 10% deposit is paid by card when you book. The balance is paid when the job is finished, by cash, card (including Apple Pay and Google Pay) or bank transfer. Business invoices are available on request."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What do I need to provide?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A standard 13A socket — we bring a 45m extension lead, so it doesn’t need to be close by.\nWe carry our own water, so an outside tap is handy but not essential. We do need room to park the van within about 3m of the car, and enough space to work around it — which is why the booking form asks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do before my appointment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Remove valuables, empty the pockets and boot, and unclip child seats if you want underneath them cleaned. That’s it — we bring everything else.\nBooking the Odour Removal Treatment? Have a new cabin air filter for your car ready, and we’ll fit it at the end."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to be there while you work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Plenty of customers leave the keys and get on with their day, or book us while they’re at work. We just need access to the vehicle, somewhere to park alongside it, and a socket."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long until the seats are dry after shampooing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Touch dry when we leave. Extraction pulls the water back out, and we always finish with high-heat drying, so the car comes back dry rather than damp."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will my leather be shiny afterwards?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Clean leather has a natural matt finish, and that’s what we aim for. A greasy shine usually means product sitting on the surface rather than the leather being properly cleaned."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I look after a ceramic coating?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Leave it unwashed for 7 days while it hardens, and out of the rain for the first 12 hours if you can. After that, no automatic car washes and no harsh detergents — a safe hand wash every few weeks keeps it performing for its full term.\nIf you’d rather we kept on top of it, that’s exactly what the Maintenance Plan is for."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are you insured?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — public liability and goods-in-custody insurance are both in place. Happy to provide details on request."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are your products safe on my paint and interior?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Professional-grade, pH-appropriate, paint-safe and interior-safe throughout.\nThe wash method matters as much as the products: snow foam first to lift grit before anything touches the paint, then a two-bucket hand wash with grit guards and clean mitts. Grit dragged across the paint is what puts swirl marks in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about delicate or fragile trims?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We’ll flag any risk before starting and use the gentlest method that will do the job. Roof linings are a good example — they’re fabric glued to board, so we clean them low-moisture rather than wet-extracting, because soaking one makes it sag."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle fleets or company cars?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Ask about fleet rates and scheduled maintenance — regular visits work out considerably cheaper per vehicle, and we can work around your site."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you sell gift vouchers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, digital or printed, available on request. Get in touch and we’ll sort it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I want something not listed here",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tell us what you’re after. Bespoke packages are welcome, and if what you need isn’t something we do well, we’ll say so rather than take the booking."
+      }
+    }
+  ]
+}
+</script>
