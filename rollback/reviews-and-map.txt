@@ -44,7 +44,7 @@
   .mps-rvm-slot{ min-height:140px; }
   .mps-rvm-wait{
     padding:30px 16px; text-align:center;
-    font-size:13.5px; color:rgba(255,255,255,.72);
+    font-size:13.5px; color:rgba(255,255,255,.45);
   }
 
   .mps-rvm-areas{
