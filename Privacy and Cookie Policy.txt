@@ -1,6 +1,6 @@
 <!-- MobilePitStop – Privacy & Cookie Policy
-     Paste into a Code Block on /privacy-policy (replace the old text).
-     Last updated 17 September 2026. Not legal advice — review before publishing. -->
+     Paste into the Code Block on /privacy-policy-cookie-policy (replace the old code).
+     Last updated 9 October 2026. Not legal advice — review before publishing. -->
 <style>
   .mpl{
     --mpl-text:#fff; --mpl-muted:rgba(255,255,255,.74); --mpl-faint:rgba(255,255,255,.5);
@@ -62,7 +62,7 @@
 <div class="mpl" id="mplPrivacy">
   <p class="mpl-kicker">Legal</p>
   <h1>Privacy &amp; Cookie Policy</h1>
-  <p class="mpl-updated">Last updated: 17 September 2026</p>
+  <p class="mpl-updated">Last updated: 9 October 2026</p>
 
   <p>This policy explains what personal information MobilePitStop collects when you visit our website, book a valet or get in touch, what we do with it, and the choices you have.</p>
 
@@ -70,7 +70,7 @@
     <ul>
       <li>We collect what we need to book and carry out your valet, take payment and keep our accounts, plus website statistics and, only with your consent, advertising and marketing data.</li>
       <li>We never sell your information.</li>
-      <li>On our website, advertising cookies only run if you accept them, and you can change your mind at any time. Our booking page works differently (see <a href="#pp-booking">section 9</a>).</li>
+      <li>On our website, advertising cookies only run if you accept them, and you can change your mind at any time. If you use a reschedule or cancel link from your confirmation email, you&rsquo;ll visit our Acuity booking page, which works differently (see <a href="#pp-booking">section 9</a>).</li>
       <li>Marketing emails are opt-in, and every email has an unsubscribe link.</li>
     </ul>
   </div>
@@ -109,6 +109,7 @@
     <li><strong>Payment details:</strong> the amounts you pay and how. Card payments are handled by our payment provider. We never see or store your full card number.</li>
     <li><strong>Discount codes:</strong> any promotional or Maintenance Plan code you use.</li>
     <li><strong>Marketing choice:</strong> whether you have opted in to marketing emails.</li>
+    <li><strong>Terms:</strong> your agreement to our Terms &amp; Conditions, and when you gave it.</li>
   </ul>
   <h3>When you contact us</h3>
   <p>Anything you send us by phone, text, WhatsApp, email or social media messages, including photos of your vehicle.</p>
@@ -158,7 +159,7 @@
     </div>
     <div class="mpl-row">
       <p class="t">Measuring our advertising</p>
-      <p class="d">Finding out which Google, Meta (Facebook and Instagram) and Reddit adverts lead people to book with us. On our website this only happens if you accept advertising cookies. Where our website has your email address, a scrambled (hashed) copy may be shared with Google and Reddit to match it to an advert. Our booking page is covered in <a href="#pp-booking">section 9</a>.</p>
+      <p class="d">Finding out which Google adverts lead people to book with us. On our website this only happens if you accept advertising cookies. Where our website has your email address, a scrambled (hashed) copy may be shared with Google to match it to an advert. Our booking page is covered in <a href="#pp-booking">section 9</a>.</p>
       <span class="tag y">Consent (website)</span>
     </div>
     <div class="mpl-row">
@@ -168,7 +169,7 @@
     </div>
     <div class="mpl-row">
       <p class="t">Stopping spam and fraud</p>
-      <p class="d">Checking that bookings come from real people, for example with Google reCAPTCHA on our booking page.</p>
+      <p class="d">Checking that bookings come from real people, for example with Google reCAPTCHA on our Acuity booking page.</p>
       <span class="tag">Legitimate interests</span>
     </div>
   </div>
@@ -179,20 +180,19 @@
   <h2 id="pp-share">4. Who we share it with</h2>
   <p>We never sell your personal information. We only share it with the companies that help us run the business, and only as much as they need:</p>
   <ul>
-    <li><strong>Squarespace</strong> – hosts our website and runs our booking system (Acuity Scheduling), including booking confirmation and reminder emails.</li>
-    <li><strong>Square</strong> – processes card payments.</li>
+    <li><strong>Squarespace</strong> – hosts our website, runs our booking calendar (Acuity Scheduling) including booking confirmation and reminder emails, and sends our marketing emails (Squarespace Email Campaigns) if you've opted in.</li>
+    <li><strong>Stripe</strong> – takes your deposit and any card payments, including payment links for the balance. We never see or store your full card number.</li>
+    <li><strong>Make</strong> – connects our booking form to our payment and booking systems, passing your booking details between them.</li>
     <li><strong>Google</strong> – email (Gmail), website statistics (Google Analytics), advertising measurement (Google Ads and Tag Manager), spam protection (reCAPTCHA), and our Google Business Profile and Maps.</li>
-    <li><strong>Meta</strong> – advertising measurement for Facebook and Instagram (on our website only with your consent; see <a href="#pp-booking">section 9</a> for our booking page), and WhatsApp if you message us there.</li>
-    <li><strong>Reddit</strong> – advertising measurement (only with your consent).</li>
+    <li><strong>Meta</strong> – WhatsApp if you message us there, and Facebook or Instagram if you message us there.</li>
     <li><strong>Website widget providers</strong> – such as Elfsight, for content shown on some of our pages.</li>
-    <li><strong>Email marketing provider</strong> – only if you have opted in.</li>
     <li><strong>Our accountant, HMRC, insurers and legal advisers</strong> – where needed for tax, insurance or a claim.</li>
     <li><strong>Police or other authorities</strong> – only if the law requires it.</li>
   </ul>
   <p>Photos and videos of our work may appear on Instagram, Facebook, TikTok and YouTube, without your personal details.</p>
 
   <h2 id="pp-transfers">5. Transfers outside the UK</h2>
-  <p>Some of the companies above (including Squarespace, Google, Meta and Reddit) store or access information in the United States or other countries. When that happens, the transfer is protected by safeguards recognised under UK data protection law, such as the UK–US data bridge or contract terms approved for UK transfers. Email us if you'd like a copy of the safeguards we rely on.</p>
+  <p>Some of the companies above (including Squarespace, Google, Stripe and Meta) store or access information in the United States or other countries. When that happens, the transfer is protected by safeguards recognised under UK data protection law, such as the UK–US data bridge or contract terms approved for UK transfers. Email us if you'd like a copy of the safeguards we rely on.</p>
 
   <h2 id="pp-keep">6. How long we keep it</h2>
   <div class="mpl-rows">
@@ -253,7 +253,9 @@
     <div class="mpl-row"><p class="t">test</p><p class="d">Squarespace. Checks your browser accepts cookies. Deleted when you close your browser.</p></div>
     <div class="mpl-row"><p class="t">mps_consent</p><p class="d">MobilePitStop. Remembers your cookie choices. Kept for 12 months.</p></div>
     <div class="mpl-row"><p class="t">mps_promo_code</p><p class="d">MobilePitStop. Remembers a discount code you entered while you move between pages. Deleted when you close the tab.</p></div>
+    <div class="mpl-row"><p class="t">mps_conv_…</p><p class="d">MobilePitStop. Stops a completed booking being counted twice in our statistics. Kept until you clear your browser storage.</p></div>
   </div>
+  <p>When you pay your deposit, Stripe's secure checkout page uses its own essential cookies.</p>
 
   <h3>Statistics – on unless you switch them off</h3>
   <div class="mpl-rows">
@@ -265,14 +267,10 @@
   <h3>Advertising – only if you accept</h3>
   <div class="mpl-rows">
     <div class="mpl-row"><p class="t">_gcl_au, _gcl_ls, captured_gclid</p><p class="d">Google Ads. Links a booking to the Google advert you clicked. 90 days, or until you clear your browser storage.</p></div>
-    <div class="mpl-row"><p class="t">_fbp</p><p class="d">Meta. Measures Facebook and Instagram adverts. 90 days.</p></div>
-    <div class="mpl-row"><p class="t">_rdt_uuid, _rdt_em</p><p class="d">Reddit. Measures Reddit adverts. _rdt_em holds a scrambled (hashed) email address, never the address itself. 90 days.</p></div>
   </div>
 
   <h3 id="pp-booking">Our booking page</h3>
-  <p>Bookings are made on our Acuity Scheduling page at mobilepitstop.as.me, run by Squarespace on a separate web address. It uses its own essential cookies to take your booking and payment, and Google reCAPTCHA to block spam.</p>
-  <p>It also runs <strong>Google Analytics, Google Ads and the Meta pixel</strong>, which tell us when a booking is completed and which advert led to it. Our cookie banner can't control that page, so these run when you open it.</p>
-  <p>To limit this tracking, you can use the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out add-on</a>, <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Google's My Ad Center</a>, your <a href="https://www.facebook.com/adpreferences" target="_blank" rel="noopener">Facebook ad preferences</a>, or your browser's privacy settings. You can also book by phone or WhatsApp on <a href="tel:+447592196929">07592 196929</a> instead. See <a href="https://www.squarespace.com/privacy" target="_blank" rel="noopener">Squarespace's privacy policy</a> for more about the booking page.</p>
+  <p>Bookings are made on our own website. Your confirmation email includes links to reschedule or cancel, which open our Acuity Scheduling page at mobilepitstop.as.me, run by Squarespace on a separate web address. That page uses its own essential cookies and Google reCAPTCHA, and runs Google Analytics and Google Ads. Our cookie banner can't control that page. To limit this tracking you can use the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out add-on</a>, <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Google's My Ad Center</a> or your browser's privacy settings, or reschedule or cancel by phone, text, WhatsApp or email on <a href="tel:+447592196929">07592 196929</a> instead.</p>
 
   <h2 id="pp-changes">10. Changes and contact</h2>
   <p>We'll update this policy when the way we use information changes, and change the date at the top. If a change affects you significantly, we'll let you know.</p>
@@ -283,5 +281,5 @@
     <p>Email: <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></p>
     <p>Phone: <a href="tel:+447592196929">07592 196929</a></p>
   </div>
-  <p style="margin-top:14px">See also our <a href="/terms-and-conditions">Terms &amp; Conditions</a>.</p>
+  <p style="margin-top:14px">See also our <a href="/terms-conditions">Terms &amp; Conditions</a>.</p>
 </div>
