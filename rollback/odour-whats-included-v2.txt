@@ -1,0 +1,894 @@
+<!-- Resource hints for Squarespace images -->
+<link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
+<link rel="dns-prefetch" href="//images.squarespace-cdn.com">
+
+<!-- MobilePitStop: Learn More — Odour Removal Treatment
+     One 4-stage service (the chlorine dioxide option is gone):
+       1 steam clean with enzyme or chlorine + full extraction
+       2 air-con system foam clean
+       3 ozone treatment, 1 hr 30 min
+       4 ultrasonic purifying, disinfecting mist
+     Customer supplies a new cabin air filter; we fit it at the end.
+     Prices (3-door £250 / 5-door £270 / 7-seater £300) live in the
+     questionnaire above, so none are shown here. -->
+<style>
+  :root{
+    --mps-bg:#000000;
+    --mps-text:#FFFFFF;
+    --mps-accent:#E3FC02;
+    --mps-border:#FFFFFF;
+    --radius:14px;
+    --gap:20px;
+    --accent-ink:#0b0b0b;
+  }
+
+  .mps-services{
+    max-width:1100px;
+    margin:0 auto;
+    padding:40px 20px;
+    color:var(--mps-text);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    line-height:1.6;
+    background:rgba(0,0,0,.5);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+    border-radius:16px;
+  }
+
+  .mps-title{
+    color:var(--mps-accent);
+    font-size:clamp(28px,5vw,40px);
+    font-weight:900;
+    line-height:1.15;
+    text-align:center;
+    margin:0 0 10px;
+  }
+
+  .mps-subnote{
+    text-align:center;
+    color:#FFFFFFCC;
+    font-size:14px;
+    margin:0 0 26px;
+  }
+
+  .mps-visual-grid{
+    display:grid;
+    gap:14px;
+    grid-template-columns:1fr;
+  }
+
+  @media (min-width:760px){
+    .mps-visual-grid{
+      grid-template-columns:repeat(4,1fr);
+    }
+  }
+
+  .mps-vcard{
+    background:transparent;
+    border:1.5px solid var(--mps-border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .mps-vmedia{
+    position:relative;
+    aspect-ratio:16/10;
+    background:#0b0b0b;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .mps-vmedia img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    background:#0b0b0b;
+  }
+
+  .mps-vbadge{
+    position:absolute;
+    top:10px;
+    left:10px;
+    z-index:2;
+    background:var(--mps-accent);
+    color:#0b0b0b;
+    font-weight:900;
+    font-size:12px;
+    padding:6px 10px;
+    border-radius:999px;
+    box-shadow:0 6px 16px rgba(227,252,2,.35);
+  }
+
+  .mps-vbody{
+    padding:12px 14px 14px;
+  }
+
+  .mps-vbody h3{
+    margin:0 0 6px;
+    font-size:17px;
+    color:var(--mps-accent);
+    font-weight:900;
+  }
+
+  .mps-vbody p{
+    margin:0;
+    font-size:14px;
+    color:#e9e9e9;
+  }
+
+  .mps-switch-wrap{
+    margin:26px 0 18px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .mps-switch{
+    display:flex;
+    gap:10px;
+    padding:8px;
+    border:1.5px solid rgba(255,255,255,.22);
+    border-radius:999px;
+    background:rgba(0,0,0,.35);
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .mps-switch button{
+    appearance:none;
+    border:1.5px solid rgba(227,252,2,.45);
+    background:transparent;
+    color:var(--mps-accent);
+    border-radius:999px;
+    padding:10px 16px;
+    font-weight:950;
+    cursor:pointer;
+    transition:all .22s ease;
+  }
+
+  .mps-switch button:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 18px rgba(227,252,2,.12);
+  }
+
+  .mps-switch button.active{
+    background:var(--mps-accent);
+    color:var(--accent-ink);
+    box-shadow:0 10px 24px rgba(227,252,2,.26);
+  }
+
+  .mps-card{
+    background:transparent;
+    border:1.5px solid var(--mps-border);
+    border-radius:var(--radius);
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .mps-card h3{
+    margin:0;
+    font-size:22px;
+    color:var(--mps-accent);
+    font-weight:900;
+  }
+
+  .mps-sectionhead{
+    margin:14px 0 10px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+
+  .mps-sectionhead h4{
+    margin:0;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:950;
+    color:#ffffffcc;
+  }
+
+  .mps-sectionpill{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:5px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:900;
+    color:var(--accent-ink);
+    background:var(--mps-accent);
+    box-shadow:0 6px 16px rgba(227,252,2,.25);
+    white-space:nowrap;
+  }
+
+  .mps-treatment-panel{
+    display:none;
+  }
+
+  .mps-treatment-panel.active{
+    display:block;
+  }
+
+  .mps-acc{
+    border:1.5px solid var(--mps-border);
+    border-radius:12px;
+    overflow:hidden;
+    background:transparent;
+    margin-top:10px;
+    margin-bottom:14px;
+  }
+
+  .mps-acc details{
+    margin:0;
+    border-top:1px solid rgba(255,255,255,.25);
+  }
+
+  .mps-acc details:first-of-type{
+    border-top:none;
+  }
+
+  .mps-acc summary{
+    list-style:none;
+    cursor:pointer;
+    padding:12px 14px;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--mps-text);
+  }
+
+  .mps-acc summary::-webkit-details-marker{
+    display:none;
+  }
+
+  .mps-acc .plus{
+    margin-left:auto;
+    width:18px;
+    height:18px;
+    position:relative;
+    flex:0 0 18px;
+  }
+
+  .mps-acc .plus::before,
+  .mps-acc .plus::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    margin:auto;
+    width:16px;
+    height:2px;
+    background:var(--mps-border);
+  }
+
+  .mps-acc .plus::after{
+    transform:rotate(90deg);
+    transition:transform .2s ease;
+  }
+
+  .mps-acc details[open] .plus::after{
+    transform:rotate(0deg);
+  }
+
+  .mps-acc .content{
+    padding:10px 14px 12px;
+    color:#FFFFFF;
+    border-top:1px solid rgba(255,255,255,.15);
+  }
+
+  .mps-acc .content p{
+    margin:0;
+    color:#e2e2e2;
+    font-size:14px;
+  }
+
+  .mps-acc .content ul{
+    padding-left:18px;
+    margin:10px 0 0;
+  }
+
+  .mps-acc .content li{
+    line-height:1.45;
+    max-width:100%;
+  }
+
+  .mps-warning{
+    margin-top:12px;
+    padding:12px;
+    border-radius:12px;
+    border:1px solid rgba(255,184,0,.35);
+    background:rgba(255,184,0,.06);
+    color:#e6e6e6;
+    font-size:14px;
+    line-height:1.5;
+  }
+
+  .mps-warning strong{
+    color:#ffcf5a;
+  }
+
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 0 rgba(227,252,2,0); }
+    50%{ box-shadow:0 0 12px rgba(227,252,2,0.6),0 0 24px rgba(227,252,2,0.4); }
+  }
+
+  .mps-btn{
+    display:block;
+    margin-top:22px;
+    margin-bottom:16px;
+    padding:14px;
+    border-radius:12px;
+    text-align:center;
+    font-weight:900;
+    text-decoration:none;
+    border:2px solid var(--mps-accent);
+    color:var(--mps-accent);
+    background:transparent;
+    transition:all .25s ease-in-out;
+    animation:pulseGlow 3s infinite ease-in-out;
+  }
+
+  .mps-btn:hover{
+    background:var(--mps-accent);
+    color:var(--mps-bg);
+    box-shadow:0 0 14px rgba(227,252,2,0.9),0 0 28px rgba(227,252,2,0.6);
+    transform:translateY(-2px);
+  }
+
+  .mps-trust{
+    display:grid;
+    gap:12px;
+    margin-top:22px;
+    text-align:center;
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  @media (min-width:700px){
+    .mps-trust{
+      grid-template-columns:repeat(4,1fr);
+    }
+  }
+
+  .mps-pill{
+    border:1.5px dashed var(--mps-border);
+    border-radius:12px;
+    padding:12px;
+  }
+
+  .mps-pill strong{
+    display:block;
+    color:var(--mps-accent);
+    margin-bottom:4px;
+  }
+
+  .mps-faqs{
+    max-width:1100px;
+    margin:40px auto 0;
+    padding:0 20px;
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  }
+
+  .mps-faqs h3{
+    color:var(--mps-accent);
+    font-size:22px;
+    font-weight:900;
+    margin-bottom:14px;
+    text-align:center;
+  }
+
+  .mps-areas{
+    display:grid;
+    gap:14px;
+    margin-top:8px;
+  }
+
+  @media (min-width:700px){
+    .mps-areas{
+      grid-template-columns:repeat(3,1fr);
+    }
+  }
+
+  .mps-areas h4{
+    margin:0 0 6px;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:.02em;
+    color:var(--mps-accent);
+  }
+
+  .mps-areas ul{
+    margin:0;
+    padding-left:18px;
+  }
+
+  .mps-areas li{
+    margin:4px 0;
+  }
+
+  .mps-nearby{
+    margin-top:12px;
+    color:var(--mps-accent);
+    font-weight:800;
+  }
+
+  .mps-infobar{
+    margin-top:30px;
+    background:rgba(0,0,0,.6);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+    color:#FFFFFF;
+  }
+
+  .mps-infobar-inner{
+    max-width:1100px;
+    margin:0 auto;
+    padding:18px 20px;
+    border:1.5px solid #FFFFFF;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+
+  .mps-infobar h4{
+    margin:0;
+    font-size:18px;
+    font-weight:900;
+    color:var(--mps-accent);
+  }
+
+  .mps-contacts{
+    margin-left:auto;
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:15px;
+  }
+
+  .mps-contacts span{
+    white-space:nowrap;
+  }
+
+  .mps-infobar a{
+    color:var(--mps-accent);
+    text-decoration:none;
+    font-weight:800;
+    border-bottom:1px solid transparent;
+    transition:border-color .2s ease;
+  }
+
+  .mps-infobar a:hover{
+    border-bottom-color:var(--mps-accent);
+  }
+
+  @media (max-width:700px){
+    .mps-infobar-inner{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:10px;
+    }
+
+    .mps-contacts{
+      margin-left:0;
+      gap:12px;
+    }
+  }
+
+  /* ✅ Mobile alignment + cleaner button/pill styling */
+@media (max-width:700px){
+
+  .mps-services,
+  .mps-faqs{
+    width:100%;
+    max-width:100%;
+    padding-left:14px;
+    padding-right:14px;
+    overflow:hidden;
+  }
+
+  .mps-title{
+    font-size:28px;
+    line-height:1.1;
+  }
+
+  .mps-subnote{
+    font-size:13px;
+    margin-bottom:20px;
+  }
+
+  .mps-switch-wrap{
+    margin:24px 0 18px;
+  }
+
+  .mps-switch{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+    padding:12px;
+    border-radius:22px;
+    background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 14px 34px rgba(0,0,0,.35);
+  }
+
+  .mps-switch button{
+    width:100%;
+    min-height:46px;
+    padding:12px 14px;
+    border-radius:999px;
+    font-size:13px;
+    text-align:center;
+    white-space:normal;
+  }
+
+  .mps-switch button.active{
+    background:linear-gradient(135deg, #E3FC02 0%, #d6ff6b 100%);
+    color:#0b0b0b;
+    box-shadow:0 10px 22px rgba(227,252,2,.28);
+  }
+
+  .mps-card{
+    padding:14px;
+    width:100%;
+    max-width:100%;
+  }
+
+  .mps-card h3{
+    font-size:20px;
+    line-height:1.15;
+    overflow-wrap:anywhere;
+  }
+
+  .mps-sectionhead{
+    align-items:flex-start;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .mps-sectionpill{
+    max-width:100%;
+    white-space:normal;
+    text-align:center;
+    line-height:1.25;
+  }
+
+  .mps-acc summary{
+    font-size:14px;
+    line-height:1.25;
+  }
+
+  .mps-acc .content{
+    font-size:14px;
+  }
+
+  .mps-btn{
+    width:100%;
+    margin-top:20px;
+    padding:15px 16px;
+    border-radius:14px;
+  }
+
+  .mps-trust{
+    grid-template-columns:1fr;
+    gap:10px;
+    margin-top:18px;
+  }
+
+  .mps-pill{
+    width:100%;
+    display:block;
+    text-align:left;
+    font-size:13px;
+    line-height:1.35;
+    padding:12px 14px;
+    border-radius:14px;
+    border:1px solid rgba(227,252,2,.32);
+    background:rgba(227,252,2,.045);
+  }
+
+  .mps-pill strong{
+    display:block;
+    margin-bottom:3px;
+  }
+
+  .mps-infobar-inner{
+    width:100%;
+  }
+
+  .mps-contacts span{
+    white-space:normal;
+  }
+}
+
+/* ✅ Extra small phone polish */
+@media (max-width:420px){
+
+  .mps-services{
+    padding:32px 12px;
+    border-radius:14px;
+  }
+
+  .mps-visual-grid{
+    gap:12px;
+  }
+
+  .mps-vbody h3{
+    font-size:16px;
+  }
+
+  .mps-vbody p{
+    font-size:13px;
+  }
+
+  .mps-warning{
+    font-size:13px;
+  }
+}
+</style>
+
+<section class="mps-services" id="learnMoreOdourRemoval">
+  <h2 class="mps-title">What&rsquo;s in the Odour Removal Treatment</h2>
+  <p class="mps-subnote">Four stages in one visit &mdash; the source cleaned out, the air system cleaned, then the whole cabin treated and disinfected.</p>
+
+  <div class="mps-visual-grid">
+    <article class="mps-vcard">
+      <div class="mps-vmedia">
+        <span class="mps-vbadge">Enzyme Cleaner</span>
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ebab8b15-b347-42ad-96c3-01ac209e44a8/enzyme+cleaner+spray+on+the+seats.png?content-type=image%2Fpng"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ebab8b15-b347-42ad-96c3-01ac209e44a8/enzyme+cleaner+spray+on+the+seats.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ebab8b15-b347-42ad-96c3-01ac209e44a8/enzyme+cleaner+spray+on+the+seats.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ebab8b15-b347-42ad-96c3-01ac209e44a8/enzyme+cleaner+spray+on+the+seats.png?format=1000w 1000w"
+             sizes="(max-width: 640px) 92vw, 460px"
+             alt="Enzyme cleaner sprayed onto car seats" loading="lazy" decoding="async">
+      </div>
+      <div class="mps-vbody">
+        <h3>Stage 1 &mdash; source broken down</h3>
+        <p>Enzyme or chlorine, chosen for the odour, breaks down what&rsquo;s causing the smell before anything is extracted.</p>
+      </div>
+    </article>
+
+    <article class="mps-vcard">
+      <div class="mps-vmedia">
+        <span class="mps-vbadge">Headliner</span>
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9286a1e9-fe88-430d-beb8-74b33ba66666/enzyme+cleaner+spray+on+the+headliner.png?content-type=image%2Fpng"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9286a1e9-fe88-430d-beb8-74b33ba66666/enzyme+cleaner+spray+on+the+headliner.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9286a1e9-fe88-430d-beb8-74b33ba66666/enzyme+cleaner+spray+on+the+headliner.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9286a1e9-fe88-430d-beb8-74b33ba66666/enzyme+cleaner+spray+on+the+headliner.png?format=1000w 1000w"
+             sizes="(max-width: 640px) 92vw, 460px"
+             alt="Enzyme cleaner sprayed onto vehicle headliner" loading="lazy" decoding="async">
+      </div>
+      <div class="mps-vbody">
+        <h3>Headliner treatment</h3>
+        <p>Roof lining is treated carefully because odours often rise and settle into upper fabrics.</p>
+      </div>
+    </article>
+
+    <article class="mps-vcard">
+      <div class="mps-vmedia">
+        <span class="mps-vbadge">Steam Extraction</span>
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/62924f86-2e8d-45b7-a643-0faf52cb1983/steam%2C+shampoo+and+extraction.png?content-type=image%2Fpng"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/62924f86-2e8d-45b7-a643-0faf52cb1983/steam%2C+shampoo+and+extraction.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/62924f86-2e8d-45b7-a643-0faf52cb1983/steam%2C+shampoo+and+extraction.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/62924f86-2e8d-45b7-a643-0faf52cb1983/steam%2C+shampoo+and+extraction.png?format=1000w 1000w"
+             sizes="(max-width: 640px) 92vw, 460px"
+             alt="Steam shampoo and extraction on car carpets" loading="lazy" decoding="async">
+      </div>
+      <div class="mps-vbody">
+        <h3>Stage 1 &mdash; steam &amp; full extraction</h3>
+        <p>Steam, shampoo and extraction pull the residue out of the seats, carpets, mats, boot and headliner.</p>
+      </div>
+    </article>
+
+    <article class="mps-vcard">
+      <div class="mps-vmedia">
+        <span class="mps-vbadge">Ozone Treatment</span>
+        <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/35771523-e4f1-493d-bd18-838e00758fbd/ozone+treatment.png?content-type=image%2Fpng"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/35771523-e4f1-493d-bd18-838e00758fbd/ozone+treatment.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/35771523-e4f1-493d-bd18-838e00758fbd/ozone+treatment.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/35771523-e4f1-493d-bd18-838e00758fbd/ozone+treatment.png?format=1000w 1000w"
+             sizes="(max-width: 640px) 92vw, 460px"
+             alt="Ozone generator treatment inside a car" loading="lazy" decoding="async">
+      </div>
+      <div class="mps-vbody">
+        <h3>Stage 3 &mdash; ozone, 1 hr 30 min</h3>
+        <p>Ozone circulated through the cabin breaks down what&rsquo;s left in the fabric and foam &mdash; removed, not masked.</p>
+      </div>
+    </article>
+  </div>
+
+  <article class="mps-card mps-treatment-panel active" data-treatment-panel="four-stage">
+    <h3>The Four Stages</h3>
+    <div class="mps-sectionhead">
+      <h4>Odour Removal Treatment</h4>
+      <span class="mps-sectionpill">One visit</span>
+    </div>
+    <div class="mps-acc" data-acc="stages">
+      <details open>
+        <summary>Stage 1 &mdash; Steam clean, enzyme or chlorine, full extraction<span class="plus"></span></summary>
+        <div class="content">
+          <p>The source of the smell comes out first. We choose <strong>enzyme or chlorine</strong> on the day to suit the odour, work it in, then steam, shampoo and extract the whole interior.</p>
+          <ul>
+            <li>Seats, carpets, mats and boot shampooed and extracted</li>
+            <li>Headliner carefully treated &mdash; odours rise and settle in the roof lining</li>
+            <li>Steam through the hard surfaces and contact points</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary>Stage 2 &mdash; Air-con system foam clean<span class="plus"></span></summary>
+        <div class="content">
+          <p>A foam cleaner goes through the air-con system, vents and evaporator. Smells live in there and get blown back into the cabin every time the fan comes on &mdash; cleaning the fabrics alone doesn&rsquo;t reach them.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Stage 3 &mdash; Ozone treatment, 1 hr 30 min<span class="plus"></span></summary>
+        <div class="content">
+          <p>Ozone is circulated through the sealed cabin for an hour and a half. It reacts with odour molecules and breaks them down in the fabric, foam and air system, rather than covering them up.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Stage 4 &mdash; Ultrasonic purifying mist<span class="plus"></span></summary>
+        <div class="content">
+          <p>To finish, an ultrasonic nebuliser fills the cabin with a fine purifying, disinfecting mist that settles into every surface and gap &mdash; killing off anything left in the interior.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Your new cabin air filter<span class="plus"></span></summary>
+        <div class="content">
+          <p><strong>Please have a new cabin air filter for your car ready on the day.</strong> We take the old one out before the treatment and fit your new one at the end, so nothing old is blown back into a freshly treated car.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Things to know before booking<span class="plus"></span></summary>
+        <div class="content">
+          <p>The car is aired out after the ozone and the mist. A light, clean treatment scent can linger briefly, and clears with ventilation.</p>
+        </div>
+      </details>
+    </div>
+  </article>
+  <a class="mps-btn" href="#priceFinderOdourRemoval" aria-label="Book Now: odour removal treatment">Book Now</a>
+
+  <div class="mps-trust">
+    <div class="mps-pill"><strong>Fully Mobile</strong>We come to you</div>
+    <div class="mps-pill"><strong>Odour Focused</strong>Smoke, milk &amp; bio smells</div>
+    <div class="mps-pill"><strong>10% to Book</strong>Balance after the job</div>
+    <div class="mps-pill"><strong>4 Stages</strong>Source, air system, ozone, mist</div>
+  </div>
+</section>
+
+<div class="mps-faqs">
+  <h3>Frequently Asked Questions</h3>
+
+  <div class="mps-acc" data-acc="faqs">
+    <details>
+      <summary>Is there more than one option?<span class="plus"></span></summary>
+      <div class="content">
+        No &mdash; there&rsquo;s one treatment, and it includes all four stages whatever the smell. The price depends only on the size of the car. We choose enzyme or chlorine for stage 1 on the day, to suit the odour.
+      </div>
+    </details>
+
+    <details>
+      <summary>Will the smell be completely removed?<span class="plus"></span></summary>
+      <div class="content">
+        The four stages are designed to remove strong odours at the source, in the air system and in the cabin itself. Results can still depend on the source, how severe it is and how long it&rsquo;s been in the vehicle &mdash; we&rsquo;ll tell you honestly before we start.
+      </div>
+    </details>
+
+    <details>
+      <summary>Do I need a new cabin air filter?<span class="plus"></span></summary>
+      <div class="content">
+        Yes &mdash; please <strong>have a new cabin air filter for your car ready on the day</strong> and we&rsquo;ll fit it for you. We take the old one out before the treatment and put your new one in at the end. An old filter would blow the smell straight back in.
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I use the car straight after treatment?<span class="plus"></span></summary>
+      <div class="content">
+        Yes, once it&rsquo;s been aired out after the ozone and the purifying mist &mdash; we do that before we hand it back.
+      </div>
+    </details>
+
+    <details>
+      <summary>What areas do you cover?<span class="plus"></span></summary>
+      <div class="content">
+        We serve <strong>Cheshire, Merseyside, and Flintshire</strong>.
+        <div class="mps-areas">
+          <div>
+            <h4>Cheshire</h4>
+            <ul>
+              <li>Chester</li>
+              <li>Ellesmere Port</li>
+              <li>Warrington</li>
+              <li>Crewe</li>
+              <li>Macclesfield</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Merseyside</h4>
+            <ul>
+              <li>Liverpool</li>
+              <li>Birkenhead</li>
+              <li>St Helens</li>
+              <li>Southport</li>
+              <li>Bootle</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Flintshire</h4>
+            <ul>
+              <li>Mold</li>
+              <li>Flint</li>
+              <li>Connah’s Quay</li>
+              <li>Buckley</li>
+              <li>Holywell</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mps-nearby">…and nearby areas.</div>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I pay?<span class="plus"></span></summary>
+      <div class="content">A <strong>10% deposit</strong> secures the booking, with the balance paid after the job by <strong>card, cash or invoice</strong>.</div>
+    </details>
+  </div>
+
+  <footer class="mps-infobar" role="contentinfo" aria-label="Quick contact bar">
+    <div class="mps-infobar-inner">
+      <h4>Have something specific in mind?</h4>
+      <div class="mps-contacts">
+        <span><strong>Call/Text:</strong> <a href="tel:+447592196929">07592 196929</a></span>
+        <span><strong>Email:</strong> <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- Elfsight Google Reviews -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+<div class="elfsight-app-a4044a37-b095-4222-a0bb-e62e050e79b4" data-elfsight-app-lazy></div>
+
+<script>
+(function(){
+  const root = document.getElementById('learnMoreOdourRemoval');
+  if(!root) return;
+
+  const buttons = root.querySelectorAll('[data-treatment-btn]');
+  const panels = root.querySelectorAll('[data-treatment-panel]');
+
+  buttons.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const target = btn.getAttribute('data-treatment-btn');
+
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+
+      panels.forEach(panel=>{
+        panel.classList.toggle('active', panel.getAttribute('data-treatment-panel') === target);
+      });
+    });
+  });
+
+  document.querySelectorAll('.mps-acc').forEach(acc=>{
+    acc.addEventListener('toggle', e=>{
+      const d = e.target;
+      if(d.tagName !== 'DETAILS' || !d.open) return;
+
+      acc.querySelectorAll('details').forEach(o=>{
+        if(o !== d) o.open = false;
+      });
+    }, true);
+  });
+
+  const isDesktop = window.matchMedia('(min-width: 760px)').matches;
+
+  document.querySelectorAll('#learnMoreOdourRemoval img').forEach(img=>{
+    img.loading = isDesktop ? 'eager' : 'lazy';
+    try{
+      img.fetchPriority = isDesktop ? 'high' : 'auto';
+    }catch(e){}
+  });
+})();
+</script>
