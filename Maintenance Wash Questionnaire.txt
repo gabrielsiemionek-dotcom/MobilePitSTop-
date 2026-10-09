@@ -1154,21 +1154,6 @@
     </div>
   </div>
 
-  <!-- ── Maintenance Plan member bar ── -->
-  <div class="member" id="mpsMember">
-    <div class="member-head">
-      <span class="member-flag" id="mpsMemberFlag">Maintenance Plan</span>
-      <span class="member-title" id="mpsMemberTitle">Already a member? Enter your code</span>
-    </div>
-    <p class="member-copy" id="mpsMemberCopy"></p>
-    <div class="member-form" id="mpsMemberForm">
-      <label for="mpsCodeInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Maintenance Plan discount code</label>
-      <input class="member-input" id="mpsCodeInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter your plan code">
-      <button class="member-apply" id="mpsCodeApply" type="button">Apply</button>
-    </div>
-    <div class="member-perks" id="mpsMemberPerks" hidden></div>
-    <p class="member-msg" id="mpsCodeMsg" hidden></p>
-  </div>
 
   <div class="pkg-includes">
     <div class="pkg-includes-title">Everything in this wash</div>
@@ -1399,7 +1384,22 @@
 
             <div class="bd" id="mpsBreakdown"></div>
 
-            <button class="bk-codelink" type="button" id="mpsCodeReopen">Got a plan or promo code?</button>
+            <button class="bk-codelink" type="button" id="mpsCodeReopen" aria-expanded="false" aria-controls="mpsMember">Have a discount code?</button>
+            <!-- ── Maintenance Plan member bar ── -->
+            <div class="member" id="mpsMember">
+              <div class="member-head">
+                <span class="member-flag" id="mpsMemberFlag">Maintenance Plan</span>
+                <span class="member-title" id="mpsMemberTitle">Already a member? Enter your code</span>
+              </div>
+              <p class="member-copy" id="mpsMemberCopy"></p>
+              <div class="member-form" id="mpsMemberForm">
+                <label for="mpsCodeInput" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Maintenance Plan discount code</label>
+                <input class="member-input" id="mpsCodeInput" type="text" autocomplete="off" spellcheck="false" placeholder="Enter your plan code">
+                <button class="member-apply" id="mpsCodeApply" type="button">Apply</button>
+              </div>
+              <div class="member-perks" id="mpsMemberPerks" hidden></div>
+              <p class="member-msg" id="mpsCodeMsg" hidden></p>
+            </div>
 
             <div id="mpsUpsell"></div>
 
@@ -1807,8 +1807,15 @@
   /* ======================================================================
      MEMBER BAR
      ====================================================================== */
+  function openCodePanel(){
+    root.classList.add('is-code-open');
+    var l = root.querySelector('#mpsCodeReopen');
+    if(l){ l.hidden = true; l.setAttribute('aria-expanded', 'true'); }
+  }
+
   function renderMemberBar(){
     if(member){
+      openCodePanel();
       memberBox.classList.add('is-member');
       memberFlag.textContent  = member.off + '% member rate';
       memberTitle.textContent = member.plan ? 'Plan discount applied' : 'Discount applied';
@@ -2429,10 +2436,7 @@
   var codeReopen = root.querySelector('#mpsCodeReopen');
   if(codeReopen){
     codeReopen.addEventListener('click', function(){
-      root.classList.add('is-code-open');
-      codeReopen.hidden = true;
-      var box = root.querySelector('#mpsMember');
-      if(box) box.scrollIntoView({ behavior: MOTION_OK ? 'smooth' : 'auto', block:'center' });
+      openCodePanel();
       var input = root.querySelector('#mpsCodeInput');
       if(input) setTimeout(function(){ try{ input.focus({ preventScroll:true }); }catch(e){} }, 380);
     });
@@ -2553,5 +2557,39 @@
   window.addEventListener('load', function(){ syncViewportHeight(); settleAtTop(); });
   setTimeout(function(){ syncViewportHeight(); settleAtTop(); }, 250);
   setTimeout(settleAtTop, 700);
+})();
+</script>
+
+<script>
+/* ======================================================================
+   QUESTION NUMBERS
+   Only the questions actually shown are numbered, in order, and they're
+   renumbered whenever one is shown or hidden (e.g. the seat questions
+   that depend on the fabric), so the numbers never skip.
+   ====================================================================== */
+(function(){
+  var root = document.getElementById('priceFinderMiniValet');
+  if(!root) return;
+  var heads = [];
+  Array.prototype.forEach.call(root.querySelectorAll('.step'), function(step){
+    var h = step.querySelector('h3');
+    if(!h) return;
+    var m = h.innerHTML.match(/^\s*\d+\)\s*/);
+    if(!m) return;                      /* "You're all set" has no number */
+    heads.push({ step:step, h:h, text:h.innerHTML.slice(m[0].length) });
+  });
+  function renumber(){
+    var n = 0;
+    heads.forEach(function(x){
+      if(x.step.hidden) return;
+      n++;
+      var html = n + ') ' + x.text;
+      if(x.h.innerHTML !== html) x.h.innerHTML = html;
+    });
+  }
+  renumber();
+  if(window.MutationObserver){
+    new MutationObserver(renumber).observe(root, { attributes:true, attributeFilter:['hidden'], subtree:true });
+  }
 })();
 </script>
