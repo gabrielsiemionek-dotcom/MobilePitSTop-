@@ -63,7 +63,8 @@
     margin-bottom:8px;
   }
   .topbar h1{ margin:0; font-size:clamp(20px,3vw,26px); font-weight:950; letter-spacing:.2px; color:var(--accent); }
-  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
+  .topbar h2.topbar-sub{ line-height:1.1424; }
+  .topbar h3, .topbar h2.topbar-sub{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
   .lead{ margin:6px 0 14px; color:#d0d0d0; font-size:14px; }
 
   .totalbox{
@@ -588,7 +589,7 @@
     .step{ padding:14px 12px; }
     .topbar{ gap:10px; margin-bottom:6px; }
     .topbar h1{ font-size:19px; line-height:1.2; }
-    .topbar h3{ font-size:13px; margin-top:3px; }
+    .topbar h3, .topbar h2.topbar-sub{ font-size:13px; margin-top:3px; }
     .lead{ font-size:12px; margin:3px 0 10px; }
 
     .totalbox{
@@ -861,6 +862,7 @@
 <!-- ===== GOOGLE REVIEWS BADGE ======================================== -->
 <style>
   .mps-reviews{ max-width:900px; margin:0 auto 18px; display:flex; justify-content:center; }
+  .mps-rv-sr{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
   .mps-rv-badge{
     display:inline-flex; align-items:center; gap:11px;
     padding:10px 16px; border-radius:999px;
@@ -891,8 +893,7 @@
 <div class="mps-reviews">
   <a class="mps-rv-badge" id="mpsRvBadge"
      href="https://maps.google.com/maps?cid=15620201708594115788"
-     target="_blank" rel="noopener"
-     aria-label="Rated 5.0 out of 5 from 81 Google reviews. Opens Google in a new tab.">
+     target="_blank" rel="noopener">
     <svg class="mps-rv-g" viewBox="0 0 48 48" aria-hidden="true">
       <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2 5-4.4 6.6v5.5h7.1c4.1-3.8 6.6-9.4 6.6-16.1z"/>
       <path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.4l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.5-3.8-12.2-9H4.5v5.7C8.1 41.1 15.4 46 24 46z"/>
@@ -902,6 +903,7 @@
     <span class="mps-rv-score" id="mpsRvScore">5.0</span>
     <span class="mps-rv-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
     <span class="mps-rv-count" id="mpsRvCount">81 Google reviews</span>
+    <span class="mps-rv-sr"> &ndash; rated out of 5, opens Google in a new tab</span>
     <svg class="mps-rv-tick" viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".16"/>
       <path d="M8 12.5l2.6 2.5L16 9.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -924,10 +926,6 @@
   if(score && s) score.textContent = s;
   if(count && n) count.textContent = n + ' Google reviews';
   if(cfg.url)    badge.setAttribute('href', cfg.url);
-  if(s && n){
-    badge.setAttribute('aria-label',
-      'Rated ' + s + ' out of 5 from ' + n + ' Google reviews. Opens Google in a new tab.');
-  }
 })();
 </script>
 
@@ -1247,7 +1245,7 @@
   <div class="topbar">
     <div>
       <h1>Odour Removal Treatment</h1>
-      <h3>Smoke, milk and bio odours &mdash; removed at the source, not masked.</h3>
+      <h2 class="topbar-sub">Smoke, milk and bio odours &mdash; removed at the source, not masked.</h2>
     </div>
     <div class="totalbox" aria-live="polite">
       <div class="lbl">Your total</div>
