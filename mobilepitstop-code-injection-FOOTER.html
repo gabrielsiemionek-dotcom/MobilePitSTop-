@@ -38,9 +38,39 @@
 })();
 </script>
 
-<!-- Elfsight Google Reviews | Untitled Google Reviews 3 (moved from HEADER) -->
-<script src="https://elfsightcdn.com/platform.js" async></script>
-<div class="elfsight-app-a4044a37-b095-4222-a0bb-e62e050e79b4" data-elfsight-app-lazy></div>
+<!-- Elfsight Google Reviews | Untitled Google Reviews 3 (moved from HEADER)
+     platform.js is about 530 KB, so it now loads only when this widget's
+     container comes within ~600px of the screen, instead of on every page
+     load. If another block on the page has already loaded it (e.g. the
+     reviews + map section), it isn't loaded twice. -->
+<div class="elfsight-app-a4044a37-b095-4222-a0bb-e62e050e79b4" id="mpsElfsightFooter" data-elfsight-app-lazy></div>
+<script>
+(function(){
+  var SRC = 'https://elfsightcdn.com/platform.js';
+  var box = document.getElementById('mpsElfsightFooter');
+  if(!box) return;
+  var done = false;
+  function load(){
+    if(done) return;
+    done = true;
+    if(document.querySelector('script[src="' + SRC + '"]')) return;
+    var s = document.createElement('script');
+    s.src = SRC;
+    s.async = true;
+    document.body.appendChild(s);
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      for(var i = 0; i < entries.length; i++){
+        if(entries[i].isIntersecting){ io.disconnect(); load(); return; }
+      }
+    }, { rootMargin: '600px 0px' });
+    io.observe(box);
+  } else {
+    load();   /* very old browsers: load as before */
+  }
+})();
+</script>
 
 <!-- ======================================================================
      MobilePitStop – cookie banner
