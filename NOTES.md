@@ -872,6 +872,10 @@ PNGs can be deleted from Squarespace once this block is pasted. Previous
 block: `rollback/odour-whats-included-v2.txt`. Still to do: the two In & Out
 PNGs (paint enhancement, ceramic coating).
 
+Live PageSpeed (mobile), before -> after the new photos: score 53 -> 67,
+FCP 5.2 -> 3.2 s, LCP 14.5 -> 4.1 s, Speed Index 7.8 -> 4.9 s, CLS 0.014.
+TBT 270 -> 460 ms is run-to-run noise from Squarespace / GTM scripts.
+
 ---
 
 ## Open issues (not fixed yet)
