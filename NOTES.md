@@ -862,6 +862,18 @@ Booking", choosing another option clears it.
 
 ---
 
+## 2026-10-09 — Odour Removal photos re-uploaded as WebP
+
+The four Odour Removal photos were PNGs, which Squarespace serves lossless
+(~400 KB each at phone size even after `srcset`). Gab re-uploaded them as
+WebP; What's Included now points at the new files. Phone size (750w):
+382-426 KB -> 46-76 KB each, about 1.6 MB -> 246 KB for the four. The old
+PNGs can be deleted from Squarespace once this block is pasted. Previous
+block: `rollback/odour-whats-included-v2.txt`. Still to do: the two In & Out
+PNGs (paint enhancement, ceramic coating).
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
