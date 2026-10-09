@@ -1,0 +1,287 @@
+<!-- MobilePitStop – Privacy & Cookie Policy
+     Paste into a Code Block on /privacy-policy (replace the old text).
+     Last updated 17 September 2026. Not legal advice — review before publishing. -->
+<style>
+  .mpl{
+    --mpl-text:#fff; --mpl-muted:rgba(255,255,255,.74); --mpl-faint:rgba(255,255,255,.5);
+    --mpl-line:rgba(255,255,255,.12); --mpl-accent:#E3FC02; --mpl-ocean:#00B8FF;
+    max-width:860px; margin:0 auto; padding:28px 24px 32px;
+    color:var(--mpl-text);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+    font-size:15.5px; line-height:1.65;
+    background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08); border-radius:16px;
+  }
+  .mpl *{ box-sizing:border-box; }
+  .mpl h1{ margin:0 0 6px; font-size:clamp(26px,4vw,34px); line-height:1.15; font-weight:950; letter-spacing:-.02em; color:var(--mpl-text); }
+  .mpl h2{ margin:34px 0 10px; padding-top:18px; border-top:1px solid var(--mpl-line);
+           font-size:clamp(19px,2.6vw,22px); line-height:1.25; font-weight:900; letter-spacing:-.01em; color:var(--mpl-text); scroll-margin-top:90px; }
+  .mpl h3{ margin:20px 0 6px; font-size:16px; font-weight:900; color:var(--mpl-text); }
+  .mpl p, .mpl li{ color:var(--mpl-muted); margin:0 0 10px; }
+  .mpl ul{ margin:0 0 12px; padding-left:20px; }
+  .mpl li{ margin-bottom:6px; }
+  .mpl strong{ color:var(--mpl-text); font-weight:800; }
+  .mpl a{ color:var(--mpl-accent); font-weight:800; text-decoration:none; overflow-wrap:anywhere; }
+  .mpl a:hover{ text-decoration:underline; }
+  .mpl-updated{ font-size:13px; color:var(--mpl-faint); margin:0 0 18px; }
+  .mpl-kicker{ font-size:11px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; color:var(--mpl-accent); margin:0 0 8px; }
+
+  .mpl-box{ margin:16px 0; padding:16px 18px; border-radius:14px; border:1px solid rgba(227,252,2,.3); background:rgba(227,252,2,.06); }
+  .mpl-box ul{ margin:0; }
+  .mpl-box li{ color:#fff; }
+
+  .mpl-toc{ margin:18px 0 6px; padding:14px 16px; border-radius:14px; border:1px solid var(--mpl-line); background:rgba(0,0,0,.22); }
+  .mpl-toc ol{ margin:0; padding-left:20px; columns:2; column-gap:28px; }
+  .mpl-toc li{ margin:0 0 4px; break-inside:avoid; }
+  .mpl-toc a{ color:#fff; font-weight:700; }
+
+  /* purpose / basis and cookie rows: stacked cards, so nothing scrolls sideways on a phone */
+  .mpl-rows{ display:flex; flex-direction:column; gap:8px; margin:10px 0 14px; }
+  .mpl-row{ padding:12px 14px; border-radius:12px; border:1px solid var(--mpl-line); background:rgba(255,255,255,.03); }
+  .mpl-row .t{ font-weight:900; color:#fff; margin:0 0 3px; }
+  .mpl-row .d{ margin:0; font-size:14.5px; }
+  .mpl-row .tag{ display:inline-block; margin-top:6px; font-size:12px; font-weight:900; padding:3px 10px; border-radius:999px;
+                 color:var(--mpl-ocean); border:1px solid rgba(0,184,255,.4); background:rgba(0,184,255,.08); }
+  .mpl-row .tag.y{ color:var(--mpl-accent); border-color:rgba(227,252,2,.4); background:rgba(227,252,2,.07); }
+
+  .mpl-btn{ appearance:none; border:none; cursor:pointer; margin:6px 0 4px; padding:12px 20px; border-radius:999px;
+            font:inherit; font-weight:950; font-size:14.5px; color:#0b0b0b;
+            background:linear-gradient(135deg,#E3FC02 0%,#d6ff6b 100%); box-shadow:0 8px 20px rgba(227,252,2,.22); }
+  .mpl-btn:hover{ transform:translateY(-1px); }
+
+  .mpl-contact{ margin-top:10px; padding:16px 18px; border-radius:14px; border:1px solid var(--mpl-line); background:rgba(0,0,0,.22); }
+  .mpl-contact p{ margin:0 0 4px; color:#fff; }
+
+  @media(max-width:640px){
+    .mpl{ padding:20px 16px 24px; font-size:15px; border-radius:12px; }
+    .mpl-toc ol{ columns:1; }
+    .mpl h2{ margin-top:28px; }
+  }
+</style>
+
+<div class="mpl" id="mplPrivacy">
+  <p class="mpl-kicker">Legal</p>
+  <h1>Privacy &amp; Cookie Policy</h1>
+  <p class="mpl-updated">Last updated: 17 September 2026</p>
+
+  <p>This policy explains what personal information MobilePitStop collects when you visit our website, book a valet or get in touch, what we do with it, and the choices you have.</p>
+
+  <div class="mpl-box">
+    <ul>
+      <li>We collect what we need to book and carry out your valet, take payment and keep our accounts, plus website statistics and, only with your consent, advertising and marketing data.</li>
+      <li>We never sell your information.</li>
+      <li>On our website, advertising cookies only run if you accept them, and you can change your mind at any time. Our booking page works differently (see <a href="#pp-booking">section 9</a>).</li>
+      <li>Marketing emails are opt-in, and every email has an unsubscribe link.</li>
+    </ul>
+  </div>
+
+  <nav class="mpl-toc" aria-label="Contents">
+    <ol>
+      <li><a href="#pp-who">Who we are</a></li>
+      <li><a href="#pp-collect">What we collect</a></li>
+      <li><a href="#pp-use">How we use it</a></li>
+      <li><a href="#pp-share">Who we share it with</a></li>
+      <li><a href="#pp-transfers">Transfers outside the UK</a></li>
+      <li><a href="#pp-keep">How long we keep it</a></li>
+      <li><a href="#pp-rights">Your rights</a></li>
+      <li><a href="#pp-security">Keeping it safe</a></li>
+      <li><a href="#pp-cookies">Cookies</a></li>
+      <li><a href="#pp-changes">Changes and contact</a></li>
+    </ol>
+  </nav>
+
+  <h2 id="pp-who">1. Who we are</h2>
+  <p><strong>MobilePitStop</strong> (also shown as MobilePitStop – Valeting &amp; Detailing) is a trading name of <strong>Gabriel Siemionek</strong>, a sole trader providing mobile car valeting and detailing across Cheshire, Merseyside and Flintshire.</p>
+  <p>We are the "controller" of your personal information, which means we decide how it is used and are responsible for looking after it.</p>
+  <div class="mpl-contact">
+    <p><strong>MobilePitStop</strong></p>
+    <p>86a Wolverham Road, Ellesmere Port, CH65 5BY, United Kingdom</p>
+    <p>Email: <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></p>
+    <p>Phone: <a href="tel:+447592196929">07592 196929</a></p>
+  </div>
+
+  <h2 id="pp-collect">2. What we collect</h2>
+  <h3>When you book or ask for a quote</h3>
+  <ul>
+    <li><strong>Contact details:</strong> your name, phone number and email address.</li>
+    <li><strong>Where we'll work:</strong> the address and postcode of your home or workplace.</li>
+    <li><strong>Job details:</strong> the service and extras you choose, your vehicle size or type, the date and time, and your answers about power, water, parking and the condition of the vehicle.</li>
+    <li><strong>Payment details:</strong> the amounts you pay and how. Card payments are handled by our payment provider. We never see or store your full card number.</li>
+    <li><strong>Discount codes:</strong> any promotional or Maintenance Plan code you use.</li>
+    <li><strong>Marketing choice:</strong> whether you have opted in to marketing emails.</li>
+  </ul>
+  <h3>When you contact us</h3>
+  <p>Anything you send us by phone, text, WhatsApp, email or social media messages, including photos of your vehicle.</p>
+  <h3>On the day</h3>
+  <p>We may note or photograph the condition of your vehicle before and after we work on it, including any existing damage. We may also take photos or videos of our work to use on our website and social media (see section 3).</p>
+  <h3>When you use our website</h3>
+  <ul>
+    <li>Pages you visit, how you arrived (for example from a Google search or an advert), the device and browser you use, and your approximate location based on your IP address.</li>
+    <li>If you arrive from one of our adverts, an advert click ID so we can tell which adverts lead to bookings. This is only stored if you accept advertising cookies.</li>
+  </ul>
+  <p>We collect this through cookies and similar technologies. See <a href="#pp-cookies">section 9</a>.</p>
+  <h3>Reviews</h3>
+  <p>If you leave us a review on Google or social media, we can see your public profile name and what you wrote, and we may reply publicly.</p>
+
+  <h2 id="pp-use">3. How we use it, and our legal reasons</h2>
+  <p>Data protection law says we must have a valid legal reason (a "lawful basis") for each way we use your information.</p>
+  <div class="mpl-rows">
+    <div class="mpl-row">
+      <p class="t">Taking and managing your booking</p>
+      <p class="d">Confirming your appointment, sending reminders, carrying out the valet, taking your deposit and balance, and contacting you about the job.</p>
+      <span class="tag y">Contract</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Answering enquiries and quotes</p>
+      <p class="d">Replying to your questions and giving you a price before you book.</p>
+      <span class="tag y">Steps before a contract</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Keeping accounts and tax records</p>
+      <p class="d">Recording bookings, invoices and payments as HMRC requires.</p>
+      <span class="tag y">Legal obligation</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Handling complaints, damage and insurance claims</p>
+      <p class="d">Using booking records, messages and before/after photos to look into a problem and respond to any claim.</p>
+      <span class="tag">Legitimate interests</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Showing our work</p>
+      <p class="d">Posting photos and videos of vehicles we've cleaned on our website and social media. We don't use your name or show you or your home without asking, and we avoid showing number plates. Tell us if you'd rather we didn't photograph your vehicle, and we won't.</p>
+      <span class="tag">Legitimate interests</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Website statistics</p>
+      <p class="d">Counting visits and seeing which pages people use, so we can improve the website. You can switch this off at any time in <a href="#pp-cookies">cookie settings</a>.</p>
+      <span class="tag">Legitimate interests</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Measuring our advertising</p>
+      <p class="d">Finding out which Google, Meta (Facebook and Instagram) and Reddit adverts lead people to book with us. On our website this only happens if you accept advertising cookies. Where our website has your email address, a scrambled (hashed) copy may be shared with Google and Reddit to match it to an advert. Our booking page is covered in <a href="#pp-booking">section 9</a>.</p>
+      <span class="tag y">Consent (website)</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Marketing emails</p>
+      <p class="d">Sending offers and news if you opted in on the booking form. You can unsubscribe at any time.</p>
+      <span class="tag y">Consent</span>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Stopping spam and fraud</p>
+      <p class="d">Checking that bookings come from real people, for example with Google reCAPTCHA on our booking page.</p>
+      <span class="tag">Legitimate interests</span>
+    </div>
+  </div>
+  <p>Where we rely on <strong>legitimate interests</strong>, we have considered your rights and only use your information in ways you would reasonably expect. You can object at any time (see <a href="#pp-rights">section 7</a>).</p>
+  <p><strong>Do you have to give us your information?</strong> We need your name, contact details and the address of the job to take a booking. Without them we can't carry out the work. Everything else is optional.</p>
+  <p>We do not make decisions about you using only automated processing.</p>
+
+  <h2 id="pp-share">4. Who we share it with</h2>
+  <p>We never sell your personal information. We only share it with the companies that help us run the business, and only as much as they need:</p>
+  <ul>
+    <li><strong>Squarespace</strong> – hosts our website and runs our booking system (Acuity Scheduling), including booking confirmation and reminder emails.</li>
+    <li><strong>Square</strong> – processes card payments.</li>
+    <li><strong>Google</strong> – email (Gmail), website statistics (Google Analytics), advertising measurement (Google Ads and Tag Manager), spam protection (reCAPTCHA), and our Google Business Profile and Maps.</li>
+    <li><strong>Meta</strong> – advertising measurement for Facebook and Instagram (on our website only with your consent; see <a href="#pp-booking">section 9</a> for our booking page), and WhatsApp if you message us there.</li>
+    <li><strong>Reddit</strong> – advertising measurement (only with your consent).</li>
+    <li><strong>Website widget providers</strong> – such as Elfsight, for content shown on some of our pages.</li>
+    <li><strong>Email marketing provider</strong> – only if you have opted in.</li>
+    <li><strong>Our accountant, HMRC, insurers and legal advisers</strong> – where needed for tax, insurance or a claim.</li>
+    <li><strong>Police or other authorities</strong> – only if the law requires it.</li>
+  </ul>
+  <p>Photos and videos of our work may appear on Instagram, Facebook, TikTok and YouTube, without your personal details.</p>
+
+  <h2 id="pp-transfers">5. Transfers outside the UK</h2>
+  <p>Some of the companies above (including Squarespace, Google, Meta and Reddit) store or access information in the United States or other countries. When that happens, the transfer is protected by safeguards recognised under UK data protection law, such as the UK–US data bridge or contract terms approved for UK transfers. Email us if you'd like a copy of the safeguards we rely on.</p>
+
+  <h2 id="pp-keep">6. How long we keep it</h2>
+  <div class="mpl-rows">
+    <div class="mpl-row">
+      <p class="t">Bookings, invoices and payment records</p>
+      <p class="d">At least 5 years after the 31 January tax return deadline for the tax year they belong to, as HMRC requires. In practice that's around 6 to 7 years.</p>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Enquiries that don't turn into a booking</p>
+      <p class="d">Up to 12 months.</p>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Before/after condition photos</p>
+      <p class="d">Up to 12 months after the job, or longer if there is an open complaint or claim.</p>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Marketing email list</p>
+      <p class="d">Until you unsubscribe or ask us to remove you.</p>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Photos and videos we publish</p>
+      <p class="d">For as long as they're published. We'll take them down if you ask.</p>
+    </div>
+    <div class="mpl-row">
+      <p class="t">Website statistics</p>
+      <p class="d">No longer than 14 months in Google Analytics. Cookie lifetimes are listed in section 9.</p>
+    </div>
+  </div>
+
+  <h2 id="pp-rights">7. Your rights</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li><strong>See</strong> the personal information we hold about you and get a copy.</li>
+    <li><strong>Correct</strong> anything that's wrong or incomplete.</li>
+    <li><strong>Delete</strong> your information, where we don't need to keep it (for example, we must keep tax records).</li>
+    <li><strong>Restrict</strong> how we use it while a concern is looked into.</li>
+    <li><strong>Object</strong> to us using it for legitimate interests, including website statistics and photos of your vehicle, and to marketing at any time.</li>
+    <li><strong>Move</strong> information you gave us to another business, in a common digital format.</li>
+    <li><strong>Withdraw consent</strong> at any time, for marketing emails or advertising cookies. This doesn't affect anything we did before you withdrew it.</li>
+  </ul>
+  <p>To use any of these rights, email <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a> or call <a href="tel:+447592196929">07592 196929</a>. It's free, and we'll reply within one month. We may ask you to confirm who you are first.</p>
+  <p><strong>Not happy?</strong> You have the right to complain to us about how we use your information. Email <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a> with "Data complaint" in the subject, or call us. We'll confirm we've received it within 30 days and tell you the outcome. You also have the right to complain to the Information Commissioner's Office (ICO), the UK data protection regulator: <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">ico.org.uk/make-a-complaint</a>.</p>
+
+  <h2 id="pp-security">8. Keeping it safe</h2>
+  <p>We use established providers for our website, bookings, payments and email, keep our accounts password-protected, and limit access to the people who run MobilePitStop. No system is completely secure, but we take reasonable steps to protect your information from loss, misuse and unauthorised access.</p>
+
+  <h2 id="pp-cookies">9. Cookies</h2>
+  <p>Cookies are small files a website saves in your browser. We also use similar browser storage that works in the same way. Here's what we use and why.</p>
+
+  <h3>How we ask</h3>
+  <p>When you first visit, a banner lets you accept or decline advertising cookies. Essential cookies always run. Statistics cookies run unless you switch them off in cookie settings, and are only used to improve our website. You can change your choice at any time:</p>
+  <button class="mpl-btn" type="button" data-cookie-settings>Cookie settings</button>
+  <p>You'll also find a "Cookie settings" link at the bottom of every page. You can delete cookies in your browser settings too.</p>
+
+  <h3>Essential – always on</h3>
+  <div class="mpl-rows">
+    <div class="mpl-row"><p class="t">crumb</p><p class="d">Squarespace. Protects forms on the site from misuse. Deleted when you close your browser.</p></div>
+    <div class="mpl-row"><p class="t">test</p><p class="d">Squarespace. Checks your browser accepts cookies. Deleted when you close your browser.</p></div>
+    <div class="mpl-row"><p class="t">mps_consent</p><p class="d">MobilePitStop. Remembers your cookie choices. Kept for 12 months.</p></div>
+    <div class="mpl-row"><p class="t">mps_promo_code</p><p class="d">MobilePitStop. Remembers a discount code you entered while you move between pages. Deleted when you close the tab.</p></div>
+  </div>
+
+  <h3>Statistics – on unless you switch them off</h3>
+  <div class="mpl-rows">
+    <div class="mpl-row"><p class="t">_ga, _ga_4JP2C2WJJF</p><p class="d">Google Analytics. Counts visits and shows which pages are used. Up to 2 years.</p></div>
+  </div>
+
+  <p>Our website platform, Squarespace, is set not to place its own statistics or marketing cookies.</p>
+
+  <h3>Advertising – only if you accept</h3>
+  <div class="mpl-rows">
+    <div class="mpl-row"><p class="t">_gcl_au, _gcl_ls, captured_gclid</p><p class="d">Google Ads. Links a booking to the Google advert you clicked. 90 days, or until you clear your browser storage.</p></div>
+    <div class="mpl-row"><p class="t">_fbp</p><p class="d">Meta. Measures Facebook and Instagram adverts. 90 days.</p></div>
+    <div class="mpl-row"><p class="t">_rdt_uuid, _rdt_em</p><p class="d">Reddit. Measures Reddit adverts. _rdt_em holds a scrambled (hashed) email address, never the address itself. 90 days.</p></div>
+  </div>
+
+  <h3 id="pp-booking">Our booking page</h3>
+  <p>Bookings are made on our Acuity Scheduling page at mobilepitstop.as.me, run by Squarespace on a separate web address. It uses its own essential cookies to take your booking and payment, and Google reCAPTCHA to block spam.</p>
+  <p>It also runs <strong>Google Analytics, Google Ads and the Meta pixel</strong>, which tell us when a booking is completed and which advert led to it. Our cookie banner can't control that page, so these run when you open it.</p>
+  <p>To limit this tracking, you can use the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics opt-out add-on</a>, <a href="https://myadcenter.google.com/" target="_blank" rel="noopener">Google's My Ad Center</a>, your <a href="https://www.facebook.com/adpreferences" target="_blank" rel="noopener">Facebook ad preferences</a>, or your browser's privacy settings. You can also book by phone or WhatsApp on <a href="tel:+447592196929">07592 196929</a> instead. See <a href="https://www.squarespace.com/privacy" target="_blank" rel="noopener">Squarespace's privacy policy</a> for more about the booking page.</p>
+
+  <h2 id="pp-changes">10. Changes and contact</h2>
+  <p>We'll update this policy when the way we use information changes, and change the date at the top. If a change affects you significantly, we'll let you know.</p>
+  <p>Questions about this policy or your information? Get in touch:</p>
+  <div class="mpl-contact">
+    <p><strong>MobilePitStop</strong> – Gabriel Siemionek</p>
+    <p>86a Wolverham Road, Ellesmere Port, CH65 5BY, United Kingdom</p>
+    <p>Email: <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></p>
+    <p>Phone: <a href="tel:+447592196929">07592 196929</a></p>
+  </div>
+  <p style="margin-top:14px">See also our <a href="/terms-and-conditions">Terms &amp; Conditions</a>.</p>
+</div>
