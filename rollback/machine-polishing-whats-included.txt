@@ -1,0 +1,840 @@
+
+<!-- ==========================================================================
+     MobilePitStop — MACHINE POLISHING: What's included block
+     Section ID is learnMoreMachinePolishing, which the questionnaire's
+     "See what's included" button scrolls to. Its Book button comes back
+     to #priceFinderMachinePolishing.
+
+     WHAT'S IN IT
+       • Included: safe wash, decontamination and clay, PAINT DEPTH
+         MEASURED, a test section, taping, then the polish — plus the
+         8-week wax that goes on either way.
+       • A "which one does your paint need?" card comparing the two
+         routes: 1-stage £285/£330/£385 mobile, multi-stage from
+         £600/£650/£700 at the unit, overnight, by quote.
+       • Protection add-ons at the same prices as the questionnaire:
+         sealant +£30, coatings from +£90 (1 / 3 / 7 years).
+       • No vehicle-size tables: the size and exact price live in the
+         questionnaire above, so this block shows "from" prices only.
+       • Add-ons are blue (prices, heading, accordion), as on every page.
+       • FAQs answer the honest questions: will it remove every scratch
+         (no, and here's why), is it safe, and how to tell which level
+         your paint needs from looking at it in sunlight.
+
+     NO BEFORE/AFTER SLIDER on this page — the wheel pair used elsewhere
+     isn't relevant. A swirled panel under a light, next to the same panel
+     corrected, would be the single best photo you could add here.
+
+     ONE CARD HAS NO PHOTO YET — the paint depth gauge. The marked line
+     in that card is where the image goes.
+     ========================================================================== -->
+<link rel="preconnect" href="https://images.squarespace-cdn.com" crossorigin>
+<link rel="dns-prefetch" href="//images.squarespace-cdn.com">
+
+<style>
+  :root{
+    --mps-accent:#E3FC02;
+    --mps-ocean:#00B8FF;
+    --mps-border:rgba(255,255,255,.2);
+    --radius:14px;
+    --accent-ink:#0b0b0b;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  .mps-services{
+    max-width:1100px; margin:0 auto; padding:40px 20px;
+    color:#fff;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+    line-height:1.6; background:#0b0b0b; border-radius:16px;
+  }
+  .mps-title{
+    color:var(--mps-accent); font-size:clamp(26px,5vw,38px); font-weight:950;
+    line-height:1.15; text-align:center; margin:0 0 10px;
+  }
+  .mps-subnote{ text-align:center; color:rgba(255,255,255,.65); font-size:14px; margin:0 0 26px; }
+
+  .mps-topstack{ display:flex; flex-direction:column; gap:18px; }
+
+  .mps-visual-grid{ display:grid; gap:14px; grid-template-columns:1fr; }
+  @media(min-width:760px){ .mps-visual-grid{ grid-template-columns:repeat(3,1fr); } }
+
+  .mps-vcard{
+    border:1px solid var(--mps-border); border-radius:var(--radius);
+    overflow:hidden; display:flex; flex-direction:column;
+    background:rgba(255,255,255,.03);
+  }
+  .mps-vmedia{ position:relative; aspect-ratio:16/10; background:#0b0b0b; overflow:hidden; }
+  .mps-vmedia img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* card with no photo yet */
+  .mps-vmedia--blank{
+    display:flex; align-items:center; justify-content:center;
+    background:
+      radial-gradient(120% 90% at 20% 10%, rgba(0,184,255,.20), transparent 60%),
+      radial-gradient(90% 80% at 90% 100%, rgba(227,252,2,.10), transparent 55%),
+      #0d0f12;
+  }
+  .mps-vmedia--blank svg{
+    width:64px; height:64px;
+    stroke:rgba(255,255,255,.28); fill:none; stroke-width:1.4;
+    stroke-linecap:round; stroke-linejoin:round;
+  }
+
+  .mps-vbadge{
+    position:absolute; top:10px; left:10px; z-index:2;
+    background:var(--mps-accent); color:#0b0b0b;
+    font-weight:900; font-size:12px; padding:5px 10px; border-radius:999px;
+  }
+  .mps-vbody{ padding:12px 14px 14px; }
+  .mps-vbody h3{ margin:0 0 5px; font-size:16px; color:var(--mps-accent); font-weight:900; }
+  .mps-vbody p{ margin:0; font-size:13px; color:rgba(255,255,255,.75); }
+
+  /* before / after */
+  .mps-compare{ border:1px solid var(--mps-border); border-radius:var(--radius); padding:14px; background:rgba(255,255,255,.03); }
+  .mps-compare h3{ margin:0 0 5px; font-size:18px; color:var(--mps-accent); font-weight:900; }
+  .mps-compare .desc{ margin:0 0 10px; color:rgba(255,255,255,.65); font-size:13px; }
+  .mps-compare .frame{
+    position:relative; aspect-ratio:16/10; overflow:hidden;
+    border-radius:10px; border:1px solid var(--mps-border);
+    background:#000; cursor:col-resize;
+  }
+  .mps-compare .frame img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .mps-compare .before{ z-index:1; }
+  .mps-compare-labels{
+    display:flex; justify-content:space-between;
+    font-size:12px; color:rgba(255,255,255,.6);
+    margin:6px 2px 2px; text-transform:uppercase; letter-spacing:.06em;
+  }
+  @media(max-width:480px){ .mps-compare-labels{ font-size:11px; } }
+  .mps-compare .slider-wrap{ margin-top:8px; }
+  .mps-compare input[type="range"]{ -webkit-appearance:none; appearance:none; width:100%; background:transparent; cursor:pointer; }
+  .mps-compare input[type="range"]::-webkit-slider-runnable-track{ height:8px; background:rgba(255,255,255,.15); border-radius:999px; }
+  .mps-compare input[type="range"]::-moz-range-track{ height:8px; background:rgba(255,255,255,.15); border-radius:999px; }
+  .mps-compare input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:26px; height:26px; border-radius:50%;
+    background:var(--mps-accent); border:2px solid #000; margin-top:-9px;
+  }
+  .mps-compare input[type="range"]::-moz-range-thumb{ width:26px; height:26px; border-radius:50%; background:var(--mps-accent); border:2px solid #000; }
+  .mps-compare .hint{ font-size:12px; color:rgba(255,255,255,.45); margin-top:5px; text-align:center; }
+
+  /* CTA */
+  .mps-btn{
+    display:block; margin:16px 0; padding:14px; border-radius:12px;
+    text-align:center; font-weight:900; font-size:15px; text-decoration:none;
+    border:2px solid var(--mps-accent); color:var(--mps-accent); background:transparent;
+    transition:background .2s ease,color .2s ease,box-shadow .2s ease,transform .15s ease;
+  }
+  .mps-btn:hover{
+    background:var(--mps-accent); color:#0b0b0b;
+    box-shadow:0 0 14px rgba(227,252,2,.7),0 0 28px rgba(227,252,2,.4);
+    transform:translateY(-2px);
+  }
+  .mps-btn.is-visible{ animation:pulseGlow 3s infinite ease-in-out; }
+  @keyframes pulseGlow{
+    0%,100%{ box-shadow:0 0 0 rgba(227,252,2,0); }
+    50%{ box-shadow:0 0 14px rgba(227,252,2,.55),0 0 26px rgba(227,252,2,.3); }
+  }
+  @media(prefers-reduced-motion:reduce){ .mps-btn.is-visible{ animation:none; } }
+
+  /* list cards */
+  .mps-card{
+    border:1px solid var(--mps-border); border-radius:var(--radius);
+    padding:18px; display:flex; flex-direction:column;
+    background:rgba(255,255,255,.03);
+  }
+  .mps-card + .mps-card{ margin-top:18px; }
+  .mps-card > h3{ margin:0 0 4px; font-size:22px; color:var(--mps-accent); font-weight:950; }
+
+  .mps-sectionhead{ margin:16px 0 8px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .mps-sectionhead h4{ margin:0; font-size:11px; text-transform:uppercase; letter-spacing:.14em; font-weight:950; color:rgba(255,255,255,.6); }
+  .mps-sectionpill{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:5px 10px; border-radius:999px;
+    font-size:11px; font-weight:900; white-space:nowrap;
+  }
+  .mps-sectionpill--soft{ color:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.2); }
+  .mps-sectionpill--optional{ background:var(--mps-ocean); color:#00131c; }
+  .mps-sectionnote{ margin:-2px 0 10px; font-size:12.5px; color:rgba(255,255,255,.55); line-height:1.5; }
+
+  /* accordions */
+  .mps-acc{ border:1px solid var(--mps-border); border-radius:12px; overflow:hidden; background:rgba(0,0,0,.18); margin-bottom:4px; }
+  .mps-acc details{ margin:0; border-top:1px solid rgba(255,255,255,.1); }
+  .mps-acc details:first-of-type{ border-top:none; }
+  .mps-acc summary{
+    list-style:none; cursor:pointer; padding:11px 14px;
+    font-weight:700; font-size:14px;
+    display:flex; align-items:center; gap:10px;
+    color:#fff; user-select:none;
+  }
+  .mps-acc summary::-webkit-details-marker{ display:none; }
+  .mps-acc .plus{ margin-left:auto; width:18px; height:18px; position:relative; flex:0 0 18px; }
+  .mps-acc .plus::before,.mps-acc .plus::after{
+    content:""; position:absolute; inset:0; margin:auto;
+    width:14px; height:2px; background:rgba(255,255,255,.6); border-radius:2px;
+  }
+  .mps-acc .plus::after{ transform:rotate(90deg); transition:transform .2s ease; }
+  .mps-acc details[open] .plus::after{ transform:rotate(0deg); }
+  .mps-acc .content{
+    padding:10px 14px 13px; border-top:1px solid rgba(255,255,255,.08);
+    font-size:13px; color:rgba(255,255,255,.8); line-height:1.55; overflow-wrap:break-word;
+  }
+  .mps-acc .content p{ margin:0 0 6px; }
+  .mps-acc .content p:last-child{ margin-bottom:0; }
+  .mps-acc .content ul{ padding-left:16px; margin:6px 0 0; }
+  .mps-acc .content li{ margin-bottom:3px; }
+
+  .mps-acc--addons{ border-color:rgba(0,184,255,.3); background:rgba(0,184,255,.04); }
+  .mps-acc--addons .content strong{ color:#fff; }
+  .mps-vcard--addon .mps-vprice{ color:var(--mps-ocean); }
+  .mps-sectionhead--addons h4{ color:var(--mps-ocean); }
+  .mps-ptable-note{ margin:8px 0 0; font-size:12px; line-height:1.5; color:rgba(255,255,255,.55); }
+  .mps-acc--addons details{ border-top-color:rgba(0,184,255,.15); }
+  .mps-acc--addons .plus::before,
+  .mps-acc--addons .plus::after{ background:rgba(0,184,255,.7); }
+
+  .mps-tag{
+    margin-left:auto; font-size:12px; font-weight:900;
+    color:var(--mps-ocean); background:rgba(0,184,255,.1);
+    border:1px solid rgba(0,184,255,.35);
+    padding:3px 9px; border-radius:999px; white-space:nowrap;
+  }
+  .mps-acc summary .mps-tag + .plus{ margin-left:10px; }
+
+  .mps-incl-chip{
+    display:inline-block; font-size:11.5px; font-weight:900;
+    color:rgba(227,252,2,.92); border:1px solid rgba(227,252,2,.3);
+    background:rgba(227,252,2,.07);
+    padding:3px 9px; border-radius:999px; margin:0 6px 8px 0;
+  }
+
+  .mps-ptable{ width:100%; border-collapse:collapse; margin:8px 0 0; font-size:12.5px; }
+  .mps-ptable th, .mps-ptable td{ text-align:left; padding:6px 8px; border-top:1px solid rgba(255,255,255,.1); }
+  .mps-ptable thead th{ border-top:none; font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.5); font-weight:900; }
+  .mps-ptable td:last-child, .mps-ptable th:last-child{ text-align:right; white-space:nowrap; }
+  .mps-ptable .p-now{ color:var(--mps-accent); font-weight:900; }
+
+  /* trust */
+  .mps-trust{ display:grid; gap:10px; margin-top:24px; grid-template-columns:repeat(2,1fr); }
+  @media(min-width:700px){ .mps-trust{ grid-template-columns:repeat(4,1fr); } }
+  .mps-trust-pill{ border:1px dashed rgba(255,255,255,.3); border-radius:12px; padding:12px 10px; text-align:center; }
+  .mps-trust-pill strong{ display:block; color:var(--mps-accent); font-size:13px; font-weight:900; margin-bottom:3px; }
+  .mps-trust-pill span{ font-size:12px; color:rgba(255,255,255,.6); }
+
+  /* FAQs */
+  .mps-faqs{ margin-top:36px; }
+  .mps-faqs h3{ color:var(--mps-accent); font-size:22px; font-weight:950; margin:0 0 14px; text-align:center; }
+  .mps-areas{ display:grid; gap:14px; margin-top:8px; }
+  @media(min-width:700px){ .mps-areas{ grid-template-columns:repeat(3,1fr); } }
+  .mps-areas h4{ margin:0 0 6px; font-size:14px; font-weight:900; color:var(--mps-accent); }
+  .mps-areas ul{ margin:0; padding-left:18px; }
+  .mps-areas li{ margin:4px 0; }
+  .mps-nearby{ margin-top:12px; color:var(--mps-accent); font-weight:700; }
+
+  .mps-contact-bar{
+    margin-top:28px; background:#111; border:1px solid rgba(255,255,255,.15);
+    border-radius:14px; padding:18px 20px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .mps-contact-bar h4{ margin:0; font-size:16px; font-weight:900; color:var(--mps-accent); }
+  .mps-contact-links{ display:flex; gap:20px; flex-wrap:wrap; font-size:14px; align-items:center; }
+  .mps-contact-links span{ white-space:nowrap; color:rgba(255,255,255,.75); }
+  .mps-contact-links a{ color:var(--mps-accent); text-decoration:none; font-weight:700; }
+  .mps-contact-links a:hover{ text-decoration:underline; }
+
+  .sr-only{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+
+  /* showcase boxes */
+  .mps-showbox{ border:1px solid; border-radius:var(--radius); padding:14px; }
+  .mps-showbox--inc{ border-color:rgba(227,252,2,.35); background:rgba(227,252,2,.04); }
+  .mps-showbox--add{ border-color:rgba(0,184,255,.38); background:rgba(0,184,255,.05); }
+  .mps-showbox-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; margin:0 0 4px; }
+  .mps-showbox-head h3{ margin:0; font-size:18px; font-weight:900; }
+  .mps-showbox--inc .mps-showbox-head h3{ color:var(--mps-accent); }
+  .mps-showbox--add .mps-showbox-head h3{ color:var(--mps-ocean); }
+  .mps-showbox-pill{
+    display:inline-flex; align-items:center; padding:5px 11px; border-radius:999px;
+    font-size:11px; font-weight:900; white-space:nowrap; letter-spacing:.04em;
+  }
+  .mps-showbox--inc .mps-showbox-pill{ background:var(--mps-accent); color:var(--accent-ink); }
+  .mps-showbox--add .mps-showbox-pill{ background:var(--mps-ocean); color:#00131c; }
+  .mps-showbox .boxdesc{ margin:0 0 12px; color:rgba(255,255,255,.65); font-size:13px; }
+
+  .mps-vcard--addon{ border-color:rgba(0,184,255,.28); }
+  .mps-vbadge--addon{ background:var(--mps-ocean); color:#00131c; }
+  .mps-vcard--addon .mps-vbody h3{ color:var(--mps-ocean); }
+  .mps-vprice{ display:block; margin:8px 0 0; font-size:15px; font-weight:950; color:var(--mps-accent); }
+  .mps-vprice small{ font-size:11.5px; font-weight:700; color:rgba(255,255,255,.5); margin-left:5px; }
+  .mps-vlink{
+    display:inline-flex; align-items:center; gap:6px; margin-top:10px; padding:8px 13px;
+    border-radius:999px; border:1px solid rgba(0,184,255,.45);
+    background:transparent; color:var(--mps-ocean);
+    font-family:inherit; font-size:12.5px; font-weight:900; cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+  }
+  .mps-vlink:hover{ background:var(--mps-ocean); color:#00131c; }
+  .mps-acc details.mps-flash{ box-shadow:inset 0 0 0 2px rgba(0,184,255,.55); border-radius:10px; }
+
+  /* carousels — 3 in view on desktop, 1 on mobile */
+  .mps-vcarousel{ position:relative; }
+  .mps-vslider{
+    grid-template-columns:none; display:flex; overflow-x:auto;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+  }
+  .mps-vslider::-webkit-scrollbar{ display:none; }
+  .mps-vslider .mps-vcard{ scroll-snap-align:start; }
+  .mps-vcarousel-controls{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:12px; }
+  .mps-vcarousel-arrow{
+    width:40px; height:40px; flex:0 0 40px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.25); background:rgba(255,255,255,.05); color:#fff;
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .mps-vcarousel-arrow:hover,
+  .mps-vcarousel-arrow:active{ border-color:rgba(227,252,2,.6); background:rgba(227,252,2,.1); }
+  .mps-vcarousel-arrow svg{ width:18px; height:18px; }
+  .mps-vcarousel-arrow:disabled{ opacity:.35; cursor:default; }
+  .mps-vcarousel-dots{ display:flex; align-items:center; gap:8px; }
+  .mps-vcarousel-dots button{
+    width:8px; height:8px; padding:0; border-radius:999px;
+    border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.25);
+    cursor:pointer; transition:background .15s ease, transform .15s ease, border-color .15s ease;
+  }
+  .mps-vcarousel-dots button.is-active{ background:var(--mps-accent); border-color:var(--mps-accent); transform:scale(1.2); }
+  #idcAddonCarousel .mps-vcarousel-dots button.is-active{ background:var(--mps-ocean); border-color:var(--mps-ocean); }
+  #idcAddonCarousel .mps-vcarousel-arrow:hover,
+  #idcAddonCarousel .mps-vcarousel-arrow:active{ border-color:rgba(0,184,255,.6); background:rgba(0,184,255,.1); }
+
+  @media(min-width:760px){
+    .mps-vslider{ gap:14px; padding-bottom:2px; }
+    .mps-vslider .mps-vcard{ flex:0 0 calc((100% - 28px) / 3); }
+  }
+  @media(max-width:759px){
+    .mps-topstack .mps-compare{ order:-1; }
+    .mps-topstack .mps-showbox--inc{ order:0; }
+    .mps-topstack .mps-showbox--add{ order:1; }
+    .mps-vslider{ gap:0; }
+    .mps-vslider .mps-vcard{ flex:0 0 100%; width:100%; }
+  }
+
+  /* small phones */
+  @media(max-width:480px){
+    .mps-services{ padding:26px 14px; border-radius:12px; }
+    .mps-title{ font-size:clamp(22px,6.4vw,28px); }
+    .mps-subnote{ font-size:13px; margin-bottom:20px; }
+    .mps-card{ padding:14px 12px; }
+    .mps-card > h3{ font-size:19px; }
+    .mps-showbox{ padding:12px 10px; }
+    .mps-showbox-head h3{ font-size:16.5px; }
+    .mps-showbox .boxdesc{ font-size:12.5px; margin-bottom:10px; }
+    .mps-vbody{ padding:11px 12px 13px; }
+    .mps-vbody h3{ font-size:15px; }
+    .mps-vbody p{ font-size:12.5px; }
+    .mps-acc summary{ padding:12px 12px; font-size:13.5px; gap:8px; min-height:46px; }
+    .mps-acc .content{ padding:10px 12px 12px; font-size:12.5px; }
+    .mps-compare{ padding:12px 10px; }
+    .mps-compare h3{ font-size:16.5px; }
+    .mps-compare .desc{ font-size:12.5px; }
+    .mps-btn{ padding:14px 12px; font-size:14.5px; }
+    .mps-contact-bar{ padding:14px 14px; }
+    .mps-contact-links{ gap:12px; font-size:13px; }
+    .mps-faqs h3{ font-size:19px; }
+    .mps-vbody h3, .mps-acc summary, .mps-acc .content{ overflow-wrap:anywhere; }
+  }
+  @media(max-width:390px){
+    .mps-services{ padding:22px 11px; }
+    .mps-title{ font-size:21px; }
+    .mps-card{ padding:12px 10px; }
+    .mps-showbox{ padding:11px 9px; }
+    .mps-acc summary{ padding:11px 10px; font-size:13px; }
+    .mps-acc .content{ padding:9px 10px 11px; }
+    .mps-vbody{ padding:10px 11px 12px; }
+    .mps-ptable{ font-size:11.5px; }
+    .mps-ptable th, .mps-ptable td{ padding:6px 5px; }
+    .mps-trust{ gap:8px; }
+    .mps-trust-pill{ padding:10px 7px; }
+    .mps-trust-pill strong{ font-size:12.5px; }
+    .mps-trust-pill span{ font-size:11.5px; }
+    .mps-btn{ padding:13px 10px; font-size:14px; }
+  }
+</style>
+
+
+<section class="mps-services" id="learnMoreMachinePolishing" aria-label="Machine polishing service details">
+
+  <h2 class="mps-title">What&rsquo;s in Machine Polishing</h2>
+  <p class="mps-subnote">Swirl marks removed rather than hidden &mdash; and the paint measured before anything touches it.</p>
+
+  <div class="mps-topstack">
+
+    <!-- ===== Included ===== -->
+    <div class="mps-showbox mps-showbox--inc" aria-label="What's included with every machine polish">
+      <div class="mps-showbox-head">
+        <h3>What&rsquo;s Included</h3>
+        <span class="mps-showbox-pill">Both routes</span>
+      </div>
+      <p class="boxdesc">Whichever level you choose, the paint gets the same preparation first.</p>
+
+      <div class="mps-vcarousel" id="mpolCarousel">
+        <div class="mps-visual-grid mps-vslider" id="mpolVisualGrid">
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge">Safe Hand Wash</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4bc24f7e-4db0-4f26-9939-172303f1bd7a/exterior+deep+clean+%282%29.webp?format=800w&content-type=image%2Fwebp"
+                   alt="Snow foam pre-wash before a safe hand wash"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Nothing gets polished dirty</h3>
+              <p>Snow foam, two buckets and grit guards. Any grit left on the paint is grit the machine drags across it.</p>
+            </div>
+          </article>
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge">Decon &amp; Clay</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/09a34b05-ee40-4f89-82c5-d4a5a2bddbab/clay+bar.webp?content-type=image%2Fwebp&format=800w"
+                   alt="Clay bar lifting bonded contamination from paintwork"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Glass-smooth before the pad</h3>
+              <p>Tar and iron fallout dissolved, then clayed until the surface is smooth. This step is included in the price, not an extra.</p>
+            </div>
+          </article>
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia mps-vmedia--blank">
+              <span class="mps-vbadge">Paint Measured</span>
+              <!-- PAINT DEPTH PHOTO: replace the <svg> below with
+                   <img src="YOUR-IMAGE-URL?format=800w" alt="Paint depth gauge reading on a panel" loading="lazy" decoding="async" width="800" height="500">
+                   and remove " mps-vmedia--blank" from the div above -->
+              <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="20" width="40" height="26" rx="4"/><path d="M20 46v6M44 46v6"/><path d="M22 33h8M34 29v8"/><circle cx="32" cy="33" r="1.5"/></svg>
+            </div>
+            <div class="mps-vbody">
+              <h3>Depth checked, then a test panel</h3>
+              <p>We gauge the clearcoat and polish a test section first, so we know exactly what the paint will give up safely before committing to the car.</p>
+            </div>
+          </article>
+
+          <article class="mps-vcard">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge">Machine Polish</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5a2af57b-7aca-4f87-bcf0-7896ac490166/paint+enhancement.png?content-type=image%2Fpng&format=800w"
+                   alt="Machine polisher refining paintwork"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Worked panel by panel</h3>
+              <p>Trims and edges taped, the paint worked in sections under a light, and the residue wiped down so what you see is the real finish.</p>
+            </div>
+          </article>
+
+        </div>
+        <div class="mps-vcarousel-controls">
+          <button class="mps-vcarousel-arrow" id="mpolCarPrev" type="button" aria-label="Previous card">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="mps-vcarousel-dots" id="mpolCarDots"></div>
+          <button class="mps-vcarousel-arrow" id="mpolCarNext" type="button" aria-label="Next card">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Optional add-ons ===== -->
+    <div class="mps-showbox mps-showbox--add" aria-label="Optional protection add-ons">
+      <div class="mps-showbox-head">
+        <h3>Optional Add-ons</h3>
+        <span class="mps-showbox-pill">Extra cost</span>
+      </div>
+      <p class="boxdesc">Freshly polished paint is bare. What goes on now decides how long the work lasts.</p>
+
+      <div class="mps-vcarousel" id="mpolAddonCarousel">
+        <div class="mps-visual-grid mps-vslider" id="mpolAddonGrid">
+
+          <article class="mps-vcard mps-vcard--addon">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge mps-vbadge--addon">6-Month Sealant</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=800w&content-type=image%2Fjpeg"
+                   alt="Water beading on a freshly protected panel"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>The sensible minimum</h3>
+              <p>A ceramic sealant in place of the wax, holding the gloss and water beading for around six months.</p>
+              <span class="mps-vprice">+&pound;30 <small>all sizes</small></span>
+              <button class="mps-vlink" type="button" data-open-addon="mpolAddonSealant">Details &amp; pricing &rarr;</button>
+            </div>
+          </article>
+
+          <article class="mps-vcard mps-vcard--addon">
+            <div class="mps-vmedia">
+              <span class="mps-vbadge mps-vbadge--addon">Ceramic Coating</span>
+              <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/077aba80-ea37-4306-ab3d-ecfcd93c02b0/ceramic+coating.png?content-type=image%2Fpng&format=800w"
+                   alt="Water beading tightly on ceramic coated paintwork"
+                   loading="lazy" decoding="async" width="800" height="500">
+            </div>
+            <div class="mps-vbody">
+              <h3>Lock the work in for years</h3>
+              <p>1, 3 or 7 years of protection over corrected paint. It also makes washing safer, which is what stops the swirls coming back.</p>
+              <span class="mps-vprice">from +&pound;90 <small>clay already paid for</small></span>
+              <button class="mps-vlink" type="button" data-open-addon="mpolAddonCoating">Details &amp; pricing &rarr;</button>
+            </div>
+          </article>
+
+        </div>
+        <div class="mps-vcarousel-controls">
+          <button class="mps-vcarousel-arrow" id="mpolAddonPrev" type="button" aria-label="Previous add-on">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="mps-vcarousel-dots" id="mpolAddonDots"></div>
+          <button class="mps-vcarousel-arrow" id="mpolAddonNext" type="button" aria-label="Next add-on">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a class="mps-btn" href="#priceFinderMachinePolishing" id="mpolCTA">Check Your Price</a>
+
+  <!-- ===== The two routes ===== -->
+  <article class="mps-card" aria-label="1-stage enhancement versus multi-stage correction">
+    <h3>Which One Does Your Paint Need?</h3>
+    <p class="mps-sectionnote">Most cars only need the 1-stage. Send us a photo in daylight and we&rsquo;ll tell you honestly &mdash; we&rsquo;d rather do the smaller job well than sell you the bigger one.</p>
+
+    <div class="mps-sectionhead">
+      <h4>1-Stage Enhancement</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Mobile &middot; one day</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>What it removes<span class="plus"></span></summary>
+        <div class="content">
+          <p><strong>Swirl marks, light scratches, water marks and dullness</strong> &mdash; the cobweb effect you see on a dark car in sunlight. One polishing stage, done on your driveway.</p>
+          <p>It won&rsquo;t remove a scratch you can catch a fingernail in. That&rsquo;s what the multi-stage is for.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Prices<span class="mps-tag">from &pound;285</span><span class="plus"></span></summary>
+        <div class="content">
+          <span class="mps-incl-chip">Wash, decontamination, clay bar and an 8-week wax included</span>
+          <p>From <strong>&pound;285</strong>, mobile, done in a day.</p>
+          <p class="mps-ptable-note">The exact price for your vehicle shows in the questionnaire above.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="mps-sectionhead">
+      <h4>Multi-Stage Paint Correction</h4>
+      <span class="mps-sectionpill mps-sectionpill--optional">At our unit &middot; overnight</span>
+    </div>
+    <div class="mps-acc mps-acc--addons">
+      <details>
+        <summary>What it removes<span class="plus"></span></summary>
+        <div class="content">
+          <p>A <strong>cutting stage</strong> to take out the damage, then <strong>refining stages</strong> to bring the gloss back &mdash; because heavy cutting leaves its own marks behind if you stop there.</p>
+          <p>For <strong>deeper scratches</strong>, heavy swirling, <strong>holograms</strong> left by a previous polisher, or paint that&rsquo;s never been corrected in its life.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Why it&rsquo;s at our unit, overnight<span class="plus"></span></summary>
+        <div class="content">
+          <p>Multi-stage work needs <strong>controlled lighting</strong> to see what you&rsquo;re removing, a <strong>stable temperature</strong> for the compounds to work properly, and more hours than a driveway allows. So the car comes to our unit in <strong>Birkenhead</strong> and stays overnight.</p>
+          <p>Drop off the evening before or first thing, and we&rsquo;ll tell you when it&rsquo;s ready. It&rsquo;s kept inside.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Prices<span class="mps-tag">from &pound;600</span><span class="plus"></span></summary>
+        <div class="content">
+          <span class="mps-incl-chip mps-incl-chip--quote">By quote &mdash; confirmed after we&rsquo;ve seen the paint</span>
+          <p>The starting price covers the same preparation plus the correction stages. Where it lands depends on <strong>size</strong> and on <strong>how much correction the paint safely takes</strong> &mdash; which we only know once it&rsquo;s measured and a test section is done.</p>
+          <p class="mps-ptable-note">From &pound;600, confirmed after inspection. Protection is charged at the usual price on top, whichever route you take.</p>
+        </div>
+      </details>
+    </div>
+  </article>
+
+  <!-- ===== Included list ===== -->
+  <article class="mps-card" id="WhatIncludedMachinePolishing" aria-label="Included with every machine polish">
+    <h3>Included in Every Polish</h3>
+
+    <div class="mps-sectionhead">
+      <h4>Preparation</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Included</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>Snow Foam &amp; Two-Bucket Hand Wash<span class="plus"></span></summary>
+        <div class="content"><p>Foam dwells to soften traffic film, then a hand wash with grit guards and clean mitts. Polishing a dirty car just grinds the dirt into the paint.</p></div>
+      </details>
+      <details>
+        <summary>Chemical Decontamination &amp; Clay Bar<span class="plus"></span></summary>
+        <div class="content"><p>Tar and iron fallout dissolved, then the bonded grit clayed off. Both are included in the polish price &mdash; you&rsquo;re never charged twice for the same prep.</p></div>
+      </details>
+      <details>
+        <summary>Paint Depth Measured<span class="plus"></span></summary>
+        <div class="content">
+          <p>Clearcoat is finite. We gauge its thickness before polishing, so we know how much is there to work with &mdash; and we&rsquo;ll stop short rather than take a panel too far.</p>
+          <p>If a panel has been resprayed or has already been polished thin, we&rsquo;ll tell you and leave it alone.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Test Section First<span class="plus"></span></summary>
+        <div class="content"><p>A small area is polished and inspected under light before we commit to the car. That&rsquo;s how we know what the paint will actually give up &mdash; and what to promise you.</p></div>
+      </details>
+      <details>
+        <summary>Trims &amp; Edges Taped<span class="plus"></span></summary>
+        <div class="content"><p>Plastics, badges and panel edges masked before the machine goes near them. Compound staining on black trim is the classic sign of a rushed job.</p></div>
+      </details>
+    </div>
+
+    <div class="mps-sectionhead">
+      <h4>Finishing</h4>
+      <span class="mps-sectionpill mps-sectionpill--soft">Included</span>
+    </div>
+    <div class="mps-acc">
+      <details>
+        <summary>Inspected Under Light<span class="plus"></span></summary>
+        <div class="content"><p>Checked panel by panel with proper lighting, not daylight and hope. Polishing oils get wiped off so what you&rsquo;re looking at is the real finish rather than a filled one.</p></div>
+      </details>
+      <details>
+        <summary>8-Week Protection Wax<span class="plus"></span></summary>
+        <div class="content">
+          <p>Bare polished paint has no protection at all, so a wax goes on either way.</p>
+          <p>It lasts around <strong>8 weeks</strong> &mdash; which is why most people put a sealant or a coating on instead. See below.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Glass, Trims &amp; Tyres<span class="plus"></span></summary>
+        <div class="content"><p>Exterior glass cleaned streak-free, trims dressed and tyres finished, so the car leaves looking finished rather than just polished.</p></div>
+      </details>
+    </div>
+
+    <div class="mps-sectionhead mps-sectionhead--addons">
+      <h4>Protection add-ons</h4>
+      <span class="mps-sectionpill mps-sectionpill--optional">Optional</span>
+    </div>
+    <p class="mps-sectionnote">Both are &pound;30 less than on their own, because the polish has already paid for the clay bar.</p>
+
+    <div class="mps-acc mps-acc--addons">
+      <details id="mpolAddonSealant">
+        <summary>6-Month Ceramic Sealant<span class="mps-tag">+&pound;30</span><span class="plus"></span></summary>
+        <div class="content">
+          <p>Replaces the 8-week wax with a ceramic sealant that keeps the gloss and water beading for around <strong>6 months</strong>, and makes every wash after it easier.</p>
+          <p>Same price for every vehicle size.</p>
+        </div>
+      </details>
+
+      <details id="mpolAddonCoating">
+        <summary>Ceramic Coating<span class="mps-tag">from +&pound;90</span><span class="plus"></span></summary>
+        <div class="content">
+          <span class="mps-incl-chip mps-incl-chip--quote">By quote &middot; weather dependent</span>
+          <span class="mps-incl-chip">Clay bar &amp; Glaco included</span>
+          <p>A ceramic coating over freshly corrected paint is the best moment to apply one &mdash; there&rsquo;s nothing underneath it to lock in. Water sheets off, dirt struggles to bond, and washing gets far safer, which is what keeps the swirl marks from returning.</p>
+          <p>Choose <strong>1, 3 or 7 years</strong>, from <strong>+&pound;90</strong>.</p>
+          <p class="mps-ptable-note">The exact price for your vehicle and coating length shows in the questionnaire above. Coatings need dry conditions to cure, so the questionnaire&rsquo;s button becomes <strong>Request This Booking</strong> and we confirm your date against the forecast &mdash; the price doesn&rsquo;t change.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="mps-trust" aria-label="Why drivers choose MobilePitStop">
+      <div class="mps-trust-pill"><strong>Paint Measured</strong><span>Before anything is removed</span></div>
+      <div class="mps-trust-pill"><strong>Test Section</strong><span>We show you first</span></div>
+      <div class="mps-trust-pill"><strong>10% to Book</strong><span>Balance after the job</span></div>
+      <div class="mps-trust-pill"><strong>5&#9733; Rated</strong><span id="mpolTrustReviews">81 Google reviews</span></div>
+    </div>
+  </article>
+
+</section>
+
+<!-- ===== FAQs ===== -->
+<section class="mps-faqs" aria-label="Machine polishing FAQs">
+  <h3>Machine Polishing FAQs</h3>
+
+  <div class="mps-acc" id="mpolFAQs">
+    <details>
+      <summary>Will it remove every scratch?<span class="plus"></span></summary>
+      <div class="content">No. Polishing removes a tiny amount of clearcoat to level the surface around a defect &mdash; so marks <strong>within</strong> the clearcoat come out. If you can catch a fingernail in it, it&rsquo;s through the clearcoat and polishing can only soften it. We&rsquo;ll tell you which is which before we start.</div>
+    </details>
+    <details>
+      <summary>Is machine polishing safe for my paint?<span class="plus"></span></summary>
+      <div class="content">Done properly, yes &mdash; which is why we <strong>measure the clearcoat</strong> and polish a test section first. Done badly it burns through edges and leaves holograms. That&rsquo;s the difference between a machine and a machine in the right hands.</div>
+    </details>
+    <details>
+      <summary>How do I know if I need 1-stage or multi-stage?<span class="plus"></span></summary>
+      <div class="content">Look at the car in direct sunlight. Fine cobwebbing and swirls that appear as circles around a light source &mdash; <strong>1-stage</strong>. Deep straight scratches, heavy marring or a dull, hazy finish that doesn&rsquo;t change with the light &mdash; <strong>multi-stage</strong>. Send us a photo in daylight and we&rsquo;ll say honestly; most cars are the 1-stage.</div>
+    </details>
+    <details>
+      <summary>Why does the multi-stage have to stay overnight?<span class="plus"></span></summary>
+      <div class="content">It needs controlled lighting, a stable temperature and more hours than a driveway gives. The car comes to our unit in <strong>Birkenhead</strong>, stays inside overnight, and we tell you when it&rsquo;s ready.</div>
+    </details>
+    <details>
+      <summary>Why is the multi-stage price &ldquo;from&rdquo;?<span class="plus"></span></summary>
+      <div class="content">Because the hours depend on the paint. Two cars the same size can need very different amounts of correction, and we won&rsquo;t know how much yours safely takes until it&rsquo;s measured and test polished. You get the final figure before we go ahead &mdash; never after.</div>
+    </details>
+    <details>
+      <summary>Do I need protection afterwards?<span class="plus"></span></summary>
+      <div class="content">Polished paint is bare, so a wax goes on either way &mdash; but it only lasts around 8 weeks. If you&rsquo;ve just paid for correction, a <strong>sealant</strong> or a <strong>ceramic coating</strong> is what makes that work last, and both are &pound;30 less here because the clay bar is already included.</div>
+    </details>
+    <details>
+      <summary>How long does the result last?<span class="plus"></span></summary>
+      <div class="content">The correction itself is permanent &mdash; those marks are gone. What decides how long it <em>looks</em> that way is how the car is washed afterwards. Automatic washes put swirls back within months; a safe hand wash keeps it. That&rsquo;s exactly what the <a href="https://mobilepitstop.uk/car-detailing-maintenance-plan" style="color:#E3FC02;font-weight:900;text-decoration:none">Maintenance Plan</a> is for.</div>
+    </details>
+    <details>
+      <summary>What areas do you cover?<span class="plus"></span></summary>
+      <div class="content">Mobile 1-stage polishing across <strong>Cheshire, Merseyside and Flintshire</strong>, roughly within 20 miles of Ellesmere Port. Multi-stage correction is done at our unit in Birkenhead.</div>
+    </details>
+    <details>
+      <summary>How do I pay?<span class="plus"></span></summary>
+      <div class="content">A <strong>10% deposit</strong> secures the booking, with the balance paid after the job by <strong>card, cash or invoice</strong>.</div>
+    </details>
+  </div>
+
+  <div class="mps-contact-bar" role="contentinfo" aria-label="Contact MobilePitStop">
+    <h4>Send us a photo and we&rsquo;ll tell you which you need</h4>
+    <div class="mps-contact-links">
+      <span><strong>Call/Text:</strong> <a href="tel:+447592196929">07592 196929</a></span>
+      <span><strong>Email:</strong> <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></span>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+
+  function init(){
+
+    /* -- review count from the sitewide config -- */
+    try{
+      var cfg = window.MPS_REVIEWS;
+      var rv  = document.getElementById('mpolTrustReviews');
+      if(cfg && cfg.count && rv) rv.textContent = Number(cfg.count) + ' Google reviews';
+    }catch(e){}
+
+    /* -- CTA glow -- */
+    var cta = document.getElementById('mpolCTA');
+    if(cta && 'IntersectionObserver' in window){
+      new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ cta.classList.toggle('is-visible', e.isIntersecting); });
+      }, {threshold:0.5}).observe(cta);
+    }
+
+    /* -- Carousels -- */
+    function initCarousel(gridId, prevId, nextId, dotsId, label){
+      var grid = document.getElementById(gridId);
+      var prev = document.getElementById(prevId);
+      var next = document.getElementById(nextId);
+      var dots = document.getElementById(dotsId);
+      if(!grid || !prev || !next || !dots) return;
+
+      var cards = Array.prototype.slice.call(grid.querySelectorAll('.mps-vcard'));
+      if(!cards.length){ prev.parentNode.style.display = 'none'; return; }
+      var idx = 0;
+
+      function perView(){
+        var w = cards[0].getBoundingClientRect().width;
+        if(!w) return 1;
+        return Math.max(1, Math.round(grid.clientWidth / w));
+      }
+      function maxIdx(){ return Math.max(0, cards.length - perView()); }
+
+      cards.forEach(function(_, i){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', label + ' ' + (i + 1));
+        b.addEventListener('click', function(){ goTo(i); });
+        dots.appendChild(b);
+      });
+      var dotEls = Array.prototype.slice.call(dots.children);
+
+      function paint(){
+        var mx = maxIdx();
+        dotEls.forEach(function(d, i){
+          d.classList.toggle('is-active', i === idx);
+          d.style.display = (i > mx) ? 'none' : '';
+        });
+        prev.disabled = (idx <= 0);
+        next.disabled = (idx >= mx);
+        prev.parentNode.style.visibility = (mx === 0) ? 'hidden' : '';
+      }
+      function goTo(i){
+        idx = Math.max(0, Math.min(maxIdx(), i));
+        var card = cards[idx];
+        if(card) grid.scrollTo({ left: card.offsetLeft - grid.offsetLeft, behavior:'smooth' });
+        paint();
+      }
+
+      var rt = null;
+      window.addEventListener('resize', function(){
+        clearTimeout(rt);
+        rt = setTimeout(function(){ if(idx > maxIdx()) goTo(maxIdx()); else paint(); }, 150);
+      });
+      prev.addEventListener('click', function(){ goTo(idx - 1); });
+      next.addEventListener('click', function(){ goTo(idx + 1); });
+
+      var t = null;
+      grid.addEventListener('scroll', function(){
+        clearTimeout(t);
+        t = setTimeout(function(){
+          var nearest = 0, best = Infinity;
+          cards.forEach(function(c, i){
+            var d = Math.abs((c.offsetLeft - grid.offsetLeft) - grid.scrollLeft);
+            if(d < best){ best = d; nearest = i; }
+          });
+          nearest = Math.min(nearest, maxIdx());
+          if(nearest !== idx){ idx = nearest; paint(); }
+        }, 80);
+      }, { passive:true });
+
+      paint();
+    }
+    initCarousel('mpolVisualGrid', 'mpolCarPrev',   'mpolCarNext',   'mpolCarDots',   'Go to card');
+    initCarousel('mpolAddonGrid',  'mpolAddonPrev', 'mpolAddonNext', 'mpolAddonDots', 'Go to add-on');
+
+    /* -- Add-on cards open their matching accordion -- */
+    Array.prototype.slice.call(document.querySelectorAll('#learnMoreMachinePolishing [data-open-addon]'))
+      .forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var target = document.getElementById(btn.getAttribute('data-open-addon'));
+          if(!target) return;
+          Array.prototype.slice.call(document.querySelectorAll(
+            '#learnMoreMachinePolishing .mps-acc details[open], #mpolFAQs details[open]'
+          )).forEach(function(d){ if(d !== target) d.open = false; });
+          target.open = true;
+          target.scrollIntoView({ behavior:'smooth', block:'center' });
+          target.classList.add('mps-flash');
+          setTimeout(function(){ target.classList.remove('mps-flash'); }, 1600);
+        });
+      });
+
+    /* -- Accordions: only one open at a time -- */
+    var allSummaries = Array.prototype.slice.call(document.querySelectorAll(
+      '#learnMoreMachinePolishing .mps-acc details summary, #mpolFAQs details summary'
+    ));
+    allSummaries.forEach(function(summary){
+      summary.addEventListener('click', function(){
+        var thisDetails = summary.parentElement;
+        allSummaries.forEach(function(other){
+          var od = other.parentElement;
+          if(od !== thisDetails && od.open) od.open = false;
+        });
+      });
+    });
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    setTimeout(init, 0);
+  }
+
+})();
+</script>

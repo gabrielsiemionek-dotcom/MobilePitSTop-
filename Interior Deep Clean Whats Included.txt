@@ -282,14 +282,13 @@
   .mps-vcarousel-arrow:active{ border-color:rgba(227,252,2,.6); background:rgba(227,252,2,.1); }
   .mps-vcarousel-arrow svg{ width:18px; height:18px; }
   .mps-vcarousel-arrow:disabled{ opacity:.35; cursor:default; }
-  .mps-vcarousel-dots{ display:flex; align-items:center; gap:8px; }
-  .mps-vcarousel-dots button{
-    width:8px; height:8px; padding:0; border-radius:999px;
-    border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.25);
-    cursor:pointer; transition:background .15s ease, transform .15s ease, border-color .15s ease;
-  }
-  .mps-vcarousel-dots button.is-active{ background:var(--mps-accent); border-color:var(--mps-accent); transform:scale(1.2); }
-  #idcAddonCarousel .mps-vcarousel-dots button.is-active{ background:var(--mps-ocean); border-color:var(--mps-ocean); }
+  .mps-vcarousel-dots{ display:flex; align-items:center; gap:0; }
+  /* each dot is a 24px tap target; the visible 8px dot is drawn inside it */
+  .mps-vcarousel-dots button{ position:relative; width:24px; height:24px; padding:0; margin:0; border:0; border-radius:999px; background:none; cursor:pointer; }
+  .mps-vcarousel-dots button::before{ content:""; position:absolute; left:8px; top:8px; width:8px; height:8px; box-sizing:border-box; border-radius:999px; border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.25); transition:background .15s ease, transform .15s ease, border-color .15s ease; }
+  .mps-vcarousel-dots button:focus-visible{ outline:2px solid #00B8FF; outline-offset:0; }
+  .mps-vcarousel-dots button.is-active::before{ background:var(--mps-accent); border-color:var(--mps-accent); transform:scale(1.2); }
+  #idcAddonCarousel .mps-vcarousel-dots button.is-active::before{ background:var(--mps-ocean); border-color:var(--mps-ocean); }
   #idcAddonCarousel .mps-vcarousel-arrow:hover,
   #idcAddonCarousel .mps-vcarousel-arrow:active{ border-color:rgba(0,184,255,.6); background:rgba(0,184,255,.1); }
 
@@ -369,6 +368,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Full Extraction</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/999f8c14-6d7b-4fdd-b81b-343e7863ee0e/Full+Valet+Interior+Deep+Clean.webp?content-type=image%2Fwebp&format=800w"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/999f8c14-6d7b-4fdd-b81b-343e7863ee0e/Full+Valet+Interior+Deep+Clean.webp?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/999f8c14-6d7b-4fdd-b81b-343e7863ee0e/Full+Valet+Interior+Deep+Clean.webp?content-type=image%2Fwebp&format=800w 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Steam shampoo and wet-vac extraction lifting stains from a car seat"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -382,6 +383,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Thorough Vacuum</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/c5819bdf-1d1b-4af4-896f-b65fd9be2cd4/Interior+Deep+Clean+%2B+Full+Valet.png?content-type=image%2Fpng&amp;format=800w"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/c5819bdf-1d1b-4af4-896f-b65fd9be2cd4/Interior+Deep+Clean+%2B+Full+Valet.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/c5819bdf-1d1b-4af4-896f-b65fd9be2cd4/Interior+Deep+Clean+%2B+Full+Valet.png?content-type=image%2Fpng&amp;format=800w 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Deep vacuuming of seats, carpets, mats and boot including edges"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -395,6 +398,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Steam Cleaning</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=800w&content-type=image%2Fwebp"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=800w&content-type=image%2Fwebp 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Steam cleaning high-touch interior surfaces"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -408,6 +413,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Steering Wheel</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/00a01d26-1fcb-4ded-9a31-a5525f37965a/Steering+Wheel+Cleaned.png?format=800w&content-type=image%2Fpng"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/00a01d26-1fcb-4ded-9a31-a5525f37965a/Steering+Wheel+Cleaned.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/00a01d26-1fcb-4ded-9a31-a5525f37965a/Steering+Wheel+Cleaned.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/00a01d26-1fcb-4ded-9a31-a5525f37965a/Steering+Wheel+Cleaned.png?format=800w&content-type=image%2Fpng 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Steering wheel detailed clean and moisturised"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -421,6 +428,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Detailed Clean</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/386faea1-3f88-4d9d-a387-d391b826b661/Interior+Detail.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/386faea1-3f88-4d9d-a387-d391b826b661/Interior+Detail.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/386faea1-3f88-4d9d-a387-d391b826b661/Interior+Detail.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/386faea1-3f88-4d9d-a387-d391b826b661/Interior+Detail.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Detailed clean across crevices, rails and plastics"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -434,6 +443,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Door Shuts</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/f5a14dc9-288e-45e3-872a-75d619ca253f/49.png?content-type=image%2Fpng&amp;format=800w"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/f5a14dc9-288e-45e3-872a-75d619ca253f/49.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/f5a14dc9-288e-45e3-872a-75d619ca253f/49.png?content-type=image%2Fpng&amp;format=800w 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Door shuts and sills cleaned along the painted edges"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -471,6 +482,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge mps-vbadge--addon">Pet Hair</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/da20e3c5-579e-4c67-9d9d-d0a26e6bda1e/47.png?content-type=image%2Fpng&amp;format=800w"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/da20e3c5-579e-4c67-9d9d-d0a26e6bda1e/47.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/da20e3c5-579e-4c67-9d9d-d0a26e6bda1e/47.png?content-type=image%2Fpng&amp;format=800w 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Dog hair being lifted from car upholstery with specialist tools"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -502,6 +515,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge mps-vbadge--addon">Headliner</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/e97ef7fd-de33-421c-ad7b-561b2a9f405b/48.png?content-type=image%2Fpng&amp;format=800w"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/e97ef7fd-de33-421c-ad7b-561b2a9f405b/48.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/e97ef7fd-de33-421c-ad7b-561b2a9f405b/48.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/e97ef7fd-de33-421c-ad7b-561b2a9f405b/48.png?content-type=image%2Fpng&amp;format=800w 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Headliner being cleaned with a low-moisture technique"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -575,11 +590,15 @@
       <div class="frame" id="idcFrame" role="img" aria-label="Before and after shampoo and extraction">
         <img class="before"
              src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/f7bc42d9-93d9-4f71-bff4-a443c2fd465a/Before+-+Shampoo+-+%26+Extraction.png?format=800w&content-type=image%2Fpng"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/f7bc42d9-93d9-4f71-bff4-a443c2fd465a/Before+-+Shampoo+-+%26+Extraction.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/f7bc42d9-93d9-4f71-bff4-a443c2fd465a/Before+-+Shampoo+-+%26+Extraction.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/f7bc42d9-93d9-4f71-bff4-a443c2fd465a/Before+-+Shampoo+-+%26+Extraction.png?format=800w&content-type=image%2Fpng 800w"
+             sizes="(max-width: 900px) 92vw, 860px"
              alt="Before: stains visible on seat"
              loading="lazy" decoding="async" width="800" height="500">
         <div id="idcAfterWrap" style="position:absolute;top:0;left:0;bottom:0;width:50%;overflow:hidden;z-index:2;">
           <img class="after"
                src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/20dbf38b-3ccb-43b5-b05a-022c8cbba993/After+-+Shampoo+%26+Extraction.png?format=800w&content-type=image%2Fpng"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/20dbf38b-3ccb-43b5-b05a-022c8cbba993/After+-+Shampoo+%26+Extraction.png?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/20dbf38b-3ccb-43b5-b05a-022c8cbba993/After+-+Shampoo+%26+Extraction.png?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/20dbf38b-3ccb-43b5-b05a-022c8cbba993/After+-+Shampoo+%26+Extraction.png?format=800w&content-type=image%2Fpng 800w"
+             sizes="(max-width: 900px) 92vw, 860px"
                alt="After: seat refreshed and stain-free"
                loading="lazy" decoding="async" width="800" height="500"
                style="position:absolute;top:0;left:0;height:100%;object-fit:cover;max-width:none;">

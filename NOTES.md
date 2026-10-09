@@ -825,6 +825,43 @@ begin_checkout, all `in_and_out`.
 
 ---
 
+## 2026-10-09 — Speed & accessibility pass: the other six service pages
+
+Same pass as In & Out, applied to Interior Deep Clean, Maintenance Wash,
+Odour Removal, Exterior Detail, Protection Detail and Machine Polishing
+(+ the In & Out topbar). Previous code is in `rollback/` (In & Out's
+questionnaire before this change: `rollback/in-out-questionnaire-v2.txt`).
+
+- Questionnaires: topbar subtitle `<h3>` -> `<h2 class="topbar-sub">` (same
+  size and line height, fixes heading order); review badge name = its
+  visible text. Exterior / Protection / Machine Polishing: ceramic coating
+  card is a labelled `role="group"` with `data-selected`, outside the
+  listboxes (Protection's "No coating" option sits in its own listbox).
+- What's Included: carousel dots are 24 px tap targets; photos get
+  `srcset`. Srcset URLs drop the `content-type=` parameter (with it the
+  Squarespace CDN ignores `format=` and always sends the original) and only
+  list widths that were measured smaller than the current photo.
+- Odour Removal's four photos had no size at all (1.5 MB originals each).
+
+Photos on a 375 px phone (2x screen): Interior 3.86 -> 2.98 MB, Maintenance
+Wash 607 -> 400 KB, Odour Removal 12.7 MB -> 693 KB, Exterior 913 -> 653 KB,
+Protection 687 -> 518 KB, Machine Polishing 624 -> 470 KB. Code blocks grow
+by 0.3-3.5 KB (the srcset text).
+
+Local accessibility: Interior 96 -> 100, Maintenance Wash 96 -> 100, Odour
+99 -> 100, Exterior 87 -> 100, Protection 90 -> 100, Machine Polishing
+86 -> 100, In & Out 99 -> 100.
+
+Booking tested on every page at 375 px up to the Stripe redirect: AUTUMN20
+takes 20% off, T&Cs error + focus without the tick, deposit = 10% of the
+discounted total with terms=yes / terms_version 2026-09-17, events
+quote_start -> quote_complete -> pf_calendar_open -> slot_select ->
+pf_book_click -> begin_checkout with the page's own service slug. Coating
+card: picking it sets `data-selected`, the button becomes "Request This
+Booking", choosing another option clears it.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

@@ -447,6 +447,8 @@
             <span class="mps-vbadge">Clay Bar Treatment</span>
             <img
               src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/09a34b05-ee40-4f89-82c5-d4a5a2bddbab/clay+bar.webp?content-type=image%2Fwebp&format=800w"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/09a34b05-ee40-4f89-82c5-d4a5a2bddbab/clay+bar.webp?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/09a34b05-ee40-4f89-82c5-d4a5a2bddbab/clay+bar.webp?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/09a34b05-ee40-4f89-82c5-d4a5a2bddbab/clay+bar.webp?content-type=image%2Fwebp&format=800w 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
               alt="Clay bar treatment on paintwork for a glass-smooth finish"
               loading="lazy" decoding="async" width="800" height="500">
           </div>
@@ -461,6 +463,8 @@
             <span class="mps-vbadge">6-Month Protection</span>
             <img
               src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
               alt="Ceramic sealant beading water on paintwork"
               loading="lazy" decoding="async" width="800" height="500">
           </div>
@@ -475,6 +479,8 @@
             <span class="mps-vbadge">Full Extraction</span>
             <img
               src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=800w&content-type=image%2Fwebp"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ba205ef5-8547-45ec-afd3-b3c35308d1a1/Steam_Cleaning_1788725701_6.webp?format=800w&content-type=image%2Fwebp 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
               alt="Steam shampoo and extraction on interior seats and carpets"
               loading="lazy" decoding="async" width="800" height="500">
           </div>
@@ -556,11 +562,15 @@
       <div class="frame" id="fvpFrame" role="img" aria-label="Before and after wheel comparison">
         <img class="before"
              src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ed3b4be7-1b1f-4314-9703-1aac55a85bea/before+wheel+deep+clean.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ed3b4be7-1b1f-4314-9703-1aac55a85bea/before+wheel+deep+clean.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ed3b4be7-1b1f-4314-9703-1aac55a85bea/before+wheel+deep+clean.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/ed3b4be7-1b1f-4314-9703-1aac55a85bea/before+wheel+deep+clean.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 900px) 92vw, 860px"
              alt="Before: wheel with embedded brake dust"
              loading="lazy" decoding="async" width="800" height="500">
         <div id="fvpAfterWrap" style="position:absolute;top:0;left:0;bottom:0;width:50%;overflow:hidden;z-index:2;">
           <img class="after"
                src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/59c687da-e8f8-4bfa-a687-29cb595ff0b3/after+wheel+deep+clean.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/59c687da-e8f8-4bfa-a687-29cb595ff0b3/after+wheel+deep+clean.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/59c687da-e8f8-4bfa-a687-29cb595ff0b3/after+wheel+deep+clean.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/59c687da-e8f8-4bfa-a687-29cb595ff0b3/after+wheel+deep+clean.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 900px) 92vw, 860px"
                alt="After: wheel clean after decontamination"
                loading="lazy" decoding="async" width="800" height="500"
                style="position:absolute;top:0;left:0;height:100%;object-fit:cover;max-width:none;">

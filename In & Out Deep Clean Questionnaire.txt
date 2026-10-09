@@ -160,7 +160,8 @@
     margin-bottom:8px;
   }
   .topbar h1{ margin:0; font-size:clamp(20px,3vw,26px); font-weight:950; letter-spacing:.2px; color:var(--accent); }
-  .topbar h3{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
+  .topbar h2.topbar-sub{ line-height:1.1424; }
+  .topbar h3, .topbar h2.topbar-sub{ margin:6px 0 0; font-size:16px; font-weight:900; color:var(--accent); }
   .lead{ margin:6px 0 14px; color:#d0d0d0; font-size:14px; }
 
   .totalbox{
@@ -794,7 +795,7 @@
     .step{ padding:14px 12px; }
     .topbar{ gap:10px; margin-bottom:6px; }
     .topbar h1{ font-size:19px; line-height:1.2; }
-    .topbar h3{ font-size:13px; margin-top:3px; }
+    .topbar h3, .topbar h2.topbar-sub{ font-size:13px; margin-top:3px; }
     .lead{ font-size:12px; margin:3px 0 10px; }
 
     .totalbox{
@@ -1512,7 +1513,7 @@
   <div class="topbar">
     <div>
       <h1>In &amp; Out Deep Clean</h1>
-      <h3>Steam, shampoo and extraction, included as standard.</h3>
+      <h2 class="topbar-sub">Steam, shampoo and extraction, included as standard.</h2>
     </div>
     <div class="totalbox" aria-live="polite">
       <div class="lbl">Your total</div>

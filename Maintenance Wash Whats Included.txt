@@ -288,14 +288,13 @@
   .mps-vcarousel-arrow:active{ border-color:rgba(227,252,2,.6); background:rgba(227,252,2,.1); }
   .mps-vcarousel-arrow svg{ width:18px; height:18px; }
   .mps-vcarousel-arrow:disabled{ opacity:.35; cursor:default; }
-  .mps-vcarousel-dots{ display:flex; align-items:center; gap:8px; }
-  .mps-vcarousel-dots button{
-    width:8px; height:8px; padding:0; border-radius:999px;
-    border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.25);
-    cursor:pointer; transition:background .15s ease, transform .15s ease, border-color .15s ease;
-  }
-  .mps-vcarousel-dots button.is-active{ background:var(--mps-accent); border-color:var(--mps-accent); transform:scale(1.2); }
-  #idcAddonCarousel .mps-vcarousel-dots button.is-active{ background:var(--mps-ocean); border-color:var(--mps-ocean); }
+  .mps-vcarousel-dots{ display:flex; align-items:center; gap:0; }
+  /* each dot is a 24px tap target; the visible 8px dot is drawn inside it */
+  .mps-vcarousel-dots button{ position:relative; width:24px; height:24px; padding:0; margin:0; border:0; border-radius:999px; background:none; cursor:pointer; }
+  .mps-vcarousel-dots button::before{ content:""; position:absolute; left:8px; top:8px; width:8px; height:8px; box-sizing:border-box; border-radius:999px; border:1px solid rgba(255,255,255,.3); background:rgba(255,255,255,.25); transition:background .15s ease, transform .15s ease, border-color .15s ease; }
+  .mps-vcarousel-dots button:focus-visible{ outline:2px solid #00B8FF; outline-offset:0; }
+  .mps-vcarousel-dots button.is-active::before{ background:var(--mps-accent); border-color:var(--mps-accent); transform:scale(1.2); }
+  #idcAddonCarousel .mps-vcarousel-dots button.is-active::before{ background:var(--mps-ocean); border-color:var(--mps-ocean); }
   #idcAddonCarousel .mps-vcarousel-arrow:hover,
   #idcAddonCarousel .mps-vcarousel-arrow:active{ border-color:rgba(0,184,255,.6); background:rgba(0,184,255,.1); }
 
@@ -403,6 +402,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Snow Foam</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/b53d594d-d97b-4f0b-a51c-99cc6ced524b/Snowfoam+Wheels.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/b53d594d-d97b-4f0b-a51c-99cc6ced524b/Snowfoam+Wheels.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/b53d594d-d97b-4f0b-a51c-99cc6ced524b/Snowfoam+Wheels.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/b53d594d-d97b-4f0b-a51c-99cc6ced524b/Snowfoam+Wheels.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Snow foam applied to wheels and arches" loading="lazy" decoding="async" width="800" height="500">
             </div>
             <div class="mps-vbody">
@@ -415,6 +416,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Interior Vacuum</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5dbd4747-4388-41b7-bf7b-306182a08623/Vacuum.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5dbd4747-4388-41b7-bf7b-306182a08623/Vacuum.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5dbd4747-4388-41b7-bf7b-306182a08623/Vacuum.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/5dbd4747-4388-41b7-bf7b-306182a08623/Vacuum.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Interior blow out and vacuum" loading="lazy" decoding="async" width="800" height="500">
             </div>
             <div class="mps-vbody">
@@ -427,6 +430,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge">Glass In &amp; Out</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/fcb79498-0417-4582-a081-513e7fd7f698/Glass+Cleaned.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/fcb79498-0417-4582-a081-513e7fd7f698/Glass+Cleaned.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/fcb79498-0417-4582-a081-513e7fd7f698/Glass+Cleaned.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/fcb79498-0417-4582-a081-513e7fd7f698/Glass+Cleaned.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Streak-free glass cleaned inside and out" loading="lazy" decoding="async" width="800" height="500">
             </div>
             <div class="mps-vbody">
@@ -463,6 +468,8 @@
             <div class="mps-vmedia">
               <span class="mps-vbadge mps-vbadge--addon">Protection Wax</span>
               <img src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/9748b6a0-15c1-421d-9ece-a0a88c7b4c03/Hydrophobic+Wax.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 640px) 92vw, 460px"
                    alt="Water beading on a freshly waxed panel"
                    loading="lazy" decoding="async" width="800" height="500">
             </div>
@@ -539,11 +546,15 @@
       <div class="frame" id="mvFrame" role="img" aria-label="Before and after snow foam comparison">
         <img class="before"
              src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/1d949c14-63ea-44f0-ac6f-1aa01034fa66/Before+Snowfoam.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/1d949c14-63ea-44f0-ac6f-1aa01034fa66/Before+Snowfoam.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/1d949c14-63ea-44f0-ac6f-1aa01034fa66/Before+Snowfoam.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/1d949c14-63ea-44f0-ac6f-1aa01034fa66/Before+Snowfoam.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 900px) 92vw, 860px"
              alt="Before: car exterior before snow foam wash"
              loading="lazy" decoding="async" width="800" height="500">
         <div id="mvAfterWrap" style="position:absolute;top:0;left:0;bottom:0;width:50%;overflow:hidden;z-index:2;">
           <img class="after"
                src="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4b965225-b6bd-47f8-b165-d7df69423d4f/After+Snowfoam.jpg?format=800w&content-type=image%2Fjpeg"
+             srcset="https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4b965225-b6bd-47f8-b165-d7df69423d4f/After+Snowfoam.jpg?format=500w 500w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4b965225-b6bd-47f8-b165-d7df69423d4f/After+Snowfoam.jpg?format=750w 750w, https://images.squarespace-cdn.com/content/688cfa04caff54312a009f41/4b965225-b6bd-47f8-b165-d7df69423d4f/After+Snowfoam.jpg?format=800w&content-type=image%2Fjpeg 800w"
+             sizes="(max-width: 900px) 92vw, 860px"
                alt="After: car exterior after snow foam wash"
                loading="lazy" decoding="async" width="800" height="500"
                style="position:absolute;top:0;left:0;height:100%;object-fit:cover;max-width:none;">
