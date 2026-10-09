@@ -794,6 +794,37 @@ Tested at 375px on all 7 pages.
 
 ---
 
+## 2026-10-09 — Speed & accessibility pass: In & Out (page 1 of 7)
+
+Lighthouse (live, before): mobile 61 / LCP 6.5 s / TBT 300 ms / CLS 0.039,
+desktop 91 / LCP 1.5 s / CLS 0.056, accessibility 83. **LCP element is the
+Squarespace header logo** (82 KB, 1500 px PNG shown at 150 px), held back by
+Squarespace's render-blocking site.css and a busy main thread; the CLS that
+remains is Squarespace re-positioning the first section and its web fonts.
+Gab: upload a ~300 px logo; delete the stale "Set Up Your Maintenance Plan"
+(Full Valet) blocks.
+
+Changes (rollback copies of the previous code are in `rollback/`):
+- Questionnaire: the ceramic coating card is a labelled `role="group"`
+  between two small listboxes (sealant / no add-on) instead of sitting
+  inside one, and uses `data-selected` for its highlight (looks identical).
+  Review badge: visible text is its accessible name (+ hidden "rated out
+  of 5, opens Google in a new tab"). `pf_calendar_open` now sends
+  service `in_and_out` (was `interior_deep_clean`).
+- What's Included: carousel dots are 24 px tap targets (same 8 px dot);
+  JPG/WebP photos get `srcset` 500w/750w/800w. PNGs keep 800w — the
+  Squarespace CDN serves 750w/600w/500w PNGs 2–5x LARGER than 800w.
+- Reviews and Map: "Loading reviews…" contrast raised (.45 → .72).
+
+Measured on a local copy of the page: accessibility 84 → 99 (only Squarespace
+heading-order left); our image bytes 584 → 454 KB on mobile. Booking tested at
+375 px up to the Stripe redirect: AUTUMN20 £250 → £200, T&Cs error + focus,
+deposit 2000 / total 20000 / terms 2026-09-17, events quote_start →
+quote_complete → pf_calendar_open → slot_select → pf_book_click →
+begin_checkout, all `in_and_out`.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
