@@ -874,6 +874,21 @@ PNGs (paint enhancement, ceramic coating).
 
 ---
 
+## 2026-10-09 — begin_checkout no longer lost on the Stripe redirect
+
+All 7 booking questionnaires (Interior, In & Out, Maintenance Wash, Odour,
+Exterior, Protection, Machine Polishing): `begin_checkout` is pushed with
+`eventCallback` / `eventTimeout: 1000`, and the redirect to Stripe waits
+until GTM has fired its tags, with a 1.2 s safety net if GTM is blocked. The
+wait runs alongside the deposit-link request to Make, so it normally adds
+nothing. Event names and fields are unchanged.
+
+Tested at 375 px on all 7 pages up to the Stripe stand-in: with GTM loaded the
+redirect followed in 33-63 ms; with GTM blocked (ad-blocker case) in
+1.2 s. Previous code: the questionnaire files on `main` before this commit.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the

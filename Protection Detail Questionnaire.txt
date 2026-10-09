@@ -2253,12 +2253,27 @@
     funnelPush({ event:'slot_select', service:FUNNEL_SERVICE, value:funnelValue(),
                  currency:'GBP', slot_date:String(raw).slice(0,10) });
   }
+  /* The Stripe redirect waits until GTM has fired the begin_checkout tags
+     (eventCallback), or 1.2 s if GTM is blocked, so the event isn't lost.
+     The wait runs alongside the deposit-link request, so it rarely adds time. */
+  var checkoutRun = 0, checkoutReady = false, checkoutUrl = null, checkoutGone = false;
+  function checkoutGo(){
+    if(checkoutGone || !checkoutReady || !checkoutUrl) return;
+    checkoutGone = true;
+    window.location.href = checkoutUrl;
+  }
+  function redirectToCheckout(url){ checkoutUrl = url; checkoutGo(); }
   function trackCheckout(){
     var v = funnelValue();
+    var run = ++checkoutRun;
+    checkoutReady = false; checkoutUrl = null; checkoutGone = false;
+    function tagsDone(){ if(run !== checkoutRun) return; checkoutReady = true; checkoutGo(); }
     funnelPush({ ecommerce:null });
     funnelPush({ event:'begin_checkout', service:FUNNEL_SERVICE, deposit:depositAmount(),
       ecommerce:{ currency:'GBP', value:v,
-        items:[{ item_name:FUNNEL_LABEL, item_category:'Detailing', price:v, quantity:1 }] } });
+        items:[{ item_name:FUNNEL_LABEL, item_category:'Detailing', price:v, quantity:1 }] },
+      eventCallback:tagsDone, eventTimeout:1000 });
+    setTimeout(tagsDone, 1200); /* safety net if GTM is blocked */
   }
   function trackLead(method){
     funnelPush({ event:'generate_lead', service:FUNNEL_SERVICE, method:method });
@@ -2789,7 +2804,7 @@
     fetch(DEPOSIT_HOOK + '?' + q)
       .then(function(r){ return r.json(); })
       .then(function(session){
-        if(session && session.url){ window.location.href = session.url; return; }
+        if(session && session.url){ redirectToCheckout(session.url); return; }
         throw new Error('no url');
       })
       .catch(function(){
