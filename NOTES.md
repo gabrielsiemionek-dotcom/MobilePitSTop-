@@ -889,6 +889,32 @@ redirect followed in 33-63 ms; with GTM blocked (ad-blocker case) in
 
 ---
 
+## 2026-10-13 — Homepage service finder
+
+New file: `Homepage Service Finder.txt`. One Code Block straight under the
+hero: "What does your car need?" with seven choices, no prices and no
+paragraphs.
+
+| Choice | Goes to |
+|---|---|
+| Quick In & Out Valet | /maintenance-wash |
+| Deep Clean | Interior /interior-deep-clean, Exterior /exterior-detail, In & Out /in-out-deep-clean |
+| Professional Detail | Exterior /exterior-detail, In & Out /protection-detail |
+| Machine Polishing | /machine-polishing |
+| Ceramic Coating | /ceramic-coating |
+| Odour Removal | /cigarette/milk/bio-odour-removal |
+| Window Tinting | /window-tinting |
+
+Deep Clean and Professional Detail open a second question in place (with a
+Back button); everything else is a plain link. "Not sure? See all services"
+underneath. Two choices across on phones, four on desktop. Clicking a service
+pushes `service_finder_click` (service slug + route) to the dataLayer; it
+needs a GA4 event tag in GTM to show in reports. Checked at 375 px and
+1280 px: no sideways scroll, focus moves to the question and back,
+Lighthouse accessibility 100.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
