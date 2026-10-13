@@ -619,10 +619,26 @@
 
 <div class="mps-wrap mps-m-mobile">
 
-  <!-- REVIEW COUNTER — edit by hand when Google updates. Change "81" below. -->
-  <a class="mps-rating" href="https://maps.google.com/maps?cid=15620201708594115788" rel="noopener">
-    <b>5.0</b><span class="mps-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span>81 Google reviews</span>
+  <!-- REVIEW COUNTER — the numbers come from window.MPS_REVIEWS in the sitewide
+       header injection (the one place to edit the count, as on every service
+       page). The 5.0 / 84 below only show if that script is missing. -->
+  <a class="mps-rating" id="mpsAllRating" href="https://maps.google.com/maps?cid=15620201708594115788" rel="noopener">
+    <b id="mpsAllScore">5.0</b><span class="mps-stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span id="mpsAllCount">84 Google reviews</span>
   </a>
+  <script>
+  (function(){
+    var cfg = window.MPS_REVIEWS;
+    if(!cfg) return;
+    var s = cfg.score != null ? String(cfg.score) : null;
+    var n = cfg.count != null ? Number(cfg.count) : null;
+    var score = document.getElementById('mpsAllScore');
+    var count = document.getElementById('mpsAllCount');
+    var link = document.getElementById('mpsAllRating');
+    if(score && s) score.textContent = s;
+    if(count && n) count.textContent = n + ' Google reviews';
+    if(link && cfg.url) link.setAttribute('href', cfg.url);
+  })();
+  </script>
 
   <h1 class="mps-h1">Mobile Detailing Services</h1>
 

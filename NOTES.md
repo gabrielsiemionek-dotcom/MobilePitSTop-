@@ -926,6 +926,20 @@ header notes say to change the other if the towns, wording or map change.
 
 ---
 
+## 2026-10-13 — All Services review count follows the header
+
+The All Services page had "81 Google reviews" typed into its badge, so it
+never changed. It now reads `window.MPS_REVIEWS` from the sitewide header
+injection like every service page (score, count and link), with 5.0 / 84
+as the fallback. The repo copy of the header now says 84, matching the
+live one, and its note no longer mentions a schema ratingCount (the
+schemas don't have one). Previous block: `rollback/all-services.txt`.
+
+To change the review count: edit `count:` in Settings → Advanced → Code
+Injection → Header. Every page picks it up; nothing else to edit.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
