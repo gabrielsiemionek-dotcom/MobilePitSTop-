@@ -1,0 +1,290 @@
+<!-- ==========================================================================
+ MobilePitStop — Homepage: service finder ("What does your car need?")
+ A two-tap guide to the right service page. Paste into ONE Code Block,
+ straight under the hero.
+
+ Choices (no prices, on purpose):
+   Quick In & Out Valet  -> /maintenance-wash
+   Deep Clean            -> Interior /interior-deep-clean
+                            Exterior /exterior-detail
+                            In & Out /in-out-deep-clean
+   Professional Detail   -> Exterior /exterior-detail
+                            In & Out /protection-detail
+   Machine Polishing     -> /machine-polishing
+   Ceramic Coating       -> /ceramic-coating
+   Odour Removal         -> /cigarette/milk/bio-odour-removal
+   Window Tinting        -> /window-tinting
+
+ Namespaced .mpf- so it can't clash with the other homepage blocks (.mph-)
+ or Squarespace's styles. No fonts or scripts loaded from outside.
+ Without JavaScript, "Deep Clean" and "Professional Detail" open the All
+ Services page instead of their second question; every other choice is a
+ plain link.
+ Tracking: clicking a service pushes { event: 'service_finder_click',
+ service: <slug>, choice: <route> } to the dataLayer (no personal data).
+ It needs a GA4 event tag in GTM if you want it in reports.
+=========================================================================== -->
+<div class="mpf" id="mpfFinder">
+  <h2 class="mpf-h2">What does your car need?</h2>
+
+  <!-- step 1 -->
+  <div class="mpf-step" id="mpfStep1">
+    <div class="mpf-grid">
+      <a class="mpf-opt" href="/maintenance-wash" data-svc="maintenance_wash" data-route="quick_valet">
+        <span class="mpf-t">Quick In &amp; Out Valet</span>
+        <span class="mpf-s">Keep a clean car clean</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="mpf-opt" href="/all-services" data-next="mpfDeep">
+        <span class="mpf-t">Deep Clean</span>
+        <span class="mpf-s">Inside, outside or both</span>
+        <span class="mpf-go" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="mpf-opt" href="/all-services" data-next="mpfPro">
+        <span class="mpf-t">Professional Detail</span>
+        <span class="mpf-s">Deep clean + protection</span>
+        <span class="mpf-go" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="mpf-opt" href="/machine-polishing" data-svc="machine_polishing" data-route="machine_polishing">
+        <span class="mpf-t">Machine Polishing</span>
+        <span class="mpf-s">Swirls out, gloss back</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="mpf-opt" href="/ceramic-coating" data-svc="ceramic_coating" data-route="ceramic_coating">
+        <span class="mpf-t">Ceramic Coating</span>
+        <span class="mpf-s">Long-term paint protection</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="mpf-opt" href="/cigarette/milk/bio-odour-removal" data-svc="odour_removal" data-route="odour_removal">
+        <span class="mpf-t">Odour Removal</span>
+        <span class="mpf-s">Smoke, pet or damp smells</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="mpf-opt" href="/window-tinting" data-svc="window_tinting" data-route="window_tinting">
+        <span class="mpf-t">Window Tinting</span>
+        <span class="mpf-s">Privacy, heat and glare</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- step 2: Deep Clean -->
+  <div class="mpf-step" id="mpfDeep" hidden>
+    <h3 class="mpf-q" tabindex="-1">Deep Clean: which part?</h3>
+    <div class="mpf-grid mpf-grid-3">
+      <a class="mpf-opt" href="/interior-deep-clean" data-svc="interior_deep_clean" data-route="deep_clean>interior">
+        <span class="mpf-t">Interior</span>
+        <span class="mpf-s">Inside only</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="mpf-opt" href="/exterior-detail" data-svc="exterior_detail" data-route="deep_clean>exterior">
+        <span class="mpf-t">Exterior</span>
+        <span class="mpf-s">Outside only</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="mpf-opt" href="/in-out-deep-clean" data-svc="in_and_out" data-route="deep_clean>in_and_out">
+        <span class="mpf-t">In &amp; Out</span>
+        <span class="mpf-s">Inside and outside</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+    <button type="button" class="mpf-back">&larr; Back</button>
+  </div>
+
+  <!-- step 2: Professional Detail -->
+  <div class="mpf-step" id="mpfPro" hidden>
+    <h3 class="mpf-q" tabindex="-1">Professional Detail: which part?</h3>
+    <div class="mpf-grid mpf-grid-2">
+      <a class="mpf-opt" href="/exterior-detail" data-svc="exterior_detail" data-route="pro_detail>exterior">
+        <span class="mpf-t">Exterior</span>
+        <span class="mpf-s">Outside only</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+      <a class="mpf-opt" href="/protection-detail" data-svc="protection_detail" data-route="pro_detail>in_and_out">
+        <span class="mpf-t">In &amp; Out</span>
+        <span class="mpf-s">Inside and outside</span>
+        <span class="mpf-go" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+    <button type="button" class="mpf-back">&larr; Back</button>
+  </div>
+
+  <p class="mpf-more">Not sure? <a href="/all-services">See all services</a></p>
+</div>
+
+<style>
+.mpf{
+  --mpf-ink:#ffffff;
+  --mpf-dim:rgba(255,255,255,.72);
+  --mpf-line:rgba(255,255,255,.14);
+  --mpf-yellow:#E3FC02;
+
+  color:var(--mpf-ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  max-width:980px;
+  margin:0 auto;
+  padding:0 2px;
+  text-align:left;
+}
+.mpf *{box-sizing:border-box;}
+
+.mpf h2.mpf-h2{
+  font-size:clamp(27px,6.6vw,42px);
+  font-weight:900;
+  letter-spacing:-.025em;
+  line-height:1.08;
+  text-align:center;
+  margin:0 0 24px;
+  color:var(--mpf-ink);
+}
+.mpf h3.mpf-q{
+  font-size:clamp(19px,4.6vw,23px);
+  font-weight:900;
+  letter-spacing:-.015em;
+  line-height:1.2;
+  text-align:center;
+  margin:0 0 16px;
+  color:var(--mpf-ink);
+  outline:none;
+}
+
+/* ---------- choices ----------
+   Two across on phones, four across from 760px. Each choice is one link,
+   so the whole card is the tap target. */
+.mpf-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+@media (min-width:760px){
+  .mpf-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
+  .mpf-grid-3{grid-template-columns:repeat(3,minmax(0,1fr));max-width:740px;margin:0 auto;}
+  .mpf-grid-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:500px;margin:0 auto;}
+}
+.mpf-grid-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+@media (max-width:420px){
+  .mpf-grid-3{grid-template-columns:1fr;}
+}
+/* phones: an odd last choice (Window Tinting) spans the full width */
+@media (max-width:759px){
+  #mpfStep1 .mpf-opt:last-child:nth-child(odd){grid-column:1 / -1;}
+}
+
+.mpf a.mpf-opt{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+  min-height:82px;
+  padding:14px 30px 14px 14px;
+  border:1px solid var(--mpf-line);
+  border-radius:14px;
+  background:rgba(255,255,255,.04);
+  color:var(--mpf-ink) !important;
+  text-decoration:none !important;
+  transition:border-color .15s, background-color .15s;
+}
+.mpf a.mpf-opt:hover{border-color:rgba(227,252,2,.7);background:rgba(227,252,2,.07);}
+.mpf a.mpf-opt:focus-visible,
+.mpf .mpf-back:focus-visible,
+.mpf .mpf-more a:focus-visible{outline:3px solid var(--mpf-yellow);outline-offset:2px;}
+.mpf-t{font-size:15.5px;font-weight:900;line-height:1.2;letter-spacing:-.01em;}
+.mpf-s{font-size:12.5px;font-weight:600;line-height:1.3;color:var(--mpf-dim);}
+.mpf-go{
+  position:absolute;
+  right:12px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
+  font-weight:900;
+  line-height:1;
+  color:var(--mpf-yellow);
+}
+
+.mpf .mpf-back{
+  display:block;
+  margin:16px auto 0;
+  min-height:44px;
+  padding:10px 18px;
+  border:1px solid var(--mpf-line);
+  border-radius:999px;
+  background:transparent;
+  color:var(--mpf-ink);
+  font:inherit;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+.mpf .mpf-back:hover{border-color:rgba(255,255,255,.4);}
+
+.mpf .mpf-more{
+  text-align:center;
+  margin:20px 0 0;
+  font-size:14px;
+  font-weight:600;
+  color:var(--mpf-dim);
+}
+.mpf .mpf-more a{
+  display:inline-block;
+  padding:10px 2px;
+  color:var(--mpf-yellow) !important;
+  font-weight:800;
+  text-decoration:underline !important;
+  text-underline-offset:3px;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .mpf a.mpf-opt{transition:none;}
+}
+</style>
+
+<script>
+(function(){
+  var root = document.getElementById('mpfFinder');
+  if(!root) return;
+  var step1 = root.querySelector('#mpfStep1');
+  var lastOpener = null;
+
+  function show(step){
+    Array.prototype.forEach.call(root.querySelectorAll('.mpf-step'), function(s){
+      s.hidden = (s !== step);
+    });
+  }
+
+  /* "Deep Clean" / "Professional Detail": open the second question */
+  Array.prototype.forEach.call(root.querySelectorAll('[data-next]'), function(a){
+    a.setAttribute('role', 'button');
+    a.setAttribute('aria-controls', a.getAttribute('data-next'));
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var step = root.querySelector('#' + a.getAttribute('data-next'));
+      lastOpener = a;
+      show(step);
+      step.querySelector('.mpf-q').focus({ preventScroll: true });
+      var top = root.getBoundingClientRect().top;
+      if(top < 0) root.scrollIntoView({ block: 'start' });
+    });
+    a.addEventListener('keydown', function(e){
+      if(e.key === ' ' || e.key === 'Spacebar'){ e.preventDefault(); a.click(); }
+    });
+  });
+
+  Array.prototype.forEach.call(root.querySelectorAll('.mpf-back'), function(b){
+    b.addEventListener('click', function(){
+      show(step1);
+      if(lastOpener) lastOpener.focus();
+    });
+  });
+
+  /* a service was chosen */
+  Array.prototype.forEach.call(root.querySelectorAll('a[data-svc]'), function(a){
+    a.addEventListener('click', function(){
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'service_finder_click',
+        service: a.getAttribute('data-svc'), choice: a.getAttribute('data-route') });
+    });
+  });
+})();
+</script>
