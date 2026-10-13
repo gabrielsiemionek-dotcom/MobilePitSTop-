@@ -14,8 +14,9 @@
      RENDERING — the script still downloads on page load. This holds it
      back until the reviews scroll near the screen.
 
-     The homepage section keeps its own copy. If the towns, the wording or
-     the map change, change both.
+     The homepage has a copy at the bottom of "Homepage Service Finder.txt"
+     (the old "homepage section" is no longer on the site). If the towns,
+     the wording or the map change, change both.
      ========================================================================== -->
 
 <style>

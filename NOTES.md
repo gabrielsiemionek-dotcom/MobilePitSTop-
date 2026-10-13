@@ -915,6 +915,17 @@ Lighthouse accessibility 100.
 
 ---
 
+## 2026-10-13 — Homepage: reviews + map under the service finder
+
+Gab replaced the "Our Services" block (`homepage section`) with the service
+finder, which took the homepage's reviews and service-area map with it. They
+are now at the bottom of `Homepage Service Finder.txt`, copied from
+`Reviews and Map.txt` (Elfsight loads only when scrolled near). Both files'
+header notes say to change the other if the towns, wording or map change.
+`homepage section` stays in the repo but is no longer on the site.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
