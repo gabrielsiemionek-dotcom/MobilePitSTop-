@@ -940,7 +940,35 @@ Injection → Header. Every page picks it up; nothing else to edit.
 
 ---
 
+## 2026-10-14 — Nearside onboarding: research and audit
+
+MobilePitStop is now a Nearside test client (Full package without Ads,
+£0). Decided: rebuild the site on `client-site-template` as a hidden
+preview, at the same page addresses; the domain only moves on Gab's say-so.
+
+New files (nothing on the live site changed):
+- `research.md`: business facts vs the Google profile, the profile ↔ site
+  map (waiting on dashboard screenshots), prices from the code, the page and
+  redirect plan, the QA.md and AI-ready audit, what to carry over unchanged,
+  and open questions.
+- `facts.json`: verified facts for the rebuild (`null` = waiting on Gab).
+- `GO-LIVE.md`: the checklist from decisions to launch.
+
+Main findings: 31 of 33 town pages are the same text with the town swapped;
+Crewe and Knutsford still show the old menu and prices; Google says open
+every day and shows a street address, the site says Mon–Sat and town only.
+Gab's answers (same day): open every day; customers can't visit the
+address; the base moves to Runcorn; keep the main big towns (list to confirm).
+The blog's footer and facts moved to Runcorn too (mobilepitstop-blog PR #1). Street addresses stay out of this public repo.
+The blog routines and Make scenarios are not touched.
+
+---
+
 ## Open issues (not fixed yet)
+
+- **Old prices on two town pages.** Crewe and Knutsford show Mini Valet
+  £50, Full Valet £100, Odour Removal from £120 and other old prices
+  (research.md §3). Fixed by the rebuild, or edit them in Squarespace now.
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
   live one. `Exterior Detail.txt` is an older version and could be deleted.
