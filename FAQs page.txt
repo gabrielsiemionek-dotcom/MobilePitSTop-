@@ -162,8 +162,8 @@
   <details>
     <summary>Where do you operate?</summary>
     <div class="a">
-      <p>We cover <strong>Cheshire, Merseyside and Flintshire</strong> &mdash; roughly a 20 mile radius of Ellesmere Port, and travel is free within it.</p>
-      <p>That includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Prescot, Mold, Flint, Connah&rsquo;s Quay, Buckley and the surrounding towns.</p>
+      <p>We cover <strong>Cheshire, Merseyside and Flintshire</strong> from our base in Runcorn.</p>
+      <p>That includes Runcorn, Widnes, Warrington, Northwich, Chester, Ellesmere Port, Liverpool, St Helens and the surrounding towns.</p>
       <p>Slightly outside? Message us and we&rsquo;ll tell you honestly whether it works.</p>
     </div>
   </details>
@@ -558,7 +558,7 @@
       "name": "Where do you operate?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We cover Cheshire, Merseyside and Flintshire — roughly a 20 mile radius of Ellesmere Port, and travel is free within it.\nThat includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Prescot, Mold, Flint, Connah’s Quay, Buckley and the surrounding towns.\nSlightly outside? Message us and we’ll tell you honestly whether it works."
+        "text": "We cover Cheshire, Merseyside and Flintshire from our base in Runcorn.\nThat includes Runcorn, Widnes, Warrington, Northwich, Chester, Ellesmere Port, Liverpool, St Helens and the surrounding towns.\nSlightly outside? Message us and we’ll tell you honestly whether it works."
       }
     },
     {

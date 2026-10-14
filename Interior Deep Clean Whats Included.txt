@@ -779,11 +779,11 @@
         <div class="mps-areas">
           <div>
             <h4>Cheshire</h4>
-            <ul><li>Chester</li><li>Ellesmere Port</li><li>Warrington</li><li>Crewe</li><li>Macclesfield</li></ul>
+            <ul><li>Runcorn</li><li>Widnes</li><li>Warrington</li><li>Northwich</li><li>Chester</li><li>Ellesmere Port</li></ul>
           </div>
           <div>
             <h4>Merseyside</h4>
-            <ul><li>Liverpool</li><li>Birkenhead</li><li>St Helens</li><li>Southport</li><li>Bootle</li></ul>
+            <ul><li>Liverpool</li><li>St Helens</li></ul>
           </div>
           <div>
             <h4>Flintshire</h4>

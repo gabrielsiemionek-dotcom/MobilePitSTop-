@@ -95,7 +95,7 @@
   <p>We are the "controller" of your personal information, which means we decide how it is used and are responsible for looking after it.</p>
   <div class="mpl-contact">
     <p><strong>MobilePitStop</strong></p>
-    <p>86a Wolverham Road, Ellesmere Port, CH65 5BY, United Kingdom</p>
+    <p>Runcorn, Cheshire, United Kingdom</p>
     <p>Email: <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></p>
     <p>Phone: <a href="tel:+447592196929">07592 196929</a></p>
   </div>
@@ -277,7 +277,7 @@
   <p>Questions about this policy or your information? Get in touch:</p>
   <div class="mpl-contact">
     <p><strong>MobilePitStop</strong> – Gabriel Siemionek</p>
-    <p>86a Wolverham Road, Ellesmere Port, CH65 5BY, United Kingdom</p>
+    <p>Runcorn, Cheshire, United Kingdom</p>
     <p>Email: <a href="mailto:mobilepitstopvalet@gmail.com">mobilepitstopvalet@gmail.com</a></p>
     <p>Phone: <a href="tel:+447592196929">07592 196929</a></p>
   </div>
