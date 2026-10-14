@@ -1,0 +1,75 @@
+{
+  "_about": "Verified facts for the MobilePitStop rebuild (Nearside onboarding test). Source for each block in research.md. null = waiting on Gabriel. Checked 14 Oct 2026.",
+  "business": {
+    "name": "MobilePitStop - Valeting & Detailing",
+    "shortName": "MobilePitStop",
+    "phone": "+447592196929",
+    "phoneDisplay": "07592 196929",
+    "email": "mobilepitstopvalet@gmail.com",
+    "whatsapp": true,
+    "town": null,
+    "townWas": "Ellesmere Port",
+    "townNote": "Base moving, Oct 2026: Runcorn or Crewe, to confirm",
+    "region": "Cheshire",
+    "showAddress": false,
+    "unit": { "town": "Birkenhead", "services": ["Window tinting", "PPF", "Vinyl wraps", "De-chrome", "Paint correction"], "customerFacing": null },
+    "hours": { "everyDay": "06:00-22:00" },
+    "insured": true,
+    "googlePlaceId": "ChIJ6Ujg3qTXJ0wRzLSz0LEaxtg",
+    "googleMapsCid": "15620201708594115788",
+    "googlePrimaryCategory": "Valeting service",
+    "googleSecondaryCategories": null,
+    "social": {
+      "instagram": "https://www.instagram.com/mobilepitstopvalet/",
+      "facebook": "https://www.facebook.com/profile.php?id=61579010405794",
+      "tiktok": "https://www.tiktok.com/@mobilepitstopvalet",
+      "youtube": "https://www.youtube.com/@MobilePitStopValet"
+    },
+    "blog": "https://blog.mobilepitstop.uk/"
+  },
+  "area": {
+    "freeTravelMiles": null,
+    "freeTravelWas": "20 miles of Ellesmere Port",
+    "from": null,
+    "counties": ["Cheshire", "Merseyside", "Flintshire"],
+    "beyondRadius": null,
+    "townPagesToKeep": null
+  },
+  "onSite": {
+    "power": "Standard 13A socket; 45m extension lead carried",
+    "water": "Own water carried; an outside tap helps but isn't needed",
+    "parking": "Van parked within about 3m of the car",
+    "customerPresent": "Not needed: keys and access are enough"
+  },
+  "sizes": ["3-door", "5-door", "7-seater"],
+  "services": [
+    { "name": "Maintenance Wash", "path": "/maintenance-wash", "prices": [60, 70, 80], "time": "about 75 minutes" },
+    { "name": "Exterior Detail", "path": "/exterior-detail", "prices": [70, 80, 90], "time": "about 1.5 hours" },
+    { "name": "Interior Deep Clean", "path": "/interior-deep-clean", "prices": [90, 100, 120], "time": "3-5 hours" },
+    { "name": "In & Out Deep Clean", "path": "/in-out-deep-clean", "prices": [140, 160, 180], "time": "3-5 hours" },
+    { "name": "Protection Detail", "path": "/protection-detail", "prices": [210, 230, 250], "time": "4-6 hours" },
+    { "name": "Enhancement Polish", "path": "/machine-polishing", "prices": [285, 330, 385], "time": "a day", "note": "1-stage machine polish, clay included" },
+    { "name": "Multi-stage paint correction", "path": "/machine-polishing", "from": [600, 650, 700], "byQuote": true },
+    { "name": "Ceramic Coating", "path": "/ceramic-coating", "prices": { "1 year": [190, 230, 290], "3 years": [270, 310, 370], "7 years": [370, 410, 470] }, "time": "most of a day", "note": "Exterior prep, clay and Glaco included; doesn't stop stone chips" },
+    { "name": "Odour Removal Treatment", "path": "/cigarette/milk/bio-odour-removal", "prices": [250, 270, 300], "note": "4 stages: steam and extraction, air-con foam clean, ozone, purifying mist" },
+    { "name": "Window Tinting", "path": "/window-tinting", "byQuote": true, "where": "unit", "note": "Front sides 70% and windscreen 75% light, by law" },
+    { "name": "De-chrome", "path": null, "byQuote": true, "where": "unit" },
+    { "name": "PPF and vinyl wraps", "path": null, "byQuote": true, "where": "unit" }
+  ],
+  "maintenancePlan": {
+    "path": "/car-detailing-maintenance-plan",
+    "needsDeepCleanFirst": true,
+    "discounts": { "weekly": 30, "every2to3Weeks": 25, "every4to6Weeks": 20 },
+    "freeEveryVisit": "Chemical decontamination",
+    "contract": false,
+    "directDebit": false
+  },
+  "booking": {
+    "acuity": "https://mobilepitstop.as.me/",
+    "depositPercent": 10,
+    "deposits": "Stripe, through the existing Make scenarios (unchanged)",
+    "confirmedPage": "/booking-confirmed"
+  },
+  "reviews": { "source": "Google", "rating": 5.0, "count": 84, "from": "window.MPS_REVIEWS in the header injection (the rebuild shows live reviews instead)", "checked": "2026-10-14" },
+  "tracking": { "gtm": "GTM-MMHW32R2", "consentModeV2": true }
+}
