@@ -37,12 +37,12 @@ Read from the profile dashboard (agency@, 14 Oct 2026).
 |---|---|---|---|---|
 | Primary category | Valeting service | | `/` (home) | Home heading has no town. Rebuild: "Mobile valeting and detailing in Runcorn" |
 | Secondary category | Auto window tinting service | | `/window-tinting` | Match |
-| _Missing category?_ | Car detailing service | | `/machine-polishing`, `/ceramic-coating`, `/protection-detail` | Real work with its own pages: propose adding |
+| (Car detailing service) | = "Valeting service" in the UK | | | Already the primary category under its UK name |
 | Service | In & Out Deep Clean | from £140 | `/in-out-deep-clean` | Match |
-| Service | Maintenance Wash | **from £70** | `/maintenance-wash` (£60) | **Price wrong on the profile** |
+| Service | Maintenance Wash | from £60 (was £70) | `/maintenance-wash` | Fixed 14 Oct |
 | Service | Machine Polishing - Paint Enhancement | from £285 | `/machine-polishing` | Match (site calls it "Enhancement Polish"; pick one name) |
 | Service | Interior Deep Clean | from £90 | `/interior-deep-clean` | Match |
-| Service | **Car Detailing** | **from £275** | none | Old duplicate of the machine polish at the old price: **remove** |
+| Service | ~~Car Detailing~~ | ~~from £275~~ | none | Deleted 14 Oct (old duplicate, old price) |
 | Service | Cigarette / Milk / Pet / Bio Odour Removal | from £250 | `/cigarette/milk/bio-odour-removal` | Match (site: "Odour Removal Treatment") |
 | Service | Ceramic Coating | from £190 | `/ceramic-coating` | Match |
 | Service | Protection Detail | from £210 | `/protection-detail` | Match |
@@ -53,7 +53,15 @@ Read from the profile dashboard (agency@, 14 Oct 2026).
 | Service (tinting) | Car Window Tinting | by quote, "Unit based in Birkenhead" | `/window-tinting` | Match, if the unit is still in Birkenhead |
 | Products | Mobile Car Valeting Service | | | OK |
 
-**Other profile fields (14 Oct):**
+**Changes made 14 Oct (approved by Gabriel, done as agency@):**
+- Maintenance Wash price: from £70 → **from £60**.
+- **"Car Detailing" (from £275) deleted**: an old duplicate of the machine polish at the old price.
+- Booking link: `/book-your-valet-now` → **`/all-services`**.
+- Description rewritten for the Runcorn base (Google review pending at the time).
+- **No new category:** in the UK, Google's "Car detailing service" category is shown as "Valeting service", which is already the primary (the services editor files the services under `car_detailing_service`).
+- **Not done yet:** service area (rebuild around Runcorn: Runcorn, Widnes, Warrington, Northwich, Ellesmere Port, Chester, St Helens, Liverpool, Cheshire, Merseyside, Flintshire) and the address move to Runcorn with the address hidden.
+
+**Other profile fields (as read 14 Oct, before the changes):**
 - **Address:** the old Ellesmere Port street address, shown. **Change:** Runcorn base, address hidden. Google may ask to re-verify.
 - **Service area (20, Google's maximum):** Mold, Crewe, Chester, Runcorn, Cheshire, Holywell, Nantwich, Wallasey, Wilmslow, Congleton, Knutsford, Liverpool, Northwich, Birkenhead, Flintshire, Merseyside, Macclesfield, Ellesmere Port, Hawarden, Queensferry. **Change:** rebuild around Runcorn once the town list is confirmed (§4).
 - **Description** names Ellesmere Port. **Change:** rewrite for Runcorn.

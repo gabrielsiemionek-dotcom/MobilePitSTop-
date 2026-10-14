@@ -13,7 +13,8 @@ The rebuild on `client-site-template` replaces the Squarespace site at the same 
 - [ ] Travel beyond 20 miles: free, a charge, or not covered?
 
 ## 2. Google profile fixes (Gabriel approves each change)
-- [ ] Hours: every day 06:00–22:00 on both.
+- [x] Maintenance Wash £60; old Car Detailing service deleted; booking link → /all-services; description for Runcorn (14 Oct).
+- [ ] Hours: every day 06:00–22:00 on both (profile already; site to change).
 - [ ] Base moved to the new town (Google may ask to re-verify).
 - [ ] Address shown or hidden as decided; service area set to the towns and counties on the site.
 - [ ] Categories and services named exactly as the site's service pages (ONBOARDING.md §5.1), real work only.
