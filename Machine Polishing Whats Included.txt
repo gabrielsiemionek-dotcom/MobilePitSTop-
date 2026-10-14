@@ -696,7 +696,7 @@
     </details>
     <details>
       <summary>What areas do you cover?<span class="plus"></span></summary>
-      <div class="content">Mobile 1-stage polishing across <strong>Cheshire, Merseyside and Flintshire</strong>, roughly within 20 miles of Ellesmere Port. Multi-stage correction is done at our unit in Birkenhead.</div>
+      <div class="content">Mobile 1-stage polishing across <strong>Cheshire, Merseyside and Flintshire</strong>, from our base in Runcorn. Multi-stage correction is done at our unit in Birkenhead.</div>
     </details>
     <details>
       <summary>How do I pay?<span class="plus"></span></summary>

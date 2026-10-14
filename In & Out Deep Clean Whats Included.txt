@@ -933,7 +933,7 @@
     </details>
     <details>
       <summary>What areas do you cover?<span class="plus"></span></summary>
-      <div class="content">We cover <strong>Cheshire, Merseyside and Flintshire</strong> and surrounding areas within approximately 20 miles of Ellesmere Port.</div>
+      <div class="content">We cover <strong>Cheshire, Merseyside and Flintshire</strong> from our base in Runcorn.</div>
     </details>
     <details>
       <summary>How do I pay?<span class="plus"></span></summary>

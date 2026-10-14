@@ -111,7 +111,7 @@
 
   <details>
     <summary>What areas do you cover?</summary>
-    <p>We cover <strong>Cheshire, Merseyside and Flintshire</strong> &mdash; roughly a 20 mile radius of Ellesmere Port, and travel is free within it. That includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Mold, Flint, Connah&rsquo;s Quay and the surrounding towns.</p>
+    <p>We cover <strong>Cheshire, Merseyside and Flintshire</strong> from our base in Runcorn. That includes Runcorn, Widnes, Warrington, Northwich, Chester, Ellesmere Port, Liverpool, St Helens and the surrounding towns.</p>
     <p>Slightly outside? Message us and we&rsquo;ll tell you straight whether it works.</p>
   </details>
 
@@ -195,7 +195,7 @@
       "name": "What areas do you cover?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We cover Cheshire, Merseyside and Flintshire — roughly a 20 mile radius of Ellesmere Port, and travel is free within it. That includes Chester, Liverpool, Birkenhead, Wallasey, Runcorn, Northwich, Crewe, St Helens, Mold, Flint, Connah’s Quay and the surrounding towns.\nSlightly outside? Message us and we’ll tell you straight whether it works."
+        "text": "We cover Cheshire, Merseyside and Flintshire from our base in Runcorn. That includes Runcorn, Widnes, Warrington, Northwich, Chester, Ellesmere Port, Liverpool, St Helens and the surrounding towns.\nSlightly outside? Message us and we’ll tell you straight whether it works."
       }
     },
     {

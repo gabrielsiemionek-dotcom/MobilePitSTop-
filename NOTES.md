@@ -940,6 +940,39 @@ Injection → Header. Every page picks it up; nothing else to edit.
 
 ---
 
+## 2026-10-14 — Base moves to Runcorn
+
+The base moved from Ellesmere Port to Runcorn. Customers don't visit it,
+so the site names the town only, never a street address. The free-travel
+distance from Runcorn isn't confirmed yet, so "20 miles of Ellesmere Port"
+and "travel is free within it" are gone for now: the copy says "from our
+base in Runcorn" and "Slightly outside? Message us". Add the distance back
+once Gab confirms it.
+
+Town lists now follow the new service area: Runcorn, Widnes, Warrington,
+Northwich, Chester, Ellesmere Port (Cheshire) and Liverpool, St Helens
+(Merseyside). Widnes and Warrington have no page yet, so they're plain text.
+Flintshire town lists are unchanged until Gab picks which ones to keep.
+
+Paste each changed block into Squarespace (replace the old code):
+
+| File | Where |
+|---|---|
+| `Homepage hero` | Homepage, hero Code Block ("Serving Runcorn, Widnes...") |
+| `Homepage Service Finder.txt` | Homepage, service finder Code Block (map heading + towns) |
+| `Homepage FAQ.txt` | Homepage, FAQ Code Block |
+| `Schema/Homepage - business schema.html` | Homepage → Page settings → Advanced → Header Code Injection (locality Runcorn, Runcorn town-centre coordinates, new towns, open every day) |
+| `FAQs page.txt` | /faqs main Code Block |
+| `Reviews and Map.txt` | Every page using the standalone reviews + map block |
+| `Ceramic Coating`, `Exterior Detail`, `In & Out Deep Clean`, `Machine Polishing`, `Maintenance Wash`, `Protection Detail` What's Included | Each service page's What's Included Code Block (area FAQ) |
+| `Interior Deep Clean` and `Odour Removal` What's Included | Same, with the new town lists |
+| `Privacy and Cookie Policy.txt` | /privacy-policy-cookie-policy Code Block (contact address is now "Runcorn, Cheshire") |
+
+Also by hand in Squarespace (not in this repo): the About and Contact page
+text, the town pages, and the footer, wherever they say Ellesmere Port.
+
+---
+
 ## Open issues (not fixed yet)
 
 - **Two Exterior Detail files.** `Exterior Detail Questionnaire.txt` is the
