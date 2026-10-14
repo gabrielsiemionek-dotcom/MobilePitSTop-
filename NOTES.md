@@ -958,8 +958,8 @@ Main findings: 31 of 33 town pages are the same text with the town swapped;
 Crewe and Knutsford still show the old menu and prices; Google says open
 every day and shows a street address, the site says Mon–Sat and town only.
 Gab's answers (same day): open every day; customers can't visit the
-address; the base is moving (Runcorn or Crewe, to confirm); keep the main big
-towns. Street addresses stay out of this public repo.
+address; the base moves to Runcorn; keep the main big towns (list to confirm).
+The blog's footer and facts moved to Runcorn too (mobilepitstop-blog PR #1). Street addresses stay out of this public repo.
 The blog routines and Make scenarios are not touched.
 
 ---

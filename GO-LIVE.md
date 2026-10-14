@@ -7,7 +7,7 @@ The rebuild on `client-site-template` replaces the Squarespace site at the same 
 - [x] Address: customers can't visit → hidden on the profile, service area only (14 Oct).
 - [ ] Is the Birkenhead unit customer-facing?
 - [x] Sundays: open every day (14 Oct).
-- [ ] New base town confirmed (Runcorn or Crewe), and the free-travel radius from it.
+- [x] New base town: Runcorn (14 Oct). Free-travel distance from it still to confirm.
 - [ ] The main big towns to keep, from the new base. The rest redirect to their county page.
 - [ ] List of directories MobilePitStop is on, to move to the new base.
 - [ ] Travel beyond 20 miles: free, a charge, or not covered?

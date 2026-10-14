@@ -18,7 +18,7 @@ Sources, all checked 14 Oct 2026: the live site (all 54 pages in the sitemap, pl
 | Phone | 07592 196929 | 07592 196929 | Match |
 | Email | mobilepitstopvalet@gmail.com | — | OK |
 | Address | Town only (Ellesmere Port, Cheshire) | A street address in Ellesmere Port, **shown publicly** | **Customers can't visit it** (Gabriel, 14 Oct). Google's rules: hide it and list the service area. Street addresses stay out of this public repo |
-| Base town | Ellesmere Port, everywhere (copy, schema, "20 miles of Ellesmere Port") | Ellesmere Port | **Moving** (Gabriel, 14 Oct): the new base is in Runcorn or Crewe, to confirm (he said Crewe; the postcode he gave is a Runcorn one, WA7). Site, profile and directories all change with it |
+| Base town | Ellesmere Port, everywhere (copy, schema, "20 miles of Ellesmere Port") | Ellesmere Port | **Moving to Runcorn** (Gabriel, 14 Oct). Site, profile, blog and directories all change with it; the address stays hidden |
 | Second base | "Our unit in Birkenhead" (window tinting, PPF, wraps, de-chrome, paint correction); About page also says "a fully equipped garage base" | Not on the profile | **Decide:** is the unit a real customer-facing address? If so, it may need its own mention or profile |
 | Hours | Schema: Mon–Sat 06:00–22:00 | **Every day** 06:00–22:00 | **Every day** (Gabriel, 14 Oct): the site changes to match |
 | Service area | "Roughly 20 miles of Ellesmere Port, travel free within it" | Not checked (dashboard) | Several town pages are well outside 20 miles (see §4) |
@@ -152,7 +152,7 @@ Other: Privacy and Terms have no meta description; Squarespace adds its own Loca
 1. **Profile screenshots:** Business category (primary + secondary) and the Services list; also the booking link and description.
 2. ~~Address~~: customers can't visit (14 Oct). Still open: is the Birkenhead unit somewhere customers drop cars off?
 3. ~~Hours~~: every day (14 Oct).
-4. **New base town:** Runcorn or Crewe? Then the radius and free-travel distance from it.
-5. **Towns:** "keep the main big ones" (14 Oct), from the new base. List to confirm once the base is settled.
+4. ~~New base town~~: Runcorn (14 Oct). Still open: the free-travel distance from it.
+5. **Towns:** "keep the main big ones" (14 Oct). Proposed, nearest first: Runcorn, Widnes, Warrington, Northwich, Ellesmere Port, Chester, St Helens, Liverpool. Widnes and Warrington have no page today, so they'd be new pages and need real jobs to write about. The other 25 town pages redirect to their county page. **To confirm.**
 6. **Travel** beyond the free radius: to be confirmed.
 7. **Directories:** where MobilePitStop is listed today (Yell, Bing Places, Apple, Facebook, Checkatrade...), so every listing moves to the new base.

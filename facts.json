@@ -7,9 +7,9 @@
     "phoneDisplay": "07592 196929",
     "email": "mobilepitstopvalet@gmail.com",
     "whatsapp": true,
-    "town": null,
+    "town": "Runcorn",
     "townWas": "Ellesmere Port",
-    "townNote": "Base moving, Oct 2026: Runcorn or Crewe, to confirm",
+    "townNote": "Base moved to Runcorn, Oct 2026",
     "region": "Cheshire",
     "showAddress": false,
     "unit": { "town": "Birkenhead", "services": ["Window tinting", "PPF", "Vinyl wraps", "De-chrome", "Paint correction"], "customerFacing": null },
@@ -30,7 +30,7 @@
   "area": {
     "freeTravelMiles": null,
     "freeTravelWas": "20 miles of Ellesmere Port",
-    "from": null,
+    "from": "Runcorn",
     "counties": ["Cheshire", "Merseyside", "Flintshire"],
     "beyondRadius": null,
     "townPagesToKeep": null
