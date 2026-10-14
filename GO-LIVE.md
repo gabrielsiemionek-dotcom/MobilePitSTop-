@@ -3,7 +3,7 @@
 The rebuild on `client-site-template` replaces the Squarespace site at the same addresses. Background and facts: `research.md`, `facts.json`. **Don't cancel anything at Squarespace until step 7.**
 
 ## 1. Answers from Gabriel (research.md §8)
-- [ ] Google profile screenshots: categories, services, booking link, description.
+- [x] Google profile read from the dashboard (14 Oct, research.md §2).
 - [x] Address: customers can't visit → hidden on the profile, service area only (14 Oct).
 - [ ] Is the Birkenhead unit customer-facing?
 - [x] Sundays: open every day (14 Oct).
@@ -18,7 +18,7 @@ The rebuild on `client-site-template` replaces the Squarespace site at the same 
 - [ ] Address shown or hidden as decided; service area set to the towns and counties on the site.
 - [ ] Categories and services named exactly as the site's service pages (ONBOARDING.md §5.1), real work only.
 - [ ] Booking link goes where the site's Book buttons go.
-- [ ] The §5.1 table in `research.md` filled in.
+- [x] The §5.1 table in `research.md` filled in (14 Oct).
 
 ## 2b. Directories (Full package: citations)
 - [ ] Every listing updated to the same name, phone, website and new base town; no street address where the site hides it.

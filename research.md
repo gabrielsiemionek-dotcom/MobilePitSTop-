@@ -31,13 +31,38 @@ Sources, all checked 14 Oct 2026: the live site (all 54 pages in the sitemap, pl
 
 ## 2. Google profile ↔ website map (ONBOARDING.md §5.1)
 
-**Fill in from the dashboard screenshots** (Edit profile → Business category; Edit services).
+Read from the profile dashboard (agency@, 14 Oct 2026).
 
-| Profile | Name on the profile | Website page | Status |
-|---|---|---|---|
-| Primary category | Valeting service | `/` (home) | Home heading has no town ("…In Cheshire, Merseyside & Flintshire"). Rebuild: "Mobile valeting and detailing in Ellesmere Port" |
-| Secondary categories | _pending_ | | |
-| Services | _pending_ | | |
+| Profile | Name on the profile | Price on the profile | Website page | Status |
+|---|---|---|---|---|
+| Primary category | Valeting service | | `/` (home) | Home heading has no town. Rebuild: "Mobile valeting and detailing in Runcorn" |
+| Secondary category | Auto window tinting service | | `/window-tinting` | Match |
+| _Missing category?_ | Car detailing service | | `/machine-polishing`, `/ceramic-coating`, `/protection-detail` | Real work with its own pages: propose adding |
+| Service | In & Out Deep Clean | from £140 | `/in-out-deep-clean` | Match |
+| Service | Maintenance Wash | **from £70** | `/maintenance-wash` (£60) | **Price wrong on the profile** |
+| Service | Machine Polishing - Paint Enhancement | from £285 | `/machine-polishing` | Match (site calls it "Enhancement Polish"; pick one name) |
+| Service | Interior Deep Clean | from £90 | `/interior-deep-clean` | Match |
+| Service | **Car Detailing** | **from £275** | none | Old duplicate of the machine polish at the old price: **remove** |
+| Service | Cigarette / Milk / Pet / Bio Odour Removal | from £250 | `/cigarette/milk/bio-odour-removal` | Match (site: "Odour Removal Treatment") |
+| Service | Ceramic Coating | from £190 | `/ceramic-coating` | Match |
+| Service | Protection Detail | from £210 | `/protection-detail` | Match |
+| Service | Exterior Detail | from £70 | `/exterior-detail` | Match |
+| Service | Detailing Maintenance Plan | from £42 | `/car-detailing-maintenance-plan` | Match |
+| Service | Car Seats Stains Removal | from £30 | add-on on Interior / In & Out | Matches the textile seat add-on (+£30); list add-ons on the service pages |
+| Service | Car Leather Seats Deep Clean | from £40 | add-on on Interior / In & Out | Matches the leather seat add-on (+£40) |
+| Service (tinting) | Car Window Tinting | by quote, "Unit based in Birkenhead" | `/window-tinting` | Match, if the unit is still in Birkenhead |
+| Products | Mobile Car Valeting Service | | | OK |
+
+**Other profile fields (14 Oct):**
+- **Address:** the old Ellesmere Port street address, shown. **Change:** Runcorn base, address hidden. Google may ask to re-verify.
+- **Service area (20, Google's maximum):** Mold, Crewe, Chester, Runcorn, Cheshire, Holywell, Nantwich, Wallasey, Wilmslow, Congleton, Knutsford, Liverpool, Northwich, Birkenhead, Flintshire, Merseyside, Macclesfield, Ellesmere Port, Hawarden, Queensferry. **Change:** rebuild around Runcorn once the town list is confirmed (§4).
+- **Description** names Ellesmere Port. **Change:** rewrite for Runcorn.
+- **Hours:** every day 06:00–22:00. Matches Gabriel's answer; the site changes.
+- **Booking link:** `https://mobilepitstop.uk/book-your-valet-now`, which 301s to `/all-services`. **Change:** link `/all-services` directly; the rebuild keeps the redirect.
+- **Chat:** WhatsApp `wa.me/+447592196929`. Matches.
+- **Social:** Instagram on the profile is `mobilepitstop_detailing`; the site links `mobilepitstopvalet`. **Which is current?** The profile also lists X (`MobilePitStopV`), which the site doesn't.
+- **Attributes:** cards, NFC, appointment required, "on-site services not available" (right for a service-area business).
+- **Opening date:** 13 July 2025.
 
 **Website services (each has its own page today), to match against the profile list:**
 
@@ -144,12 +169,12 @@ Other: Privacy and Terms have no meta description; Squarespace adds its own Loca
 - **`window.MPS_REVIEWS`** (review count in one place) until live reviews replace it.
 - **Questionnaires** (`* Questionnaire.txt`, `* Request.txt`, `Odour Removal Treatment.txt`): Acuity appointment-type IDs, Stripe deposits, discount codes, dataLayer events, and the **Make webhooks they call (same URLs, not edited)**.
 - **`/booking-confirmed`** (`mobilepitstop-booking-confirmed.html`): GA4 `purchase` from `?amt=` / `?dep=`.
-- **Old-address redirects** set in Squarespace: `/full-valet` → `/in-out-deep-clean`, `/full-valet-premium` → `/protection-detail`, `/smoke/milk/bio-odour-removal` → `/cigarette/milk/bio-odour-removal`, `/de-chrome` → `/window-tinting`.
+- **Old-address redirects** set in Squarespace: `/book-your-valet-now` → `/all-services` (the profile's booking link), `/full-valet` → `/in-out-deep-clean`, `/full-valet-premium` → `/protection-detail`, `/smoke/milk/bio-odour-removal` → `/cigarette/milk/bio-odour-removal`, `/de-chrome` → `/window-tinting`.
 - **Blog** stays at blog.mobilepitstop.uk (GitHub Pages); the nav links to it.
 
 ## 8. Open questions for Gabriel
 
-1. **Profile screenshots:** Business category (primary + secondary) and the Services list; also the booking link and description.
+1. ~~Profile screenshots~~: read from the dashboard (14 Oct, §2). Still open: which Instagram is current?
 2. ~~Address~~: customers can't visit (14 Oct). Still open: is the Birkenhead unit somewhere customers drop cars off?
 3. ~~Hours~~: every day (14 Oct).
 4. ~~New base town~~: Runcorn (14 Oct). Still open: the free-travel distance from it.
